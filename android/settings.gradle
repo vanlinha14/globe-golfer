@@ -1,0 +1,3 @@
+rootProject.name = 'GlobeGolfer'
+
+include ':app'
