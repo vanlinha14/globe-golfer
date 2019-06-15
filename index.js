@@ -1,6 +1,6 @@
 import { AppRegistry } from 'react-native'
 import React from 'react'
-import App from './app/App'
+import AppNavigation from './app/AppNavigation'
 import { name as appName } from './app.json'
 import { Provider } from 'react-redux'
 
@@ -10,7 +10,7 @@ const store = configureStore()
 
 const RNRedux = () => (
   <Provider store = { store }>
-    <App />
+    <AppNavigation />
   </Provider>
 )
 
