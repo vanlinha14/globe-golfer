@@ -7,7 +7,7 @@ export default class BaseComponent extends PureComponent {
       <ImageBackground 
         style={styles.baseContainer}
         resizeMode='repeat'
-        resizeMethod='resize'
+        resizeMethod='auto'
         source={require('../res/images/bg.jpg')}
         >
         {this.props.children}

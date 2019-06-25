@@ -1,31 +1,25 @@
 import React, { PureComponent } from 'react'
-import { View, StyleSheet } from 'react-native'
+import { View, StyleSheet, Dimensions } from 'react-native'
 
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { getBottomSpace } from 'react-native-iphone-x-helper'
 
 import BaseComponent from '../../components/BaseComponent'
 import DGText from '../../components/DGText'
 import DGButton from '../../components/DGButton'
+import DGInput from '../../components/DGInput'
 import Strings from '../../res/Strings'
 import Theme from '../../res/Theme'
 
-export default class SetupAccountStep0 extends PureComponent {
+export default class SetupAccountStep1b extends PureComponent {
   static navigationOptions = { header: null }
 
-  onRequestScanCard = () => {
-    this.props.navigation.navigate("SetupAccountStep1a")
-  }
-
-  onRequestEnterManual = () => {
-    this.props.navigation.navigate("SetupAccountStep1b")
-  }
-
   renderTitle() {
-    return <DGText style={styles.title}>{Strings.awesome}</DGText>
+    return <DGText style={styles.messgage}>{Strings.setupAccountStep1bTitle}</DGText>
   }
 
-  renderMessage() {
-    return <DGText style={styles.messgage}>{Strings.setupAccountStep0Message}</DGText>
+  renderIndexInput() {
+    return <DGInput style={styles.input} />
   }
 
   renderLogo() {
@@ -36,7 +30,7 @@ export default class SetupAccountStep0 extends PureComponent {
     return (
       <View style={styles.body}>
         {this.renderTitle()}
-        {this.renderMessage()}
+        {this.renderIndexInput()}
       </View>
     )
   }
@@ -45,14 +39,8 @@ export default class SetupAccountStep0 extends PureComponent {
     return (
       <View style={styles.footerContainer}>
         <DGButton 
-          style={{ backgroundColor: Theme.buttonPrimary, marginBottom: 16 }}
-          text={Strings.scanCard}
-          onPress={this.onRequestScanCard}
-          />
-        <DGButton 
-          style={{ backgroundColor: Theme.buttonSecondary }}
-          text={Strings.dontHaveCard}
-          onPress={this.onRequestEnterManual}
+          style={{ backgroundColor: Theme.buttonPrimary }}
+          text={Strings.continue}
           />
       </View>
     )
@@ -61,24 +49,31 @@ export default class SetupAccountStep0 extends PureComponent {
   render() {
     return (
       <BaseComponent>
-        {this.renderLogo()}
-        {this.renderBody()}
-        {this.renderFooter()}
+        <KeyboardAwareScrollView>
+          <View style={styles.body}>
+            {this.renderLogo()}
+            {this.renderBody()}
+            {this.renderFooter()}
+          </View>
+          
+        </KeyboardAwareScrollView>
       </BaseComponent>
     )
   }
 }
 
+const windowHeight = Dimensions.get('window').height
 const styles = StyleSheet.create({
   body: {
     flex: 1, 
+    height: windowHeight,
     justifyContent: 'center'
   },
-  title: {
+  input: {
+    backgroundColor: Theme.buttonSecondary,
     color: Theme.textWhite,
-    fontSize: 32,
-    fontWeight: 'bold',
-    textAlign: 'center'
+    textAlign: 'center',
+    marginTop: 16
   },
   messgage: {
     color: Theme.textGray,

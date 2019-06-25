@@ -1,24 +1,13 @@
 import React, { PureComponent } from 'react'
 import { View, StyleSheet } from 'react-native'
-
-import { getBottomSpace } from 'react-native-iphone-x-helper'
-
 import BaseComponent from '../../components/BaseComponent'
 import DGText from '../../components/DGText'
 import DGButton from '../../components/DGButton'
 import Strings from '../../res/Strings'
 import Theme from '../../res/Theme'
 
-export default class SetupAccountStep0 extends PureComponent {
+export default class SetupAccountStep1a extends PureComponent {
   static navigationOptions = { header: null }
-
-  onRequestScanCard = () => {
-    this.props.navigation.navigate("SetupAccountStep1a")
-  }
-
-  onRequestEnterManual = () => {
-    this.props.navigation.navigate("SetupAccountStep1b")
-  }
 
   renderTitle() {
     return <DGText style={styles.title}>{Strings.awesome}</DGText>
@@ -47,12 +36,10 @@ export default class SetupAccountStep0 extends PureComponent {
         <DGButton 
           style={{ backgroundColor: Theme.buttonPrimary, marginBottom: 16 }}
           text={Strings.scanCard}
-          onPress={this.onRequestScanCard}
           />
         <DGButton 
           style={{ backgroundColor: Theme.buttonSecondary }}
           text={Strings.dontHaveCard}
-          onPress={this.onRequestEnterManual}
           />
       </View>
     )
@@ -87,6 +74,6 @@ const styles = StyleSheet.create({
     textAlign: 'center'
   },
   footerContainer: {
-    paddingBottom: getBottomSpace() + 12
+    paddingBottom: 32
   }
 })
