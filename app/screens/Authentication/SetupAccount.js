@@ -9,7 +9,7 @@ import DGButton from '../../components/DGButton'
 import Strings from '../../res/Strings'
 import Theme from '../../res/Theme'
 
-export default class SetupAccountStep0 extends PureComponent {
+export default class SetupAccount extends PureComponent {
   static navigationOptions = { header: null }
 
   onRequestScanCard = () => {
@@ -17,7 +17,7 @@ export default class SetupAccountStep0 extends PureComponent {
   }
 
   onRequestEnterManual = () => {
-    this.props.navigation.navigate("SetupAccountStep1b")
+    this.props.navigation.navigate("SetupAccountStepInputIndex")
   }
 
   renderTitle() {
@@ -87,6 +87,6 @@ const styles = StyleSheet.create({
     textAlign: 'center'
   },
   footerContainer: {
-    paddingBottom: getBottomSpace() + 12
+    paddingBottom: getBottomSpace() + 32
   }
 })

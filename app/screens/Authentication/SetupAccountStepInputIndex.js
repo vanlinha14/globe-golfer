@@ -11,11 +11,15 @@ import DGInput from '../../components/DGInput'
 import Strings from '../../res/Strings'
 import Theme from '../../res/Theme'
 
-export default class SetupAccountStep1b extends PureComponent {
+export default class SetupAccountStepInputIndex extends PureComponent {
   static navigationOptions = { header: null }
 
+  requestGoToInputName = () => {
+    this.props.navigation.navigate("SetupAccountStepInputName")
+  }
+
   renderTitle() {
-    return <DGText style={styles.messgage}>{Strings.setupAccountStep1bTitle}</DGText>
+    return <DGText style={styles.messgage}>{Strings.myIndexIs}</DGText>
   }
 
   renderIndexInput() {
@@ -41,6 +45,7 @@ export default class SetupAccountStep1b extends PureComponent {
         <DGButton 
           style={{ backgroundColor: Theme.buttonPrimary }}
           text={Strings.continue}
+          onPress={this.requestGoToInputName}
           />
       </View>
     )
@@ -82,6 +87,6 @@ const styles = StyleSheet.create({
     textAlign: 'center'
   },
   footerContainer: {
-    paddingBottom: getBottomSpace() + 12
+    paddingBottom: getBottomSpace() + 32
   }
 })

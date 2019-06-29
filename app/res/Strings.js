@@ -4,5 +4,10 @@ export default Strings = {
   scanCard: "Scan your Card",
   dontHaveCard: "I don't have my Card",
   continue: "Continue",
-  setupAccountStep1bTitle: "My index is"
+  myIndexIs: "My index is",
+  myNameIs: "My name is",
+  myBirthDayIs: "My birthday is",
+  myGenderIs: "My gender",
+  genderMale: "Male",
+  genderFemale: "Female"
 }

@@ -1,15 +1,21 @@
 import Authentication from './screens/Authentication'
-import SetupAccountStep0 from './screens/Authentication/SetupAccountStep0'
+import SetupAccount from './screens/Authentication/SetupAccount'
 import SetupAccountStep1a from './screens/Authentication/SetupAccountStep1a'
-import SetupAccountStep1b from './screens/Authentication/SetupAccountStep1b'
+import SetupAccountStepInputIndex from './screens/Authentication/SetupAccountStepInputIndex'
+import SetupAccountStepInputName from './screens/Authentication/SetupAccountStepInputName'
+import SetupAccountStepInputBirthday from './screens/Authentication/SetupAccountStepInputBirthday'
+import SetupAccountStepInputGender from './screens/Authentication/SetupAccountStepInputGender'
 
 import { createStackNavigator, createAppContainer } from "react-navigation"
 
 const AppNavigator = createStackNavigator({
   Authentication: { screen: Authentication },
-  SetupAccountStep0: { screen: SetupAccountStep0 },
+  SetupAccount: { screen: SetupAccount },
   SetupAccountStep1a: { screen: SetupAccountStep1a },
-  SetupAccountStep1b: { screen: SetupAccountStep1b }
+  SetupAccountStepInputIndex: { screen: SetupAccountStepInputIndex },
+  SetupAccountStepInputName: { screen: SetupAccountStepInputName },
+  SetupAccountStepInputBirthday: { screen: SetupAccountStepInputBirthday },
+  SetupAccountStepInputGender: { screen: SetupAccountStepInputGender }
 });
 
 export default createAppContainer(AppNavigator)
