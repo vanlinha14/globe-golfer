@@ -39,6 +39,7 @@ const styles = StyleSheet.create({
   },
   messgage: {
     color: Theme.textGray,
+    color: Theme.textWhite,
     fontSize: 20,
     marginTop: 24,
     textAlign: 'center'

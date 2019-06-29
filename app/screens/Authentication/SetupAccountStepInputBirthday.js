@@ -17,14 +17,6 @@ export default class SetupAccountStepInputBirthday extends PureComponent {
     this.props.navigation.navigate("SetupAccountStepInputGender")
   }
 
-  renderTitle() {
-    return <DGText style={styles.messgage}>{Strings.myBirthDayIs}</DGText>
-  }
-
-  renderIndexInput() {
-    return <DGInput style={styles.input} />
-  }
-
   renderLogo() {
 
   }

@@ -14,6 +14,10 @@ import Theme from '../../res/Theme'
 export default class SetupAccountStepInputGender extends PureComponent {
   static navigationOptions = { header: null }
 
+  requestGoToInputLocation = () => {
+    this.props.navigation.navigate("SetupAccountStepInputLocation")
+  }
+
   renderTitle() {
     return <DGText style={styles.messgage}>{Strings.myGenderIs}</DGText>
   }
@@ -24,6 +28,7 @@ export default class SetupAccountStepInputGender extends PureComponent {
         <DGButton 
           style={{ backgroundColor: Theme.buttonPrimary }}
           text={Strings.genderMale}
+          onPress={this.requestGoToInputLocation}
           />
         <DGButton 
           style={{ 
@@ -31,6 +36,7 @@ export default class SetupAccountStepInputGender extends PureComponent {
             marginTop: 16
           }}
           text={Strings.genderFemale}
+          onPress={this.requestGoToInputLocation}
           />
       </View>
     )
@@ -79,7 +85,7 @@ const styles = StyleSheet.create({
     marginTop: 16
   },
   messgage: {
-    color: Theme.textGray,
+    color: Theme.textWhite,
     fontSize: 20,
     marginTop: 24,
     textAlign: 'center'

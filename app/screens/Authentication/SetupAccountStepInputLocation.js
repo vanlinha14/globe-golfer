@@ -5,35 +5,24 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import { getBottomSpace } from 'react-native-iphone-x-helper'
 
 import BaseComponent from '../../components/BaseComponent'
-import DGText from '../../components/DGText'
+import SelectInputBlock from '../../components/SelectInputBlock'
 import DGButton from '../../components/DGButton'
-import DGInput from '../../components/DGInput'
 import Strings from '../../res/Strings'
 import Theme from '../../res/Theme'
 
 export default class SetupAccountStepInputLocation extends PureComponent {
   static navigationOptions = { header: null }
 
-  renderTitle() {
-    return <DGText style={styles.messgage}>{Strings.myGenderIs}</DGText>
+  renderSelectCountry() {
+    return <SelectInputBlock title={Strings.country} />
   }
 
-  renderGenderSelector() {
-    return (
-      <View style={{ marginTop: 16 }}>
-        <DGButton 
-          style={{ backgroundColor: Theme.buttonPrimary }}
-          text={Strings.genderMale}
-          />
-        <DGButton 
-          style={{ 
-            backgroundColor: Theme.buttonPrimary2,
-            marginTop: 16
-          }}
-          text={Strings.genderFemale}
-          />
-      </View>
-    )
+  renderSelectRegion() {
+    return <SelectInputBlock title={Strings.region} />
+  }
+
+  renderSelectPlayzone() {
+    return <SelectInputBlock title={Strings.playGolfAt} />
   }
 
   renderLogo() {
@@ -43,9 +32,21 @@ export default class SetupAccountStepInputLocation extends PureComponent {
   renderBody() {
     return (
       <View style={styles.body}>
-        {
-          
-        }
+        {this.renderSelectCountry()}
+        {this.renderSelectRegion()}
+        {this.renderSelectPlayzone()}
+      </View>
+    )
+  }
+
+  renderFooter() {
+    return (
+      <View style={styles.footerContainer}>
+        <DGButton 
+          style={{ backgroundColor: Theme.buttonPrimary }}
+          text={Strings.continue}
+          onPress={this.requestGoToInputName}
+          />
       </View>
     )
   }
@@ -57,6 +58,7 @@ export default class SetupAccountStepInputLocation extends PureComponent {
           <View style={styles.body}>
             {this.renderLogo()}
             {this.renderBody()}
+            {this.renderFooter()}
           </View>
           
         </KeyboardAwareScrollView>
