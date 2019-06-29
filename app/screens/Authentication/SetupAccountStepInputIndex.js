@@ -5,9 +5,8 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import { getBottomSpace } from 'react-native-iphone-x-helper'
 
 import BaseComponent from '../../components/BaseComponent'
-import DGText from '../../components/DGText'
+import TextInputBlock from '../../components/TextInputBlock'
 import DGButton from '../../components/DGButton'
-import DGInput from '../../components/DGInput'
 import Strings from '../../res/Strings'
 import Theme from '../../res/Theme'
 
@@ -18,25 +17,12 @@ export default class SetupAccountStepInputIndex extends PureComponent {
     this.props.navigation.navigate("SetupAccountStepInputName")
   }
 
-  renderTitle() {
-    return <DGText style={styles.messgage}>{Strings.myIndexIs}</DGText>
-  }
-
-  renderIndexInput() {
-    return <DGInput style={styles.input} />
-  }
-
   renderLogo() {
 
   }
 
   renderBody() {
-    return (
-      <View style={styles.body}>
-        {this.renderTitle()}
-        {this.renderIndexInput()}
-      </View>
-    )
+    return <TextInputBlock style={styles.body} title={Strings.myIndexIs} />
   }
 
   renderFooter() {

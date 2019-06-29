@@ -5,9 +5,8 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import { getBottomSpace } from 'react-native-iphone-x-helper'
 
 import BaseComponent from '../../components/BaseComponent'
-import DGText from '../../components/DGText'
+import SelectInputBlock from '../../components/SelectInputBlock'
 import DGButton from '../../components/DGButton'
-import DGInput from '../../components/DGInput'
 import Strings from '../../res/Strings'
 import Theme from '../../res/Theme'
 
@@ -31,12 +30,7 @@ export default class SetupAccountStepInputBirthday extends PureComponent {
   }
 
   renderBody() {
-    return (
-      <View style={styles.body}>
-        {this.renderTitle()}
-        {this.renderIndexInput()}
-      </View>
-    )
+    return <SelectInputBlock style={styles.body} title={Strings.myBirthDayIs} />
   }
 
   renderFooter() {

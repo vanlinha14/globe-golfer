@@ -9,5 +9,8 @@ export default Strings = {
   myBirthDayIs: "My birthday is",
   myGenderIs: "My gender",
   genderMale: "Male",
-  genderFemale: "Female"
+  genderFemale: "Female",
+  country: "Country",
+  region: "Region",
+  playGolfAt: "I play Golf at"
 }
