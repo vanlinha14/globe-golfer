@@ -12,5 +12,8 @@ export default Strings = {
   genderFemale: "Female",
   country: "Country",
   region: "Region",
-  playGolfAt: "I play Golf at"
+  playGolfAt: "I play Golf at",
+  tapToSelect: "Tap to select",
+  confirm: "Confirm",
+  cancel: "Cancel"
 }
