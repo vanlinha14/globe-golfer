@@ -58,7 +58,7 @@ export default class SetupAccountStepInputGender extends PureComponent {
   render() {
     return (
       <BaseComponent>
-        <KeyboardAwareScrollView>
+        <KeyboardAwareScrollView contentContainerStyle={styles.body}>
           <View style={styles.body}>
             {this.renderLogo()}
             {this.renderBody()}

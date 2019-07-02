@@ -40,7 +40,7 @@ export default class SetupAccountStepInputIndex extends PureComponent {
   render() {
     return (
       <BaseComponent>
-        <KeyboardAwareScrollView>
+        <KeyboardAwareScrollView contentContainerStyle={styles.body}>
           <View style={styles.body}>
             {this.renderLogo()}
             {this.renderBody()}
@@ -56,8 +56,7 @@ export default class SetupAccountStepInputIndex extends PureComponent {
 const windowHeight = Dimensions.get('window').height
 const styles = StyleSheet.create({
   body: {
-    flex: 1, 
-    height: windowHeight,
+    flex: 1,
     justifyContent: 'center'
   },
   input: {

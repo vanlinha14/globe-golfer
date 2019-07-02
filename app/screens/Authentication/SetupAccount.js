@@ -84,6 +84,8 @@ const styles = StyleSheet.create({
     color: Theme.textGray,
     fontSize: 20,
     marginTop: 24,
+    marginLeft: 16, 
+    marginRight: 16,
     textAlign: 'center'
   },
   footerContainer: {
