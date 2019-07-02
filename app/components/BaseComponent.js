@@ -18,6 +18,9 @@ export default class BaseComponent extends PureComponent {
 
 const styles = StyleSheet.create({
   baseContainer: {
-    flex: 1
+    position: 'absolute',
+
+    width: '100%',
+    height: '100%'
   }
 })

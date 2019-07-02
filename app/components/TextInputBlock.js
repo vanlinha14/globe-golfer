@@ -14,7 +14,7 @@ export default class TextInputBlock extends PureComponent {
   }
 
   renderIndexInput() {
-    return <DGInput style={styles.input} />
+    return <DGInput style={[styles.input, this.props.inputStyle]} />
   }
 
   render() {

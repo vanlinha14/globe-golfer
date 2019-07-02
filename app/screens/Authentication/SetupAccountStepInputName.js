@@ -22,7 +22,7 @@ export default class SetupAccountStepInputName extends PureComponent {
   }
 
   renderBody() {
-    return <TextInputBlock style={styles.body} title={Strings.myNameIs} />
+    return <TextInputBlock style={styles.body} inputStyle={{ width: '80%' }} title={Strings.myNameIs} />
   }
 
   renderFooter() {
