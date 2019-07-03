@@ -45,6 +45,7 @@ export default class SelectInputBlock extends PureComponent {
             })
         }}
         style={{
+          inputIOS: styles.input,
           inputAndroid: styles.input,
           headlessAndroidPicker: {
             alignSelf: 'center',
@@ -78,6 +79,7 @@ const styles = StyleSheet.create({
     backgroundColor: Theme.buttonSecondary,
     alignSelf: 'center',
     width: '50%',
+    height: 44,
     color: Theme.textWhite,
     borderRadius: 8,
     textAlign: 'center'
