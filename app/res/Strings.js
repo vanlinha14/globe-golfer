@@ -8,6 +8,7 @@ export default Strings = {
   myNameIs: "My name is",
   myBirthDayIs: "My birthday is",
   myGenderIs: "My gender",
+  myScannedCard: "My scanned card",
   genderMale: "Male",
   genderFemale: "Female",
   country: "Country",
@@ -15,5 +16,6 @@ export default Strings = {
   playGolfAt: "I play Golf at",
   tapToSelect: "Tap to select",
   confirm: "Confirm",
-  cancel: "Cancel"
+  cancel: "Cancel",
+  selectCardImage: "Select your card"
 }
