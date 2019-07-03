@@ -18,5 +18,9 @@ export default Strings = {
   confirm: "Confirm",
   cancel: "Cancel",
   selectCardImage: "Select your card",
-  myBestPictureIs: "My best picture is"
+  myBestPictureIs: "My best picture is",
+  activeLocation: "Active location service",
+  activeLocationMessage: "Your location will be used to help you break into matches near you and access the geolocation based options available. Click on \"Learn more\" to get more information",
+  learnMore: "Learn more",
+  active: "Active"
 }

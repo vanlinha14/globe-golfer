@@ -14,8 +14,8 @@ import Theme from '../../res/Theme'
 export default class SetupAccountStepInputAvatar extends PureComponent {
   static navigationOptions = { header: null }
 
-  requestGoToInputGender = () => {
-    
+  requestGoToActiveLocation = () => {
+    this.props.navigation.navigate("SetupAccountStepActiveLocation")
   }
 
   requestSelectImage = () => {
@@ -81,7 +81,7 @@ export default class SetupAccountStepInputAvatar extends PureComponent {
         <DGButton 
           style={{ backgroundColor: Theme.buttonPrimary }}
           text={Strings.continue}
-          onPress={this.requestGoToInputGender}
+          onPress={this.requestGoToActiveLocation}
           />
       </View>
     )
