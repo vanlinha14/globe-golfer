@@ -11,11 +11,11 @@ import DGButton from '../../components/DGButton'
 import Strings from '../../res/Strings'
 import Theme from '../../res/Theme'
 
-export default class SetupAccountStepInputScannedCard extends PureComponent {
+export default class SetupAccountStepInputAvatar extends PureComponent {
   static navigationOptions = { header: null }
 
-  requestGoToInputAvatar = () => {
-    this.props.navigation.navigate("SetupAccountStepInputAvatar")
+  requestGoToInputGender = () => {
+    
   }
 
   requestSelectImage = () => {
@@ -54,7 +54,7 @@ export default class SetupAccountStepInputScannedCard extends PureComponent {
   }
 
   renderTitle() {
-    return <DGText style={styles.messgage}>{Strings.myScannedCard}</DGText>
+    return <DGText style={styles.messgage}>{Strings.myBestPictureIs}</DGText>
   }
 
   renderImageInput() {
@@ -81,7 +81,7 @@ export default class SetupAccountStepInputScannedCard extends PureComponent {
         <DGButton 
           style={{ backgroundColor: Theme.buttonPrimary }}
           text={Strings.continue}
-          onPress={this.requestGoToInputAvatar}
+          onPress={this.requestGoToInputGender}
           />
       </View>
     )
@@ -112,7 +112,7 @@ const styles = StyleSheet.create({
   },
   input: {
     backgroundColor: Theme.buttonSecondary,
-    width: '80%',
+    width: '60%',
     color: Theme.textWhite,
     textAlign: 'center',
     marginTop: 16
@@ -124,11 +124,11 @@ const styles = StyleSheet.create({
     textAlign: 'center'
   },
   centerImage: {
-    width: '80%',
+    width: 200,
     height: 200,
     marginTop: 16,
     marginBottom: 16,
-    borderRadius: 8,
+    borderRadius: 32,
     alignSelf: 'center'
   },
   centerText: {

@@ -17,5 +17,6 @@ export default Strings = {
   tapToSelect: "Tap to select",
   confirm: "Confirm",
   cancel: "Cancel",
-  selectCardImage: "Select your card"
+  selectCardImage: "Select your card",
+  myBestPictureIs: "My best picture is"
 }
