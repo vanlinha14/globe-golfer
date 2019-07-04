@@ -5,7 +5,6 @@
 	};
 	objectVersion = 46;
 	objects = {
-
 /* Begin PBXBuildFile section */
 		00C302E51ABCBA2D00DB3ED1 /* libRCTActionSheet.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302AC1ABCB8CE00DB3ED1 /* libRCTActionSheet.a */; };
 		00C302E71ABCBA2D00DB3ED1 /* libRCTGeolocation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302BA1ABCB90400DB3ED1 /* libRCTGeolocation.a */; };
@@ -43,6 +42,7 @@
 		EEE9503AA95F45D4AAE0109D /* FontAwesome5_Brands.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 84449271D5584711ABC5D84A /* FontAwesome5_Brands.ttf */; };
 		F2F86B593F5748F087A4ECAC /* Octicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1D6082CD76EF499B95039B45 /* Octicons.ttf */; };
 		F3805BAC46CB45BCA79399FF /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BD7E54C680BE4257AE8AE1D7 /* Zocial.ttf */; };
+		13BD48F655AC4DF6B590E6DD /* libRNCSlider.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 39103D59A1274001886BC087 /* libRNCSlider.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -391,6 +391,8 @@
 		ED2971642150620600B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS12.0.sdk/System/Library/Frameworks/JavaScriptCore.framework; sourceTree = DEVELOPER_DIR; };
 		EEE98D93D36844EA9D0F813D /* MaterialCommunityIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialCommunityIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialCommunityIcons.ttf"; sourceTree = "<group>"; };
 		FF61C123A1284D97BCE66276 /* libRNGestureHandler-tvOS.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = "libRNGestureHandler-tvOS.a"; sourceTree = "<group>"; };
+		439C42FCC7724B4A81FFD7CA /* RNCSlider.xcodeproj */ = {isa = PBXFileReference; name = "RNCSlider.xcodeproj"; path = "../node_modules/@react-native-community/slider/ios/RNCSlider.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
+		39103D59A1274001886BC087 /* libRNCSlider.a */ = {isa = PBXFileReference; name = "libRNCSlider.a"; path = "libRNCSlider.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -414,6 +416,7 @@
 				6B029DB6A7494736965A3B5D /* libRNGestureHandler.a in Frameworks */,
 				DA16A5032D4E4A009656E78C /* libRNImagePicker.a in Frameworks */,
 				0B420A8E31AA43738A9940E7 /* libRNVectorIcons.a in Frameworks */,
+				13BD48F655AC4DF6B590E6DD /* libRNCSlider.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -605,6 +608,7 @@
 				C7DF6E06412841628DAAB154 /* RNGestureHandler.xcodeproj */,
 				E8A2AF66B1FA490B9C7CA89E /* RNImagePicker.xcodeproj */,
 				AF166E4B4A814133B31BD2A7 /* RNVectorIcons.xcodeproj */,
+				439C42FCC7724B4A81FFD7CA /* RNCSlider.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -1183,11 +1187,13 @@
 					"$(SRCROOT)/../node_modules/react-native-gesture-handler/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-image-picker/ios",
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
+					"$(SRCROOT)/../node_modules/@react-native-community/slider/ios",
 				);
 				INFOPLIST_FILE = GlobeGolfer/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/GlobeGolfer\"",
 					"\"$(SRCROOT)/GlobeGolfer\"",
 					"\"$(SRCROOT)/GlobeGolfer\"",
 				);
@@ -1213,11 +1219,13 @@
 					"$(SRCROOT)/../node_modules/react-native-gesture-handler/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-image-picker/ios",
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
+					"$(SRCROOT)/../node_modules/@react-native-community/slider/ios",
 				);
 				INFOPLIST_FILE = GlobeGolfer/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/GlobeGolfer\"",
 					"\"$(SRCROOT)/GlobeGolfer\"",
 					"\"$(SRCROOT)/GlobeGolfer\"",
 				);
