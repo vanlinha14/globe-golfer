@@ -1,8 +1,7 @@
 import React, { PureComponent } from 'react'
-import { View, StyleSheet, Platform } from 'react-native'
+import { View, StyleSheet } from 'react-native'
 
 import { getBottomSpace } from 'react-native-iphone-x-helper'
-import Icon from 'react-native-vector-icons/Ionicons'
 
 import BaseComponent from '../../components/BaseComponent'
 import DGText from '../../components/DGText'
@@ -10,31 +9,19 @@ import DGButton from '../../components/DGButton'
 import Strings from '../../res/Strings'
 import Theme from '../../res/Theme'
 
-export default class SetupAccountStepActiveLocation extends PureComponent {
+export default class SetupAccountStepFinal extends PureComponent {
   static navigationOptions = { header: null }
 
-  onRequestActiveLocationService = () => {
-    this.props.navigation.navigate("SetupAccountStepInputEmail")  
-  }
-
-  onRequestLearnMore = () => {
-    
+  goToHome = () => {
+    //TODO
   }
 
   renderTitle() {
-    return <DGText style={styles.title}>{Strings.activeLocation}</DGText>
-  }
-
-  renderLocationIcon() {
-    return (
-      <View style={styles.iconContainer}>
-        <Icon name="ios-pin" color='black' size={80} style={styles.icon} />
-      </View>
-    )
+    return <DGText style={styles.title}>{Strings.awesome}</DGText>
   }
 
   renderMessage() {
-    return <DGText style={styles.messgage}>{Strings.activeLocationMessage}</DGText>
+    return <DGText style={styles.messgage}>{Strings.setupAccountStep0Message}</DGText>
   }
 
   renderLogo() {
@@ -45,7 +32,6 @@ export default class SetupAccountStepActiveLocation extends PureComponent {
     return (
       <View style={styles.body}>
         {this.renderTitle()}
-        {this.renderLocationIcon()}
         {this.renderMessage()}
       </View>
     )
@@ -56,13 +42,8 @@ export default class SetupAccountStepActiveLocation extends PureComponent {
       <View style={styles.footerContainer}>
         <DGButton 
           style={{ backgroundColor: Theme.buttonPrimary, marginBottom: 16 }}
-          text={Strings.active}
-          onPress={this.onRequestActiveLocationService}
-          />
-        <DGButton 
-          style={{ backgroundColor: Theme.buttonSecondary }}
-          text={Strings.learnMore}
-          onPress={this.onRequestLearnMore}
+          text={Strings.discover}
+          onPress={this.goToHome}
           />
       </View>
     )
@@ -92,7 +73,7 @@ const styles = StyleSheet.create({
   },
   messgage: {
     color: Theme.textGray,
-    fontSize: 16,
+    fontSize: 20,
     marginTop: 24,
     marginLeft: 16, 
     marginRight: 16,
@@ -100,18 +81,5 @@ const styles = StyleSheet.create({
   },
   footerContainer: {
     paddingBottom: getBottomSpace() + 32
-  },
-  iconContainer: {
-    alignSelf: 'center',
-    backgroundColor: 'white',
-    marginTop: 12,
-    width: 120,
-    height: 120,
-    borderRadius: 60,
-    justifyContent: 'center'
-  },
-  icon: {
-    alignSelf: 'center', 
-    marginTop: Platform.OS == 'android' ? 6 : 12
   }
 })

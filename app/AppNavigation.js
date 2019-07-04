@@ -9,6 +9,8 @@ import SetupAccountStepInputLocation from './screens/Authentication/SetupAccount
 import SetupAccountStepInputScannedCard from './screens/Authentication/SetupAccountStepInputScannedCard'
 import SetupAccountStepInputAvatar from './screens/Authentication/SetupAccountStepInputAvatar'
 import SetupAccountStepActiveLocation from './screens/Authentication/SetupAccountStepActiveLocation'
+import SetupAccountStepInputEmail from './screens/Authentication/SetupAccountStepInputEmail'
+import SetupAccountStepFinal from './screens/Authentication/SetupAccountStepFinal'
 
 import { createStackNavigator, createAppContainer } from "react-navigation"
 
@@ -23,7 +25,9 @@ const AppNavigator = createStackNavigator({
   SetupAccountStepInputLocation: { screen: SetupAccountStepInputLocation },
   SetupAccountStepInputScannedCard: { screen: SetupAccountStepInputScannedCard },
   SetupAccountStepInputAvatar: { screen: SetupAccountStepInputAvatar },
-  SetupAccountStepActiveLocation: { screen: SetupAccountStepActiveLocation }
+  SetupAccountStepActiveLocation: { screen: SetupAccountStepActiveLocation },
+  SetupAccountStepInputEmail: { screen: SetupAccountStepInputEmail },
+  SetupAccountStepFinal: { screen: SetupAccountStepFinal }
 })
 
 export default createAppContainer(AppNavigator)
