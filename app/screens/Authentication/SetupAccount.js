@@ -13,7 +13,7 @@ export default class SetupAccount extends PureComponent {
   static navigationOptions = { header: null }
 
   onRequestScanCard = () => {
-    this.props.navigation.navigate("SetupAccountStep1a")
+    this.props.navigation.navigate("SetupAccountStepInputScannedCard")
   }
 
   onRequestEnterManual = () => {
