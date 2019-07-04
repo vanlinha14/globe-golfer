@@ -25,5 +25,8 @@ export default Strings = {
   active: "Active",
   enterEmail: "Enter a valid email address",
   checkEmail: "Verify your email address",
-  discover: "Discover"
+  discover: "Discover",
+  settings: "Settings",
+  getGGSubscription: "Get GG Subscription",
+  getGGCredit: "Get More GG Credits"
 }

@@ -3,5 +3,7 @@ export default Theme = {
   buttonPrimary2: "#f4a77a",
   buttonSecondary: "#8D8D8D",
   textWhite: "#FFFFFF",
-  textGray: "#BFBFBF"
+  textGray: "#BFBFBF",
+  toolbarTitle: "#d66a28",
+  separator: "#BFBFBF"
 }
