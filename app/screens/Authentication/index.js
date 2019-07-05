@@ -5,7 +5,7 @@ export default class Authentication extends PureComponent {
   static navigationOptions = { header: null }
 
   componentDidMount() {
-    this.props.navigation.replace("Settings")
+    this.props.navigation.replace("Menu")
   }
 
   render() {

@@ -14,6 +14,8 @@ import SetupAccountStepFinal from './screens/Authentication/SetupAccountStepFina
 
 import Settings from './screens/Settings'
 
+import Menu from './screens/Menu'
+
 import { createStackNavigator, createAppContainer } from "react-navigation"
 
 const setupAccountNavigator = {
@@ -32,6 +34,7 @@ const setupAccountNavigator = {
 
 const AppNavigator = createStackNavigator({
   Authentication: { screen: Authentication },
+  Menu: { screen: Menu },
   Settings: { screen: Settings },
   ...setupAccountNavigator
 })
