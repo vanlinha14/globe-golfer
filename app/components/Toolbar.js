@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react'
 import { View, StyleSheet } from 'react-native'
 import DGText from './DGText'
 import Theme from '../res/Theme'
+import { getStatusBarHeight } from 'react-native-iphone-x-helper';
 
 export default class Toolbar extends PureComponent {
   render() {
@@ -17,7 +18,7 @@ export default class Toolbar extends PureComponent {
 const styles = StyleSheet.create({
   container: {
     width: '100%',
-    paddingTop: 28,
+    paddingTop: 28 + getStatusBarHeight(),
     justifyContent: 'center'
   },
   text: {
