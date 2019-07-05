@@ -19,8 +19,8 @@ const styles = StyleSheet.create({
   container: {
     paddingLeft: 16,
     paddingRight: 16,
-    paddingTop: 8,
-    paddingBottom: 8
+    paddingTop: 16,
+    paddingBottom: 16
   },
   subContainer: {
     flexDirection: 'row'
@@ -29,6 +29,7 @@ const styles = StyleSheet.create({
     flex: 1,
     color: 'white', 
     fontSize: 16,
+    fontWeight: '600',
     alignSelf: 'center'
   },
   value: {

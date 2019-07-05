@@ -7,7 +7,7 @@
     "test": "jest"
   },
   "dependencies": {
-    "@react-native-community/slider": "^1.1.2",
+    "@ptomasroos/react-native-multi-slider": "^1.0.0",
     "moment": "^2.24.0",
     "react": "16.8.3",
     "react-native": "0.59.9",

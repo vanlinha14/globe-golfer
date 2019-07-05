@@ -10,10 +10,11 @@ import DGButton from '../../components/DGButton'
 import SettingToggle from '../../components/SettingToggle'
 import SettingClickable from '../../components/SettingClickable'
 import SettingValueClickable from '../../components/SettingValueClickable'
+import SettingRange from '../../components/SettingRange'
 
 import Strings from '../../res/Strings'
 import Theme from '../../res/Theme'
-import SettingSlider from '../../components/SettingSlider';
+import SettingSlider from '../../components/SettingSlider'
 
 export default class Settings extends PureComponent {
   static navigationOptions = { header: null }
@@ -70,6 +71,8 @@ export default class Settings extends PureComponent {
         {this.renderValueClickableItem(Strings.settingsLocation, "France, Paris")}
         {this.renderSliderItem(Strings.settingsMaxDistance, "%s km", 1, 100, 40)}
         {this.renderValueClickableItem(Strings.settingsGender, "Male")}
+        {this.renderRangeItem(Strings.settingsAgeRange, 18, 50, [22, 40])}
+        {this.renderRangeItem(Strings.settingsIndexRange, 18, 50, [22, 40])}
       </View>
     )
   }
@@ -144,6 +147,18 @@ export default class Settings extends PureComponent {
     )
   }
 
+  renderRangeItem(title, min, max, value) {
+    let item = <SettingRange
+      key="range item"
+      style={{ paddingBottom: 0 }}
+      title={title}
+      min={min}
+      max={max}
+      value={value}
+    />
+    return this.renderItemWithSeparator(item)
+  }
+
   renderSliderItem(title, valueTemplate, min, max, value) {
     let item = <SettingSlider
       key="slider item"
@@ -160,7 +175,7 @@ export default class Settings extends PureComponent {
   renderValueClickableItem(title, value) {
     let item = <SettingValueClickable
       key="value clickable item" 
-      style={{ paddingBottom: 4, paddingTop: 12 }}
+      style={{ paddingBottom: 4, paddingTop: 16 }}
       title={title}
       value={value}
       />
@@ -171,7 +186,7 @@ export default class Settings extends PureComponent {
     let item = <SettingClickable 
       key="clickable item" 
       titleAlign={align ? align : 'center'}
-      style={{ paddingBottom: 4, paddingTop: 12 }}
+      style={{ paddingBottom: 4, paddingTop: 16 }}
       title={title} />
     return this.renderItemWithSeparator(item)
   }
@@ -179,7 +194,7 @@ export default class Settings extends PureComponent {
   renderToggleItem(title, description) {
     let item = <SettingToggle
       key="toggle item"
-      style={{ paddingBottom: 0 }}
+      style={{ paddingBottom: 4 }}
       title={title}
       description={description}
     />
@@ -248,7 +263,7 @@ const styles = StyleSheet.create({
     marginBottom: 16
   },
   separator: {
-    marginTop: 8,
+    marginTop: 12,
     width: '100%',
     height: 1,    
     backgroundColor: Theme.separator

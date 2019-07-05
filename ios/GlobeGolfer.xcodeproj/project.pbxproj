@@ -25,6 +25,7 @@
 		146834051AC3E58100842450 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
 		1EF13BDC87524C26A5AA7406 /* Entypo.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 84F23BDF631B4F6C889E537E /* Entypo.ttf */; };
 		27EA58F7B5934435A5C60841 /* EvilIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D58223B3DA3E452BBDB2D6AE /* EvilIcons.ttf */; };
+		306C866695D54343A05465FA /* libRangeSlider.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 92BFD21F629840419215EF38 /* libRangeSlider.a */; };
 		39C3A85ACDC54118BCAA5323 /* MaterialCommunityIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EEE98D93D36844EA9D0F813D /* MaterialCommunityIcons.ttf */; };
 		6B029DB6A7494736965A3B5D /* libRNGestureHandler.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 726956EF41F342A4ADC7BA2C /* libRNGestureHandler.a */; };
 		70FE57917AFC4203B69CDA8E /* Ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0A19A6061F1C4E38976EAC70 /* Ionicons.ttf */; };
@@ -278,6 +279,13 @@
 			remoteGlobalIDString = 358F4ED71D1E81A9004DF814;
 			remoteInfo = RCTBlob;
 		};
+		D525171D22CF481B0012C91C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8EDE138395F9421CBADEF038 /* RangeSlider.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 043F1FDA20BDDACF00904784;
+			remoteInfo = RangeSlider;
+		};
 		D52CB29C22B542E20016BAEB /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 146833FF1AC3E56700842450 /* React.xcodeproj */;
@@ -386,6 +394,8 @@
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
 		84449271D5584711ABC5D84A /* FontAwesome5_Brands.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Brands.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Brands.ttf"; sourceTree = "<group>"; };
 		84F23BDF631B4F6C889E537E /* Entypo.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Entypo.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Entypo.ttf"; sourceTree = "<group>"; };
+		8EDE138395F9421CBADEF038 /* RangeSlider.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RangeSlider.xcodeproj; path = "../node_modules/react-native-range-slider/ios/RangeSlider.xcodeproj"; sourceTree = "<group>"; };
+		92BFD21F629840419215EF38 /* libRangeSlider.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRangeSlider.a; sourceTree = "<group>"; };
 		ADBDB91F1DFEBF0600ED6528 /* RCTBlob.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTBlob.xcodeproj; path = "../node_modules/react-native/Libraries/Blob/RCTBlob.xcodeproj"; sourceTree = "<group>"; };
 		AF166E4B4A814133B31BD2A7 /* RNVectorIcons.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNVectorIcons.xcodeproj; path = "../node_modules/react-native-vector-icons/RNVectorIcons.xcodeproj"; sourceTree = "<group>"; };
 		B15122F0F7074BE794C0B2D5 /* MaterialIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialIcons.ttf"; sourceTree = "<group>"; };
@@ -425,6 +435,7 @@
 				DA16A5032D4E4A009656E78C /* libRNImagePicker.a in Frameworks */,
 				0B420A8E31AA43738A9940E7 /* libRNVectorIcons.a in Frameworks */,
 				13BD48F655AC4DF6B590E6DD /* libRNCSlider.a in Frameworks */,
+				306C866695D54343A05465FA /* libRangeSlider.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -617,6 +628,7 @@
 				E8A2AF66B1FA490B9C7CA89E /* RNImagePicker.xcodeproj */,
 				AF166E4B4A814133B31BD2A7 /* RNVectorIcons.xcodeproj */,
 				439C42FCC7724B4A81FFD7CA /* RNCSlider.xcodeproj */,
+				8EDE138395F9421CBADEF038 /* RangeSlider.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -663,6 +675,14 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		D525171A22CF481B0012C91C /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D525171E22CF481B0012C91C /* libRangeSlider.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		D52CB27622B542E10016BAEB /* Recovered References */ = {
 			isa = PBXGroup;
 			children = (
@@ -671,6 +691,7 @@
 				3FB34E91CCAC4F728C0CCAB4 /* libRNImagePicker.a */,
 				7A274399EC244989A52017FA /* libRNVectorIcons.a */,
 				39103D59A1274001886BC087 /* libRNCSlider.a */,
+				92BFD21F629840419215EF38 /* libRangeSlider.a */,
 			);
 			name = "Recovered References";
 			sourceTree = "<group>";
@@ -757,6 +778,10 @@
 			productRefGroup = 83CBBA001A601CBA00E9B192 /* Products */;
 			projectDirPath = "";
 			projectReferences = (
+				{
+					ProductGroup = D525171A22CF481B0012C91C /* Products */;
+					ProjectRef = 8EDE138395F9421CBADEF038 /* RangeSlider.xcodeproj */;
+				},
 				{
 					ProductGroup = 00C302A81ABCB8CE00DB3ED1 /* Products */;
 					ProjectRef = 00C302A71ABCB8CE00DB3ED1 /* RCTActionSheet.xcodeproj */;
@@ -1061,6 +1086,13 @@
 			remoteRef = ADBDB9261DFEBF0700ED6528 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
+		D525171E22CF481B0012C91C /* libRangeSlider.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRangeSlider.a;
+			remoteRef = D525171D22CF481B0012C91C /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		D52CB29D22B542E20016BAEB /* libjsi.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -1216,11 +1248,13 @@
 					"$(SRCROOT)/../node_modules/react-native-image-picker/ios",
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
 					"$(SRCROOT)/../node_modules/@react-native-community/slider/ios",
+					"$(SRCROOT)/../node_modules/react-native-range-slider/ios/**",
 				);
 				INFOPLIST_FILE = GlobeGolfer/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/GlobeGolfer\"",
 					"\"$(SRCROOT)/GlobeGolfer\"",
 					"\"$(SRCROOT)/GlobeGolfer\"",
 					"\"$(SRCROOT)/GlobeGolfer\"",
@@ -1248,11 +1282,13 @@
 					"$(SRCROOT)/../node_modules/react-native-image-picker/ios",
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
 					"$(SRCROOT)/../node_modules/@react-native-community/slider/ios",
+					"$(SRCROOT)/../node_modules/react-native-range-slider/ios/**",
 				);
 				INFOPLIST_FILE = GlobeGolfer/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/GlobeGolfer\"",
 					"\"$(SRCROOT)/GlobeGolfer\"",
 					"\"$(SRCROOT)/GlobeGolfer\"",
 					"\"$(SRCROOT)/GlobeGolfer\"",

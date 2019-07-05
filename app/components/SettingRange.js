@@ -5,20 +5,26 @@ import DGText from './DGText'
 import Theme from '../res/Theme'
 import Slider from '@ptomasroos/react-native-multi-slider'
 
-export default class SettingSlider extends PureComponent {
+export default class SettingRange extends PureComponent {
 
   state = {
-    value: 0
+    left: 0,
+    right: 0
   }
 
   componentDidMount() {
+    let value = this.props.value
     this.setState({
-      value: this.props.value
+      left: value[0],
+      right: value[1]
     })
   }
 
-  onValueChange = (data) => {
-    this.setState({ value: data[0] })
+  onValueChange = (value) => {
+    this.setState({
+      left: value[0],
+      right: value[1]
+    })
   }
 
   render() {
@@ -26,15 +32,14 @@ export default class SettingSlider extends PureComponent {
       <View style={[styles.container, this.props.style]}>
         <View style={styles.subContainer}>
           <DGText style={styles.title}>{this.props.title}</DGText>
-          <DGText style={styles.value}>{this.props.valueTemplate.replace("%s", this.state.value)}</DGText>
+          <DGText style={styles.value}>{this.state.left + " - " + this.state.right}</DGText>
         </View>
         <Slider 
           min={this.props.min}
           max={this.props.max}
           step={1}
           sliderLength={Dimensions.get('window').width - 32}
-          enabledOne={true}
-          values={[this.state.value]}
+          values={[this.state.left, this.state.right]}
           onValuesChange={this.onValueChange}
           unselectedStyle={{
             backgroundColor: Theme.separator,
