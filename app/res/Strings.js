@@ -45,6 +45,7 @@ export default Strings = {
   settingsTermsOfService: "Term of Service",
   settingsLicenses: "Licenses",
   settingLogout: "Logout",
+  settingDeleteAccount: "Delete Account",
   settingWebProfile: "Web profile",
   settingsUsername: "Username",
   settingsDiscover: "Discover settings",

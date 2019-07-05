@@ -7,8 +7,13 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import BaseComponent from '../../components/BaseComponent'
 import DGText from '../../components/DGText'
 import DGButton from '../../components/DGButton'
+import SettingToggle from '../../components/SettingToggle'
+import SettingClickable from '../../components/SettingClickable'
+import SettingValueClickable from '../../components/SettingValueClickable'
+
 import Strings from '../../res/Strings'
 import Theme from '../../res/Theme'
+import SettingSlider from '../../components/SettingSlider';
 
 export default class Settings extends PureComponent {
   static navigationOptions = { header: null }
@@ -58,8 +63,145 @@ export default class Settings extends PureComponent {
     return [ggSubscriptionButton, ggCreditButton]
   }
 
+  renderDiscoverBlock() {
+    return (
+      <View>
+        {this.renderSectionTitle(Strings.settingsDiscover)}
+        {this.renderValueClickableItem(Strings.settingsLocation, "France, Paris")}
+        {this.renderSliderItem(Strings.settingsMaxDistance, "%s km", 1, 100, 40)}
+        {this.renderValueClickableItem(Strings.settingsGender, "Male")}
+      </View>
+    )
+  }
+
+  renderVisibilityBlock() {
+    let showGG = this.renderToggleItem(Strings.settingsShowMeOnGG, Strings.settingsShowMeOnGGMessage)
+    let swipeFriend = this.renderToggleItem(Strings.settingSwipeWithFriends, Strings.settingSwipeWithFriendsMessage)
+
+    return [showGG, swipeFriend]
+  }
+
+  renderWebProfileBlock() {
+    return (
+      <View>
+        {this.renderSectionTitle(Strings.settingWebProfile)}
+        {this.renderValueClickableItem(Strings.settingsUsername, "Aeron")}
+      </View>
+    )
+  }
+
+  renderNotificationBlock() {
+    return (
+      <View>
+        {this.renderSectionTitle(Strings.settingsNotification)}
+        {this.renderToggleItem(Strings.settingsNewChallengesPut)}
+        {this.renderToggleItem(Strings.settingsNewChallengesChipAndPut)}
+        {this.renderToggleItem(Strings.settingsNewChallenges9Holes)}
+        {this.renderToggleItem(Strings.settingsNewChallenges18Holes)}
+        {this.renderToggleItem(Strings.settingsMessages)}
+        {this.renderToggleItem(Strings.settingsValidationCard)}
+      </View>
+    )
+  }
+
+  renderContactUsBlock() {
+    return (
+      <View>
+        {this.renderSectionTitle(Strings.settingsContactUs)}
+        {this.renderClickableItem(Strings.settingsHelpAndSuppport)}
+        {this.renderClickableItem(Strings.settingsRateUs)}
+        {this.renderClickableItem(Strings.settingShareGG)} 
+      </View>
+    )
+  }
+
+  renderLegalBlock() {
+    return (
+      <View>
+        {this.renderSectionTitle(Strings.settingsLegal)}
+        {this.renderClickableItem(Strings.settingsPrivacyPolicy, "flex-start")}
+        {this.renderClickableItem(Strings.settingsTermsOfService, "flex-start")}
+        {this.renderClickableItem(Strings.settingsLicenses, "flex-start")} 
+      </View>
+    )
+  }
+
+  renderLogoutBlock() {
+    return (
+      <View>
+        {this.renderSeparator()}
+        {this.renderClickableItem(Strings.settingLogout)} 
+      </View>
+    )
+  }
+
+  renderDeleteAccountBlock() {
+    return (
+      <View>
+        {this.renderSeparator()}
+        {this.renderClickableItem(Strings.settingDeleteAccount)} 
+      </View>
+    )
+  }
+
+  renderSliderItem(title, valueTemplate, min, max, value) {
+    let item = <SettingSlider
+      key="slider item"
+      style={{ paddingBottom: 0 }}
+      title={title}
+      valueTemplate={valueTemplate}
+      min={min}
+      max={max}
+      value={value}
+    />
+    return this.renderItemWithSeparator(item)
+  }
+
+  renderValueClickableItem(title, value) {
+    let item = <SettingValueClickable
+      key="value clickable item" 
+      style={{ paddingBottom: 4, paddingTop: 12 }}
+      title={title}
+      value={value}
+      />
+    return this.renderItemWithSeparator(item)
+  }
+
+  renderClickableItem(title, align) {
+    let item = <SettingClickable 
+      key="clickable item" 
+      titleAlign={align ? align : 'center'}
+      style={{ paddingBottom: 4, paddingTop: 12 }}
+      title={title} />
+    return this.renderItemWithSeparator(item)
+  }
+
+  renderToggleItem(title, description) {
+    let item = <SettingToggle
+      key="toggle item"
+      style={{ paddingBottom: 0 }}
+      title={title}
+      description={description}
+    />
+    return this.renderItemWithSeparator(item)
+  }
+
+  renderSectionTitle(title) {
+    let item = <DGText key="section title" style={styles.sectionTitle}>{title.toUpperCase()}</DGText>
+    return this.renderItemWithSeparator(item)
+  }
+
+  renderItemWithSeparator(item) {
+    let separator = this.renderSeparator()
+    return [item, separator]
+  }
+
+  renderSpacing(height) {
+    return <View style={{ height }} />
+  }
+
   renderSeparator() {
-    return <View style={styles.separator} />
+    return <View key="separator" style={styles.separator} />
   }
 
   render() {
@@ -70,6 +212,21 @@ export default class Settings extends PureComponent {
         <KeyboardAwareScrollView contentContainerStyle={{ paddingTop: 24 }}>
           {this.renderTopBlock()}
           {this.renderSeparator()}
+          {this.renderSpacing(44)}
+          {this.renderDiscoverBlock()}
+          {this.renderVisibilityBlock()}
+          {this.renderSpacing(44)}
+          {this.renderWebProfileBlock()}
+          {this.renderSpacing(44)}
+          {this.renderNotificationBlock()}
+          {this.renderSpacing(44)}
+          {this.renderContactUsBlock()}
+          {this.renderSpacing(44)}
+          {this.renderLegalBlock()}
+          {this.renderSpacing(44)}
+          {this.renderLogoutBlock()}
+          {this.renderSpacing(44)}
+          {this.renderDeleteAccountBlock()}
         </KeyboardAwareScrollView>
       </BaseComponent>
     )
@@ -112,5 +269,12 @@ const styles = StyleSheet.create({
   },
   footerContainer: {
     paddingBottom: getBottomSpace() + 32
+  },
+  sectionTitle: {
+    color: Theme.textWhite,
+    fontSize: 20,
+    fontWeight: 'bold',
+    marginLeft: 16, 
+    marginRight: 16,
   }
 })
