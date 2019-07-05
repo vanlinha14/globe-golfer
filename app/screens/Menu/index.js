@@ -73,7 +73,7 @@ export default class Menu extends PureComponent {
 
   renderController(name, action) {
     return (
-      <TouchableOpacity activeOpacity={0.7} onPress={action}>
+      <TouchableOpacity style={styles.controller} activeOpacity={0.7} onPress={action}>
         <Icon name={name} color="white" size={56} />
       </TouchableOpacity>
     )
@@ -103,9 +103,15 @@ const styles = StyleSheet.create({
     height: '20%'
   },
   controllerBlock: {
-    width: "20%",
+    width: "30%",
+    alignItems: 'center',
     alignSelf: 'center',
     flexDirection: 'row', 
     justifyContent: 'space-between'
+  },
+  controller: {
+    width: 50,
+    height: 50,
+    alignItems: 'center'
   }
 })
