@@ -16,6 +16,8 @@ import Settings from './screens/Settings'
 
 import Menu from './screens/Menu'
 
+import VeryFirstScreen from './screens/VeryFirst'
+
 import { createStackNavigator, createAppContainer } from "react-navigation"
 
 const setupAccountNavigator = {
@@ -33,6 +35,7 @@ const setupAccountNavigator = {
 }
 
 const AppNavigator = createStackNavigator({
+  VeryFirstScreen: { screen: VeryFirstScreen },
   Authentication: { screen: Authentication },
   Menu: { screen: Menu },
   Settings: { screen: Settings },

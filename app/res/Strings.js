@@ -1,5 +1,7 @@
 export default Strings = {
   awesome: "Awesome!",
+  registration: "Registration",
+  connection: "Connection",
   setupAccountStep0Message: "Your profile look great, ready to look around.",
   scanCard: "Scan your Card",
   dontHaveCard: "I don't have my Card",
