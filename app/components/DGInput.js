@@ -20,12 +20,10 @@ export default class DGInput extends PureComponent {
     return(
       <View style={[styles.container, this.props.style]}>
         <TextInput 
-          style={[
-            styles.textInput, 
-            { 
-              color: this.props.textColor ? this.props.textColor : 'white' 
-            }
-          ]}
+          style={{ 
+            color: this.props.textColor ? this.props.textColor : 'white',
+            textAlign: this.props.inputAlign ? this.props.inputAlign : 'center'
+          }}
           keyboardType={this.props.inputType === "phone" ? "phone-pad" : null}
           secureTextEntry={this.props.inputType === "password"}
           placeholder={this.props.placeholder} 

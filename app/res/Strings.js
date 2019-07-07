@@ -26,6 +26,7 @@ export default Strings = {
   learnMore: "Learn more",
   active: "Active",
   enterEmail: "Enter a valid email address",
+  enterPassword: "Enter a valid password",
   checkEmail: "Verify your email address",
   discover: "Discover",
   settings: "Settings",

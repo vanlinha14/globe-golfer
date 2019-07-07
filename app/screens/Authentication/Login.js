@@ -19,9 +19,9 @@ export default class Login extends PureComponent {
     this.props.navigation.navigate("SetupAccountStepInputScannedCard")
   }
 
-  // onRequestEnterManual = () => {
-  //   this.props.navigation.navigate("SetupAccountStepInputIndex")
-  // }
+  onRequestGoToInputEmail = () => {
+    this.props.navigation.navigate("SetupAccountStepInputEmail")
+  }
 
   renderIntroBlock() {
     return (
@@ -69,7 +69,8 @@ export default class Login extends PureComponent {
         color='black'
       />,
       Strings.registerWithEmail, 
-      'black'
+      'black',
+      this.onRequestGoToInputEmail
     )
   }
 

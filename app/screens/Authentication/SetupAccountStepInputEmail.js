@@ -13,8 +13,8 @@ import Theme from '../../res/Theme'
 export default class SetupAccountStepInputEmail extends PureComponent {
   static navigationOptions = { header: null }
 
-  requestGoToSetupAccountStepFinal = () => {
-    this.props.navigation.navigate("SetupAccountStepFinal")
+  onRequestGoToScanCard = () => {
+    this.props.navigation.navigate("SetupAccountStepInputScannedCard")
   }
 
   renderLogo() {
@@ -22,7 +22,23 @@ export default class SetupAccountStepInputEmail extends PureComponent {
   }
 
   renderBody() {
-    return <TextInputBlock style={styles.body} inputStyle={{ width: '80%' }} title={Strings.enterEmail} />
+    let email = <TextInputBlock 
+      inputStyle={{ width: '80%', paddingLeft: 8 }} 
+      title={Strings.registerWithEmail}
+      placeholder={Strings.enterEmail} 
+      inputAlign="left"
+    />
+    let password = <TextInputBlock 
+      inputStyle={{ width: '80%', paddingLeft: 8 }} 
+      placeholder={Strings.enterPassword}
+      inputAlign="left"
+    />
+    return (
+      <View style={styles.body}>
+        {email}
+        {password}
+      </View>
+    )
   }
 
   renderFooter() {
@@ -31,7 +47,7 @@ export default class SetupAccountStepInputEmail extends PureComponent {
         <DGButton 
           style={{ backgroundColor: Theme.buttonPrimary }}
           text={Strings.continue}
-          onPress={this.requestGoToSetupAccountStepFinal}
+          onPress={this.onRequestGoToScanCard}
           />
       </View>
     )
