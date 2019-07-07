@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react'
-import { View, StyleSheet, Platform } from 'react-native'
+import { View, Image, StyleSheet, Platform } from 'react-native'
 
 import { getBottomSpace } from 'react-native-iphone-x-helper'
 import Icon from 'react-native-vector-icons/Ionicons'
@@ -38,7 +38,17 @@ export default class SetupAccountStepActiveLocation extends PureComponent {
   }
 
   renderLogo() {
-
+    return (
+      <Image
+        style={{
+          marginTop: 60,
+          width: 120,
+          height: 120,
+          alignSelf: 'center'
+        }}
+        source={require('../../res/images/ic_icon.png')}
+      />
+    )
   }
 
   renderBody() {

@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react'
-import { View, StyleSheet, Dimensions } from 'react-native'
+import { View, Image, StyleSheet, Dimensions } from 'react-native'
 
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { getBottomSpace } from 'react-native-iphone-x-helper'
@@ -18,7 +18,17 @@ export default class SetupAccountStepInputEmail extends PureComponent {
   }
 
   renderLogo() {
-
+    return (
+      <Image
+        style={{
+          marginTop: 60,
+          width: 120,
+          height: 120,
+          alignSelf: 'center'
+        }}
+        source={require('../../res/images/ic_icon.png')}
+      />
+    )
   }
 
   renderBody() {

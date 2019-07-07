@@ -50,7 +50,17 @@ export default class SetupAccountStepInputAvatar extends PureComponent {
   }
 
   renderLogo() {
-
+    return (
+      <Image
+        style={{
+          marginTop: 60,
+          width: 120,
+          height: 120,
+          alignSelf: 'center'
+        }}
+        source={require('../../res/images/ic_icon.png')}
+      />
+    )
   }
 
   renderTitle() {

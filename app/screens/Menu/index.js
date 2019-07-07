@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react'
 import { 
   View, 
+  Image,
   StyleSheet, 
   TouchableOpacity
 } from 'react-native'
@@ -43,7 +44,18 @@ export default class Menu extends PureComponent {
 
   renderLogo() {
     return (
-      <View style={styles.logo} />
+      <Image
+        style={[
+          styles.logo,
+          {
+            marginTop: 60,
+            width: 120,
+            height: 120,
+            alignSelf: 'center'
+          }
+        ]}
+        source={require('../../res/images/ic_icon.png')}
+      />
     )
   }
 
@@ -95,7 +107,6 @@ const styles = StyleSheet.create({
     flex: 1
   },
   logo: {
-    backgroundColor: 'white',
     height: '30%'
   },
   ads: {

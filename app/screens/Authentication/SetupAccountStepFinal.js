@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react'
-import { View, StyleSheet } from 'react-native'
+import { View, Image, StyleSheet } from 'react-native'
 
 import { getBottomSpace } from 'react-native-iphone-x-helper'
 
@@ -25,7 +25,17 @@ export default class SetupAccountStepFinal extends PureComponent {
   }
 
   renderLogo() {
-
+    return (
+      <Image
+        style={{
+          marginTop: 60,
+          width: 120,
+          height: 120,
+          alignSelf: 'center'
+        }}
+        source={require('../../res/images/ic_icon.png')}
+      />
+    )
   }
 
   renderBody() {
