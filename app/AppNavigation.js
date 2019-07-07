@@ -1,5 +1,6 @@
 import Authentication from './screens/Authentication'
 
+import Login from './screens/Authentication/Login'
 import SetupAccount from './screens/Authentication/SetupAccount'
 import SetupAccountStepInputIndex from './screens/Authentication/SetupAccountStepInputIndex'
 import SetupAccountStepInputName from './screens/Authentication/SetupAccountStepInputName'
@@ -21,6 +22,7 @@ import VeryFirstScreen from './screens/VeryFirst'
 import { createStackNavigator, createAppContainer } from "react-navigation"
 
 const setupAccountNavigator = {
+  Login: { screen: Login },
   SetupAccount: { screen: SetupAccount },
   SetupAccountStepInputIndex: { screen: SetupAccountStepInputIndex },
   SetupAccountStepInputName: { screen: SetupAccountStepInputName },

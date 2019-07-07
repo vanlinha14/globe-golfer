@@ -59,5 +59,10 @@ export default Strings = {
   settingsShowMeOnGG: "Show me on GG",
   settingsShowMeOnGGMessage: "Turning this on will show your profile to golfers near you.",
   settingSwipeWithFriends: "Swipe with Friends",
-  settingSwipeWithFriendsMessage: "Turning this on will allow your friends to find you and invite you to play together."
+  settingSwipeWithFriendsMessage: "Turning this on will allow your friends to find you and invite you to play together.",
+  registerWithFacebook: "Register with Facebook",
+  registerWithGoogle: "Register with Google Account",
+  registerWithEmail: "Register with your e-mail",
+  or: "or",
+  alreadyMember: "Already member? Connection"
 }
