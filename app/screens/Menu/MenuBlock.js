@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react'
 import { 
   View, 
   Animated,
+  Image,
   StyleSheet, 
   Dimensions,
   TouchableOpacity
@@ -131,7 +132,6 @@ export default class MenuBlock extends PureComponent {
         position: 'absolute',
         width: itemWidth,
         height: itemWidth,
-        backgroundColor: 'red',
         transform: [
           { 
           translateX: translateInterpolate,
@@ -147,6 +147,16 @@ export default class MenuBlock extends PureComponent {
           height: itemWidth,
           justifyContent: 'center'
         }}>
+          <Image
+            style={{
+              position: 'absolute',
+              top: 4,
+              left: 4,
+              width: itemWidth - 8,
+              height: itemWidth - 8
+            }}
+            source={require('../../res/images/ic_global.png')}
+          />
           <DGText style={{ color: "white", alignSelf: 'center' }}>{name}</DGText>
         </TouchableOpacity>
         

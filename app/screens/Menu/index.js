@@ -111,7 +111,7 @@ const styles = StyleSheet.create({
   },
   ads: {
     backgroundColor: 'white',
-    height: '20%'
+    height: '30%'
   },
   controllerBlock: {
     width: "30%",
