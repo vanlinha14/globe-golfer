@@ -121,7 +121,7 @@ export default class MenuBlock extends PureComponent {
     })
     let scaleInterpolate = offsetX.interpolate({
       inputRange: [-100, 0, 50, 100],
-      outputRange: [1, 1, 1.5, 1]
+      outputRange: [1, 1, 2, 1]
     })
     let opacityInterpolate = offsetX.interpolate({
       inputRange: [-100, -50, 0, 50, 100],
@@ -150,10 +150,10 @@ export default class MenuBlock extends PureComponent {
           <Image
             style={{
               position: 'absolute',
-              top: 4,
-              left: 4,
-              width: itemWidth - 8,
-              height: itemWidth - 8
+              top: 8,
+              left: 8,
+              width: itemWidth - 16,
+              height: itemWidth - 16
             }}
             source={require('../../res/images/ic_global.png')}
           />
