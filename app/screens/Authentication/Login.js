@@ -15,13 +15,13 @@ import Icon from 'react-native-vector-icons/Ionicons'
 export default class Login extends PureComponent {
   static navigationOptions = { header: null }
 
-  onRequestScanCard = () => {
+  onRequestGoToScanCard = () => {
     this.props.navigation.navigate("SetupAccountStepInputScannedCard")
   }
 
-  onRequestEnterManual = () => {
-    this.props.navigation.navigate("SetupAccountStepInputIndex")
-  }
+  // onRequestEnterManual = () => {
+  //   this.props.navigation.navigate("SetupAccountStepInputIndex")
+  // }
 
   renderIntroBlock() {
     return (
@@ -41,19 +41,21 @@ export default class Login extends PureComponent {
         color='white'
       />,
       Strings.registerWithFacebook, 
-      'white'
+      'white',
+      this.onRequestGoToScanCard
     )
   }
 
   renderLoginGoogleButton() {
     return this.renderSocialButton(
-      'white', 
+      'white',
       <Image 
         style={[styles.socialIcon, { width: 30, height: 30 }]} 
         source={require('../../res/images/ic_google.png')}
       />,
       Strings.registerWithGoogle, 
-      'black'
+      'black',
+      this.onRequestGoToScanCard
     )
   }
 
@@ -71,13 +73,13 @@ export default class Login extends PureComponent {
     )
   }
 
-  renderSocialButton(background, logo, text, textColor) {
+  renderSocialButton(background, logo, text, textColor, action) {
     return (
       <TouchableOpacity 
         style={[
           styles.socialButtonContainer, 
           { backgroundColor: background }
-        ]} activeOpacity={0.7}>
+        ]} activeOpacity={0.7} onPress={action}>
         {logo}
         <DGText style={[styles.socialText, {color: textColor}]}>{text}</DGText>
       </TouchableOpacity>

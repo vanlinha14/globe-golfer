@@ -13,8 +13,8 @@ import Theme from '../../res/Theme'
 export default class SetupAccountStepActiveLocation extends PureComponent {
   static navigationOptions = { header: null }
 
-  onRequestActiveLocationService = () => {
-    this.props.navigation.navigate("SetupAccountStepInputEmail")  
+  onRequestInputAvatar = () => {
+    this.props.navigation.navigate("SetupAccountStepInputAvatar")  
   }
 
   onRequestLearnMore = () => {
@@ -57,7 +57,7 @@ export default class SetupAccountStepActiveLocation extends PureComponent {
         <DGButton 
           style={{ backgroundColor: Theme.buttonPrimary, marginBottom: 16 }}
           text={Strings.active}
-          onPress={this.onRequestActiveLocationService}
+          onPress={this.onRequestInputAvatar}
           />
         <DGButton 
           style={{ backgroundColor: Theme.buttonSecondary }}

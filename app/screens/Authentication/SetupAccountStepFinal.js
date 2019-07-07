@@ -12,8 +12,8 @@ import Theme from '../../res/Theme'
 export default class SetupAccountStepFinal extends PureComponent {
   static navigationOptions = { header: null }
 
-  goToHome = () => {
-    //TODO
+  goToMainMenu = () => {
+    this.props.navigation.navigate("Menu")
   }
 
   renderTitle() {
@@ -43,7 +43,7 @@ export default class SetupAccountStepFinal extends PureComponent {
         <DGButton 
           style={{ backgroundColor: Theme.buttonPrimary, marginBottom: 16 }}
           text={Strings.discover}
-          onPress={this.goToHome}
+          onPress={this.goToMainMenu}
           />
       </View>
     )

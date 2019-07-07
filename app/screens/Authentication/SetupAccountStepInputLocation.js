@@ -13,8 +13,8 @@ import Theme from '../../res/Theme'
 export default class SetupAccountStepInputLocation extends PureComponent {
   static navigationOptions = { header: null }
 
-  requestGoToInputScannedCard = () => {
-    this.props.navigation.navigate("SetupAccountStepInputScannedCard")
+  requestGoToActiveLocation = () => {
+    this.props.navigation.navigate("SetupAccountStepActiveLocation")
   }
 
   renderSelectCountry() {
@@ -49,7 +49,7 @@ export default class SetupAccountStepInputLocation extends PureComponent {
         <DGButton 
           style={{ backgroundColor: Theme.buttonPrimary }}
           text={Strings.continue}
-          onPress={this.requestGoToInputScannedCard}
+          onPress={this.requestGoToActiveLocation}
           />
       </View>
     )
