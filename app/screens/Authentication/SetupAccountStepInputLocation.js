@@ -20,6 +20,10 @@ class SetupAccountStepInputLocation extends PureComponent {
     this.props.getCountries()
   }
 
+  onCountrySelectionChange = (newCountry) => {
+    alert(newCountry)
+  }
+
   requestGoToActiveLocation = () => {
     this.props.navigation.navigate("SetupAccountStepActiveLocation")
   }
@@ -35,15 +39,22 @@ class SetupAccountStepInputLocation extends PureComponent {
       hint={Strings.hintSelectCountry}
       isLoading={this.props.countries.isLoading}
       items={items}
+      onValueChange={this.onCountrySelectionChange}
     />
   }
 
   renderSelectRegion() {
-    return <SelectInputBlock title={Strings.region} />
+    return <SelectInputBlock 
+      title={Strings.region} 
+      hint={Strings.hintSelectRegion}
+    />
   }
 
   renderSelectPlayzone() {
-    return <SelectInputBlock title={Strings.playGolfAt} />
+    return <SelectInputBlock 
+      title={Strings.playGolfAt} 
+      hint={Strings.hintSelectClub}
+    />
   }
 
   renderLogo() {

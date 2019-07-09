@@ -27,6 +27,10 @@ export default class SelectInputBlock extends PureComponent {
         value: props.hint
       }
     ]
+
+    this.state = {
+      selectedValue: props.hint
+    }
   }
 
   componentWillReceiveProps(nextProps) {
@@ -48,6 +52,16 @@ export default class SelectInputBlock extends PureComponent {
     }
   }
 
+  onValueChange = (value) => {
+    this.setState({
+      selectedValue: value,
+    })
+
+    if (this.props.onValueChange) {
+      this.props.onValueChange(value)
+    }
+  }
+
   renderTitle() {
     return <DGText style={styles.messgage}>{this.props.title}</DGText>
   }
@@ -61,11 +75,7 @@ export default class SelectInputBlock extends PureComponent {
       <RNPickerSelect
         placeholder={{}}
         items={this.items}
-        onValueChange={(value) => {
-            this.setState({
-              selectedValue: value,
-            })
-        }}
+        onValueChange={this.onValueChange}
         style={{
           inputIOS: styles.input,
           inputAndroid: styles.input,
