@@ -1,6 +1,7 @@
 import Authentication from './screens/Authentication'
 
 import Login from './screens/Authentication/Login'
+import Register from './screens/Authentication/Register'
 import SetupAccount from './screens/Authentication/SetupAccount'
 import SetupAccountStepInputIndex from './screens/Authentication/SetupAccountStepInputIndex'
 import SetupAccountStepInputName from './screens/Authentication/SetupAccountStepInputName'
@@ -23,6 +24,7 @@ import { createStackNavigator, createAppContainer } from "react-navigation"
 
 const setupAccountNavigator = {
   Login: { screen: Login },
+  Register: { screen: Register },
   SetupAccount: { screen: SetupAccount },
   SetupAccountStepInputIndex: { screen: SetupAccountStepInputIndex },
   SetupAccountStepInputName: { screen: SetupAccountStepInputName },

@@ -10,15 +10,32 @@ import DGButton from '../../components/DGButton'
 import Strings from '../../res/Strings'
 import Theme from '../../res/Theme'
 
-export default class SetupAccountStepInputLocation extends PureComponent {
+import { getCountries } from '../../actions/getCountries'
+import { connect } from 'react-redux'
+
+class SetupAccountStepInputLocation extends PureComponent {
   static navigationOptions = { header: null }
+
+  componentDidMount() {
+    this.props.getCountries()
+  }
 
   requestGoToActiveLocation = () => {
     this.props.navigation.navigate("SetupAccountStepActiveLocation")
   }
 
   renderSelectCountry() {
-    return <SelectInputBlock title={Strings.country} />
+    let items = []
+    if (this.props.countries.data) {
+      items = this.props.countries.data.map(i => i.title)
+    }
+
+    return <SelectInputBlock 
+      title={Strings.country} 
+      hint={Strings.hintSelectCountry}
+      isLoading={this.props.countries.isLoading}
+      items={items}
+    />
   }
 
   renderSelectRegion() {
@@ -105,3 +122,13 @@ const styles = StyleSheet.create({
     paddingBottom: getBottomSpace() + 32
   }
 })
+
+const mapStateToProps = (state) => ({
+  countries: state.countries
+})
+
+const mapDispatchToProps = (dispatch) => ({
+  getCountries: () => dispatch(getCountries())
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(SetupAccountStepInputLocation)

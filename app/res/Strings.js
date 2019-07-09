@@ -16,6 +16,9 @@ export default Strings = {
   country: "Country",
   region: "Region",
   playGolfAt: "I play Golf at",
+  hintSelectCountry: "Select country",
+  hintSelectRegion: "Select region",
+  hintSelectClub: "Select club",
   tapToSelect: "Tap to select",
   confirm: "Confirm",
   cancel: "Cancel",
@@ -64,6 +67,9 @@ export default Strings = {
   registerWithFacebook: "Register with Facebook",
   registerWithGoogle: "Register with Google Account",
   registerWithEmail: "Register with your e-mail",
+  loginWithFacebook: "Login with Facebook",
+  loginWithGoogle: "Login with Google Account",
+  loginWithEmail: "Login with your e-mail",
   or: "or",
   alreadyMember: "Already member? Connection"
 }

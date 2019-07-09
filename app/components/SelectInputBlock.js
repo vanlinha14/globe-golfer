@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react'
 import {
   View,
+  ActivityIndicator,
   StyleSheet
 } from 'react-native'
 import Theme from '../res/Theme'
@@ -20,13 +21,30 @@ export default class SelectInputBlock extends PureComponent {
   constructor(props) {
     super(props)
 
-    if (Array.isArray(props.items)) {
-      this.items = props.items.map(i => {
+    this.items = [
+      {
+        label: props.hint,
+        value: props.hint
+      }
+    ]
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (Array.isArray(nextProps.items)) {
+      let mappedItems = nextProps.items.map(i => {
         return {
           label: i,
           value: i
         }
       })
+
+      this.items = [
+        {
+          label: nextProps.hint,
+          value: nextProps.hint
+        },
+        ...mappedItems
+      ]
     }
   }
 
@@ -35,6 +53,10 @@ export default class SelectInputBlock extends PureComponent {
   }
 
   renderInput() {
+    if (this.props.isLoading) {
+      return <ActivityIndicator style={styles.input} color="black" />
+    }
+
     return (
       <RNPickerSelect
         placeholder={{}}
