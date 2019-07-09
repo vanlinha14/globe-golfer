@@ -5,32 +5,61 @@ import {
   Dimensions,
   StyleSheet
 } from 'react-native'
+import Theme from '../res/Theme'
+
+export const INPUT_STATUS = {
+  NORMAL: "normal",
+  ERROR: "error",
+  VALID: "valid" 
+}
 
 export default class DGInput extends PureComponent {
 
   state = {
-    text: null
+    text: null,
+    status: INPUT_STATUS.NORMAL
   }
 
   getText() {
     return this.state.text
   }
 
+  validateText = (text) => {
+    var validateResult = INPUT_STATUS.NORMAL
+    if (this.props.validateFunction) {
+      validateResult = this.props.validateFunction(text) 
+    }
+    this.setState({ 
+      text,
+      status: validateResult
+    })
+  }
+
   render() {
+    var statusStyle = {}
+    if (this.state.status == INPUT_STATUS.VALID) {
+      statusStyle = {
+        borderWidth: 1,
+        borderColor: Theme.valid
+      }
+    }
+    else if (this.state.status == INPUT_STATUS.ERROR) {
+      statusStyle = {
+        borderWidth: 1,
+        borderColor: Theme.error
+      }
+    }
     return(
-      <View style={[styles.container, this.props.style]}>
+      <View style={[styles.container, this.props.style, statusStyle]}>
         <TextInput 
           style={{ 
             color: this.props.textColor ? this.props.textColor : 'white',
             textAlign: this.props.inputAlign ? this.props.inputAlign : 'center'
           }}
-          keyboardType={this.props.inputType === "phone" ? "phone-pad" : null}
-          secureTextEntry={this.props.inputType === "password"}
           placeholder={this.props.placeholder} 
           placeholderTextColor={this.props.textColor ? this.props.textColor : 'white'}
           value={this.state.text}
-          onChangeText={(text) => this.setState({ text })}
-          onSubmitEditing={this.props.onSubmitEditing}
+          onChangeText={this.validateText}
         />
       </View>
     )

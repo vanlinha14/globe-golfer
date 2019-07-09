@@ -9,6 +9,7 @@ import DGButton from '../../components/DGButton'
 import TextInputBlock from '../../components/TextInputBlock'
 import Strings from '../../res/Strings'
 import Theme from '../../res/Theme'
+import { emailValidationFunction } from '../../utils'
 
 export default class SetupAccountStepInputEmail extends PureComponent {
   static navigationOptions = { header: null }
@@ -36,6 +37,7 @@ export default class SetupAccountStepInputEmail extends PureComponent {
       inputStyle={{ width: '80%', paddingLeft: 8 }} 
       title={Strings.registerWithEmail}
       placeholder={Strings.enterEmail} 
+      validateFunction={emailValidationFunction}
       inputAlign="left"
     />
     let password = <TextInputBlock 

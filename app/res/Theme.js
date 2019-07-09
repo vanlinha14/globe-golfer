@@ -6,5 +6,7 @@ export default Theme = {
   textGray: "#BFBFBF",
   toolbarTitle: "#d66a28",
   separator: "#BFBFBF",
-  sliderColor: "#d66a28"
+  sliderColor: "#d66a28",
+  valid: "#AFF8DB",
+  error: "red"
 }
