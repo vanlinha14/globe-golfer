@@ -16,3 +16,11 @@ export function emailValidationFunction(text) {
     return INPUT_STATUS.ERROR
   }
 }
+
+export function passwordValidationFunction(text) {
+  if (text.length >= 6) {
+    return INPUT_STATUS.VALID
+  }
+  
+  return INPUT_STATUS.ERROR
+}

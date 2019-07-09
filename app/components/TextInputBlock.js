@@ -20,6 +20,7 @@ export default class TextInputBlock extends PureComponent {
       style={[styles.input, this.props.inputStyle]} 
       placeholder={this.props.placeholder} 
       inputAlign={this.props.inputAlign}
+      inputType={this.props.inputType}
       validateFunction={this.props.validateFunction}
     />
   }

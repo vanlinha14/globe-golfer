@@ -13,6 +13,13 @@ export const INPUT_STATUS = {
   VALID: "valid" 
 }
 
+export const INPUT_TYPE = {
+  PHONE: "phone-pad",
+  NUMBER: "number-pad",
+  TEXT: "default",
+  PASSWORD: "password"
+}
+
 export default class DGInput extends PureComponent {
 
   state = {
@@ -56,6 +63,8 @@ export default class DGInput extends PureComponent {
             color: this.props.textColor ? this.props.textColor : 'white',
             textAlign: this.props.inputAlign ? this.props.inputAlign : 'center'
           }}
+          secureTextEntry={this.props.inputType == INPUT_TYPE.PASSWORD}
+          keyboardType={this.props.inputType == INPUT_TYPE.PASSWORD ? 'default' : this.props.inputType}
           placeholder={this.props.placeholder} 
           placeholderTextColor={this.props.textColor ? this.props.textColor : 'white'}
           value={this.state.text}
