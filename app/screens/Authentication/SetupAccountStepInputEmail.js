@@ -1,16 +1,16 @@
 import React, { PureComponent } from 'react'
 import { View, Image, StyleSheet, Dimensions } from 'react-native'
 
+import { emailValidationFunction, passwordValidationFunction, showErrorAlert } from '../../utils'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { getBottomSpace } from 'react-native-iphone-x-helper'
+import { INPUT_TYPE } from '../../components/DGInput'
 
+import TextInputBlock from '../../components/TextInputBlock'
 import BaseComponent from '../../components/BaseComponent'
 import DGButton from '../../components/DGButton'
-import TextInputBlock from '../../components/TextInputBlock'
 import Strings from '../../res/Strings'
 import Theme from '../../res/Theme'
-import { emailValidationFunction, passwordValidationFunction } from '../../utils'
-import { INPUT_TYPE } from '../../components/DGInput'
 
 export default class SetupAccountStepInputEmail extends PureComponent {
   static navigationOptions = { header: null }
@@ -23,11 +23,13 @@ export default class SetupAccountStepInputEmail extends PureComponent {
     let password = this.passwordTextInput.getText()
 
     if (email == null) {
-
+      showErrorAlert(Strings.input.error.email)
+      return
     }
 
     if (password == null) {
-
+      showErrorAlert(Strings.input.error.password)
+      return
     }
 
     this.props.navigation.navigate("SetupAccountStepInputScannedCard")

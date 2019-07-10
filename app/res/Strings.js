@@ -42,7 +42,11 @@ const settings = {
 const input = {
   enterEmail: "Enter a valid email address",
   enterPassword: "Enter a valid password",
-  tapToSelect: "Tap to select"
+  tapToSelect: "Tap to select",
+  error: {
+    email: "Your email you just filled is not valid",
+    password: "Your email you just filled is not valid. The valid password must contains at least 6 charactors"
+  }
 }
 
 const button = {
@@ -93,6 +97,7 @@ const registerFinal = {
 }
 
 export default Strings = {
+  appName: "Golf Global",
   registration: "Registration",
   connection: "Connection",
   scanCard: "Scan your Card",
@@ -110,6 +115,7 @@ export default Strings = {
   selectCardImage: "Select your card",
   checkEmail: "Verify your email address",
   or: "or",
+  error: "Error",
   registerFinal,
   avatar,
   activeLocation,

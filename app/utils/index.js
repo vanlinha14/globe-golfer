@@ -1,4 +1,6 @@
 import { INPUT_STATUS } from "../components/DGInput"
+import { Alert } from 'react-native'
+import Strings from '../res/Strings'
 
 export function isValidEmailFormat(text) {
   return /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(text)
@@ -23,4 +25,8 @@ export function passwordValidationFunction(text) {
   }
   
   return INPUT_STATUS.ERROR
+}
+
+export function showErrorAlert(message) {
+  Alert.alert(Strings.error, message)
 }
