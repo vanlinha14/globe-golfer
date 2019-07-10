@@ -2,7 +2,8 @@ import Base from './Base'
 import { 
   DUMMY_COUNTRY, 
   DUMMY_REGION, 
-  DUMMY_CLUB 
+  DUMMY_CLUB,
+  DUMMY_AUTHENTICATION
 } from './DummyData'
 
 export default class Api extends Base {
@@ -35,6 +36,14 @@ export default class Api extends Base {
     return new Promise((resolve, rejecter) => {
       setTimeout(() => {
         resolve(DUMMY_CLUB)
+      }, 1000);
+    })
+  }
+
+  login(email, password) {
+    return new Promise((resolve, rejecter) => {
+      setTimeout(() => {
+        resolve(DUMMY_AUTHENTICATION)
       }, 1000);
     })
   }

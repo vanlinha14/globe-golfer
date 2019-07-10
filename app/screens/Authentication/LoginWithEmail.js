@@ -1,10 +1,12 @@
 import React, { PureComponent } from 'react'
 import { View, Image, StyleSheet, Dimensions } from 'react-native'
 
-import { emailValidationFunction, passwordValidationFunction } from '../../utils'
+import { emailValidationFunction, passwordValidationFunction, showErrorAlert } from '../../utils'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { getBottomSpace } from 'react-native-iphone-x-helper'
+import { loginWithEmail } from '../../actions/loginWithEmail'
 import { INPUT_TYPE } from '../../components/DGInput'
+import { connect } from 'react-redux'
 
 import BaseComponent from '../../components/BaseComponent'
 import TextInputBlock from '../../components/TextInputBlock'
@@ -12,11 +14,34 @@ import DGButton from '../../components/DGButton'
 import Strings from '../../res/Strings'
 import Theme from '../../res/Theme'
 
-export default class LoginWithEmail extends PureComponent {
+class LoginWithEmail extends PureComponent {
   static navigationOptions = { header: null }
 
-  onRequestGoToMenu = () => {
-    this.props.navigation.navigate("Menu")
+  emailTextInput = undefined
+  passwordTextInput = undefined
+
+  componentWillReceiveProps(nextProps) {
+    let authenData = nextProps.authenticationData
+    if (authenData.isLoading == false && authenData.accessToken) {
+      this.props.navigation.navigate("Menu")
+    }
+  }
+
+  onRequestLogin = () => {
+    let email = this.emailTextInput.getText()
+    let password = this.passwordTextInput.getText()
+
+    if (email == null) {
+      showErrorAlert(Strings.input.error.email)
+      return
+    }
+
+    if (password == null) {
+      showErrorAlert(Strings.input.error.password)
+      return
+    }
+
+    this.props.loginWithEmail(email, password)
   }
 
   renderLogo() {
@@ -35,6 +60,7 @@ export default class LoginWithEmail extends PureComponent {
 
   renderBody() {
     let email = <TextInputBlock 
+      ref={ref => this.emailTextInput = ref}
       inputStyle={{ width: '80%', paddingLeft: 8 }} 
       title={Strings.login.email}
       placeholder={Strings.input.enterEmail} 
@@ -42,6 +68,7 @@ export default class LoginWithEmail extends PureComponent {
       inputAlign="left"
     />
     let password = <TextInputBlock 
+      ref={ref => this.passwordTextInput = ref}
       inputStyle={{ width: '80%', paddingLeft: 8 }} 
       placeholder={Strings.input.enterPassword}
       validateFunction={passwordValidationFunction}
@@ -62,16 +89,18 @@ export default class LoginWithEmail extends PureComponent {
         <DGButton 
           style={{ backgroundColor: Theme.buttonPrimary }}
           text={Strings.button.continue}
-          onPress={this.onRequestGoToMenu}
+          onPress={this.onRequestLogin}
+          loading={this.props.authenticationData.isLoading}
           />
       </View>
     )
   }
 
   render() {
+    let isDisableViewInteract = this.props.authenticationData.isLoading == true ? 'none' : 'auto' 
     return (
       <BaseComponent>
-        <KeyboardAwareScrollView contentContainerStyle={styles.body}>
+        <KeyboardAwareScrollView contentContainerStyle={styles.body} pointerEvents={isDisableViewInteract}>
           <View style={styles.body}>
             {this.renderLogo()}
             {this.renderBody()}
@@ -108,3 +137,14 @@ const styles = StyleSheet.create({
     paddingBottom: getBottomSpace() + 32
   }
 })
+
+
+const mapStateToProps = (state) => ({
+  authenticationData: state.authentication
+})
+
+const mapDispatchToProps = (dispatch) => ({
+  loginWithEmail: (email, password) => dispatch(loginWithEmail(email, password))
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(LoginWithEmail)
