@@ -14,10 +14,6 @@ import Icon from 'react-native-vector-icons/Ionicons'
 export default class Register extends PureComponent {
   static navigationOptions = { header: null }
 
-  onRequestGoToScanCard = () => {
-    this.props.navigation.navigate("SetupAccountStepInputScannedCard")
-  }
-
   onRequestGoToInputEmail = () => {
     this.props.navigation.navigate("SetupAccountStepInputEmail")
   }
@@ -45,7 +41,7 @@ export default class Register extends PureComponent {
       />,
       Strings.register.facebook, 
       'white',
-      this.onRequestGoToScanCard
+      this.onRequestLoginWithFacebook
     )
   }
 
@@ -58,7 +54,7 @@ export default class Register extends PureComponent {
       />,
       Strings.register.google, 
       'black',
-      this.onRequestGoToScanCard
+      this.onRequestLoginWithGoogle
     )
   }
 

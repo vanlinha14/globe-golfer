@@ -1,6 +1,7 @@
 import Authentication from './screens/Authentication'
 
 import Login from './screens/Authentication/Login'
+import LoginWithEmail from './screens/Authentication/LoginWithEmail'
 import Register from './screens/Authentication/Register'
 import SetupAccount from './screens/Authentication/SetupAccount'
 import SetupAccountStepInputIndex from './screens/Authentication/SetupAccountStepInputIndex'
@@ -22,8 +23,12 @@ import VeryFirstScreen from './screens/VeryFirst'
 
 import { createStackNavigator, createAppContainer } from "react-navigation"
 
-const setupAccountNavigator = {
+const loginNavigator = {
   Login: { screen: Login },
+  LoginWithEmail: { screen: LoginWithEmail }
+}
+
+const setupAccountNavigator = {
   Register: { screen: Register },
   SetupAccount: { screen: SetupAccount },
   SetupAccountStepInputIndex: { screen: SetupAccountStepInputIndex },
@@ -43,6 +48,7 @@ const AppNavigator = createStackNavigator({
   Authentication: { screen: Authentication },
   Menu: { screen: Menu },
   Settings: { screen: Settings },
+  ...loginNavigator,
   ...setupAccountNavigator
 })
 

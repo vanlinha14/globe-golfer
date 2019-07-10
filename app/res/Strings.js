@@ -69,6 +69,7 @@ const login = {
   facebook: "Login with Facebook",
   google: "Login with Google Account",
   email: "Login with your e-mail",
+  notMember: "Not a member? Register"
 }
 
 const scannedCard = {
