@@ -35,8 +35,8 @@ class SetupAccountStepInputLocation extends PureComponent {
     }
 
     return <SelectInputBlock 
-      title={Strings.country} 
-      hint={Strings.hintSelectCountry}
+      title={Strings.inputLocation.country} 
+      hint={Strings.inputLocation.hintSelectCountry}
       isLoading={this.props.countries.isLoading}
       items={items}
       onValueChange={this.onCountrySelectionChange}
@@ -45,15 +45,15 @@ class SetupAccountStepInputLocation extends PureComponent {
 
   renderSelectRegion() {
     return <SelectInputBlock 
-      title={Strings.region} 
-      hint={Strings.hintSelectRegion}
+      title={Strings.inputLocation.region} 
+      hint={Strings.inputLocation.hintSelectRegion}
     />
   }
 
   renderSelectPlayzone() {
     return <SelectInputBlock 
-      title={Strings.playGolfAt} 
-      hint={Strings.hintSelectClub}
+      title={Strings.inputLocation.playGolfAt} 
+      hint={Strings.inputLocation.hintSelectClub}
     />
   }
 
@@ -86,7 +86,7 @@ class SetupAccountStepInputLocation extends PureComponent {
       <View style={styles.footerContainer}>
         <DGButton 
           style={{ backgroundColor: Theme.buttonPrimary }}
-          text={Strings.continue}
+          text={Strings.button.continue}
           onPress={this.requestGoToActiveLocation}
           />
       </View>

@@ -40,7 +40,7 @@ export default class Register extends PureComponent {
         size={40} 
         color='white'
       />,
-      Strings.registerWithFacebook, 
+      Strings.register.facebook, 
       'white',
       this.onRequestGoToScanCard
     )
@@ -53,7 +53,7 @@ export default class Register extends PureComponent {
         style={[styles.socialIcon, { width: 30, height: 30 }]} 
         source={require('../../res/images/ic_google.png')}
       />,
-      Strings.registerWithGoogle, 
+      Strings.register.google, 
       'black',
       this.onRequestGoToScanCard
     )
@@ -68,7 +68,7 @@ export default class Register extends PureComponent {
         size={30} 
         color='black'
       />,
-      Strings.registerWithEmail, 
+      Strings.register.email, 
       'black',
       this.onRequestGoToInputEmail
     )
@@ -133,7 +133,7 @@ export default class Register extends PureComponent {
           height: 20,
           color: 'white', 
           textAlign: 'center'
-        }}>{Strings.alreadyMember}</DGText>
+        }}>{Strings.register.alreadyMember}</DGText>
       </TouchableOpacity>
     )
   }

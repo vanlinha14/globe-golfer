@@ -64,14 +64,14 @@ export default class SetupAccountStepInputAvatar extends PureComponent {
   }
 
   renderTitle() {
-    return <DGText style={styles.messgage}>{Strings.myBestPictureIs}</DGText>
+    return <DGText style={styles.messgage}>{Strings.avatar.title}</DGText>
   }
 
   renderImageInput() {
     return (
       <TouchableOpacity activeOpacity={0.7} onPress={this.requestSelectImage}>
         <Image style={styles.centerImage} source={require('../../res/images/placeholder.png')}/>
-        <DGText style={styles.centerText}>{Strings.tapToSelect}</DGText>
+        <DGText style={styles.centerText}>{Strings.input.tapToSelect}</DGText>
       </TouchableOpacity>
     )
   }
@@ -90,7 +90,7 @@ export default class SetupAccountStepInputAvatar extends PureComponent {
       <View style={styles.footerContainer}>
         <DGButton 
           style={{ backgroundColor: Theme.buttonPrimary }}
-          text={Strings.continue}
+          text={Strings.button.continue}
           onPress={this.requestGoToStepFinal}
           />
       </View>

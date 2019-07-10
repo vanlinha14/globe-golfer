@@ -15,7 +15,21 @@ import { INPUT_TYPE } from '../../components/DGInput'
 export default class SetupAccountStepInputEmail extends PureComponent {
   static navigationOptions = { header: null }
 
+  emailTextInput = undefined
+  passwordTextInput = undefined
+
   onRequestGoToScanCard = () => {
+    let email = this.emailTextInput.getText()
+    let password = this.passwordTextInput.getText()
+
+    if (email == null) {
+
+    }
+
+    if (password == null) {
+
+    }
+
     this.props.navigation.navigate("SetupAccountStepInputScannedCard")
   }
 
@@ -35,15 +49,17 @@ export default class SetupAccountStepInputEmail extends PureComponent {
 
   renderBody() {
     let email = <TextInputBlock 
+      ref={ref => this.emailTextInput = ref}
       inputStyle={{ width: '80%', paddingLeft: 8 }} 
-      title={Strings.registerWithEmail}
-      placeholder={Strings.enterEmail} 
+      title={Strings.register.email}
+      placeholder={Strings.input.enterEmail} 
       validateFunction={emailValidationFunction}
       inputAlign="left"
     />
     let password = <TextInputBlock 
+      ref={ref => this.passwordTextInput = ref}
       inputStyle={{ width: '80%', paddingLeft: 8 }} 
-      placeholder={Strings.enterPassword}
+      placeholder={Strings.input.enterPassword}
       validateFunction={passwordValidationFunction}
       inputType={INPUT_TYPE.PASSWORD}
       inputAlign="left"
@@ -61,7 +77,7 @@ export default class SetupAccountStepInputEmail extends PureComponent {
       <View style={styles.footerContainer}>
         <DGButton 
           style={{ backgroundColor: Theme.buttonPrimary }}
-          text={Strings.continue}
+          text={Strings.button.continue}
           onPress={this.onRequestGoToScanCard}
           />
       </View>
@@ -77,7 +93,6 @@ export default class SetupAccountStepInputEmail extends PureComponent {
             {this.renderBody()}
             {this.renderFooter()}
           </View>
-          
         </KeyboardAwareScrollView>
       </BaseComponent>
     )

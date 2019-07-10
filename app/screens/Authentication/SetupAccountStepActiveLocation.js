@@ -22,7 +22,7 @@ export default class SetupAccountStepActiveLocation extends PureComponent {
   }
 
   renderTitle() {
-    return <DGText style={styles.title}>{Strings.activeLocation}</DGText>
+    return <DGText style={styles.title}>{Strings.activeLocation.title}</DGText>
   }
 
   renderLocationIcon() {
@@ -34,7 +34,7 @@ export default class SetupAccountStepActiveLocation extends PureComponent {
   }
 
   renderMessage() {
-    return <DGText style={styles.messgage}>{Strings.activeLocationMessage}</DGText>
+    return <DGText style={styles.messgage}>{Strings.activeLocation.message}</DGText>
   }
 
   renderLogo() {
@@ -66,12 +66,12 @@ export default class SetupAccountStepActiveLocation extends PureComponent {
       <View style={styles.footerContainer}>
         <DGButton 
           style={{ backgroundColor: Theme.buttonPrimary, marginBottom: 16 }}
-          text={Strings.active}
+          text={Strings.button.active}
           onPress={this.onRequestInputAvatar}
           />
         <DGButton 
           style={{ backgroundColor: Theme.buttonSecondary }}
-          text={Strings.learnMore}
+          text={Strings.button.learnMore}
           onPress={this.onRequestLearnMore}
           />
       </View>

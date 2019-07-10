@@ -62,12 +62,12 @@ export default class SetupAccountStepInputScannedCard extends PureComponent {
   }
 
   renderTitle() {
-    return <DGText style={styles.messgage}>{Strings.myScannedCard}</DGText>
+    return <DGText style={styles.messgage}>{Strings.scannedCard.title}</DGText>
   }
 
   renderImageInputHint() {
     if (this.state.cardSource == undefined) {
-      return <DGText style={styles.centerText}>{Strings.tapToSelect}</DGText> 
+      return <DGText style={styles.centerText}>{Strings.input.tapToSelect}</DGText> 
     }
   }
 
@@ -95,7 +95,7 @@ export default class SetupAccountStepInputScannedCard extends PureComponent {
       <View style={styles.footerContainer}>
         <DGButton 
           style={{ backgroundColor: Theme.buttonPrimary }}
-          text={Strings.continue}
+          text={Strings.button.continue}
           onPress={this.requestGoToInputLocation}
           />
       </View>

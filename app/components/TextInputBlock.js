@@ -9,6 +9,12 @@ import DGInput from './DGInput'
 
 export default class TextInputBlock extends PureComponent {
 
+  textInput = undefined
+
+  getText = () => {
+    return this.textInput.getText()
+  }
+
   renderTitle() {
     if (this.props.title) {
       return <DGText style={styles.messgage}>{this.props.title}</DGText>
@@ -17,6 +23,7 @@ export default class TextInputBlock extends PureComponent {
 
   renderIndexInput() {
     return <DGInput 
+      ref={ref => this.textInput = ref}
       style={[styles.input, this.props.inputStyle]} 
       placeholder={this.props.placeholder} 
       inputAlign={this.props.inputAlign}

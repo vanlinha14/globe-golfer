@@ -17,11 +17,11 @@ export default class SetupAccountStepFinal extends PureComponent {
   }
 
   renderTitle() {
-    return <DGText style={styles.title}>{Strings.awesome}</DGText>
+    return <DGText style={styles.title}>{Strings.registerFinal.title}</DGText>
   }
 
   renderMessage() {
-    return <DGText style={styles.messgage}>{Strings.setupAccountStep0Message}</DGText>
+    return <DGText style={styles.messgage}>{Strings.registerFinal.message}</DGText>
   }
 
   renderLogo() {
@@ -52,7 +52,7 @@ export default class SetupAccountStepFinal extends PureComponent {
       <View style={styles.footerContainer}>
         <DGButton 
           style={{ backgroundColor: Theme.buttonPrimary, marginBottom: 16 }}
-          text={Strings.discover}
+          text={Strings.button.discover}
           onPress={this.goToMainMenu}
           />
       </View>

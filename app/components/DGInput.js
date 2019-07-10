@@ -23,12 +23,16 @@ export const INPUT_TYPE = {
 export default class DGInput extends PureComponent {
 
   state = {
-    text: null,
+    text: undefined,
     status: INPUT_STATUS.NORMAL
   }
 
   getText() {
-    return this.state.text
+    if (this.state.status == INPUT_STATUS.VALID) {
+      return this.state.text
+    }
+
+    return null
   }
 
   validateText = (text) => {
