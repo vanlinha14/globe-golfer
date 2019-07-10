@@ -3,13 +3,15 @@ import { View, StyleSheet, Dimensions, TouchableOpacity, Image } from 'react-nat
 
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { getBottomSpace } from 'react-native-iphone-x-helper'
+import { showErrorAlert } from '../../utils'
+
 import ImagePicker from 'react-native-image-picker'
 
 import BaseComponent from '../../components/BaseComponent'
-import DGText from '../../components/DGText'
 import DGButton from '../../components/DGButton'
 import Strings from '../../res/Strings'
 import Theme from '../../res/Theme'
+import DGText from '../../components/DGText'
 
 export default class SetupAccountStepInputScannedCard extends PureComponent {
   static navigationOptions = { header: null }
@@ -19,6 +21,11 @@ export default class SetupAccountStepInputScannedCard extends PureComponent {
   }
 
   requestGoToInputLocation = () => {
+    // if (this.state.cardSource == undefined) {
+    //   showErrorAlert(Strings.input.error.card)
+    //   return
+    // }
+    
     this.props.navigation.navigate("SetupAccountStepInputLocation")
   }
 

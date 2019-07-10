@@ -22,15 +22,15 @@ export default class SetupAccountStepInputEmail extends PureComponent {
     let email = this.emailTextInput.getText()
     let password = this.passwordTextInput.getText()
 
-    if (email == null) {
-      showErrorAlert(Strings.input.error.email)
-      return
-    }
+    // if (email == null) {
+    //   showErrorAlert(Strings.input.error.email)
+    //   return
+    // }
 
-    if (password == null) {
-      showErrorAlert(Strings.input.error.password)
-      return
-    }
+    // if (password == null) {
+    //   showErrorAlert(Strings.input.error.password)
+    //   return
+    // }
 
     this.props.navigation.navigate("SetupAccountStepInputScannedCard")
   }

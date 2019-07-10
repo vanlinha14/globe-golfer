@@ -45,7 +45,9 @@ const input = {
   tapToSelect: "Tap to select",
   error: {
     email: "Your email you just filled is not valid",
-    password: "Your email you just filled is not valid. The valid password must contains at least 6 charactors"
+    password: "Your email you just filled is not valid. The valid password must contains at least 6 charactors",
+    card: "You must choose or capture an image of your membership card",
+    avatar: "You must choose or capture an image of your best moment"
   }
 }
 
@@ -115,7 +117,7 @@ export default Strings = {
   selectCardImage: "Select your card",
   checkEmail: "Verify your email address",
   or: "or",
-  error: "Error",
+  error: "Oops!",
   registerFinal,
   avatar,
   activeLocation,
