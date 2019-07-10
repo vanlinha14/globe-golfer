@@ -14,6 +14,10 @@ import Theme from '../../res/Theme'
 export default class SetupAccountStepInputScannedCard extends PureComponent {
   static navigationOptions = { header: null }
 
+  state = {
+    cardSource: undefined
+  }
+
   requestGoToInputLocation = () => {
     this.props.navigation.navigate("SetupAccountStepInputLocation")
   }
@@ -28,8 +32,6 @@ export default class SetupAccountStepInputScannedCard extends PureComponent {
     }
 
     ImagePicker.showImagePicker(options, (response) => {
-      console.log('Response = ', response);
-    
       if (response.didCancel) {
         console.log('User cancelled image picker');
       } else if (response.error) {
@@ -37,13 +39,9 @@ export default class SetupAccountStepInputScannedCard extends PureComponent {
       } else if (response.customButton) {
         console.log('User tapped custom button: ', response.customButton);
       } else {
-        const source = { uri: response.uri };
-    
-        // You can also display the image using data:
-        // const source = { uri: 'data:image/jpeg;base64,' + response.data };
-    
+        const source = { uri: 'data:image/jpeg;base64,' + response.data };
         this.setState({
-          avatarSource: source,
+          cardSource: source
         })
       }
     })
@@ -67,11 +65,18 @@ export default class SetupAccountStepInputScannedCard extends PureComponent {
     return <DGText style={styles.messgage}>{Strings.myScannedCard}</DGText>
   }
 
+  renderImageInputHint() {
+    if (this.state.cardSource == undefined) {
+      return <DGText style={styles.centerText}>{Strings.tapToSelect}</DGText> 
+    }
+  }
+
   renderImageInput() {
+    let source = this.state.cardSource ? this.state.cardSource : require('../../res/images/placeholder.png')
     return (
       <TouchableOpacity activeOpacity={0.7} onPress={this.requestSelectImage}>
-        <Image style={styles.centerImage} source={require('../../res/images/placeholder.png')}/>
-        <DGText style={styles.centerText}>{Strings.tapToSelect}</DGText>
+        <Image style={styles.centerImage} resizeMethod='resize' source={source}/>
+        {this.renderImageInputHint()}
       </TouchableOpacity>
     )
   }
