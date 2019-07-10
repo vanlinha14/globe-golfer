@@ -15,8 +15,8 @@ import { INPUT_TYPE } from '../../components/DGInput'
 export default class Login extends PureComponent {
   static navigationOptions = { header: null }
 
-  onRequestGoToScanCard = () => {
-    this.props.navigation.navigate("SetupAccountStepInputScannedCard")
+  onRequestGoToMenu = () => {
+    this.props.navigation.navigate("Menu")
   }
 
   renderLogo() {
@@ -36,14 +36,14 @@ export default class Login extends PureComponent {
   renderBody() {
     let email = <TextInputBlock 
       inputStyle={{ width: '80%', paddingLeft: 8 }} 
-      title={Strings.loginWithEmail}
-      placeholder={Strings.enterEmail} 
+      title={Strings.login.email}
+      placeholder={Strings.input.enterEmail} 
       validateFunction={emailValidationFunction}
       inputAlign="left"
     />
     let password = <TextInputBlock 
       inputStyle={{ width: '80%', paddingLeft: 8 }} 
-      placeholder={Strings.enterPassword}
+      placeholder={Strings.input.enterPassword}
       validateFunction={passwordValidationFunction}
       inputType={INPUT_TYPE.PASSWORD}
       inputAlign="left"
@@ -61,8 +61,8 @@ export default class Login extends PureComponent {
       <View style={styles.footerContainer}>
         <DGButton 
           style={{ backgroundColor: Theme.buttonPrimary }}
-          text={Strings.continue}
-          onPress={this.onRequestGoToScanCard}
+          text={Strings.button.continue}
+          onPress={this.onRequestGoToMenu}
           />
       </View>
     )

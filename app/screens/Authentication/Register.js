@@ -11,7 +11,6 @@ import Theme from '../../res/Theme'
 
 import Icon from 'react-native-vector-icons/Ionicons'
 
-
 export default class Register extends PureComponent {
   static navigationOptions = { header: null }
 
@@ -21,6 +20,10 @@ export default class Register extends PureComponent {
 
   onRequestGoToInputEmail = () => {
     this.props.navigation.navigate("SetupAccountStepInputEmail")
+  }
+
+  onRequestGoToLogin = () => {
+    this.props.navigation.navigate("Login")
   }
 
   renderIntroBlock() {
@@ -127,7 +130,7 @@ export default class Register extends PureComponent {
       <TouchableOpacity style={{
         marginTop: 12, 
         justifyContent: 'center'
-      }} activeOpacity={0.7}>
+      }} activeOpacity={0.7} onPress={this.onRequestGoToLogin}>
         <DGText style={{
           alignSelf: 'center',
           height: 20,
