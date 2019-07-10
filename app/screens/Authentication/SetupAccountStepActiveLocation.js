@@ -17,8 +17,12 @@ export default class SetupAccountStepActiveLocation extends PureComponent {
     this.props.navigation.navigate("SetupAccountStepInputAvatar")  
   }
 
+  onRequestGetLocation = () => {
+    navigator.geolocation.requestAuthorization()
+  }
+
   onRequestLearnMore = () => {
-    
+    //TODO
   }
 
   renderTitle() {
@@ -67,7 +71,7 @@ export default class SetupAccountStepActiveLocation extends PureComponent {
         <DGButton 
           style={{ backgroundColor: Theme.buttonPrimary, marginBottom: 16 }}
           text={Strings.button.active}
-          onPress={this.onRequestInputAvatar}
+          onPress={this.onRequestGetLocation}
           />
         <DGButton 
           style={{ backgroundColor: Theme.buttonSecondary }}

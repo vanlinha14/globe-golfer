@@ -24,7 +24,7 @@ export default class SelectInputBlock extends PureComponent {
     this.items = [
       {
         label: props.hint,
-        value: props.hint
+        value: 0
       }
     ]
 
@@ -35,19 +35,12 @@ export default class SelectInputBlock extends PureComponent {
 
   componentWillReceiveProps(nextProps) {
     if (Array.isArray(nextProps.items)) {
-      let mappedItems = nextProps.items.map(i => {
-        return {
-          label: i,
-          value: i
-        }
-      })
-
       this.items = [
         {
           label: nextProps.hint,
-          value: nextProps.hint
+          value: 0
         },
-        ...mappedItems
+        ...nextProps.items
       ]
     }
   }

@@ -1,10 +1,8 @@
 import { LOGIN_BEGIN, LOGIN_FINISH, LOGIN_ERROR } from '../actions/types'
 
 const initialState = {
-  auth: {
-    isLoading: false,
-    accessToken: null
-  }
+  isLoading: false,
+  accessToken: null
 }
 
 export default loginReducer = (state = initialState, action) => {

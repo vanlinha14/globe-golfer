@@ -80,9 +80,16 @@ const inputLocation = {
   country: "Country",
   region: "Region",
   playGolfAt: "I play Golf at",
-  hintSelectCountry: "Select country",
-  hintSelectRegion: "Select region",
-  hintSelectClub: "Select club"
+  hint: {
+    country: "Select country",
+    region: "Select region",
+    club: "Select club"
+  },
+  error: {
+    country: "You must select your country",
+    region: "You must select your region",
+    club: "You must select your club"
+  }
 }
 
 const activeLocation = {

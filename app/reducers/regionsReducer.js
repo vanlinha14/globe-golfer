@@ -1,10 +1,8 @@
 import { GET_REGIONS_BEGIN, GET_REGIONS_FINISH, GET_REGIONS_ERROR } from '../actions/types'
 
 const initialState = {
-  regions: {
-    isLoading: false,
-    data: null
-  }
+  isLoading: false,
+  data: null
 }
 
 export default regionsReducer = (state = initialState, action) => {
@@ -12,18 +10,12 @@ export default regionsReducer = (state = initialState, action) => {
     case GET_REGIONS_BEGIN:
       return {
         ...state,
-        regions: {
-          isLoading: true,
-          data: state.regions.data
-        }
+        isLoading: true
       }
     case GET_REGIONS_FINISH: 
       return {
-        ...state,
-        regions: {
-          isLoading: false,
-          data: action.payload
-        }
+        isLoading: false,
+        data: action.payload
       }
     default:
       return state

@@ -4,39 +4,92 @@ import { View, Image, StyleSheet, Dimensions } from 'react-native'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { getBottomSpace } from 'react-native-iphone-x-helper'
 
+import { showErrorAlert } from '../../utils'
+import { getCountries } from '../../actions/getCountries'
+import { getRegions } from '../../actions/getRegions'
+import { getClubs } from '../../actions/getClubs'
+import { connect } from 'react-redux'
+
 import BaseComponent from '../../components/BaseComponent'
 import SelectInputBlock from '../../components/SelectInputBlock'
 import DGButton from '../../components/DGButton'
 import Strings from '../../res/Strings'
 import Theme from '../../res/Theme'
 
-import { getCountries } from '../../actions/getCountries'
-import { connect } from 'react-redux'
-
 class SetupAccountStepInputLocation extends PureComponent {
   static navigationOptions = { header: null }
+
+  selectedCountryId = undefined
+  selectedRegionId = undefined
+  selectedClubId = undefined
 
   componentDidMount() {
     this.props.getCountries()
   }
 
-  onCountrySelectionChange = (newCountry) => {
-    alert(newCountry)
+  requestGoToActiveLocation = () => {
+    // if (this.selectedCountryId == undefined) {
+    //   showErrorAlert(Strings.inputLocation.error.country)
+    //   return
+    // }
+
+    // if (this.selectedRegionId == undefined) {
+    //   showErrorAlert(Strings.inputLocation.error.region)
+    //   return
+    // }
+
+    // if (this.selectedClubId == undefined) {
+    //   showErrorAlert(Strings.inputLocation.error.club)
+    //   return
+    // }
+
+    this.props.navigation.navigate("SetupAccountStepActiveLocation")
   }
 
-  requestGoToActiveLocation = () => {
-    this.props.navigation.navigate("SetupAccountStepActiveLocation")
+  onCountrySelectionChange = (newCountryId) => {
+    if (newCountryId == 0) {
+      this.selectedCountryId = undefined
+      return
+    }
+
+    this.selectedCountryId = newCountryId
+    this.props.getRegions(newCountryId)
+  }
+
+  onRegionSelectionChange = (newRegionId) => {
+    if (newRegionId == 0) {
+      this.selectedRegionId = undefined
+      return
+    }
+
+    this.selectedRegionId = newRegionId
+    this.props.getClubs(newRegionId)
+  }
+
+  onClubSelectionChange = (newClubId) => {
+    if (newClubId == 0) {
+      this.selectedClubId = undefined
+      return
+    }
+
+    this.selectedClubId = newClubId
   }
 
   renderSelectCountry() {
     let items = []
     if (this.props.countries.data) {
-      items = this.props.countries.data.map(i => i.title)
+      items = this.props.countries.data.map(i => {
+        return {
+          label: i.title,
+          value: i.id
+        }
+      })
     }
+      
 
     return <SelectInputBlock 
       title={Strings.inputLocation.country} 
-      hint={Strings.inputLocation.hintSelectCountry}
+      hint={Strings.inputLocation.hint.country}
       isLoading={this.props.countries.isLoading}
       items={items}
       onValueChange={this.onCountrySelectionChange}
@@ -44,16 +97,42 @@ class SetupAccountStepInputLocation extends PureComponent {
   }
 
   renderSelectRegion() {
+    let items = []
+    if (this.props.regions.data) {
+      items = this.props.regions.data.map(i => {
+        return {
+          label: i.title,
+          value: i.id
+        }
+      })
+    }
+
     return <SelectInputBlock 
       title={Strings.inputLocation.region} 
-      hint={Strings.inputLocation.hintSelectRegion}
+      hint={Strings.inputLocation.hint.region}
+      isLoading={this.props.regions.isLoading}
+      items={items}
+      onValueChange={this.onRegionSelectionChange}
     />
   }
 
   renderSelectPlayzone() {
+    let items = []
+    if (this.props.clubs.data) {
+      items = this.props.clubs.data.map(i => {
+        return {
+          label: i.title,
+          value: i.id
+        }
+      })
+    }
+
     return <SelectInputBlock 
       title={Strings.inputLocation.playGolfAt} 
-      hint={Strings.inputLocation.hintSelectClub}
+      hint={Strings.inputLocation.hint.club}
+      isLoading={this.props.clubs.isLoading}
+      items={items}
+      onValueChange={this.onClubSelectionChange}
     />
   }
 
@@ -135,11 +214,15 @@ const styles = StyleSheet.create({
 })
 
 const mapStateToProps = (state) => ({
-  countries: state.countries
+  countries: state.countries,
+  regions: state.regions,
+  clubs: state.clubs
 })
 
 const mapDispatchToProps = (dispatch) => ({
-  getCountries: () => dispatch(getCountries())
+  getCountries: () => dispatch(getCountries()),
+  getRegions: (countryId) => dispatch(getRegions(countryId)),
+  getClubs: (regionId) => dispatch(getClubs(regionId))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(SetupAccountStepInputLocation)
