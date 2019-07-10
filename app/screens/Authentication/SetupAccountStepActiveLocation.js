@@ -1,6 +1,8 @@
 import React, { PureComponent } from 'react'
 import { View, Image, StyleSheet, Platform } from 'react-native'
 
+import Permissions from 'react-native-permissions'
+
 import { getBottomSpace } from 'react-native-iphone-x-helper'
 import Icon from 'react-native-vector-icons/Ionicons'
 
@@ -9,16 +11,20 @@ import DGText from '../../components/DGText'
 import DGButton from '../../components/DGButton'
 import Strings from '../../res/Strings'
 import Theme from '../../res/Theme'
+import { showErrorAlert } from '../../utils'
 
 export default class SetupAccountStepActiveLocation extends PureComponent {
   static navigationOptions = { header: null }
 
-  onRequestInputAvatar = () => {
-    this.props.navigation.navigate("SetupAccountStepInputAvatar")  
-  }
-
   onRequestGetLocation = () => {
-    navigator.geolocation.requestAuthorization()
+    Permissions.request('location').then(response => {
+      if (response == 'authorized') {
+        this.props.navigation.navigate("SetupAccountStepInputAvatar")  
+      }
+      else {
+        showErrorAlert(Strings.activeLocation.error)
+      }
+    })
   }
 
   onRequestLearnMore = () => {
