@@ -10,8 +10,7 @@ export default class VeryFirstScreen extends PureComponent {
   static navigationOptions = { header: null }
 
   requestGoToMenu = () => {
-    // this.props.navigation.navigate("Login")
-    this.props.navigation.navigate("Main")
+    this.props.navigation.navigate("Login")
   }
 
   requestGoToRegistration = () => {
