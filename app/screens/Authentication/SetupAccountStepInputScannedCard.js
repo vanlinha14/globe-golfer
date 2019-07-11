@@ -21,10 +21,10 @@ export default class SetupAccountStepInputScannedCard extends PureComponent {
   }
 
   requestGoToInputLocation = () => {
-    // if (this.state.cardSource == undefined) {
-    //   showErrorAlert(Strings.input.error.card)
-    //   return
-    // }
+    if (this.state.cardSource == undefined) {
+      showErrorAlert(Strings.input.error.card)
+      return
+    }
     
     this.props.navigation.navigate("SetupAccountStepInputLocation")
   }

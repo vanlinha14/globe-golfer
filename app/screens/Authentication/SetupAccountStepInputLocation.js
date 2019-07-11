@@ -28,20 +28,20 @@ class SetupAccountStepInputLocation extends PureComponent {
   }
 
   requestGoToActiveLocation = () => {
-    // if (this.selectedCountryId == undefined) {
-    //   showErrorAlert(Strings.inputLocation.error.country)
-    //   return
-    // }
+    if (this.selectedCountryId == undefined) {
+      showErrorAlert(Strings.inputLocation.error.country)
+      return
+    }
 
-    // if (this.selectedRegionId == undefined) {
-    //   showErrorAlert(Strings.inputLocation.error.region)
-    //   return
-    // }
+    if (this.selectedRegionId == undefined) {
+      showErrorAlert(Strings.inputLocation.error.region)
+      return
+    }
 
-    // if (this.selectedClubId == undefined) {
-    //   showErrorAlert(Strings.inputLocation.error.club)
-    //   return
-    // }
+    if (this.selectedClubId == undefined) {
+      showErrorAlert(Strings.inputLocation.error.club)
+      return
+    }
 
     this.props.navigation.navigate("SetupAccountStepActiveLocation")
   }

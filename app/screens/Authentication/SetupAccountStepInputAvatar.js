@@ -22,10 +22,10 @@ export default class SetupAccountStepInputAvatar extends PureComponent {
   }
 
   requestGoToStepFinal = () => {
-    // if (this.state.avatarSource == undefined) {
-    //   showErrorAlert(Strings.input.error.avatar)
-    //   return
-    // }
+    if (this.state.avatarSource == undefined) {
+      showErrorAlert(Strings.input.error.avatar)
+      return
+    }
 
     this.props.navigation.navigate("SetupAccountStepFinal")
   }
