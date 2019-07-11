@@ -13,7 +13,7 @@ export default class SetupAccountStepFinal extends PureComponent {
   static navigationOptions = { header: null }
 
   goToMainMenu = () => {
-    this.props.navigation.navigate("Menu")
+    this.props.navigation.navigate("Main")
   }
 
   renderTitle() {

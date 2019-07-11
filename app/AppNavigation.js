@@ -17,7 +17,7 @@ import SetupAccountStepFinal from './screens/Authentication/SetupAccountStepFina
 
 import Settings from './screens/Settings'
 
-import Menu from './screens/Menu'
+import Main from './screens/Main'
 
 import VeryFirstScreen from './screens/VeryFirst'
 
@@ -46,7 +46,7 @@ const setupAccountNavigator = {
 const AppNavigator = createStackNavigator({
   VeryFirstScreen: { screen: VeryFirstScreen },
   Authentication: { screen: Authentication },
-  Menu: { screen: Menu },
+  Main: { screen: Main },
   Settings: { screen: Settings },
   ...loginNavigator,
   ...setupAccountNavigator

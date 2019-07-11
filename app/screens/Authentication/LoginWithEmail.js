@@ -23,7 +23,7 @@ class LoginWithEmail extends PureComponent {
   componentWillReceiveProps(nextProps) {
     let authenData = nextProps.authenticationData
     if (authenData.isLoading == false && authenData.accessToken) {
-      this.props.navigation.navigate("Menu")
+      this.props.navigation.navigate("Main")
     }
   }
 

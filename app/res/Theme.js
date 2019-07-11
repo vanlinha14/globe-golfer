@@ -8,5 +8,8 @@ export default Theme = {
   separator: "#BFBFBF",
   sliderColor: "#d66a28",
   valid: "#AFF8DB",
-  error: "red"
+  error: "red",
+  tabBarBackground: "black",
+  tabIconActive: "white",
+  tabIconDeactive: "gray",
 }
