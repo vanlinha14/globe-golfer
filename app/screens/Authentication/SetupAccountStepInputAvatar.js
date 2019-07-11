@@ -4,21 +4,30 @@ import { View, StyleSheet, Dimensions, TouchableOpacity, Image } from 'react-nat
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { getBottomSpace } from 'react-native-iphone-x-helper'
 import { showErrorAlert } from '../../utils'
+import { register } from '../../actions/register'
+import { connect } from 'react-redux'
 
 import ImagePicker from 'react-native-image-picker'
 
+import RegistrationHelper from '../../api/RegistrationHelper'
 import BaseComponent from '../../components/BaseComponent'
 import DGButton from '../../components/DGButton'
 import Strings from '../../res/Strings'
 import DGText from '../../components/DGText'
 import Theme from '../../res/Theme'
 
-
-export default class SetupAccountStepInputAvatar extends PureComponent {
+class SetupAccountStepInputAvatar extends PureComponent {
   static navigationOptions = { header: null }
 
   state = {
     avatarSource: undefined
+  }
+
+  componentWillReceiveProps(nextProps) {
+    let authenData = nextProps.authenticationData
+    if (authenData.isLoading == false && authenData.accessToken) {
+      this.props.navigation.navigate("SetupAccountStepFinal")
+    }
   }
 
   requestGoToStepFinal = () => {
@@ -27,7 +36,8 @@ export default class SetupAccountStepInputAvatar extends PureComponent {
       return
     }
 
-    this.props.navigation.navigate("SetupAccountStepFinal")
+    RegistrationHelper.instance().setAvatar(this.state.avatarSource)
+    this.props.register()
   }
 
   requestSelectImage = () => {
@@ -104,6 +114,7 @@ export default class SetupAccountStepInputAvatar extends PureComponent {
         <DGButton 
           style={{ backgroundColor: Theme.buttonPrimary }}
           text={Strings.button.continue}
+          loading={this.props.authenticationData.isLoading}
           onPress={this.requestGoToStepFinal}
           />
       </View>
@@ -163,3 +174,13 @@ const styles = StyleSheet.create({
     paddingBottom: getBottomSpace() + 32
   }
 })
+
+const mapStateToProps = (state) => ({
+  authenticationData: state.authentication
+})
+
+const mapDispatchToProps = (dispatch) => ({
+  register: () => dispatch(register())
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(SetupAccountStepInputAvatar)

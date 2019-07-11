@@ -40,6 +40,14 @@ export default class Api extends Base {
     })
   }
 
+  register() {
+    return new Promise((resolve, rejecter) => {
+      setTimeout(() => {
+        resolve(DUMMY_AUTHENTICATION)
+      }, 2000);
+    })
+  }
+
   login(email, password) {
     return new Promise((resolve, rejecter) => {
       setTimeout(() => {

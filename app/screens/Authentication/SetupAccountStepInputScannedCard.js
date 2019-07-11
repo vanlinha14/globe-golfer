@@ -7,6 +7,7 @@ import { showErrorAlert } from '../../utils'
 
 import ImagePicker from 'react-native-image-picker'
 
+import RegistrationHelper from '../../api/RegistrationHelper'
 import BaseComponent from '../../components/BaseComponent'
 import DGButton from '../../components/DGButton'
 import Strings from '../../res/Strings'
@@ -26,6 +27,7 @@ export default class SetupAccountStepInputScannedCard extends PureComponent {
       return
     }
     
+    RegistrationHelper.instance().setMembershipCard(this.state.cardSource)
     this.props.navigation.navigate("SetupAccountStepInputLocation")
   }
 

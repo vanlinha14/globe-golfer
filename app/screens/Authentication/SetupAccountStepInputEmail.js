@@ -6,6 +6,7 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import { getBottomSpace } from 'react-native-iphone-x-helper'
 import { INPUT_TYPE } from '../../components/DGInput'
 
+import RegistrationHelper from '../../api/RegistrationHelper'
 import TextInputBlock from '../../components/TextInputBlock'
 import BaseComponent from '../../components/BaseComponent'
 import DGButton from '../../components/DGButton'
@@ -32,6 +33,8 @@ export default class SetupAccountStepInputEmail extends PureComponent {
       return
     }
 
+    RegistrationHelper.instance().setEmail(email)
+    RegistrationHelper.instance().setPassword(password)
     this.props.navigation.navigate("SetupAccountStepInputScannedCard")
   }
 

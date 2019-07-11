@@ -10,8 +10,9 @@ import { getRegions } from '../../actions/getRegions'
 import { getClubs } from '../../actions/getClubs'
 import { connect } from 'react-redux'
 
-import BaseComponent from '../../components/BaseComponent'
+import RegistrationHelper from '../../api/RegistrationHelper'
 import SelectInputBlock from '../../components/SelectInputBlock'
+import BaseComponent from '../../components/BaseComponent'
 import DGButton from '../../components/DGButton'
 import Strings from '../../res/Strings'
 import Theme from '../../res/Theme'
@@ -43,6 +44,9 @@ class SetupAccountStepInputLocation extends PureComponent {
       return
     }
 
+    RegistrationHelper.instance().setCountry(this.selectedCountryId)
+    RegistrationHelper.instance().setRegion(this.selectedRegionId)
+    RegistrationHelper.instance().setClub(this.selectedClubId)
     this.props.navigation.navigate("SetupAccountStepActiveLocation")
   }
 
