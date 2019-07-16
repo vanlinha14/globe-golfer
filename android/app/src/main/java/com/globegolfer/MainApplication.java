@@ -3,6 +3,7 @@ package com.globegolfer;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import co.apptailor.googlesignin.RNGoogleSigninPackage;
 import com.swmansion.reanimated.ReanimatedPackage;
 import com.reactnativecommunity.slider.ReactSliderPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
@@ -28,6 +29,7 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new RNGoogleSigninPackage(),
             new ReanimatedPackage(),
             new ReactSliderPackage(),
             new VectorIconsPackage(),

@@ -9,6 +9,7 @@ export default Theme = {
   sliderColor: "#d66a28",
   valid: "#AFF8DB",
   error: "red",
+  mainBackground: "black",
   tabBarBackground: "black",
   tabIconActive: "white",
   tabIconDeactive: "gray",

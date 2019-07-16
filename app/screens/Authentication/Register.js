@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react'
 import { View, Image, StyleSheet, TouchableOpacity } from 'react-native'
 
 import { getBottomSpace } from 'react-native-iphone-x-helper'
+import { GoogleSignin } from 'react-native-google-signin'
 
 import BaseComponent from '../../components/BaseComponent'
 import DGText from '../../components/DGText'
@@ -16,6 +17,18 @@ export default class Register extends PureComponent {
 
   onRequestGoToInputEmail = () => {
     this.props.navigation.navigate("SetupAccountStepInputEmail")
+  }
+
+  onRequestLoginWithFacebook = () => {
+
+  }
+
+  onRequestLoginWithGoogle = () => {
+    GoogleSignin.configure()
+    GoogleSignin.signIn().then(user => {
+      //got the user info, move on
+      this.props.navigation.navigate("SetupAccountStepInputScannedCard")
+    })
   }
 
   onRequestGoToLogin = () => {

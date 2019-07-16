@@ -1,17 +1,15 @@
 import React, { PureComponent } from 'react'
-import { StyleSheet, View, Dimensions, Image } from 'react-native'
+import { View, Dimensions, Image } from 'react-native'
 import { TabView, TabBar, SceneMap } from 'react-native-tab-view'
 
 import Theme from '../../res/Theme'
-import Strings from '../../res/Strings'
-
-import DGText from '../../components/DGText'
 
 import Chat from '../Chat'
 import Notification from '../Notification'
 import Menu from '../Menu'
 import LeaderBoard from '../LeaderBoard'
 import Profile from '../Profile'
+import { getBottomSpace } from 'react-native-iphone-x-helper'
 
 const ChatRoute = () => (<Chat />)
 const NotificationRoute = () => (<Notification />)
@@ -83,7 +81,7 @@ export default class Main extends PureComponent {
   renderTabBar = (props) => {
     return <TabBar
       {...props}
-      style={{ backgroundColor: Theme.tabBarBackground, height: 64 }}
+      style={{ backgroundColor: Theme.tabBarBackground, height: 64 + getBottomSpace() }}
       indicatorStyle={{ backgroundColor: null }}
       renderLabel={this.renderLabel}
     />
@@ -120,8 +118,3 @@ export default class Main extends PureComponent {
 
 const windowWidth = Dimensions.get('window').width
 const windowHeight = Dimensions.get('window').height
-const styles = StyleSheet.create({
-  container: {
-    flex: 1
-  }
-})

@@ -55,4 +55,16 @@ export default class Api extends Base {
       }, 1000);
     })
   }
+
+  loginGoogle(user) {
+    return new Promise((resolve, rejecter) => {
+      setTimeout(() => {
+        resolve(DUMMY_AUTHENTICATION)
+      }, 1000);
+    })
+  }
+
+  loginFacebook(user) {
+    
+  }
 }
