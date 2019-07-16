@@ -65,6 +65,10 @@ export default class Api extends Base {
   }
 
   loginFacebook(user) {
-    
+    return new Promise((resolve, rejecter) => {
+      setTimeout(() => {
+        resolve(DUMMY_AUTHENTICATION)
+      }, 1000);
+    })
   }
 }

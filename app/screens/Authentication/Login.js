@@ -2,24 +2,37 @@ import React, { PureComponent } from 'react'
 import { View, Image, StyleSheet, TouchableOpacity } from 'react-native'
 
 import { getBottomSpace } from 'react-native-iphone-x-helper'
-
+import { GoogleSignin } from 'react-native-google-signin'
+import { connect } from 'react-redux'
 import Icon from 'react-native-vector-icons/Ionicons'
+
 
 import BaseComponent from '../../components/BaseComponent'
 import DGButton from '../../components/DGButton'
 import Strings from '../../res/Strings'
 import DGText from '../../components/DGText'
 import Theme from '../../res/Theme'
+import { liginWithFacebook, liginWithGoogle } from '../../actions/login'
 
-export default class Login extends PureComponent {
+class Login extends PureComponent {
   static navigationOptions = { header: null }
+
+  componentWillReceiveProps(nextProps) {
+    let authenData = nextProps.authenticationData
+    if (authenData.isLoading == false && authenData.accessToken) {
+      this.props.navigation.navigate("Main")
+    }
+  }
 
   onRequestLoginWithFacebook = () => {
     //TODO
   }
 
   onRequestLoginWithGoogle = () => {
-    //TODO
+    GoogleSignin.configure()
+    GoogleSignin.signIn().then(user => {
+      this.props.loginWithGoogle(user)
+    })
   }
 
   onRequestGoToLoginWithEmail = () => {
@@ -218,3 +231,14 @@ const styles = StyleSheet.create({
     color: 'white'
   }
 })
+
+const mapStateToProps = (state) => ({
+  authenticationData: state.authentication
+})
+
+const mapDispatchToProps = (dispatch) => ({
+  loginWithFacebook: (userInfo) => dispatch(liginWithFacebook(userInfo)),
+  loginWithGoogle: (userInfo) => dispatch(liginWithGoogle(userInfo))
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login)

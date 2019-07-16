@@ -30,3 +30,23 @@ export function loginWithEmail(email, password) {
       .catch(error => dispatch(loginError(error)))
   }
 }
+
+export function liginWithGoogle(userInfo) {
+  return function (dispatch) {
+    dispatch(loginBegin())
+    return Api.instance()
+      .loginGoogle(userInfo)
+      .then(authenData => dispatch(loginFinish(authenData)))
+      .catch(error => dispatch(loginError(error)))
+  }
+}
+
+export function liginWithFacebook(userInfo) {
+  return function (dispatch) {
+    dispatch(loginBegin())
+    return Api.instance()
+      .loginFacebook(userInfo)
+      .then(authenData => dispatch(loginFinish(authenData)))
+      .catch(error => dispatch(loginError(error)))
+  }
+}
