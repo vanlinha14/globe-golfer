@@ -32,6 +32,7 @@ class Login extends PureComponent {
     GoogleSignin.signIn().then(user => {
       this.props.loginWithGoogle(user)
     })
+    .catch(e => alert(e))
   }
 
   onRequestGoToLoginWithEmail = () => {

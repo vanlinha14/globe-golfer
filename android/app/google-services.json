@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "150393205713",
+    "firebase_url": "https://golfglobal-dev.firebaseio.com",
+    "project_id": "golfglobal-dev",
+    "storage_bucket": "golfglobal-dev.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:150393205713:android:9fd3da920fe037e9",
+        "android_client_info": {
+          "package_name": "com.golfglobal"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "150393205713-dejickurjq8aeb54uk3psdeigk3fmvit.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.golfglobal",
+            "certificate_hash": "076c2b0b2ebcdc1d8bb52b44abc93be46a1a01a6"
+          }
+        },
+        {
+          "client_id": "150393205713-niluqkkcdf6kir5trl7odkfdoe7aeqio.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC5uL0scDbWumVgyJPDn2WGz0HZWbvzCok"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "150393205713-niluqkkcdf6kir5trl7odkfdoe7aeqio.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "150393205713-s745tloscv1hq551tfh1acm8pmlvra79.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.fr.globegolfer"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
