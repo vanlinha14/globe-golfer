@@ -2,9 +2,9 @@ import React, { PureComponent } from 'react'
 import { View, Image, StyleSheet, TouchableOpacity } from 'react-native'
 
 import { GoogleSignin } from 'react-native-google-signin'
+import { LoginManager, AccessToken } from "react-native-fbsdk"
 import { connect } from 'react-redux'
 import Icon from 'react-native-vector-icons/Ionicons'
-
 
 import BaseComponent from '../../components/BaseComponent'
 import DGButton from '../../components/DGButton'
@@ -24,7 +24,22 @@ class Login extends PureComponent {
   }
 
   onRequestLoginWithFacebook = () => {
-    //TODO
+    LoginManager.logInWithPermissions(["public_profile"]).then(
+      (result) => {
+        if (result.isCancelled) {
+          alert("Login cancelled");
+        } else {
+          AccessToken.getCurrentAccessToken().then(
+            (data) => {
+              this.props.loginWithFacebook(data)
+            }
+          )
+        }
+      },
+      (error) => {
+        alert("Login fail with error: " + error)
+      }
+    )
   }
 
   onRequestLoginWithGoogle = () => {
