@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0A2BBFDF2C54DC9379DACCC9 /* libPods-GolfGlobal.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F506F5B19CA9CE589CF20B7A /* libPods-GolfGlobal.a */; };
+		0ED8BB7D22DF745D00D51605 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0ED8BB7C22DF745D00D51605 /* GoogleService-Info.plist */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB11A68108700A75B9A /* LaunchScreen.xib */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
@@ -35,6 +36,7 @@
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* GolfGlobalTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GolfGlobalTests.m; sourceTree = "<group>"; };
 		053A0530E2A54A98A32003B8 /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = SimpleLineIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/SimpleLineIcons.ttf"; sourceTree = "<group>"; };
+		0ED8BB7C22DF745D00D51605 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* GolfGlobal.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GolfGlobal.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = GolfGlobal/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = GolfGlobal/AppDelegate.m; sourceTree = "<group>"; };
@@ -105,6 +107,7 @@
 		13B07FAE1A68108700A75B9A /* GolfGlobal */ = {
 			isa = PBXGroup;
 			children = (
+				0ED8BB7C22DF745D00D51605 /* GoogleService-Info.plist */,
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
@@ -230,6 +233,11 @@
 			attributes = {
 				LastUpgradeCheck = 940;
 				ORGANIZATIONNAME = Facebook;
+				TargetAttributes = {
+					13B07F861A680F5B00A75B9A = {
+						DevelopmentTeam = MM49YN55SS;
+					};
+				};
 			};
 			buildConfigurationList = 83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "GolfGlobal" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -266,6 +274,7 @@
 				4B44C2C0DDF14A918FF0263D /* FontAwesome5_Regular.ttf in Resources */,
 				4D96D0A4CBB5434CBF4FBD4E /* FontAwesome5_Solid.ttf in Resources */,
 				B31A96FD4C634A05BC2574EC /* Fontisto.ttf in Resources */,
+				0ED8BB7D22DF745D00D51605 /* GoogleService-Info.plist in Resources */,
 				9FE85D9C48F94CEAAA6AED6C /* Foundation.ttf in Resources */,
 				CCAAB4AF65894F3B958213FC /* Ionicons.ttf in Resources */,
 				828F1CFF1F3244D98813425F /* MaterialCommunityIcons.ttf in Resources */,
@@ -418,6 +427,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
+				DEVELOPMENT_TEAM = MM49YN55SS;
 				INFOPLIST_FILE = GolfGlobal/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
@@ -425,7 +435,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.fr.globegolfer;
 				PRODUCT_NAME = GolfGlobal;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -437,6 +447,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = MM49YN55SS;
 				INFOPLIST_FILE = GolfGlobal/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
@@ -444,7 +455,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.fr.globegolfer;
 				PRODUCT_NAME = GolfGlobal;
 				VERSIONING_SYSTEM = "apple-generic";
 			};

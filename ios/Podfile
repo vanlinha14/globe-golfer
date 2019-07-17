@@ -35,4 +35,6 @@ target 'GolfGlobal' do
   pod 'GoogleSignIn', '~> 4.4.0'
 
   use_native_modules!
+  pod 'RNGoogleSignin', :path => '../node_modules/react-native-google-signin'
+
 end

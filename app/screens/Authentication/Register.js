@@ -1,8 +1,7 @@
 import React, { PureComponent } from 'react'
 import { View, Image, StyleSheet, TouchableOpacity } from 'react-native'
 
-import { getBottomSpace } from 'react-native-iphone-x-helper'
-// import { GoogleSignin } from 'react-native-google-signin'
+import { GoogleSignin } from 'react-native-google-signin'
 
 import BaseComponent from '../../components/BaseComponent'
 import DGText from '../../components/DGText'
