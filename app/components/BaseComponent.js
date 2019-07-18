@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react'
-import { StyleSheet, ImageBackground } from 'react-native'
+import { StyleSheet, View, Image, Dimensions } from 'react-native'
 
 import Toolbar from './Toolbar'
 
@@ -17,23 +17,28 @@ export default class BaseComponent extends PureComponent {
   }
 
   render() {
+    let { width, height } = Dimensions.get('window')
     return (
-      <ImageBackground 
-        style={styles.baseContainer}
-        resizeMode='repeat'
-        resizeMethod='auto'
-        source={require('../res/images/bg.jpg')}
-      >
+      <View style={styles.baseContainer}>
+        <Image 
+          style={{ 
+            width,
+            height,
+            flex: 1, 
+            position: 'absolute' 
+          }}
+          resizeMode='repeat'
+          source={require('../res/images/bg.jpg')}
+        />  
         {this.renderToolbar()}
         {this.props.children}
-      </ImageBackground>
+      </View>
     )
   }
 }
 
 const styles = StyleSheet.create({
   baseContainer: {
-    position: 'absolute',
     width: '100%',
     height: '100%'
   }
