@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react'
 import { View, Image, StyleSheet, TouchableOpacity } from 'react-native'
 
 import { GoogleSignin } from 'react-native-google-signin'
+import { LoginManager, AccessToken } from "react-native-fbsdk"
 
 import BaseComponent from '../../components/BaseComponent'
 import DGText from '../../components/DGText'
@@ -19,7 +20,23 @@ export default class Register extends PureComponent {
   }
 
   onRequestLoginWithFacebook = () => {
-
+    LoginManager.logInWithPermissions(["public_profile"]).then(
+      (result) => {
+        if (result.isCancelled) {
+          alert("Login cancelled");
+        } else {
+          AccessToken.getCurrentAccessToken().then(
+            (data) => {
+              //got the user data, move on
+              this.props.navigation.navigate("SetupAccountStepInputScannedCard")
+            }
+          )
+        }
+      },
+      (error) => {
+        alert("Login fail with error: " + error)
+      }
+    )
   }
 
   onRequestLoginWithGoogle = () => {
