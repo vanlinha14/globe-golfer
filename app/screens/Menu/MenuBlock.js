@@ -102,19 +102,18 @@ export default class MenuBlock extends PureComponent {
   }
 
   renderPlayItem() {
-    return this.renderMenuItem("Play", null, this.offsetXPlay)
+    return this.renderMenuItem("Play", this.offsetXPlay, this.props.onPlayPress)
   }
 
   renderChallengeItem() {
-    return this.renderMenuItem("Challenge", null, this.offsetXChallenge)
+    return this.renderMenuItem("Challenge", this.offsetXChallenge, this.props.onChallengePress)
   }
 
   renderScoresItem() {
-    return this.renderMenuItem("Scores", null, this.offsetXScores)
+    return this.renderMenuItem("Scores", this.offsetXScores, this.props.onScoresPress)
   }
 
-  renderMenuItem(name, image, offsetX) {
-    let translatePercent = (offsetX._value / 100)
+  renderMenuItem(name, offsetX, onPress) {
     let translateInterpolate = offsetX.interpolate({
       inputRange: [-100, 0, 50, 100],
       outputRange: [windowWidth - itemWidth, 0, windowWidth / 2 - itemWidth / 2, windowWidth - itemWidth]
@@ -140,13 +139,13 @@ export default class MenuBlock extends PureComponent {
             scale: scaleInterpolate
           }
         ],
-        opacity: scaleInterpolate,
+        opacity: opacityInterpolate,
       }}>
         <TouchableOpacity style={{ 
           width: itemWidth,
           height: itemWidth,
           justifyContent: 'center'
-        }}>
+        }} activeOpacity={0.7} onPress={onPress}>
           <Image
             style={{
               position: 'absolute',

@@ -6,97 +6,86 @@ import {
   TouchableOpacity
 } from 'react-native'
 
-import { getBottomSpace } from 'react-native-iphone-x-helper'
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
-
 import Icon from 'react-native-vector-icons/Ionicons'
-
-import BaseComponent from '../../components/BaseComponent'
-import DGText from '../../components/DGText'
-import DGButton from '../../components/DGButton'
-import SettingToggle from '../../components/SettingToggle'
-import SettingClickable from '../../components/SettingClickable'
-import SettingValueClickable from '../../components/SettingValueClickable'
-import SettingRange from '../../components/SettingRange'
-
-import Strings from '../../res/Strings'
-import Theme from '../../res/Theme'
-import SettingSlider from '../../components/SettingSlider'
-
 import MenuBlock from './MenuBlock'
+import BaseComponent from '../../components/BaseComponent'
+import { useNavigation } from 'react-navigation-hooks';
+
+const Logo = React.memo(() => (
+  <Image
+    style={[
+      styles.logo,
+      {
+        marginTop: 60,
+        width: 120,
+        height: 120,
+        alignSelf: 'center'
+      }
+    ]}
+    source={require('../../res/images/ic_icon.png')}
+  />
+))
+
+const Controller = React.memo(({name, action}) => (
+  <TouchableOpacity style={styles.controller} activeOpacity={0.7} onPress={action}>
+    <Icon name={name} color="white" size={56} />
+  </TouchableOpacity>
+))
+
+const ControllerBlock = React.memo(({requestMenuPrevious, requestMenuNext}) => (
+  <View style={styles.controllerBlock}>
+    <Controller name="md-arrow-dropleft" action={requestMenuPrevious} />
+    <Controller name="md-arrow-dropright" action={requestMenuNext} />
+  </View>
+))
+
+const Ads = React.memo(() => <View style={styles.ads} />)
+
+const Body = React.memo(() => {
+
+  const menuBlock = React.useRef(null)
+  const { navigate } = useNavigation()
+
+  const onRequestGoToPlay = () => {}
+
+  const onRequestGoToChallenge = () => {
+    navigate('Challenge')
+  }
+
+  const onRequestGoToScores = () => {}
+
+  const requestMenuNext = () => {
+    if (menuBlock && menuBlock.current && menuBlock.current.requestNext) {
+      menuBlock.current.requestNext()
+    }
+  }
+
+  const requestMenuPrevious = () => {
+    if (menuBlock && menuBlock.current && menuBlock.current.requestPrevious) {
+      menuBlock.current.requestPrevious()
+    }
+  }
+
+  return (
+    <View style={styles.body}>
+      <MenuBlock 
+        ref={menuBlock}
+        onPlayPress={onRequestGoToPlay}
+        onChallengePress={onRequestGoToChallenge}
+        onScoresPress={onRequestGoToScores}
+      />
+      <ControllerBlock requestMenuNext={requestMenuNext} requestMenuPrevious={requestMenuPrevious}/>
+    </View>
+  )
+})
 
 export default class Menu extends PureComponent {
-  static navigationOptions = { header: null }
-
-  menuBlock = undefined
-
-  requestMenuNext = () => {
-    if (this.menuBlock) {
-      this.menuBlock.requestNext()
-    }
-  }
-
-  requestMenuPrevious = () => {
-    if (this.menuBlock) {
-      this.menuBlock.requestPrevious()
-    }
-  }
-
-  renderLogo() {
-    return (
-      <Image
-        style={[
-          styles.logo,
-          {
-            marginTop: 60,
-            width: 120,
-            height: 120,
-            alignSelf: 'center'
-          }
-        ]}
-        source={require('../../res/images/ic_icon.png')}
-      />
-    )
-  }
-
-  renderAds() {
-    return (
-      <View style={styles.ads} />
-    )
-  }
-
-  renderBody() {
-    return (
-      <View style={styles.body}>
-        <MenuBlock ref={ref => this.menuBlock = ref}/>
-        {this.renderControllerBlock()}
-      </View>
-    )
-  }
-
-  renderControllerBlock() {
-    return (
-      <View style={styles.controllerBlock}>
-        {this.renderController("md-arrow-dropleft", this.requestMenuPrevious)}
-        {this.renderController("md-arrow-dropright", this.requestMenuNext)}
-      </View>
-    )
-  }
-
-  renderController(name, action) {
-    return (
-      <TouchableOpacity style={styles.controller} activeOpacity={0.7} onPress={action}>
-        <Icon name={name} color="white" size={56} />
-      </TouchableOpacity>
-    )
-  }
-
   render() {
     return (
       <BaseComponent>
-        {this.renderLogo()}
-        {this.renderBody()}
-        {this.renderAds()}
+        <Logo />
+        <Body />
+        <Ads />
       </BaseComponent>
     )
   }

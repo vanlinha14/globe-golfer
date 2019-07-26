@@ -72,7 +72,7 @@ export default class Main extends PureComponent {
       <View style={{ height: 44, width: 44, justifyContent: 'center' }}>
         <Image
           style={iconStyle}
-          source={icon}
+          source={require('./res/images/ic_profile_selected.png')}
         />
       </View>
     )
