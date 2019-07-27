@@ -17,7 +17,7 @@ export default class SettingToggle extends PureComponent {
     return (
       <View style={[styles.container, this.props.style]}>
         <View style={styles.subContainer}>
-          <DGText style={styles.title}>{this.props.title}</DGText>
+          {/* <DGText style={styles.title}>{this.props.title}</DGText> */}
           <Switch style={styles.value}/>
         </View>
         {this.renderDescription()}

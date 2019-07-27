@@ -28,11 +28,11 @@ export default class Settings extends PureComponent {
   }
 
   renderTitle() {
-    return <DGText style={styles.title}>{Strings.awesome}</DGText>
+    return <DGText style={styles.title}>{Strings.settings.awesome}</DGText>
   }
 
   renderMessage() {
-    return <DGText style={styles.messgage}>{Strings.setupAccountStep0Message}</DGText>
+    return <DGText style={styles.messgage}>{Strings.settings.setupAccountStep0Message}</DGText>
   }
 
   renderLogo() {
@@ -52,13 +52,13 @@ export default class Settings extends PureComponent {
     let ggSubscriptionButton = <DGButton 
       key="ggSubscriptionButton"
       style={styles.ggButton}
-      text={Strings.getGGSubscription}
+      text={Strings.settings.getGGSubscription}
       onPress={this.onRequestScanCard}
     />
     let ggCreditButton = <DGButton 
       key="ggCreditButton"
       style={styles.ggButton}
-      text={Strings.getGGCredit}
+      text={Strings.settings.getGGCredit}
       onPress={this.onRequestScanCard}
     />
     return [ggSubscriptionButton, ggCreditButton]
@@ -67,19 +67,19 @@ export default class Settings extends PureComponent {
   renderDiscoverBlock() {
     return (
       <View>
-        {this.renderSectionTitle(Strings.settingsDiscover)}
-        {this.renderValueClickableItem(Strings.settingsLocation, "France, Paris")}
-        {this.renderSliderItem(Strings.settingsMaxDistance, "%s km", 1, 100, 40)}
-        {this.renderValueClickableItem(Strings.settingsGender, "Male")}
-        {this.renderRangeItem(Strings.settingsAgeRange, 18, 50, [22, 40])}
-        {this.renderRangeItem(Strings.settingsIndexRange, 18, 50, [22, 40])}
+        {this.renderSectionTitle(Strings.settings.discover)}
+        {this.renderValueClickableItem(Strings.settings.location, "France, Paris")}
+        {this.renderSliderItem(Strings.settings.maxDistance, "%s km", 1, 100, 40)}
+        {this.renderValueClickableItem(Strings.settings.gender, "Male")}
+        {this.renderRangeItem(Strings.settings.ageRange, 18, 50, [22, 40])}
+        {this.renderRangeItem(Strings.settings.indexRange, 18, 50, [22, 40])}
       </View>
     )
   }
 
   renderVisibilityBlock() {
-    let showGG = this.renderToggleItem(Strings.settingsShowMeOnGG, Strings.settingsShowMeOnGGMessage)
-    let swipeFriend = this.renderToggleItem(Strings.settingSwipeWithFriends, Strings.settingSwipeWithFriendsMessage)
+    let showGG = this.renderToggleItem(Strings.settings.showMeOnGG, Strings.settings.settingsShowMeOnGGMessage)
+    let swipeFriend = this.renderToggleItem(Strings.settings.swipeWithFriends, Strings.settings.settingSwipeWithFriendsMessage)
 
     return [showGG, swipeFriend]
   }
@@ -87,8 +87,8 @@ export default class Settings extends PureComponent {
   renderWebProfileBlock() {
     return (
       <View>
-        {this.renderSectionTitle(Strings.settingWebProfile)}
-        {this.renderValueClickableItem(Strings.settingsUsername, "Aeron")}
+        {this.renderSectionTitle(Strings.settings.webProfile)}
+        {this.renderValueClickableItem(Strings.settings.username, "Aeron")}
       </View>
     )
   }
@@ -96,13 +96,13 @@ export default class Settings extends PureComponent {
   renderNotificationBlock() {
     return (
       <View>
-        {this.renderSectionTitle(Strings.settingsNotification)}
-        {this.renderToggleItem(Strings.settingsNewChallengesPut)}
-        {this.renderToggleItem(Strings.settingsNewChallengesChipAndPut)}
-        {this.renderToggleItem(Strings.settingsNewChallenges9Holes)}
-        {this.renderToggleItem(Strings.settingsNewChallenges18Holes)}
-        {this.renderToggleItem(Strings.settingsMessages)}
-        {this.renderToggleItem(Strings.settingsValidationCard)}
+        {this.renderSectionTitle(Strings.settings.notifications)}
+        {this.renderToggleItem(Strings.settings.settingsNewChallengesPut)}
+        {this.renderToggleItem(Strings.settings.settingsNewChallengesChipAndPut)}
+        {this.renderToggleItem(Strings.settings.settingsNewChallenges9Holes)}
+        {this.renderToggleItem(Strings.settings.settingsNewChallenges18Holes)}
+        {this.renderToggleItem(Strings.settings.settingsMessages)}
+        {this.renderToggleItem(Strings.settings.settingsValidationCard)}
       </View>
     )
   }
@@ -110,10 +110,10 @@ export default class Settings extends PureComponent {
   renderContactUsBlock() {
     return (
       <View>
-        {this.renderSectionTitle(Strings.settingsContactUs)}
-        {this.renderClickableItem(Strings.settingsHelpAndSuppport)}
-        {this.renderClickableItem(Strings.settingsRateUs)}
-        {this.renderClickableItem(Strings.settingShareGG)} 
+        {this.renderSectionTitle(Strings.settings.contactUs)}
+        {this.renderClickableItem(Strings.settings.settingsHelpAndSuppport)}
+        {this.renderClickableItem(Strings.settings.settingsRateUs)}
+        {this.renderClickableItem(Strings.settings.settingShareGG)} 
       </View>
     )
   }
@@ -121,10 +121,10 @@ export default class Settings extends PureComponent {
   renderLegalBlock() {
     return (
       <View>
-        {this.renderSectionTitle(Strings.settingsLegal)}
-        {this.renderClickableItem(Strings.settingsPrivacyPolicy, "flex-start")}
-        {this.renderClickableItem(Strings.settingsTermsOfService, "flex-start")}
-        {this.renderClickableItem(Strings.settingsLicenses, "flex-start")} 
+        {this.renderSectionTitle(Strings.settings.legal)}
+        {this.renderClickableItem(Strings.settings.settingsPrivacyPolicy, "flex-start")}
+        {this.renderClickableItem(Strings.settings.settingsTermsOfService, "flex-start")}
+        {this.renderClickableItem(Strings.settings.settingsLicenses, "flex-start")} 
       </View>
     )
   }
@@ -133,7 +133,7 @@ export default class Settings extends PureComponent {
     return (
       <View>
         {this.renderSeparator()}
-        {this.renderClickableItem(Strings.settingLogout)} 
+        {this.renderClickableItem(Strings.settings.settingLogout)} 
       </View>
     )
   }
@@ -142,7 +142,7 @@ export default class Settings extends PureComponent {
     return (
       <View>
         {this.renderSeparator()}
-        {this.renderClickableItem(Strings.settingDeleteAccount)} 
+        {this.renderClickableItem(Strings.settings.settingDeleteAccount)} 
       </View>
     )
   }
@@ -166,7 +166,7 @@ export default class Settings extends PureComponent {
       title={title}
       valueTemplate={valueTemplate}
       min={min}
-      max={max}
+      max={max} 
       value={value}
     />
     return this.renderItemWithSeparator(item)
@@ -222,7 +222,7 @@ export default class Settings extends PureComponent {
   render() {
     return (
       <BaseComponent toolbar={{
-        title: Strings.settings
+        title: Strings.settings.title
       }} >
         <KeyboardAwareScrollView contentContainerStyle={{ paddingTop: 24 }}>
           {this.renderTopBlock()}
