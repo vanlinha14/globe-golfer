@@ -2,15 +2,17 @@ import React from 'react'
 import { FlatList } from 'react-native'
 import CardBasicInfo from './CardBasicInfo.gridmode'
 
-const GridMode = React.memo(({data}) => {
+const GridMode = React.memo(({data, onItemSelected}) => {
   const keyExtractor = (_, index) => "grid item " + index
 
-  const renderItem = ({item}) => (
+  const renderItem = ({item, index}) => (
     <CardBasicInfo
+      index={index}
       avatar={item.avatar} 
       name={item.name} 
       location={item.location} 
       rating={item.rating}
+      onPress={onItemSelected}
     />
   );
 

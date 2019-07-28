@@ -3,7 +3,7 @@ import React from 'react'
 import Swiper from 'react-native-deck-swiper'
 import Card from './Card';
 
-const TinderMode = React.memo(({data}) => (
+const TinderMode = React.memo(({data, showingItemIndex}) => (
   <Swiper
     cards={data}
     renderCard={(card) => <Card card={card} />}
@@ -12,7 +12,7 @@ const TinderMode = React.memo(({data}) => (
     verticalSwipe={false}
     onSwiped={(cardIndex) => {console.log(cardIndex)}}
     onSwipedAll={() => {console.log('onSwipedAll')}}
-    cardIndex={0}
+    cardIndex={showingItemIndex}
     backgroundColor={Theme.mainBackground}
     stackSize= {3}>
   </Swiper>

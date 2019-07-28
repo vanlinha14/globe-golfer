@@ -1,13 +1,17 @@
 import React from 'react'
-import { View, Image, Dimensions } from 'react-native'
+import { View, Image, Dimensions, TouchableOpacity } from 'react-native'
 import DGText from '@components/DGText'
 import CardRatingBar from './CardRatingBar'
 
 const windowWidth = Dimensions.get('window').width
 
-const CardBasicInfo = React.memo(({ avatar, name, location, rating }) => {
+const CardBasicInfo = React.memo(({ index, avatar, name, location, rating, onPress }) => {
   return (
-    <View style={{ alignItems: 'center', marginTop: 20, width: windowWidth / 2 }}>
+    <TouchableOpacity 
+      style={{ alignItems: 'center', marginTop: 20, width: windowWidth / 2 }}
+      activeOpacity={0.7}
+      onPress={() => { onPress(index) }}
+    >
       <Image 
         style={{ 
           width: windowWidth / 2 - 40, 
@@ -32,7 +36,7 @@ const CardBasicInfo = React.memo(({ avatar, name, location, rating }) => {
         }}>{location}</DGText>
         <CardRatingBar small={true} star={rating} />
       </View>
-    </View>
+    </TouchableOpacity>
   )
 })
 

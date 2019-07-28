@@ -94,6 +94,7 @@ export default class Challenge extends PureComponent {
 
   state = {
     isGridMode: false,
+    showingItemIndex: undefined
   }
 
   onViewModeChanged = () => {
@@ -102,12 +103,23 @@ export default class Challenge extends PureComponent {
     })
   }
 
+  onCardBasicInfoPress = (index) => {
+    this.setState({
+      isGridMode: false,
+      showingItemIndex: index
+    })
+  }
+
   render() {
     return (
       <View style={styles.container}>
         <Header isOn={this.state.isGridMode} onViewModeChanged={this.onViewModeChanged} />
         <View style={{ flex: 1 }}>
-          {this.state.isGridMode ? <GridMode data={dummydata} /> : <TinderMode data={dummydata}/>}
+          {
+            this.state.isGridMode ? 
+              <GridMode data={dummydata} onItemSelected={this.onCardBasicInfoPress} /> 
+              : 
+              <TinderMode data={dummydata} showingItemIndex={this.state.showingItemIndex} />}
         </View>
       </View>
     )
