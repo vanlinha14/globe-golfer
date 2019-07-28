@@ -107,6 +107,11 @@ const registerFinal = {
   message: "Your profile look great, ready to look around."
 }
 
+const challenge = {
+  notYet: "NOT YET",
+  challenge: "CHALLENGE"
+}
+
 export default Strings = {
   appName: "Golf Global",
   registration: "Registration",
@@ -134,5 +139,6 @@ export default Strings = {
   button,
   settings,
   register,
-  login
+  login,
+  challenge
 }

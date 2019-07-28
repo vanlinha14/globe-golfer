@@ -6,8 +6,8 @@ const CardMetaData = React.memo(({data}) => {
   return (
     <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
       {
-        data.map(element => {
-          return <CardMetaItem data={element} />
+        data.map((element, index) => {
+          return <CardMetaItem key={"card meta item " + index} data={element} />
         })
       }
     </View>
