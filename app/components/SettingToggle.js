@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, Switch } from 'react-native'
 
 import DGText from './DGText'
 import Theme from '../res/Theme'
+import Toggler from './Toggler';
 
 export default class SettingToggle extends PureComponent {
 
@@ -17,8 +18,8 @@ export default class SettingToggle extends PureComponent {
     return (
       <View style={[styles.container, this.props.style]}>
         <View style={styles.subContainer}>
-          {/* <DGText style={styles.title}>{this.props.title}</DGText> */}
-          <Switch style={styles.value}/>
+          <DGText style={styles.title}>{this.props.title}</DGText>
+          <Toggler style={styles.value}/>
         </View>
         {this.renderDescription()}
       </View>

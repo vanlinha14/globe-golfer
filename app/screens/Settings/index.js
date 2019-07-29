@@ -19,58 +19,23 @@ import SettingSlider from '../../components/SettingSlider'
 export default class Settings extends PureComponent {
   static navigationOptions = { header: null }
 
-  onRequestScanCard = () => {
-    this.props.navigation.navigate("SetupAccountStepInputScannedCard")
-  }
-
-  onRequestEnterManual = () => {
-    this.props.navigation.navigate("SetupAccountStepInputIndex")
-  }
-
-  renderTitle() {
-    return <DGText style={styles.title}>{Strings.settings.awesome}</DGText>
-  }
-
-  renderMessage() {
-    return <DGText style={styles.messgage}>{Strings.settings.setupAccountStep0Message}</DGText>
-  }
-
-  renderLogo() {
-
-  }
-
-  renderBody() {
-    return (
-      <View style={styles.body}>
-        {this.renderTitle()}
-        {this.renderMessage()}
-      </View>
-    )
-  }
-
   renderTopBlock() {
     let ggSubscriptionButton = <DGButton 
-      key="ggSubscriptionButton"
       style={styles.ggButton}
       text={Strings.settings.getGGSubscription}
       onPress={this.onRequestScanCard}
     />
-    let ggCreditButton = <DGButton 
-      key="ggCreditButton"
-      style={styles.ggButton}
-      text={Strings.settings.getGGCredit}
-      onPress={this.onRequestScanCard}
-    />
-    return [ggSubscriptionButton, ggCreditButton]
+    return [ggSubscriptionButton]
   }
 
   renderDiscoverBlock() {
     return (
       <View>
-        {this.renderSectionTitle(Strings.settings.discover)}
-        {this.renderValueClickableItem(Strings.settings.location, "France, Paris")}
+        {this.renderSectionTitle(Strings.settings.defaultSettings)}
+        {this.renderValueClickableItem(Strings.settings.location, "France")}
+        {this.renderValueClickableItem(Strings.settings.region, "Paris")}
+        {this.renderValueClickableItem(Strings.settings.club, "Limousin")}
         {this.renderSliderItem(Strings.settings.maxDistance, "%s km", 1, 100, 40)}
-        {this.renderValueClickableItem(Strings.settings.gender, "Male")}
         {this.renderRangeItem(Strings.settings.ageRange, 18, 50, [22, 40])}
         {this.renderRangeItem(Strings.settings.indexRange, 18, 50, [22, 40])}
       </View>
@@ -78,10 +43,9 @@ export default class Settings extends PureComponent {
   }
 
   renderVisibilityBlock() {
-    let showGG = this.renderToggleItem(Strings.settings.showMeOnGG, Strings.settings.settingsShowMeOnGGMessage)
-    let swipeFriend = this.renderToggleItem(Strings.settings.swipeWithFriends, Strings.settings.settingSwipeWithFriendsMessage)
+    let showGG = this.renderToggleItem(Strings.settings.showMeOnGG.title, Strings.settings.showMeOnGG.message)
 
-    return [showGG, swipeFriend]
+    return showGG
   }
 
   renderWebProfileBlock() {
@@ -96,13 +60,9 @@ export default class Settings extends PureComponent {
   renderNotificationBlock() {
     return (
       <View>
-        {this.renderSectionTitle(Strings.settings.notifications)}
-        {this.renderToggleItem(Strings.settings.settingsNewChallengesPut)}
-        {this.renderToggleItem(Strings.settings.settingsNewChallengesChipAndPut)}
-        {this.renderToggleItem(Strings.settings.settingsNewChallenges9Holes)}
-        {this.renderToggleItem(Strings.settings.settingsNewChallenges18Holes)}
-        {this.renderToggleItem(Strings.settings.settingsMessages)}
-        {this.renderToggleItem(Strings.settings.settingsValidationCard)}
+        {this.renderSectionTitle(Strings.settings.notifications.title)}
+        {this.renderToggleItem(Strings.settings.notifications.messages)}
+        {this.renderToggleItem(Strings.settings.notifications.globeGolfer)}
       </View>
     )
   }
@@ -111,9 +71,9 @@ export default class Settings extends PureComponent {
     return (
       <View>
         {this.renderSectionTitle(Strings.settings.contactUs)}
-        {this.renderClickableItem(Strings.settings.settingsHelpAndSuppport)}
-        {this.renderClickableItem(Strings.settings.settingsRateUs)}
-        {this.renderClickableItem(Strings.settings.settingShareGG)} 
+        {this.renderClickableItem(Strings.settings.helpAndSupport)}
+        {this.renderClickableItem(Strings.settings.rateUs)}
+        {this.renderClickableItem(Strings.settings.shareGG)} 
       </View>
     )
   }
@@ -122,9 +82,10 @@ export default class Settings extends PureComponent {
     return (
       <View>
         {this.renderSectionTitle(Strings.settings.legal)}
-        {this.renderClickableItem(Strings.settings.settingsPrivacyPolicy, "flex-start")}
-        {this.renderClickableItem(Strings.settings.settingsTermsOfService, "flex-start")}
-        {this.renderClickableItem(Strings.settings.settingsLicenses, "flex-start")} 
+        {this.renderClickableItem(Strings.settings.privacyPolicy, "flex-start")}
+        {this.renderClickableItem(Strings.settings.termOfService, "flex-start")}
+        {this.renderClickableItem(Strings.settings.rulesAndEtiquettes, "flex-start")} 
+        {this.renderClickableItem(Strings.settings.licenses, "flex-start")}
       </View>
     )
   }
@@ -132,8 +93,9 @@ export default class Settings extends PureComponent {
   renderLogoutBlock() {
     return (
       <View>
-        {this.renderSeparator()}
-        {this.renderClickableItem(Strings.settings.settingLogout)} 
+        {this.renderClickableItem(Strings.settings.changePassword)} 
+        {this.renderClickableItem(Strings.settings.logout)} 
+        {this.renderClickableItem(Strings.settings.deleteAccount)} 
       </View>
     )
   }
@@ -142,7 +104,7 @@ export default class Settings extends PureComponent {
     return (
       <View>
         {this.renderSeparator()}
-        {this.renderClickableItem(Strings.settings.settingDeleteAccount)} 
+        {this.renderClickableItem(Strings.settings.deleteAccount)} 
       </View>
     )
   }
@@ -156,7 +118,7 @@ export default class Settings extends PureComponent {
       max={max}
       value={value}
     />
-    return this.renderItemWithSeparator(item)
+    return item;
   }
 
   renderSliderItem(title, valueTemplate, min, max, value) {
@@ -169,26 +131,26 @@ export default class Settings extends PureComponent {
       max={max} 
       value={value}
     />
-    return this.renderItemWithSeparator(item)
+    return item;
   }
 
   renderValueClickableItem(title, value) {
     let item = <SettingValueClickable
       key="value clickable item" 
-      style={{ paddingBottom: 4, paddingTop: 16 }}
+      style={{ paddingBottom: 12, paddingTop: 16 }}
       title={title}
       value={value}
       />
-    return this.renderItemWithSeparator(item)
+    return item;
   }
 
   renderClickableItem(title, align) {
     let item = <SettingClickable 
       key="clickable item" 
       titleAlign={align ? align : 'center'}
-      style={{ paddingBottom: 4, paddingTop: 16 }}
+      style={{ paddingBottom: 8, paddingTop: 16 }}
       title={title} />
-    return this.renderItemWithSeparator(item)
+    return item;
   }
 
   renderToggleItem(title, description) {
@@ -198,7 +160,7 @@ export default class Settings extends PureComponent {
       title={title}
       description={description}
     />
-    return this.renderItemWithSeparator(item)
+    return item;
   }
 
   renderSectionTitle(title) {
@@ -222,16 +184,15 @@ export default class Settings extends PureComponent {
   render() {
     return (
       <BaseComponent toolbar={{
-        title: Strings.settings.title
-      }} >
+        title: Strings.settings.title,
+        onBack: () => this.props.navigation.goBack()
+      }}>
         <KeyboardAwareScrollView contentContainerStyle={{ paddingTop: 24 }}>
           {this.renderTopBlock()}
           {this.renderSeparator()}
           {this.renderSpacing(44)}
           {this.renderDiscoverBlock()}
           {this.renderVisibilityBlock()}
-          {this.renderSpacing(44)}
-          {this.renderWebProfileBlock()}
           {this.renderSpacing(44)}
           {this.renderNotificationBlock()}
           {this.renderSpacing(44)}
@@ -241,7 +202,6 @@ export default class Settings extends PureComponent {
           {this.renderSpacing(44)}
           {this.renderLogoutBlock()}
           {this.renderSpacing(44)}
-          {this.renderDeleteAccountBlock()}
         </KeyboardAwareScrollView>
       </BaseComponent>
     )

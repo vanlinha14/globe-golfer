@@ -11,6 +11,7 @@ export default class BaseComponent extends PureComponent {
       return (
         <Toolbar 
           title={toolbar.title}
+          onBack={toolbar.onBack}
         />
       )
     }

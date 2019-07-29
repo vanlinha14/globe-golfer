@@ -4,7 +4,7 @@ import { View } from 'react-native'
 import Icon from 'react-native-vector-icons/Ionicons'
 import { useNavigation } from 'react-navigation-hooks'
 import FlexSpacing from './FlexSpacing'
-import Toggler from './Toggler'
+import Toggler from '@components/Toggler';
 
 const HeaderIcon = React.memo(({name, action}) => (
   <Icon 

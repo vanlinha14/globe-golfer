@@ -4,7 +4,7 @@ export default Theme = {
   buttonSecondary: "#8D8D8D",
   textWhite: "#FFFFFF",
   textGray: "#BFBFBF",
-  toolbarTitle: "#d66a28",
+  toolbarTitle: "#FFFFFF",
   separator: "#BFBFBF",
   sliderColor: "#d66a28",
   valid: "#AFF8DB",

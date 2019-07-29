@@ -45,7 +45,15 @@ export default class SettingRange extends PureComponent {
             backgroundColor: Theme.separator,
           }}
           selectedStyle={{
-              backgroundColor: Theme.sliderColor,
+            backgroundColor: Theme.sliderColor,
+          }}
+          markerStyle={{
+            backgroundColor: 'white',
+          }}
+          pressedMarkerStyle={{
+            width: 48,
+            height: 48,
+            borderRadius: 24,
           }}
         />
       </View>
