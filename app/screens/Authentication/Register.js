@@ -61,6 +61,7 @@ export default class Register extends PureComponent {
 
   renderLoginFacebookButton() {
     return this.renderSocialButton(
+      false,
       '#4267b2', 
       <Icon 
         style={styles.socialIcon} 
@@ -76,38 +77,41 @@ export default class Register extends PureComponent {
 
   renderLoginGoogleButton() {
     return this.renderSocialButton(
-      'white',
+      true,
+      Theme.mainBackground,
       <Image 
         style={[styles.socialIcon, { width: 30, height: 30 }]} 
         source={require('../../res/images/ic_google.png')}
       />,
       Strings.register.google, 
-      'black',
+      'white',
       this.onRequestLoginWithGoogle
     )
   }
 
   renderEmailButton() {
     return this.renderSocialButton(
-      'white', 
+      true,
+      Theme.mainBackground, 
       <Icon 
         style={[styles.socialIcon, { width: 40, height: 30, marginLeft: 2 }]} 
         name='md-mail' 
         size={30} 
-        color='black'
+        color='white'
       />,
       Strings.register.email, 
-      'black',
+      'white',
       this.onRequestGoToInputEmail
     )
   }
 
-  renderSocialButton(background, logo, text, textColor, action) {
+  renderSocialButton(isShowBorder, background, logo, text, textColor, action) {
     return (
       <TouchableOpacity 
         style={[
           styles.socialButtonContainer, 
-          { backgroundColor: background }
+          { backgroundColor: background },
+          { borderWidth: isShowBorder ? 1 : 0 }
         ]} activeOpacity={0.7} onPress={action}>
         {logo}
         <DGText style={[styles.socialText, {color: textColor}]}>{text}</DGText>
@@ -220,10 +224,11 @@ const styles = StyleSheet.create({
     marginBottom: 12,
     marginLeft: 16,
     marginRight: 16,
-    borderRadius: 4,
     paddingLeft: 8,
     paddingRight: 8,
-    justifyContent: 'center'
+    justifyContent: 'center',
+    borderWidth: 1,
+    borderColor: 'white'
   },
   socialIcon: {
     width: 40,

@@ -67,9 +67,9 @@ const button = {
 }
 
 const register = {
-  facebook: "Register with Facebook",
-  google: "Register with Google Account",
-  email: "Register with your e-mail",
+  facebook: "Continue with Facebook",
+  google: "Continue with Google Account",
+  email: "Continue with your e-mail",
   alreadyMember: "Already member? Connection"
 }
 

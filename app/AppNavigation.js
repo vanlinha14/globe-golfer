@@ -150,9 +150,8 @@ const setupAccountNavigator = {
 }
 
 const AppNavigator = createStackNavigator({
-  Main,
-  VeryFirstScreen,
   Authentication,
+  Main,
   Settings,
   ...loginNavigator,
   ...setupAccountNavigator

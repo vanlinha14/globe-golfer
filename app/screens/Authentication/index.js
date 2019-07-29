@@ -7,7 +7,7 @@ export default class Authentication extends PureComponent {
   constructor(props) {
     super(props)
 
-    props.navigation.replace("Login")
+    props.navigation.replace("Register")
   }
 
   render() {
