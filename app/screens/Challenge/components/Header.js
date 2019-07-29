@@ -33,7 +33,8 @@ const Header = React.memo(({isOn, onViewModeChanged}) => {
       justifyContent: 'center',
       alignItems: 'center',
       paddingHorizontal: 16,
-      paddingVertical: 12
+      paddingVertical: 12,
+      marginTop: 20
     }}>
       <HeaderIcon name={"ios-home"} action={onGoBack}/>
       <FlexSpacing />

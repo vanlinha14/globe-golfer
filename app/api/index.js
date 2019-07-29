@@ -3,7 +3,8 @@ import {
   DUMMY_COUNTRY, 
   DUMMY_REGION, 
   DUMMY_CLUB,
-  DUMMY_AUTHENTICATION
+  DUMMY_AUTHENTICATION,
+  DUMMY_CHALLENGE
 } from './DummyData'
 
 export default class Api extends Base {
@@ -68,6 +69,14 @@ export default class Api extends Base {
     return new Promise((resolve, rejecter) => {
       setTimeout(() => {
         resolve(DUMMY_AUTHENTICATION)
+      }, 1000);
+    })
+  }
+
+  getChallenges() {
+    return new Promise((resolve, rejecter) => {
+      setTimeout(() => {
+        resolve(DUMMY_CHALLENGE)
       }, 1000);
     })
   }

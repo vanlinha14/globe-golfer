@@ -18,6 +18,7 @@ const GridMode = React.memo(({data, onItemSelected}) => {
 
   return (
     <FlatList 
+      style={{ alignSelf: 'center' }}
       keyExtractor={keyExtractor}
       data={data}
       numColumns={2}

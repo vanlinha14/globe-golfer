@@ -99,7 +99,6 @@ const styles = StyleSheet.create({
     height: '30%'
   },
   ads: {
-    backgroundColor: '#000000',
     height: '30%'
   },
   controllerBlock: {

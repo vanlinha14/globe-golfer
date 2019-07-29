@@ -38,13 +38,13 @@ import { createStackNavigator, createAppContainer, createBottomTabNavigator } fr
 
 const iconStyle = {
   alignSelf: 'center',
-  width: 50,
-  height: 50
+  width: 44,
+  height: 44
 }
 
 const TabBarIcon = React.memo(({selectedIcon, unselectedIcon, isSelected}) => {
   return (
-    <View style={{ height: 44, width: 44, justifyContent: 'center' }}>
+    <View style={{ height: 56, width: 56, justifyContent: 'center' }}>
       <Image
         style={iconStyle}
         source={isSelected ? selectedIcon : unselectedIcon}
@@ -131,7 +131,7 @@ const Main = createBottomTabNavigator({
   tabBarOptions: {
   showIcon: true,
   showLabel: false,
-  style: { backgroundColor: Theme.tabBarBackground }
+  style: { backgroundColor: Theme.tabBarBackground, height: 60 }
 }})
 
 const setupAccountNavigator = {
