@@ -25,6 +25,10 @@ class LoginWithEmail extends PureComponent {
     if (authenData.isLoading == false && authenData.accessToken) {
       this.props.navigation.navigate("Main")
     }
+
+    if (authenData.isLoading == false && authenData.accessToken == null) {
+      alert("login error")
+    }
   }
 
   onRequestLogin = () => {

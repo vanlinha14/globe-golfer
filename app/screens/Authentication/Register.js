@@ -49,7 +49,7 @@ export default class Register extends PureComponent {
     GoogleSignin.signIn().then(user => {
       //got the user info, move on
       this.props.navigation.navigate("SetupAccountStepInputScannedCard")
-    })
+    }).catch(e => alert(e))
   }
 
   onRequestGoToLogin = () => {

@@ -6,6 +6,8 @@ import {
   DUMMY_AUTHENTICATION,
   DUMMY_CHALLENGE
 } from './DummyData'
+import { LOGIN } from './Endpoints';
+import LoginBinder from './Binders/Login';
 
 export default class Api extends Base {
   static _instance = null
@@ -50,11 +52,11 @@ export default class Api extends Base {
   }
 
   login(email, password) {
-    return new Promise((resolve, rejecter) => {
-      setTimeout(() => {
-        resolve(DUMMY_AUTHENTICATION)
-      }, 1000);
+    const body = JSON.stringify({
+      username : email,
+	    password : password
     })
+    return this.callPost(LOGIN, body, new LoginBinder())
   }
 
   loginGoogle(user) {

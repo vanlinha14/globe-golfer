@@ -24,7 +24,7 @@ export default authenticationReducer = (state = initialState, action) => {
         isLoading: true,
         accessToken: null
       }
-    case LOGIN_FINISH: 
+    case LOGIN_FINISH:
       return {
         isLoading: false,
         accessToken: action.payload.accessToken
@@ -33,6 +33,11 @@ export default authenticationReducer = (state = initialState, action) => {
       return {
         isLoading: false,
         accessToken: action.payload.accessToken
+      }
+    case LOGIN_ERROR:
+      return {
+        isLoading: false,
+        accessToken: null
       }
     default:
       return state

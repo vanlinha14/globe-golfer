@@ -26,7 +26,14 @@ export function loginWithEmail(email, password) {
     dispatch(loginBegin())
     return Api.instance()
       .login(email, password)
-      .then(authenData => dispatch(loginFinish(authenData)))
+      .then(authenData => {
+        if (authenData.result === true) {
+          dispatch(loginFinish(authenData))
+        }
+        else {
+          dispatch(loginError("error just fail"))
+        }
+      })
       .catch(error => dispatch(loginError(error)))
   }
 }

@@ -20,7 +20,7 @@ export function emailValidationFunction(text) {
 }
 
 export function passwordValidationFunction(text) {
-  if (text.length >= 8) {
+  if (text.length >= 6) {
     return INPUT_STATUS.VALID
   }
   
