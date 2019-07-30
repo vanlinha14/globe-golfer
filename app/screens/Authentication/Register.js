@@ -9,8 +9,8 @@ import {
 
 import { GoogleSignin } from 'react-native-google-signin'
 import { LoginManager, AccessToken } from "react-native-fbsdk"
+import Modal from 'react-native-modal'
 import DGText from '../../components/DGText'
-import DGButton from '../../components/DGButton'
 import Strings from '../../res/Strings'
 import Theme from '../../res/Theme'
 import Intro from '../../components/Intro'
@@ -20,8 +20,20 @@ import Icon from 'react-native-vector-icons/Ionicons'
 export default class Register extends PureComponent {
   static navigationOptions = { header: null }
 
+  state = {
+    visibleModal: undefined
+  }
+
   onRequestGoToInputEmail = () => {
-    this.props.navigation.navigate("SetupAccountStepInputEmail")
+    this.setState({
+      visibleModal: undefined
+    }, () => this.props.navigation.navigate("SetupAccountStepInputEmail") )
+  }
+
+  onRequestConfirmGoToInputEmail = () => {
+    this.setState({
+      visibleModal: "email"
+    })
   }
 
   onRequestLoginWithFacebook = () => {
@@ -45,7 +57,7 @@ export default class Register extends PureComponent {
   }
 
   onRequestLoginWithGoogle = () => {
-    GoogleSignin.configure()
+    GoogleSignin.configure({ webClientId: '150393205713-niluqkkcdf6kir5trl7odkfdoe7aeqio.apps.googleusercontent.com' })
     GoogleSignin.signIn().then(user => {
       //got the user info, move on
       this.props.navigation.navigate("SetupAccountStepInputScannedCard")
@@ -116,7 +128,7 @@ export default class Register extends PureComponent {
       />,
       Strings.register.email, 
       'white',
-      this.onRequestGoToInputEmail
+      this.onRequestConfirmGoToInputEmail
     )
   }
 
@@ -200,21 +212,40 @@ export default class Register extends PureComponent {
     )
   }
 
-  renderFooter() {
-    return (
-      <View style={styles.footerContainer}>
-        <DGButton 
-          style={{ backgroundColor: Theme.buttonPrimary, marginBottom: 16 }}
-          text={Strings.scanCard}
-          onPress={this.onRequestScanCard}
-          />
-        <DGButton 
-          style={{ backgroundColor: Theme.buttonSecondary }}
-          text={Strings.dontHaveCard}
-          onPress={this.onRequestEnterManual}
-          />
-      </View>
+  renderModals() {
+    const regularEmailModal = (
+      <Modal 
+        isVisible={this.state.visibleModal === "email"}
+        animationIn='fadeIn'
+        animationOut='fadeOut'
+        onBackdropPress={() => this.setState({visibleModal: undefined})}
+        onBackButtonPress={() => this.setState({visibleModal: undefined})}
+        >
+          <View style={{
+            backgroundColor: 'white',
+            borderRadius: 4,
+            paddingHorizontal: 16,
+            paddingVertical: 12
+          }}>
+          <DGText style={{
+            fontSize: 24,
+            fontWeight: 'bold',
+          }}>Please accept our conditions</DGText>
+          <DGText>By signing up, you agree to our term of use. Remember our condifdentiality policy</DGText>
+          <TouchableOpacity 
+            style={[
+              { height: 44, justifyContent: 'center', alignItems: 'center' },
+              { marginTop: 20 },
+              { backgroundColor: Theme.buttonPrimary },
+              { borderWidth: 0 }
+            ]} activeOpacity={0.7} onPress={this.onRequestGoToInputEmail}>
+            <DGText style={[styles.socialText, {color: 'white', fontWeight: 'bold'}]}>Accept and Register</DGText>
+          </TouchableOpacity>
+        </View>
+      </Modal>
     )
+
+    return regularEmailModal
   }
 
   render() {
@@ -223,6 +254,7 @@ export default class Register extends PureComponent {
         {this.renderLogo()}
         {this.renderIntroBlock()}
         {this.renderControls()}
+        {this.renderModals()}
       </ScrollView>
     )
   }
