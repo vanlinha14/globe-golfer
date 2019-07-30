@@ -1,14 +1,19 @@
 import React, { PureComponent } from 'react'
-import { View, Image, StyleSheet, TouchableOpacity } from 'react-native'
+import { 
+  View, 
+  Image, 
+  StyleSheet, 
+  TouchableOpacity, 
+  ScrollView
+} from 'react-native'
 
 import { GoogleSignin } from 'react-native-google-signin'
 import { LoginManager, AccessToken } from "react-native-fbsdk"
-
-import BaseComponent from '../../components/BaseComponent'
 import DGText from '../../components/DGText'
 import DGButton from '../../components/DGButton'
 import Strings from '../../res/Strings'
 import Theme from '../../res/Theme'
+import Intro from '../../components/Intro'
 
 import Icon from 'react-native-vector-icons/Ionicons'
 
@@ -51,12 +56,22 @@ export default class Register extends PureComponent {
     this.props.navigation.navigate("Login")
   }
 
-  renderIntroBlock() {
+  renderLogo() {
     return (
-      <View style={{ flex: 1, backgroundColor: Theme.buttonPrimary }}>
-
-      </View>
+      <Image
+        style={{
+          marginTop: 20,
+          width: 120,
+          height: 120,
+          alignSelf: 'center'
+        }}
+        source={require('../../res/images/ic_icon.png')}
+      />
     )
+  }
+
+  renderIntroBlock() {
+    return <Intro />
   }
 
   renderLoginFacebookButton() {
@@ -204,17 +219,17 @@ export default class Register extends PureComponent {
 
   render() {
     return (
-      <BaseComponent>
+      <ScrollView contentContainerStyle={[styles.body, { backgroundColor: Theme.mainBackground }]}>
+        {this.renderLogo()}
         {this.renderIntroBlock()}
         {this.renderControls()}
-      </BaseComponent>
+      </ScrollView>
     )
   }
 }
 
 const styles = StyleSheet.create({
   body: {
-    flex: 1, 
     justifyContent: 'center'
   },
   socialButtonContainer: {
