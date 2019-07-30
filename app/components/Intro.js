@@ -46,7 +46,7 @@ const DotPagination = React.memo(({activeSlide}) => {
         backgroundColor: 'white'
       }}
       inactiveDotOpacity={1}
-      inactiveDotScale={0.6}
+      inactiveDotScale={1}
     />
   )
 })

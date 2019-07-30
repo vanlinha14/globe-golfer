@@ -1,12 +1,18 @@
 import React, { PureComponent } from 'react'
-import { View, Image, StyleSheet, TouchableOpacity } from 'react-native'
+import { 
+  View, 
+  Image, 
+  StyleSheet, 
+  TouchableOpacity,
+  ScrollView
+} from 'react-native'
 
 import { GoogleSignin } from 'react-native-google-signin'
 import { LoginManager, AccessToken } from "react-native-fbsdk"
 import { connect } from 'react-redux'
 import Icon from 'react-native-vector-icons/Ionicons'
 
-import BaseComponent from '../../components/BaseComponent'
+import Intro from '../../components/Intro'
 import DGButton from '../../components/DGButton'
 import Strings from '../../res/Strings'
 import DGText from '../../components/DGText'
@@ -58,16 +64,27 @@ class Login extends PureComponent {
     this.props.navigation.navigate("Register")
   }
 
-  renderIntroBlock() {
+  renderLogo() {
     return (
-      <View style={{ flex: 1, backgroundColor: Theme.buttonPrimary }}>
-
-      </View>
+      <Image
+        style={{
+          marginTop: 20,
+          width: 120,
+          height: 120,
+          alignSelf: 'center'
+        }}
+        source={require('../../res/images/ic_icon.png')}
+      />
     )
+  }
+
+  renderIntroBlock() {
+    return <Intro />
   }
 
   renderLoginFacebookButton() {
     return this.renderSocialButton(
+      false,
       '#4267b2', 
       <Icon 
         style={styles.socialIcon} 
@@ -83,38 +100,41 @@ class Login extends PureComponent {
 
   renderLoginGoogleButton() {
     return this.renderSocialButton(
-      'white',
+      true,
+      Theme.mainBackground,
       <Image 
         style={[styles.socialIcon, { width: 30, height: 30 }]} 
         source={require('../../res/images/ic_google.png')}
       />,
       Strings.login.google, 
-      'black',
+      'white',
       this.onRequestLoginWithGoogle
     )
   }
 
   renderEmailButton() {
     return this.renderSocialButton(
-      'white', 
+      true,
+      Theme.mainBackground, 
       <Icon 
         style={[styles.socialIcon, { width: 40, height: 30, marginLeft: 2 }]} 
         name='md-mail' 
         size={30} 
-        color='black'
+        color='white'
       />,
       Strings.login.email, 
-      'black',
+      'white',
       this.onRequestGoToLoginWithEmail
     )
   }
 
-  renderSocialButton(background, logo, text, textColor, action) {
+  renderSocialButton(isShowBorder, background, logo, text, textColor, action) {
     return (
       <TouchableOpacity 
         style={[
           styles.socialButtonContainer, 
-          { backgroundColor: background }
+          { backgroundColor: background },
+          { borderWidth: isShowBorder ? 1 : 0 }
         ]} activeOpacity={0.7} onPress={action}>
         {logo}
         <DGText style={[styles.socialText, {color: textColor}]}>{text}</DGText>
@@ -207,17 +227,17 @@ class Login extends PureComponent {
 
   render() {
     return (
-      <BaseComponent>
+      <ScrollView contentContainerStyle={[styles.body, { backgroundColor: Theme.mainBackground }]}>
+        {this.renderLogo()}
         {this.renderIntroBlock()}
         {this.renderControls()}
-      </BaseComponent>
+      </ScrollView>
     )
   }
 }
 
 const styles = StyleSheet.create({
   body: {
-    flex: 1, 
     justifyContent: 'center'
   },
   socialButtonContainer: {
@@ -227,10 +247,11 @@ const styles = StyleSheet.create({
     marginBottom: 12,
     marginLeft: 16,
     marginRight: 16,
-    borderRadius: 4,
     paddingLeft: 8,
     paddingRight: 8,
-    justifyContent: 'center'
+    justifyContent: 'center',
+    borderWidth: 1,
+    borderColor: 'white'
   },
   socialIcon: {
     width: 40,
