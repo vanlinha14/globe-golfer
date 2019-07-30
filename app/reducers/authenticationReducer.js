@@ -6,6 +6,7 @@ import {
   REGISTER_FINISH,
   REGISTER_ERROR
 } from '../actions/types'
+import Api from '../api';
 
 const initialState = {
   isLoading: false,
@@ -25,15 +26,18 @@ export default authenticationReducer = (state = initialState, action) => {
         accessToken: null
       }
     case LOGIN_FINISH:
+      const accessToken = action.payload.accessToken
+      Api.instance().setAccessToken(accessToken)
+      return {
+        isLoading: false,
+        accessToken
+      }
+    case REGISTER_FINISH: {
       return {
         isLoading: false,
         accessToken: action.payload.accessToken
       }
-    case REGISTER_FINISH: 
-      return {
-        isLoading: false,
-        accessToken: action.payload.accessToken
-      }
+    }
     case LOGIN_ERROR:
       return {
         isLoading: false,
