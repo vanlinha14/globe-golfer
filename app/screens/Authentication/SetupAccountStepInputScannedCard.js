@@ -13,6 +13,7 @@ import DGButton from '../../components/DGButton'
 import Strings from '../../res/Strings'
 import Theme from '../../res/Theme'
 import DGText from '../../components/DGText'
+import DGButtonV2 from '../../components/DGButtonV2';
 
 export default class SetupAccountStepInputScannedCard extends PureComponent {
   static navigationOptions = { header: null }
@@ -102,8 +103,11 @@ export default class SetupAccountStepInputScannedCard extends PureComponent {
   renderFooter() {
     return (
       <View style={styles.footerContainer}>
-        <DGButton 
-          style={{ backgroundColor: Theme.buttonPrimary }}
+        <DGButtonV2
+          style={{ 
+            width: '80%',
+            backgroundColor: Theme.buttonPrimary 
+          }}
           text={Strings.button.continue}
           onPress={this.requestGoToInputLocation}
           />
@@ -142,8 +146,9 @@ const styles = StyleSheet.create({
     marginTop: 16
   },
   messgage: {
-    color: Theme.textGray,
-    fontSize: 20,
+    fontSize: 26,
+    fontWeight: 'bold',
+    color: 'white',
     marginTop: 24,
     textAlign: 'center'
   },
@@ -156,6 +161,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center'
   },
   centerText: {
+    color: 'white',
     position: 'absolute',
     alignSelf: 'center',
     top: 160
