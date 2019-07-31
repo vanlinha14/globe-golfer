@@ -43,7 +43,8 @@ export default class Register extends PureComponent {
       "This allows us to get some required information from you.", 
       "Continue",
       "Cancel",
-      this.onRequestLoginWithFacebook
+      this.onRequestLoginWithFacebook,
+      () => {}
     )
   }
 
@@ -53,7 +54,8 @@ export default class Register extends PureComponent {
       "This allows us to get some required information from you.", 
       "Continue",
       "Cancel",
-      this.onRequestLoginWithGoogle
+      this.onRequestLoginWithGoogle,
+      () => {}
     )
   }
 
