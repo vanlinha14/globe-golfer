@@ -47,7 +47,13 @@ const settings = {
   }
 }
 
+const toolbar = {
+  back: "Back"
+}
+
 const input = {
+  email: "Email",
+  password: "Password",
   enterEmail: "Enter a valid email address",
   enterPassword: "Enter a valid password",
   tapToSelect: "Tap to select",
@@ -63,7 +69,8 @@ const button = {
   continue: "Continue",
   learnMore: "Learn more",
   active: "Active",
-  discover: "Discover"
+  discover: "Discover",
+  acceptAndContinue: "Accept and Continue"
 }
 
 const register = {
@@ -140,6 +147,7 @@ export default Strings = {
   checkEmail: "Verify your email address",
   or: "or",
   error: "Oops!",
+  toolbar,
   registerFinal,
   avatar,
   activeLocation,
