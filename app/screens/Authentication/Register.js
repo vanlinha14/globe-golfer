@@ -16,6 +16,7 @@ import Theme from '../../res/Theme'
 import Intro from '../../components/Intro'
 
 import Icon from 'react-native-vector-icons/Ionicons'
+import DialogCombination from '../../components/DialogCombination';
 
 export default class Register extends PureComponent {
   static navigationOptions = { header: null }
@@ -25,15 +26,15 @@ export default class Register extends PureComponent {
   }
 
   onRequestGoToInputEmail = () => {
-    this.setState({
-      visibleModal: undefined
-    }, () => this.props.navigation.navigate("SetupAccountStepInputEmail") )
+    this.props.navigation.navigate("SetupAccountStepInputEmail")
   }
 
   onRequestConfirmGoToInputEmail = () => {
-    this.setState({
-      visibleModal: "email"
-    })
+    this.container.showDialog(
+      "Please accept our conditions", 
+      "By signing up, you agree to our term of use. Remember our condifdentiality policy", 
+      "Accept and Register", 
+      this.onRequestGoToInputEmail)
   }
 
   onRequestLoginWithFacebook = () => {
@@ -212,50 +213,13 @@ export default class Register extends PureComponent {
     )
   }
 
-  renderModals() {
-    const regularEmailModal = (
-      <Modal 
-        isVisible={this.state.visibleModal === "email"}
-        animationIn='fadeIn'
-        animationOut='fadeOut'
-        onBackdropPress={() => this.setState({visibleModal: undefined})}
-        onBackButtonPress={() => this.setState({visibleModal: undefined})}
-        >
-          <View style={{
-            backgroundColor: 'white',
-            borderRadius: 4,
-            paddingHorizontal: 16,
-            paddingVertical: 12
-          }}>
-          <DGText style={{
-            fontSize: 24,
-            fontWeight: 'bold',
-          }}>Please accept our conditions</DGText>
-          <DGText>By signing up, you agree to our term of use. Remember our condifdentiality policy</DGText>
-          <TouchableOpacity 
-            style={[
-              { height: 44, justifyContent: 'center', alignItems: 'center' },
-              { marginTop: 20 },
-              { backgroundColor: Theme.buttonPrimary },
-              { borderWidth: 0 }
-            ]} activeOpacity={0.7} onPress={this.onRequestGoToInputEmail}>
-            <DGText style={[styles.socialText, {color: 'white', fontWeight: 'bold'}]}>Accept and Register</DGText>
-          </TouchableOpacity>
-        </View>
-      </Modal>
-    )
-
-    return regularEmailModal
-  }
-
   render() {
     return (
-      <ScrollView contentContainerStyle={[styles.body, { backgroundColor: Theme.mainBackground }]}>
+      <DialogCombination ref={r => this.container = r}>
         {this.renderLogo()}
         {this.renderIntroBlock()}
         {this.renderControls()}
-        {this.renderModals()}
-      </ScrollView>
+      </DialogCombination>
     )
   }
 }
