@@ -37,6 +37,26 @@ export default class Register extends PureComponent {
       this.onRequestGoToInputEmail)
   }
 
+  onRequestConfirmGoToFacebook = () => {
+    this.container.showYesNoDialog(
+      '"GlobeGolfer" want to use "facebook.com" to connect', 
+      "This allows us to get some required information from you.", 
+      "Continue",
+      "Cancel",
+      this.onRequestLoginWithFacebook
+    )
+  }
+
+  onRequestConfirmGoToGoogle = () => {
+    this.container.showYesNoDialog(
+      '"GlobeGolfer" want to use "google.com" to connect', 
+      "This allows us to get some required information from you.", 
+      "Continue",
+      "Cancel",
+      this.onRequestLoginWithGoogle
+    )
+  }
+
   onRequestLoginWithFacebook = () => {
     LoginManager.logInWithPermissions(["public_profile"]).then(
       (result) => {
@@ -99,7 +119,7 @@ export default class Register extends PureComponent {
       />,
       Strings.register.facebook, 
       'white',
-      this.onRequestLoginWithFacebook
+      this.onRequestConfirmGoToFacebook
     )
   }
 
@@ -113,7 +133,7 @@ export default class Register extends PureComponent {
       />,
       Strings.register.google, 
       'white',
-      this.onRequestLoginWithGoogle
+      this.onRequestConfirmGoToGoogle
     )
   }
 
