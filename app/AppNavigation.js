@@ -20,6 +20,8 @@ import SetupAccountStepActiveLocation from './screens/Authentication/SetupAccoun
 import SetupAccountStepInputEmail from './screens/Authentication/SetupAccountStepInputEmail'
 import SetupAccountStepFinal from './screens/Authentication/SetupAccountStepFinal'
 
+import TnC from './screens/Authentication/TnC'
+
 import Settings from './screens/Settings'
 
 import Challenge from './screens/Challenge'
@@ -135,18 +137,19 @@ const Main = createBottomTabNavigator({
 }})
 
 const setupAccountNavigator = {
-  Register: { screen: Register },
-  SetupAccount: { screen: SetupAccount },
-  SetupAccountStepInputIndex: { screen: SetupAccountStepInputIndex },
-  SetupAccountStepInputName: { screen: SetupAccountStepInputName },
-  SetupAccountStepInputBirthday: { screen: SetupAccountStepInputBirthday },
-  SetupAccountStepInputGender: { screen: SetupAccountStepInputGender },
-  SetupAccountStepInputLocation: { screen: SetupAccountStepInputLocation },
-  SetupAccountStepInputScannedCard: { screen: SetupAccountStepInputScannedCard },
-  SetupAccountStepInputAvatar: { screen: SetupAccountStepInputAvatar },
-  SetupAccountStepActiveLocation: { screen: SetupAccountStepActiveLocation },
-  SetupAccountStepInputEmail: { screen: SetupAccountStepInputEmail },
-  SetupAccountStepFinal: { screen: SetupAccountStepFinal }
+  Register,
+  TnC,
+  SetupAccount,
+  SetupAccountStepInputIndex,
+  SetupAccountStepInputName,
+  SetupAccountStepInputBirthday,
+  SetupAccountStepInputGender,
+  SetupAccountStepInputLocation,
+  SetupAccountStepInputScannedCard,
+  SetupAccountStepInputAvatar,
+  SetupAccountStepActiveLocation,
+  SetupAccountStepInputEmail,
+  SetupAccountStepFinal
 }
 
 const AppNavigator = createStackNavigator({

@@ -52,7 +52,7 @@ export default class SetupAccountStepInputEmail extends PureComponent {
   }
 
   onRequestGoToTnC = () => {
-    alert("open TnC")
+    this.props.navigation.navigate('TnC')
   }
 
   renderBody() {
