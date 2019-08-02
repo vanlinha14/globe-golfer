@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react'
-import { View, Image, StyleSheet, Dimensions } from 'react-native'
+import { View, TouchableOpacity, StyleSheet, Dimensions } from 'react-native'
 
 import { emailValidationFunction, passwordValidationFunction, showErrorAlert } from '../../utils'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
@@ -9,10 +9,25 @@ import { INPUT_TYPE } from '../../components/DGInput'
 import { connect } from 'react-redux'
 
 import BaseComponent from '../../components/BaseComponent'
-import TextInputBlock from '../../components/TextInputBlock'
-import DGButton from '../../components/DGButton'
+import TextInputBlockV2 from '../../components/TextInputBlockV2'
+import DGButtonV2 from '../../components/DGButtonV2'
 import Strings from '../../res/Strings'
 import Theme from '../../res/Theme'
+import DGText from '../../components/DGText';
+import { StackActions, NavigationActions } from 'react-navigation';
+
+const Title = React.memo(() => {
+  return (
+    <DGText style={{
+      width: '60%',
+      fontSize: 26,
+      fontWeight: 'bold',
+      color: 'white',
+      marginHorizontal: 16,
+      marginVertical: 12
+    }}>Login with Email address</DGText>
+  )
+})
 
 class LoginWithEmail extends PureComponent {
   static navigationOptions = { header: null }
@@ -23,7 +38,11 @@ class LoginWithEmail extends PureComponent {
   componentWillReceiveProps(nextProps) {
     let authenData = nextProps.authenticationData
     if (authenData.isLoading == false && authenData.accessToken) {
-      this.props.navigation.navigate("Main")
+      this.props.navigation.dispatch(StackActions.reset({
+        index: 0, 
+        key: null, 
+        actions: [NavigationActions.navigate({ routeName: 'Main' })]
+      }));
     }
 
     if (authenData.isLoading == false && authenData.accessToken == null) {
@@ -48,39 +67,30 @@ class LoginWithEmail extends PureComponent {
     this.props.loginWithEmail(email, password)
   }
 
-  renderLogo() {
-    return (
-      <Image
-        style={{
-          marginTop: 60,
-          width: 120,
-          height: 120,
-          alignSelf: 'center'
-        }}
-        source={require('../../res/images/ic_icon.png')}
-      />
-    )
+  onRequestGoToTnC = () => {
+    alert("open TnC")
   }
 
   renderBody() {
-    let email = <TextInputBlock 
+    let email = <TextInputBlockV2
       ref={ref => this.emailTextInput = ref}
-      inputStyle={{ width: '80%', paddingLeft: 8 }} 
-      title={Strings.login.email}
+      title={Strings.input.email}
       placeholder={Strings.input.enterEmail} 
       validateFunction={emailValidationFunction}
       inputAlign="left"
     />
-    let password = <TextInputBlock 
+    let password = <TextInputBlockV2 
       ref={ref => this.passwordTextInput = ref}
-      inputStyle={{ width: '80%', paddingLeft: 8 }} 
+      title={Strings.input.password}
       placeholder={Strings.input.enterPassword}
       validateFunction={passwordValidationFunction}
       inputType={INPUT_TYPE.PASSWORD}
       inputAlign="left"
     />
     return (
-      <View style={styles.body}>
+      <View style={{
+        paddingHorizontal: 16
+      }}>
         {email}
         {password}
       </View>
@@ -90,11 +100,36 @@ class LoginWithEmail extends PureComponent {
   renderFooter() {
     return (
       <View style={styles.footerContainer}>
-        <DGButton 
-          style={{ backgroundColor: Theme.buttonPrimary }}
-          text={Strings.button.continue}
-          onPress={this.onRequestLogin}
+        <View style={{ flexDirection: 'row', marginTop: 24 }}>
+          <DGText style={{
+            color: 'white',
+            paddingLeft: 16,
+            fontSize: 12
+          }}>By registering, you agree to our </DGText>  
+          <TouchableOpacity style={{
+            borderBottomWidth: 1,
+            borderBottomColor: 'white'
+          }} activeOpacity={0.7} onPress={this.onRequestGoToTnC}>
+            <DGText style={{
+              color: 'white',
+              fontSize: 12
+            }}>Terms of Use</DGText>
+          </TouchableOpacity>
+        </View>
+        <DGText style={{
+          color: 'white',
+          marginHorizontal: 16,
+          marginBottom: 40,
+          fontSize: 12
+        }}>See our privacy policy</DGText>
+        <DGButtonV2
+          style={{ 
+            width: Dimensions.get('window').width - 32,
+            backgroundColor: Theme.buttonPrimary 
+          }}
           loading={this.props.authenticationData.isLoading}
+          text={Strings.button.acceptAndContinue}
+          onPress={this.onRequestLogin}
           />
       </View>
     )
@@ -103,10 +138,13 @@ class LoginWithEmail extends PureComponent {
   render() {
     let isDisableViewInteract = this.props.authenticationData.isLoading == true ? 'none' : 'auto' 
     return (
-      <BaseComponent>
+      <BaseComponent toolbar={{
+        title: Strings.toolbar.back,
+        onBack: () => this.props.navigation.goBack()
+      }}>
         <KeyboardAwareScrollView contentContainerStyle={styles.body} pointerEvents={isDisableViewInteract}>
           <View style={styles.body}>
-            {this.renderLogo()}
+            <Title />
             {this.renderBody()}
             {this.renderFooter()}
           </View>
@@ -121,8 +159,7 @@ const windowHeight = Dimensions.get('window').height
 const styles = StyleSheet.create({
   body: {
     flex: 1, 
-    height: windowHeight,
-    justifyContent: 'center'
+    height: windowHeight
   },
   input: {
     backgroundColor: Theme.buttonSecondary,
