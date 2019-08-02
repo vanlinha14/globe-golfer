@@ -18,6 +18,7 @@ import Strings from '../../res/Strings'
 import DGText from '../../components/DGText'
 import Theme from '../../res/Theme'
 import { liginWithFacebook, liginWithGoogle } from '../../actions/login'
+import { StackActions, NavigationActions } from 'react-navigation';
 
 class Login extends PureComponent {
   static navigationOptions = { header: null }
@@ -25,7 +26,11 @@ class Login extends PureComponent {
   componentWillReceiveProps(nextProps) {
     let authenData = nextProps.authenticationData
     if (authenData.isLoading == false && authenData.accessToken) {
-      this.props.navigation.navigate("Main")
+      this.props.navigation.dispatch(StackActions.reset({
+        index: 0, 
+        key: null, 
+        actions: [NavigationActions.navigate({ routeName: 'Main' })]
+      }));
     }
   }
 
