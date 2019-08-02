@@ -9,7 +9,6 @@ import ImagePicker from 'react-native-image-picker'
 
 import RegistrationHelper from '../../api/RegistrationHelper'
 import BaseComponent from '../../components/BaseComponent'
-import DGButton from '../../components/DGButton'
 import Strings from '../../res/Strings'
 import Theme from '../../res/Theme'
 import DGText from '../../components/DGText'

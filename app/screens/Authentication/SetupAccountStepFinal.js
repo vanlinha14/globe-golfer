@@ -5,7 +5,7 @@ import { getBottomSpace } from 'react-native-iphone-x-helper'
 
 import BaseComponent from '../../components/BaseComponent'
 import DGText from '../../components/DGText'
-import DGButton from '../../components/DGButton'
+import DGButtonV2 from '../../components/DGButtonV2'
 import Strings from '../../res/Strings'
 import Theme from '../../res/Theme'
 
@@ -50,8 +50,8 @@ export default class SetupAccountStepFinal extends PureComponent {
   renderFooter() {
     return (
       <View style={styles.footerContainer}>
-        <DGButton 
-          style={{ backgroundColor: Theme.buttonPrimary, marginBottom: 16 }}
+        <DGButtonV2 
+          style={{ backgroundColor: Theme.buttonPrimary, marginBottom: 16, width: '60%' }}
           text={Strings.button.discover}
           onPress={this.goToMainMenu}
           />

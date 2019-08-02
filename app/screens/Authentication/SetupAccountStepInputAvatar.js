@@ -11,7 +11,7 @@ import ImagePicker from 'react-native-image-picker'
 
 import RegistrationHelper from '../../api/RegistrationHelper'
 import BaseComponent from '../../components/BaseComponent'
-import DGButton from '../../components/DGButton'
+import DGButtonV2 from '../../components/DGButtonV2'
 import Strings from '../../res/Strings'
 import DGText from '../../components/DGText'
 import Theme from '../../res/Theme'
@@ -111,8 +111,8 @@ class SetupAccountStepInputAvatar extends PureComponent {
   renderFooter() {
     return (
       <View style={styles.footerContainer}>
-        <DGButton 
-          style={{ backgroundColor: Theme.buttonPrimary }}
+        <DGButtonV2 
+          style={{ backgroundColor: Theme.buttonPrimary, width: '50%' }}
           text={Strings.button.continue}
           loading={this.props.authenticationData.isLoading}
           onPress={this.requestGoToStepFinal}

@@ -13,7 +13,7 @@ import { connect } from 'react-redux'
 import RegistrationHelper from '../../api/RegistrationHelper'
 import SelectInputBlock from '../../components/SelectInputBlock'
 import BaseComponent from '../../components/BaseComponent'
-import DGButton from '../../components/DGButton'
+import DGButtonV2 from '../../components/DGButtonV2';
 import Strings from '../../res/Strings'
 import Theme from '../../res/Theme'
 
@@ -167,8 +167,8 @@ class SetupAccountStepInputLocation extends PureComponent {
   renderFooter() {
     return (
       <View style={styles.footerContainer}>
-        <DGButton 
-          style={{ backgroundColor: Theme.buttonPrimary }}
+        <DGButtonV2 
+          style={{ backgroundColor: Theme.buttonPrimary, width: '50%' }}
           text={Strings.button.continue}
           onPress={this.requestGoToActiveLocation}
           />
