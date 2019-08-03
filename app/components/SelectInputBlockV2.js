@@ -103,17 +103,20 @@ const styles = StyleSheet.create({
     
   },
   input: {
-    width: Dimensions.get('window').width - 32,
+    width: Dimensions.get('window').width - 24,
     height: 44,
     color: Theme.textWhite,
+    fontSize: 16,
+    fontWeight: 'bold',
     borderRadius: 8,
-    marginHorizontal: 16,
+    paddingHorizontal: 12,
+    marginHorizontal: 10,
     borderBottomWidth: 1,
     borderBottomColor: 'white'
   },
   messgage: {
     color: Theme.textGray,
-    fontSize: 16,
+    fontSize: 14,
     marginTop: 24,
     marginBottom: 8,
     marginHorizontal: 16

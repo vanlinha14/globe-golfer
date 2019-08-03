@@ -54,8 +54,7 @@ const styles = StyleSheet.create({
   },
   messgage: {
     color: Theme.textGray,
-    color: Theme.textWhite,
-    fontSize: 16,
+    fontSize: 14,
     marginTop: 24
   },
 })

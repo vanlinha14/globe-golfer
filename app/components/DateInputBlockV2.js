@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react'
 import {
   View,
+  Dimensions,
   StyleSheet
 } from 'react-native'
 import Theme from '../res/Theme'
@@ -9,7 +10,7 @@ import DatePicker from 'react-native-datepicker'
 import moment from 'moment'
 import Strings from '../res/Strings'
 
-export default class DateInputBlock extends PureComponent {
+export default class DateInputBlockV2 extends PureComponent {
 
   state = {
     date: null
@@ -31,7 +32,18 @@ export default class DateInputBlock extends PureComponent {
       <DatePicker
         style={styles.input}
         date={this.state.date}
-        customStyles={{dateInput: { borderWidth: 0 }}}
+        customStyles={{
+          dateInput: { 
+            borderWidth: 0, 
+            paddingHorizontal: 8,
+            alignItems: 'flex-start'
+          },
+          dateText: {
+            color: Theme.textWhite,
+            fontWeight: 'bold',
+            fontSize: 16
+          }
+        }}
         mode="date"
         placeholder={Strings.tapToSelect}
         format="DD-MM-YYYY"
@@ -59,19 +71,17 @@ const styles = StyleSheet.create({
     
   },
   input: {
-    backgroundColor: Theme.buttonSecondary,
-    width: '50%',
+    width: Dimensions.get('window').width - 24,
     height: 44,
-    marginTop: 16,
+    color: Theme.textWhite,
     borderRadius: 8,
-    alignSelf: 'center',
-    justifyContent: 'center'
+    marginHorizontal: -4,
+    borderBottomWidth: 1,
+    borderBottomColor: 'white',
   },
   messgage: {
     color: Theme.textGray,
-    color: Theme.textWhite,
-    fontSize: 20,
+    fontSize: 14,
     marginTop: 24,
-    textAlign: 'center'
   },
 })

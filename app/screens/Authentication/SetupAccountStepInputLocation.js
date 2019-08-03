@@ -11,15 +11,24 @@ import { getClubs } from '../../actions/getClubs'
 import { connect } from 'react-redux'
 
 import RegistrationHelper from '../../api/RegistrationHelper'
-import SelectInputBlock from '../../components/SelectInputBlock'
 import BaseComponent from '../../components/BaseComponent'
 import DGButtonV2 from '../../components/DGButtonV2';
 import Strings from '../../res/Strings'
 import Theme from '../../res/Theme'
 import SelectInputBlockV2 from '../../components/SelectInputBlockV2';
+import TextInputBlockV2 from '../../components/TextInputBlockV2';
+import DateInputBlockV2 from '../../components/DateInputBlockV2';
 
 class SetupAccountStepInputLocation extends PureComponent {
   static navigationOptions = { header: null }
+
+  fnameTextInput = undefined
+  lNameTextInput = undefined
+  indexTextInput = undefined
+  licenseTextInput = undefined
+
+  selectedBirthday = undefined
+  selectedGender = undefined
 
   selectedCountryId = undefined
   selectedRegionId = undefined
@@ -30,6 +39,36 @@ class SetupAccountStepInputLocation extends PureComponent {
   }
 
   requestGoToActiveLocation = () => {
+    if (!this.fnameTextInput.getText()) {
+      showErrorAlert("Your first name can not be blank")
+      return
+    }
+
+    if (!this.lNameTextInput.getText()) {
+      showErrorAlert("Your last name can not be blank")
+      return
+    }
+
+    if (this.selectedBirthday == undefined) {
+      showErrorAlert("Please select your birthday")
+      return
+    }
+
+    if (this.selectedGender == undefined) {
+      showErrorAlert("Please select your gender")
+      return
+    }
+
+    if (!this.indexTextInput.getText()) {
+      showErrorAlert("Your index can not be blank")
+      return
+    }
+
+    if (!this.licenseTextInput.getText()) {
+      showErrorAlert("Your license's number can not be blank")
+      return
+    }
+
     if (this.selectedCountryId == undefined) {
       showErrorAlert(Strings.inputLocation.error.country)
       return
@@ -78,6 +117,19 @@ class SetupAccountStepInputLocation extends PureComponent {
     }
 
     this.selectedClubId = newClubId
+  }
+
+  onGenderSelectionChange = (newGenderId) => {
+    if (newGenderId == 0) {
+      this.selectedGender = undefined
+      return
+    }
+
+    this.selectedGender = newGenderId
+  }
+
+  onBirthdayChanged = (newDate) => {
+    this.selectedBirthday = newDate
   }
 
   renderSelectCountry() {
@@ -155,9 +207,74 @@ class SetupAccountStepInputLocation extends PureComponent {
     )
   }
 
-  renderPersonalInfo() {}
+  renderSelectGender() {
+    let items = []
+    items = ["Male", "Female", "Other"].map(i => {
+      return {
+        label: i,
+        value: i
+      }
+    })
 
-  renderMemberShipInfo() {}
+    return <SelectInputBlockV2 
+      title="Gender" 
+      hint="Select your gender"
+      items={items}
+      onValueChange={this.onGenderSelectionChange}
+    />
+  }
+
+  renderPersonalInfo() {
+    let email = <TextInputBlockV2
+      ref={ref => this.fnameTextInput = ref}
+      title="First name"
+      placeholder="Enter your first name" 
+      inputAlign="left"
+    />
+    let password = <TextInputBlockV2 
+      ref={ref => this.lNameTextInput = ref}
+      title="Last name"
+      placeholder="Enter your last name"
+      inputAlign="left"
+    />
+    let date = <DateInputBlockV2 style={styles.body} title="Birthday" onDateChange={this.onBirthdayChanged}/>
+    let sexSelect = this.renderSelectGender()
+    return (
+      <>
+        <View style={{
+          paddingHorizontal: 16
+        }}>
+          {email}
+          {password}
+          {date}
+        </View>
+        {sexSelect}
+      </>
+    )
+  }
+
+  renderMemberShipInfo() {
+    let index = <TextInputBlockV2
+      ref={ref => this.indexTextInput = ref}
+      title="Index"
+      placeholder="Enter your index" 
+      inputAlign="left"
+    />
+    let license = <TextInputBlockV2 
+      ref={ref => this.licenseTextInput = ref}
+      title="License's number"
+      placeholder="Enter your number of license"
+      inputAlign="left"
+    />
+    return (
+      <View style={{
+        paddingHorizontal: 16
+      }}>
+        {index}
+        {license}
+      </View>
+    )
+  }
 
   renderLocationInfo() {
     const countries = this.renderSelectCountry();
@@ -199,12 +316,9 @@ class SetupAccountStepInputLocation extends PureComponent {
     return (
       <BaseComponent>
         <KeyboardAwareScrollView contentContainerStyle={styles.body}>
-          <View style={styles.body}>
             {this.renderLogo()}
             {this.renderBody()}
             {this.renderFooter()}
-          </View>
-          
         </KeyboardAwareScrollView>
       </BaseComponent>
     )
@@ -214,9 +328,7 @@ class SetupAccountStepInputLocation extends PureComponent {
 const windowHeight = Dimensions.get('window').height
 const styles = StyleSheet.create({
   body: {
-    flex: 1, 
-    height: windowHeight,
-    justifyContent: 'center'
+    
   },
   input: {
     backgroundColor: Theme.buttonSecondary,
@@ -232,6 +344,7 @@ const styles = StyleSheet.create({
     textAlign: 'center'
   },
   footerContainer: {
+    marginVertical: 24,
     paddingBottom: getBottomSpace() + 32
   }
 })

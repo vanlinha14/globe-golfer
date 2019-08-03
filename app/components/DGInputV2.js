@@ -28,7 +28,7 @@ export default class DGInputV2 extends PureComponent {
   }
 
   getText() {
-    if (this.state.status == INPUT_STATUS.VALID) {
+    if (this.state.status == INPUT_STATUS.VALID || this.state.status == INPUT_STATUS.NORMAL) {
       return this.state.text
     }
 
@@ -40,6 +40,7 @@ export default class DGInputV2 extends PureComponent {
     if (this.props.validateFunction) {
       validateResult = this.props.validateFunction(text) 
     }
+
     this.setState({ 
       text,
       status: validateResult
@@ -62,13 +63,15 @@ export default class DGInputV2 extends PureComponent {
       <View style={[styles.container, this.props.style, statusStyle]}>
         <TextInput 
           style={{ 
-            color: this.props.textColor ? this.props.textColor : 'white',
-            textAlign: this.props.inputAlign ? this.props.inputAlign : 'center'
+            color: this.props.textColor ? this.props.textColor : Theme.textWhite,
+            textAlign: this.props.inputAlign ? this.props.inputAlign : 'center',
+            fontWeight: 'bold',
+            fontSize: 16
           }}
           secureTextEntry={this.props.inputType == INPUT_TYPE.PASSWORD}
           keyboardType={this.props.inputType == INPUT_TYPE.PASSWORD ? 'default' : this.props.inputType}
           placeholder={this.props.placeholder} 
-          placeholderTextColor={'gray'}
+          placeholderTextColor={Theme.textWhite}
           value={this.state.text}
           onChangeText={this.validateText}
         />
