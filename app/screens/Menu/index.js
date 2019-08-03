@@ -8,13 +8,13 @@ import {
 import MenuBlock from './MenuBlock'
 import BaseComponent from '../../components/BaseComponent'
 import { useNavigation } from 'react-navigation-hooks';
+import Header from './components/Header'
 
 const Logo = React.memo(() => (
   <Image
     style={[
       styles.logo,
       {
-        marginTop: 60,
         width: 120,
         height: 120,
         alignSelf: 'center'
@@ -67,6 +67,7 @@ export default class Menu extends PureComponent {
   render() {
     return (
       <BaseComponent withDotBackground={true}>
+        <Header />
         <Logo />
         <Body />
         <Ads />
@@ -83,7 +84,7 @@ const styles = StyleSheet.create({
     height: '30%'
   },
   ads: {
-    height: '30%'
+    height: '25%'
   },
   controllerBlock: {
     width: "30%",

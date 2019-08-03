@@ -10,12 +10,11 @@ import {
 import Carousel, { Pagination } from 'react-native-snap-carousel'
 
 import DGText from '../../components/DGText'
+import Theme from '../../res/Theme';
 
 const DotPagination = React.memo(({dotsLength, activeSlide}) => {
   return (
     <Pagination
-      style={{
-      }}
       dotsLength={dotsLength}
       activeDotIndex={activeSlide || 0}
       containerStyle={{ 
@@ -24,10 +23,11 @@ const DotPagination = React.memo(({dotsLength, activeSlide}) => {
         bottom: -8,
       }}
       dotStyle={{
-          width: 12,
-          height: 12,
-          borderRadius: 6,
-          backgroundColor: Theme.buttonPrimary
+        width: 12,
+        height: 12,
+        borderRadius: 6,
+        backgroundColor: Theme.buttonPrimary,
+        marginHorizontal: -12
       }}
       inactiveDotStyle={{
         backgroundColor: 'white'
@@ -61,7 +61,14 @@ export default class MenuBlock extends PureComponent {
           }}
           source={require('../../res/images/ic_global.png')}
         />
-        <DGText style={{ color: "white", alignSelf: 'center' }}>{item.name}</DGText>
+        <DGText style={{ 
+          color: "white", 
+          alignSelf: 'center',
+          fontSize: 30,
+          fontWeight: 'bold',
+          textAlign: 'center',
+          color: Theme.buttonPrimary
+        }}>{item.name}</DGText>
       </TouchableOpacity>
     )
   }

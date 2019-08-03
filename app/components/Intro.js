@@ -40,7 +40,8 @@ const DotPagination = React.memo(({activeSlide}) => {
           width: 12,
           height: 12,
           borderRadius: 6,
-          backgroundColor: Theme.buttonPrimary
+          backgroundColor: Theme.buttonPrimary,
+          marginHorizontal: -12
       }}
       inactiveDotStyle={{
         backgroundColor: 'white'
