@@ -7,178 +7,117 @@ import {
   Dimensions,
   TouchableOpacity
 } from 'react-native'
+import Carousel, { Pagination } from 'react-native-snap-carousel'
 
 import DGText from '../../components/DGText'
 
-const MENU_ITEMS = {
-  PLAY: "play",
-  CHALLENGE: "challenge",
-  SCORES: "scores"
-}
+const DotPagination = React.memo(({dotsLength, activeSlide}) => {
+  return (
+    <Pagination
+      style={{
+      }}
+      dotsLength={dotsLength}
+      activeDotIndex={activeSlide || 0}
+      containerStyle={{ 
+        position: 'absolute',
+        alignSelf: 'center',
+        bottom: -8,
+      }}
+      dotStyle={{
+          width: 12,
+          height: 12,
+          borderRadius: 6,
+          backgroundColor: Theme.buttonPrimary
+      }}
+      inactiveDotStyle={{
+        backgroundColor: 'white'
+      }}
+      inactiveDotOpacity={1}
+      inactiveDotScale={1}
+    />
+  )
+})
 
 export default class MenuBlock extends PureComponent {
 
-  offsetXPlay = new Animated.Value(0)
-  offsetXChallenge = new Animated.Value(50)
-  offsetXScores = new Animated.Value(100)
-
-  currentLeft = MENU_ITEMS.PLAY
-  currentCenter = MENU_ITEMS.CHALLENGE
-  currentRight = MENU_ITEMS.SCORES
-
-  runAnimateCenterToLeft() {
-    let target = this.locateValue(this.currentCenter)
-    this.runAnimateToValue(target, 0)
+  state = {
+    activeSlide: 0
   }
 
-  runAnimateCenterToRight() {
-    let target = this.locateValue(this.currentCenter)
-    this.runAnimateToValue(target, 100)
-  }
-
-  runAnimateLeftToCenter() {
-    let target = this.locateValue(this.currentLeft)
-    this.runAnimateToValue(target, 50)
-  }
-
-  runAnimateLeftToRight() {
-    let target = this.locateValue(this.currentLeft)
-    this.runAnimateToValue(target, -100)
-  }
-
-  runAnimateRightToCenter() {
-    let target = this.locateValue(this.currentRight)
-    this.runAnimateToValue(target, 50)
-  }
-
-  runAnimateRightToLeft() {
-    let target = this.locateValue(this.currentRight)
-    this.runAnimateToValue(target, 0)
-  }
-
-  runAnimateToValue(target, value) {
-    Animated.spring(
-      target,
-      { toValue: value, friction: 8 }
-    ).start()
-  }
-
-  locateValue(target) {
-    switch(target) {
-      case MENU_ITEMS.PLAY: return this.offsetXPlay
-      case MENU_ITEMS.CHALLENGE: return this.offsetXChallenge
-      case MENU_ITEMS.SCORES: return this.offsetXScores
-    }
-  }
-
-  requestNext = () => {
-    this.locateValue(this.currentRight).setValue(100)
-
-    this.runAnimateCenterToLeft()
-    this.runAnimateLeftToRight()
-    this.runAnimateRightToCenter()
-
-    setTimeout(() => {
-      let temp = this.currentLeft
-      this.currentLeft = this.currentCenter
-      this.currentCenter = this.currentRight
-      this.currentRight = temp
-    }, 300)
-  }
-
-  requestPrevious = () => {
-    this.locateValue(this.currentRight).setValue(-100)
-
-    this.runAnimateCenterToRight()
-    this.runAnimateLeftToCenter()
-    this.runAnimateRightToLeft()
-
-    setTimeout(() => {
-      let temp = this.currentLeft
-      this.currentLeft = this.currentRight
-      this.currentRight = this.currentCenter
-      this.currentCenter = temp
-    }, 300)
-  }
-
-  renderPlayItem() {
-    return this.renderMenuItem("Play", this.offsetXPlay, this.props.onPlayPress)
-  }
-
-  renderChallengeItem() {
-    return this.renderMenuItem("Challenge", this.offsetXChallenge, this.props.onChallengePress)
-  }
-
-  renderScoresItem() {
-    return this.renderMenuItem("Scores", this.offsetXScores, this.props.onScoresPress)
-  }
-
-  renderMenuItem(name, offsetX, onPress) {
-    let translateInterpolate = offsetX.interpolate({
-      inputRange: [-100, 0, 50, 100],
-      outputRange: [windowWidth - itemWidth, 0, windowWidth / 2 - itemWidth / 2, windowWidth - itemWidth]
-    })
-    let scaleInterpolate = offsetX.interpolate({
-      inputRange: [-100, 0, 50, 100],
-      outputRange: [1, 1, 2, 1]
-    })
-    let opacityInterpolate = offsetX.interpolate({
-      inputRange: [-100, -50, 0, 50, 100],
-      outputRange: [1, 0, 1, 1, 1]
-    })
+  renderMenuItem(item) {
     return (
-      <Animated.View style={{
-        position: 'absolute',
+      <TouchableOpacity style={{ 
         width: itemWidth,
         height: itemWidth,
-        transform: [
-          { 
-          translateX: translateInterpolate,
-          },
-          {
-            scale: scaleInterpolate
-          }
-        ],
-        opacity: opacityInterpolate,
-      }}>
-        <TouchableOpacity style={{ 
-          width: itemWidth,
-          height: itemWidth,
-          justifyContent: 'center'
-        }} activeOpacity={0.7} onPress={onPress}>
-          <Image
-            style={{
-              position: 'absolute',
-              top: 8,
-              left: 8,
-              width: itemWidth - 16,
-              height: itemWidth - 16
-            }}
-            source={require('../../res/images/ic_global.png')}
-          />
-          <DGText style={{ color: "white", alignSelf: 'center' }}>{name}</DGText>
-        </TouchableOpacity>
-        
-      </Animated.View>
+        justifyContent: 'center'
+      }} activeOpacity={0.7} onPress={item.onPress}>
+        <Image
+          style={{
+            position: 'absolute',
+            top: 8,
+            left: 8,
+            width: itemWidth - 16,
+            height: itemWidth - 16
+          }}
+          source={require('../../res/images/ic_global.png')}
+        />
+        <DGText style={{ color: "white", alignSelf: 'center' }}>{item.name}</DGText>
+      </TouchableOpacity>
     )
+  }
+    
+  renderItem = ({item}) => {
+    return this.renderMenuItem(item)
   }
 
   render() {
+
+    const data = [
+      {
+        name: "Challenge",
+        onPress: this.props.onChallengePress
+      },
+      {
+        name: "Invite a Friend"
+      },
+      {
+        name: "Play"
+      },
+      {
+        name: "All in 1"
+      },
+      {
+        name: "Scores"
+      },
+      {
+        name: "Premium"
+      }
+    ]
+
     return (
       <View style={[styles.container, this.props.style]}>
-        {this.renderPlayItem()}
-        {this.renderChallengeItem()}
-        {this.renderScoresItem()}
+        <Carousel
+          ref={(c) => { this.carousel = c; }}
+          data={data}
+          renderItem={this.renderItem}
+          sliderWidth={windowWidth}
+          itemWidth={itemWidth}
+          loop={true}
+          inactiveSlideScale={0.6}
+          onSnapToItem={(index) => this.setState({ activeSlide: index })}
+        />
+        <DotPagination dotsLength={data.length} activeSlide={this.state.activeSlide}/>
       </View>
     )
   }
 }
 
 const windowWidth = Dimensions.get('window').width
-const itemWidth = windowWidth * 0.25
+const itemWidth = windowWidth * 0.4
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    marginTop: 24,
     justifyContent: 'center'
   }
 })

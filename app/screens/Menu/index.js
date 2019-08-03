@@ -2,11 +2,9 @@ import React, { PureComponent } from 'react'
 import { 
   View, 
   Image,
-  StyleSheet, 
-  TouchableOpacity
+  StyleSheet
 } from 'react-native'
 
-import Icon from 'react-native-vector-icons/Ionicons'
 import MenuBlock from './MenuBlock'
 import BaseComponent from '../../components/BaseComponent'
 import { useNavigation } from 'react-navigation-hooks';
@@ -24,19 +22,6 @@ const Logo = React.memo(() => (
     ]}
     source={require('../../res/images/ic_icon.png')}
   />
-))
-
-const Controller = React.memo(({name, action}) => (
-  <TouchableOpacity style={styles.controller} activeOpacity={0.7} onPress={action}>
-    <Icon name={name} color="white" size={56} />
-  </TouchableOpacity>
-))
-
-const ControllerBlock = React.memo(({requestMenuPrevious, requestMenuNext}) => (
-  <View style={styles.controllerBlock}>
-    <Controller name="md-arrow-dropleft" action={requestMenuPrevious} />
-    <Controller name="md-arrow-dropright" action={requestMenuNext} />
-  </View>
 ))
 
 const Ads = React.memo(() => <View style={styles.ads} />)
@@ -74,7 +59,6 @@ const Body = React.memo(() => {
         onChallengePress={onRequestGoToChallenge}
         onScoresPress={onRequestGoToScores}
       />
-      <ControllerBlock requestMenuNext={requestMenuNext} requestMenuPrevious={requestMenuPrevious}/>
     </View>
   )
 })
@@ -82,7 +66,7 @@ const Body = React.memo(() => {
 export default class Menu extends PureComponent {
   render() {
     return (
-      <BaseComponent>
+      <BaseComponent withDotBackground={true}>
         <Logo />
         <Body />
         <Ads />
