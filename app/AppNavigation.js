@@ -17,6 +17,7 @@ import SetupAccountStepInputLocation from './screens/Authentication/SetupAccount
 import SetupAccountStepInputScannedCard from './screens/Authentication/SetupAccountStepInputScannedCard'
 import SetupAccountStepInputAvatar from './screens/Authentication/SetupAccountStepInputAvatar'
 import SetupAccountStepActiveLocation from './screens/Authentication/SetupAccountStepActiveLocation'
+import SetupAccountStepActiveEmailContact from './screens/Authentication/SetupAccountStepActiveEmailContact'
 import SetupAccountStepInputEmail from './screens/Authentication/SetupAccountStepInputEmail'
 import SetupAccountStepFinal from './screens/Authentication/SetupAccountStepFinal'
 
@@ -148,6 +149,7 @@ const setupAccountNavigator = {
   SetupAccountStepInputScannedCard,
   SetupAccountStepInputAvatar,
   SetupAccountStepActiveLocation,
+  SetupAccountStepActiveEmailContact,
   SetupAccountStepInputEmail,
   SetupAccountStepFinal
 }

@@ -87,7 +87,7 @@ class SetupAccountStepInputLocation extends PureComponent {
     RegistrationHelper.instance().setCountry(this.selectedCountryId)
     RegistrationHelper.instance().setRegion(this.selectedRegionId)
     RegistrationHelper.instance().setClub(this.selectedClubId)
-    this.props.navigation.navigate("SetupAccountStepActiveLocation")
+    this.props.navigation.navigate("SetupAccountStepActiveEmailContact")
   }
 
   onCountrySelectionChange = (newCountryId) => {

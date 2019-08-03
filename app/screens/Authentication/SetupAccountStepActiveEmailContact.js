@@ -13,38 +13,19 @@ import Strings from '../../res/Strings'
 import Theme from '../../res/Theme'
 import { showErrorAlert } from '../../utils'
 
-export default class SetupAccountStepActiveLocation extends PureComponent {
+export default class SetupAccountStepActiveEmailContact extends PureComponent {
   static navigationOptions = { header: null }
 
-  onRequestGetLocation = () => {
-    Permissions.request('location').then(response => {
-      if (response == 'authorized') {
-        this.props.navigation.navigate("SetupAccountStepInputAvatar")  
-      }
-      else {
-        showErrorAlert(Strings.activeLocation.error)
-      }
-    })
-  }
-
-  onRequestLearnMore = () => {
-    //TODO
+  onRequestGotoActiveLocation = () => {
+    this.props.navigation.navigate("SetupAccountStepActiveLocation")  
   }
 
   renderTitle() {
-    return <DGText style={styles.title}>{Strings.activeLocation.title}</DGText>
-  }
-
-  renderLocationIcon() {
-    return (
-      <View style={styles.iconContainer}>
-        <Icon name="ios-pin" color='black' size={80} style={styles.icon} />
-      </View>
-    )
+    return <DGText style={styles.title}>Can we contact to you?</DGText>
   }
 
   renderMessage() {
-    return <DGText style={styles.messgage}>{Strings.activeLocation.message}</DGText>
+    return <DGText style={styles.messgage}>{"We want to send you via email:\n\n- Your monthly statistics\n- Tips to take full advantage of GlobeGolfer\n- Updates on features and new challenges\n- Testimonials from GlobeGolfer community"}</DGText>
   }
 
   renderLogo() {
@@ -65,7 +46,6 @@ export default class SetupAccountStepActiveLocation extends PureComponent {
     return (
       <View style={styles.body}>
         {this.renderTitle()}
-        {this.renderLocationIcon()}
         {this.renderMessage()}
       </View>
     )
@@ -75,14 +55,14 @@ export default class SetupAccountStepActiveLocation extends PureComponent {
     return (
       <View style={styles.footerContainer}>
         <DGButtonV2 
-          style={{ backgroundColor: Theme.buttonPrimary, marginBottom: 16, width: '60%' }}
-          text={Strings.button.active}
-          onPress={this.onRequestGetLocation}
+          style={{ backgroundColor: Theme.buttonSecondary, width: '40%', marginRight: 4 }}
+          text="No"
+          onPress={this.onRequestGotoActiveLocation}
           />
         <DGButtonV2 
-          style={{ backgroundColor: Theme.mainBackground, width: '60%' }}
-          text={Strings.button.learnMore}
-          onPress={this.onRequestLearnMore}
+          style={{ backgroundColor: Theme.buttonPrimary, width: '40%', marginLeft: 4 }}
+          text="Yes"
+          onPress={this.onRequestGotoActiveLocation}
           />
       </View>
     )
@@ -108,7 +88,7 @@ const styles = StyleSheet.create({
     color: Theme.textWhite,
     fontSize: 32,
     fontWeight: 'bold',
-    textAlign: 'center'
+    marginHorizontal: 16
   },
   messgage: {
     color: Theme.textGray,
@@ -116,11 +96,12 @@ const styles = StyleSheet.create({
     marginTop: 24,
     marginLeft: 16, 
     marginRight: 16,
-    textAlign: 'center',
     lineHeight: 24
   },
   footerContainer: {
-    paddingBottom: getBottomSpace() + 32
+    flexDirection: 'row',
+    paddingBottom: getBottomSpace() + 32,
+    justifyContent: 'center'
   },
   iconContainer: {
     alignSelf: 'center',
