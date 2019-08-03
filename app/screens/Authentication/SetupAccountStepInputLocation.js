@@ -16,6 +16,7 @@ import BaseComponent from '../../components/BaseComponent'
 import DGButtonV2 from '../../components/DGButtonV2';
 import Strings from '../../res/Strings'
 import Theme from '../../res/Theme'
+import SelectInputBlockV2 from '../../components/SelectInputBlockV2';
 
 class SetupAccountStepInputLocation extends PureComponent {
   static navigationOptions = { header: null }
@@ -91,7 +92,7 @@ class SetupAccountStepInputLocation extends PureComponent {
     }
       
 
-    return <SelectInputBlock 
+    return <SelectInputBlockV2
       title={Strings.inputLocation.country} 
       hint={Strings.inputLocation.hint.country}
       isLoading={this.props.countries.isLoading}
@@ -111,7 +112,7 @@ class SetupAccountStepInputLocation extends PureComponent {
       })
     }
 
-    return <SelectInputBlock 
+    return <SelectInputBlockV2 
       title={Strings.inputLocation.region} 
       hint={Strings.inputLocation.hint.region}
       isLoading={this.props.regions.isLoading}
@@ -131,8 +132,8 @@ class SetupAccountStepInputLocation extends PureComponent {
       })
     }
 
-    return <SelectInputBlock 
-      title={Strings.inputLocation.playGolfAt} 
+    return <SelectInputBlockV2 
+      title="Club" 
       hint={Strings.inputLocation.hint.club}
       isLoading={this.props.clubs.isLoading}
       items={items}
@@ -154,12 +155,30 @@ class SetupAccountStepInputLocation extends PureComponent {
     )
   }
 
+  renderPersonalInfo() {}
+
+  renderMemberShipInfo() {}
+
+  renderLocationInfo() {
+    const countries = this.renderSelectCountry();
+    const regions = this.renderSelectRegion();
+    const clubs = this.renderSelectPlayzone();
+
+    return (
+      <>
+        {countries}
+        {regions}
+        {clubs}
+      </>
+    )
+  }
+
   renderBody() {
     return (
       <View style={styles.body}>
-        {this.renderSelectCountry()}
-        {this.renderSelectRegion()}
-        {this.renderSelectPlayzone()}
+        {this.renderPersonalInfo()}
+        {this.renderMemberShipInfo()}
+        {this.renderLocationInfo()}
       </View>
     )
   }

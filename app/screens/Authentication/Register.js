@@ -26,7 +26,8 @@ export default class Register extends PureComponent {
   }
 
   onRequestGoToInputEmail = () => {
-    this.props.navigation.navigate("SetupAccountStepInputEmail")
+    // this.props.navigation.navigate("SetupAccountStepInputEmail")
+    this.props.navigation.navigate("SetupAccountStepInputLocation")
   }
 
   onRequestConfirmGoToInputEmail = () => {
