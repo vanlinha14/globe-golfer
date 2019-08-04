@@ -27,13 +27,8 @@ const fakeInterests = [
 export default class Profile extends PureComponent {
   static navigationOptions = { header: null }
 
-  renderTopBlock() {
-    let ggSubscriptionButton = <DGButton 
-      style={styles.ggButton}
-      text={Strings.settings.getGGSubscription}
-      onPress={this.onRequestScanCard}
-    />
-    return [ggSubscriptionButton]
+  requestGoToEditProfile = () => {
+    this.props.navigation.navigate("Settings")
   }
 
   renderAvatar() {

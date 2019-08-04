@@ -24,7 +24,7 @@ const Header = React.memo(({isOn, onViewModeChanged}) => {
   }
 
   const onGoToSetting = () => {
-    navigate('Settings')
+    navigate('Profile')
   }
 
   return (
