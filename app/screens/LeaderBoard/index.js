@@ -88,12 +88,41 @@ const EmptyData = React.memo(() => {
   return <DGText style={{ color: Theme.textWhite, fontStyle: 'italic', marginHorizontal: 16 + 30 + 8, fontSize: 12 }}>Empty Data</DGText>
 })
 
-const Board = React.memo(({title, isExpanded, data, requestToggleExpand}) => {
+const RankingItem = React.memo(({item, isHeader}) => {
+  return (
+    <View style={{ flexDirection: 'row', paddingHorizontal: 16, height: 44 }}>
+      <DGText style={{ marginHorizontal: isHeader ? 0 : 8, color: Theme.textWhite }}>{item.index}</DGText>
+      <DGText style={{ 
+        flex: 1,
+        marginHorizontal: isHeader ? 16 : 16, 
+        fontWeight: isHeader ? 'normal' : 'bold',
+        color: Theme.textWhite 
+      }}>{item.name}</DGText>
+      <DGText style={{ marginHorizontal: isHeader ? 0 : 8, color: Theme.textWhite }}>{item.total}</DGText>
+    </View>
+  )
+})
 
+const Ranking = React.memo(({data}) => {
+  const items = data.map(item => <RankingItem item={item} />)
+  const header = <RankingItem item={{
+    index: "Pos",
+    name: "Name",
+    total: "Total"
+  }} isHeader={true} />
+  return (
+    <>
+      {header}
+      {items}
+    </>
+  )
+})
+
+const Board = React.memo(({title, isExpanded, data, requestToggleExpand}) => {
   return (
     <>
       <BoardHeader title={title} isExpanded={isExpanded} requestToggleExpand={requestToggleExpand}/>
-      {isExpanded ? (data.length == 0 ? <EmptyData/> : undefined) : undefined}
+      {isExpanded ? (data.length == 0 ? <EmptyData/> : <Ranking data={data} />) : undefined}
     </>
   )
 })
