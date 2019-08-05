@@ -24,16 +24,16 @@ import SetupAccountStepFinal from './screens/Authentication/SetupAccountStepFina
 import TnC from './screens/Authentication/TnC'
 
 import Settings from './screens/Settings'
+import Profile from './screens/Profile'
 
 import Challenge from './screens/Challenge'
 
-import VeryFirstScreen from './screens/VeryFirst'
+import Play from './screens/Play'
 
 import Chat from './screens/Chat'
 import Notification from './screens/Notification'
 import Menu from './screens/Menu'
 import LeaderBoard from './screens/LeaderBoard'
-import Profile from './screens/Profile'
 
 import Theme from './res/Theme'
 
@@ -61,7 +61,7 @@ const loginNavigator = {
   LoginWithEmail: { screen: LoginWithEmail }
 }
 
-const Play = createStackNavigator({
+const MainContent = createStackNavigator({
   Menu,
   Challenge
 }, {
@@ -93,6 +93,18 @@ const Main = createBottomTabNavigator({
       )
     }
   }, 
+  MainContent: {
+    screen: MainContent,
+    navigationOptions: {
+      tabBarIcon: props => (
+        <TabBarIcon 
+          isSelected={props.focused} 
+          selectedIcon={require('@images/ic_main_selected.png')} 
+          unselectedIcon={require('@images/ic_main.png')}
+        />
+      )
+    }
+  }, 
   Play: {
     screen: Play,
     navigationOptions: {
@@ -116,21 +128,9 @@ const Main = createBottomTabNavigator({
         />
       )
     }
-  }, 
-  Profile: {
-    screen: Profile,
-    navigationOptions: {
-      tabBarIcon: props => (
-        <TabBarIcon 
-          isSelected={props.focused} 
-          selectedIcon={require('@images/ic_profile_selected.png')} 
-          unselectedIcon={require('@images/ic_profile.png')}
-        />
-      )
-    }
   }
 }, {  
-  initialRouteName: 'Play',
+  initialRouteName: 'MainContent',
   tabBarOptions: {
   showIcon: true,
   showLabel: false,
@@ -157,6 +157,7 @@ const setupAccountNavigator = {
 const AppNavigator = createStackNavigator({
   Authentication,
   Main,
+  Profile,
   Settings,
   ...loginNavigator,
   ...setupAccountNavigator
