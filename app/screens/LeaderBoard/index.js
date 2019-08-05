@@ -4,18 +4,19 @@ import { StyleSheet, View } from 'react-native'
 import Theme from '../../res/Theme'
 import Strings from '../../res/Strings'
 
-import Separator from '../../components/Separator'
-import DGText from '../../components/DGText'
+import Header from './components/Header'
+import BaseComponent from '../../components/BaseComponent';
+import Filter from './components/Filter';
 
 export default class LeaderBoard extends PureComponent {
   static navigationOptions = { header: null }
-
+  
   render() {
     return (
-      <View style={styles.container}>
-        {Separator}
-        <DGText>LeaderBoard</DGText>
-      </View>
+      <BaseComponent>
+        <Header />
+        <Filter />
+      </BaseComponent>
     )
   }
 }
@@ -23,7 +24,6 @@ export default class LeaderBoard extends PureComponent {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Theme.mainBackground,
     justifyContent: 'center',
     alignItems: 'center'
   }

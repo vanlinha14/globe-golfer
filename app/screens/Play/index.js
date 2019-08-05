@@ -4,16 +4,17 @@ import { StyleSheet, View } from 'react-native'
 import Theme from '../../res/Theme'
 import Strings from '../../res/Strings'
 
-import DGText from '../../components/DGText'
+import Header from './components/Header'
+import BaseComponent from '../../components/BaseComponent';
 
-export default class Play extends PureComponent {
+export default class Profile extends PureComponent {
   static navigationOptions = { header: null }
-
+  
   render() {
     return (
-      <View style={styles.container}>
-        <DGText>Play</DGText>
-      </View>
+      <BaseComponent>
+        <Header />
+      </BaseComponent>
     )
   }
 }
