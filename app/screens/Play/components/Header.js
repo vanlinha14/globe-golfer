@@ -36,7 +36,7 @@ const Header = React.memo(({isOn, onViewModeChanged}) => {
       paddingVertical: 12,
       marginTop: 20
     }}>
-      <HeaderIcon name={"ios-person-add"} action={onGoBack}/>
+      <HeaderIcon name={"ios-home"} action={onGoBack}/>
       <FlexSpacing />
       <HeaderIcon name={"ios-settings"} action={onGoToSetting}/>
     </View>
