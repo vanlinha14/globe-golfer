@@ -132,7 +132,7 @@ export default class LeaderBoard extends PureComponent {
 
   state = {
     isFavoriteExpand: false,
-    isAllExpand: false
+    isAllExpand: true
   }
   
   render() {
