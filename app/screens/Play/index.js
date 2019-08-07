@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react'
-import { StyleSheet, View, TouchableOpacity, Image } from 'react-native'
+import { ActivityIndicator, View, TouchableOpacity, Image } from 'react-native'
+import { connect } from 'react-redux'
 
 import Theme from '../../res/Theme'
 import Strings from '../../res/Strings'
@@ -9,6 +10,8 @@ import Icon from 'react-native-vector-icons/Ionicons'
 import Header from './components/Header'
 import BaseComponent from '../../components/BaseComponent';
 import DGText from '../../components/DGText';
+import { getPendingMatches } from '../../actions/getPendingMatches';
+import { getPlayedMatches } from '../../actions/getPlayedMatches';
 
 const Title = React.memo(() => {
   return (
@@ -83,15 +86,19 @@ const PendingItem = React.memo(({item}) => {
   )
 })
 
-const PendingItems = React.memo(({data}) => {
+const PendingItems = React.memo(({isLoading, data}) => {
+  if (isLoading || data == null) {
+    return <ActivityIndicator size='large' color={Theme.buttonPrimary} />
+  }
+
   return data.map(item => <PendingItem item={item}/>)
 })
 
-const PendingBlock = React.memo(({isExpanded, requestToggleExpand, data}) => {
+const PendingBlock = React.memo(({isLoading, isExpanded, requestToggleExpand, data}) => {
   return (
     <>
       <BoardHeader title={"PENDING"} isExpanded={isExpanded} requestToggleExpand={requestToggleExpand}/>
-      {isExpanded ? <PendingItems data={data} /> : undefined}
+      {isExpanded ? <PendingItems isLoading={isLoading} data={data} /> : undefined}
     </>
   )
 })
@@ -136,25 +143,53 @@ const PlayedItem = React.memo(({item}) => {
   )
 })
 
-const PlayedItems = React.memo(({data}) => {
+const PlayedItems = React.memo(({isLoading, data}) => {
+  if (isLoading || data == null) {
+    return <ActivityIndicator size='large' color={Theme.buttonPrimary} />
+  }
+
   return data.map(item => <PlayedItem item={item}/>)
 })
 
-const PlayedBlock = React.memo(({isExpanded, requestToggleExpand, data}) => {
+const PlayedBlock = React.memo(({isLoading, isExpanded, requestToggleExpand, data}) => {
   return (
     <>
       <BoardHeader title={"PLAYED"} isExpanded={isExpanded} requestToggleExpand={requestToggleExpand}/>
-      {isExpanded ? <PlayedItems data={data} /> : undefined}
+      {isExpanded ? <PlayedItems isLoading={isLoading} data={data} /> : undefined}
     </>
   )
 })
 
-export default class Profile extends PureComponent {
+class Play extends PureComponent {
   static navigationOptions = { header: null }
+
+  componentDidMount() {
+    this.props.getPendingMatches()
+  }
 
   state = {
     isPendingExpand: true,
     isPlayedExpand: false
+  }
+
+  requestTogglePendingBlock = () => {
+    const nextValue = !this.state.isPendingExpand
+
+    if (nextValue == true) {
+      this.props.getPendingMatches()
+    }
+
+    this.setState({ isPendingExpand: nextValue })
+  }
+
+  requestTogglePlayedBlock = () => {
+    const nextValue = !this.state.isPlayedExpand
+
+    if (nextValue == true) {
+      this.props.getPlayedMatches()
+    }
+
+    this.setState({ isPlayedExpand: nextValue })
   }
   
   render() {
@@ -163,40 +198,30 @@ export default class Profile extends PureComponent {
         <Header />
         <Title />
         <PendingBlock 
-          data={[
-            {
-              avatar: "http://www.europeantour.com/mm/photo/tournament/tournaments/33/54/31/335431_m16.jpg",
-            },
-            {
-              avatar: "https://media.golfdigest.com/photos/5d34b6d7800f6d0008f342b4/master/w_2583,h_1723,c_limit/Shane-Lowry.jpg",
-            }
-          ]}
-          isExpanded={this.state.isPendingExpand} 
-          requestToggleExpand={() => this.setState({ isPendingExpand: !this.state.isPendingExpand })} 
+          data={this.props.pendingData.data}
+          isExpanded={this.state.isPendingExpand}
+          isLoading={this.props.pendingData.isLoading}
+          requestToggleExpand={this.requestTogglePendingBlock} 
         />
         <PlayedBlock 
-          data={[
-            {
-              avatar: "http://www.europeantour.com/mm/photo/tournament/tournaments/33/54/31/335431_m16.jpg",
-              result: "2 & 1"
-            },
-            {
-              avatar: "https://media.golfdigest.com/photos/5d34b6d7800f6d0008f342b4/master/w_2583,h_1723,c_limit/Shane-Lowry.jpg",
-              result: "Halved"
-            }
-          ]}
+          data={this.props.playedData.data}
           isExpanded={this.state.isPlayedExpand} 
-          requestToggleExpand={() => this.setState({ isPlayedExpand: !this.state.isPlayedExpand })} 
+          isLoading={this.props.playedData.isLoading}
+          requestToggleExpand={this.requestTogglePlayedBlock} 
         />
       </BaseComponent>
     )
   }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center'
-  }
+const mapStateToProps = (state) => ({
+  pendingData: state.matches.pending,
+  playedData: state.matches.played 
 })
+
+const mapDispatchToProps = (dispatch) => ({
+  getPendingMatches: () => dispatch(getPendingMatches()),
+  getPlayedMatches: () => dispatch(getPlayedMatches())
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(Play)

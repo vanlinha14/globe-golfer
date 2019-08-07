@@ -6,6 +6,7 @@ import regionsReducer from './reducers/regionsReducer'
 import clubsReducer from './reducers/clubsReducer'
 import authenticationReducer from './reducers/authenticationReducer'
 import challengesReducer from './reducers/challengesReducer'
+import matchesReducer from './reducers/matchesReducer'
 
 const rootReducer = combineReducers({
   places: placeReducer,
@@ -13,7 +14,8 @@ const rootReducer = combineReducers({
   regions: regionsReducer,
   clubs: clubsReducer,
   authentication: authenticationReducer,
-  challenges: challengesReducer
+  challenges: challengesReducer,
+  matches: matchesReducer
 })
 
 export default configureStore = () => {

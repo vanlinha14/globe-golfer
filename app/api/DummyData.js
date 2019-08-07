@@ -63,3 +63,19 @@ export const DUMMY_CHALLENGE = [
     about: "Sharing my experience with aspiring golfer. I'm a golfer from New York. Sharing my experience with aspiring golfer."
   }
 ]
+
+export const DUMMY_PENDING_MATCHES = [
+  { avatar: "http://www.europeantour.com/mm/photo/tournament/tournaments/33/54/31/335431_m16.jpg" },
+  { avatar: "https://media.golfdigest.com/photos/5d34b6d7800f6d0008f342b4/master/w_2583,h_1723,c_limit/Shane-Lowry.jpg" }
+]
+
+export const DUMMY_PLAYED_MATCHES = [
+  {
+    avatar: "http://www.europeantour.com/mm/photo/tournament/tournaments/33/54/31/335431_m16.jpg",
+    result: "2 & 1"
+  },
+  {
+    avatar: "https://media.golfdigest.com/photos/5d34b6d7800f6d0008f342b4/master/w_2583,h_1723,c_limit/Shane-Lowry.jpg",
+    result: "Halved"
+  }
+]

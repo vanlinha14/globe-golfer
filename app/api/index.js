@@ -4,7 +4,9 @@ import {
   DUMMY_REGION, 
   DUMMY_CLUB,
   DUMMY_AUTHENTICATION,
-  DUMMY_CHALLENGE
+  DUMMY_CHALLENGE,
+  DUMMY_PENDING_MATCHES,
+  DUMMY_PLAYED_MATCHES
 } from './DummyData'
 import { LOGIN } from './Endpoints';
 import LoginBinder from './Binders/Login';
@@ -79,6 +81,22 @@ export default class Api extends Base {
     return new Promise((resolve, rejecter) => {
       setTimeout(() => {
         resolve(DUMMY_CHALLENGE)
+      }, 1000);
+    })
+  }
+
+  getPendingMatches() {
+    return new Promise((resolve, rejecter) => {
+      setTimeout(() => {
+        resolve(DUMMY_PENDING_MATCHES)
+      }, 1000);
+    })
+  }
+
+  getPlayedMatches() {
+    return new Promise((resolve, rejecter) => {
+      setTimeout(() => {
+        resolve(DUMMY_PLAYED_MATCHES)
       }, 1000);
     })
   }
