@@ -139,8 +139,8 @@ export default class LeaderBoard extends PureComponent {
     return (
       <BaseComponent>
         <Header />
+        <Filter />
         <ScrollView showsVerticalScrollIndicator={false} >
-          <Filter />
           <Favorite isExpanded={this.state.isFavoriteExpand} requestToggleExpand={() => this.setState({ isFavoriteExpand: !this.state.isFavoriteExpand })}/>
           <AllPlayer isExpanded={this.state.isAllExpand} requestToggleExpand={() => this.setState({ isAllExpand: !this.state.isAllExpand })}/>
         </ScrollView>

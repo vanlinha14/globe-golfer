@@ -132,8 +132,8 @@ export default class Notification extends PureComponent {
     return (
       <BaseComponent>
         <Header />
+        <Filter />
         <ScrollView showsVerticalScrollIndicator={false} >
-          <Filter />
           <NewMessages isExpanded={this.state.isNewExpand} requestToggleExpand={() => this.setState({ isNewExpand: !this.state.isNewExpand })}/>
           <History isExpanded={this.state.isHistoryExpand} requestToggleExpand={() => this.setState({ isHistoryExpand: !this.state.isHistoryExpand })}/>
         </ScrollView>
