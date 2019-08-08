@@ -123,3 +123,38 @@ export const DUMMY_NEW_NOTIFICATIONS = [
 ]
 
 export const DUMMY_HISTORY_NOTIFICATIONS = []
+
+export const DUMMY_FAVORITE_RANKING = []
+
+export const DUMMY_ALL_RANKING = [
+  {
+    index: 1,
+    name: "OLIVER, Sam",
+    total: -12
+  },
+  {
+    index: 2,
+    name: "Prase, Lee",
+    total: -9
+  },
+  {
+    index: 3,
+    name: "Jack, Peter",
+    total: -6
+  },
+  {
+    index: 4,
+    name: "Flash, James",
+    total: -3
+  },
+  {
+    index: 5,
+    name: "OLIVER, Queen",
+    total: 1
+  },
+  {
+    index: 6,
+    name: "Justin, Selena",
+    total: 12
+  }
+]

@@ -9,7 +9,9 @@ import {
   DUMMY_PLAYED_MATCHES,
   DUMMY_MESSAGES,
   DUMMY_NEW_NOTIFICATIONS,
-  DUMMY_HISTORY_NOTIFICATIONS
+  DUMMY_HISTORY_NOTIFICATIONS,
+  DUMMY_FAVORITE_RANKING,
+  DUMMY_ALL_RANKING
 } from './DummyData'
 import { LOGIN } from './Endpoints';
 import LoginBinder from './Binders/Login';
@@ -86,5 +88,13 @@ export default class Api extends Base {
 
   getHistoryNotifications(tag) {
     return this.dummData(DUMMY_HISTORY_NOTIFICATIONS)
+  }
+
+  getFavoriteRanking(tag) {
+    return this.dummData(DUMMY_FAVORITE_RANKING)
+  }
+
+  getAllRanking(tag) {
+    return this.dummData(DUMMY_ALL_RANKING)
   }
 }

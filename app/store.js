@@ -9,6 +9,7 @@ import challengesReducer from './reducers/challengesReducer'
 import matchesReducer from './reducers/matchesReducer'
 import messagesReducer from './reducers/messagesReducer'
 import notificationsReducer from './reducers/notificationsReducer'
+import rankingReducer from './reducers/rankingReducer'
 
 const rootReducer = combineReducers({
   places: placeReducer,
@@ -19,7 +20,8 @@ const rootReducer = combineReducers({
   challenges: challengesReducer,
   matches: matchesReducer,
   messages: messagesReducer,
-  notifications: notificationsReducer
+  notifications: notificationsReducer,
+  ranking: rankingReducer
 })
 
 export default configureStore = () => {
