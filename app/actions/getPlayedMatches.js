@@ -1,26 +1,22 @@
-import { 
-  GET_PLAYED_MATCHES_BEGIN, 
-  GET_PLAYED_MATCHES_FINISH,
-  GET_PLAYED_MATCHES_ERROR 
-} from './types'
+import { GET_PLAYED_MATCHES } from './types'
 import Api from '../api'
 
 export const getPlayedMatchesBegin = () => {
   return {
-    type: GET_PLAYED_MATCHES_BEGIN
+    type: GET_PLAYED_MATCHES.BEGIN
   }
 }
 
 export const getPlayedMatchesFinish = matches => {
   return {
-    type: GET_PLAYED_MATCHES_FINISH,
+    type: GET_PLAYED_MATCHES.FINISH,
     payload: matches
   }
 }
 
 export const getPlayedMatchesError = error => {
   return {
-    type: GET_PLAYED_MATCHES_ERROR,
+    type: GET_PLAYED_MATCHES.ERROR,
     payload: error
   }
 }

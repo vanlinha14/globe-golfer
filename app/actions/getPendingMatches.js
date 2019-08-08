@@ -1,26 +1,22 @@
-import { 
-  GET_PENDING_MATCHES_BEGIN, 
-  GET_PENDING_MATCHES_FINISH, 
-  GET_PENDING_MATCHES_ERROR 
-} from './types'
+import { GET_PENDING_MATCHES } from './types'
 import Api from '../api'
 
 export const getPendingMatchesBegin = () => {
   return {
-    type: GET_PENDING_MATCHES_BEGIN
+    type: GET_PENDING_MATCHES.BEGIN
   }
 }
 
 export const getPendingMatchesFinish = matches => {
   return {
-    type: GET_PENDING_MATCHES_FINISH,
+    type: GET_PENDING_MATCHES.FINISH,
     payload: matches
   }
 }
 
 export const getPendingMatchesError = error => {
   return {
-    type: GET_PENDING_MATCHES_ERROR,
+    type: GET_PENDING_MATCHES.ERROR,
     payload: error
   }
 }

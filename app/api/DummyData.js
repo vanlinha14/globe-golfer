@@ -79,3 +79,24 @@ export const DUMMY_PLAYED_MATCHES = [
     result: "Halved"
   }
 ]
+
+export const DUMMY_MESSAGES = [
+  {
+    avatar: "https://usatgolfweek.files.wordpress.com/2019/07/gettyimages-1163432510.jpg",
+    name: "Zoe",
+    lastMessage: "Hey let's schedule a call for the next week so that we can meet and play golf",
+    timeIndicator: "2 hours ago"
+  },
+  {
+    avatar: "http://www.europeantour.com/mm/photo/tournament/tournaments/33/54/31/335431_m16.jpg",
+    name: "Bernard",
+    lastMessage: "Thanks for getting back to me. I think you are the good man.",
+    timeIndicator: "5 hours ago"
+  },
+  {
+    avatar: "https://media.golfdigest.com/photos/5d34b6d7800f6d0008f342b4/master/w_2583,h_1723,c_limit/Shane-Lowry.jpg",
+    name: "Anna",
+    lastMessage: "Great to catch up today. Looing forward for the next meeting.",
+    timeIndicator: "Nov 2"
+  }
+]

@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react'
-import { StyleSheet, ScrollView, View, TouchableOpacity, Image } from 'react-native'
+import { ActivityIndicator, ScrollView, View, TouchableOpacity, Image } from 'react-native'
+import { connect } from 'react-redux'
 
 import Theme from '../../res/Theme'
 import Strings from '../../res/Strings'
@@ -10,6 +11,7 @@ import Header from './components/Header'
 import BaseComponent from '../../components/BaseComponent';
 import Filter from './components/Filter';
 import DGText from '../../components/DGText';
+import { getMessages } from '../../actions/getMessages';
 
 const Challenge = React.memo(({item, onPress}) => {
   return (
@@ -46,29 +48,11 @@ const Challengers = React.memo(({data}) => {
   )
 })
 
-const Message = React.memo(() => {
+const Message = React.memo(({isLoading, data}) => {
   return <Board 
     title="Message"
-    data={[
-      {
-        avatar: "https://usatgolfweek.files.wordpress.com/2019/07/gettyimages-1163432510.jpg",
-        name: "Zoe",
-        lastMessage: "Hey let's schedule a call for the next week so that we can meet and play golf",
-        timeIndicator: "2 hours ago"
-      },
-      {
-        avatar: "http://www.europeantour.com/mm/photo/tournament/tournaments/33/54/31/335431_m16.jpg",
-        name: "Bernard",
-        lastMessage: "Thanks for getting back to me. I think you are the good man.",
-        timeIndicator: "5 hours ago"
-      },
-      {
-        avatar: "https://media.golfdigest.com/photos/5d34b6d7800f6d0008f342b4/master/w_2583,h_1723,c_limit/Shane-Lowry.jpg",
-        name: "Anna",
-        lastMessage: "Great to catch up today. Looing forward for the next meeting.",
-        timeIndicator: "Nov 2"
-      }
-    ]}
+    isLoading={isLoading}
+    data={data}
   />
 })
 
@@ -121,7 +105,20 @@ const MessageBlock = React.memo(({data}) => {
   )
 })
 
-const Board = React.memo(({title, isExpanded, data, requestToggleExpand}) => {
+const Board = React.memo(({title, isLoading, data}) => {
+
+  let content = undefined;
+  if (isLoading || data == null) {
+    content = <ActivityIndicator size='large' color={Theme.buttonPrimary} />
+  }
+  else if (data.length == 0) {
+    content = <EmptyData />
+  }
+  else {
+    content = <MessageBlock data={data} />
+  }
+
+
   return (
     <>
       <DGText style={{ 
@@ -132,19 +129,27 @@ const Board = React.memo(({title, isExpanded, data, requestToggleExpand}) => {
         fontSize: 18,
   
       }} >{title}</DGText>
-      {data.length == 0 ? <EmptyData/> : <MessageBlock data={data} />}
+      {content}
     </>
   )
 })
 
-export default class Chat extends PureComponent {
+class Chat extends PureComponent {
   static navigationOptions = { header: null }
+
+  requestToggleExpand = () => {
+    this.setState({ isAllExpand: !this.state.isAllExpand })
+  }
+
+  onFilterChanged = (nextValue) => {
+    this.props.getMessages(nextValue)
+  }
   
   render() {
     return (
       <BaseComponent>
         <Header />
-        <Filter />
+        <Filter onFilterChanged={this.onFilterChanged} />
         <ScrollView showsVerticalScrollIndicator={false} >
           <Challengers data={[
             {
@@ -157,17 +162,24 @@ export default class Chat extends PureComponent {
               avatar: "https://media.golfdigest.com/photos/5d34b6d7800f6d0008f342b4/master/w_2583,h_1723,c_limit/Shane-Lowry.jpg",
             }
           ]}/>
-          <Message requestToggleExpand={() => this.setState({ isAllExpand: !this.state.isAllExpand })}/>
+          <Message 
+            requestToggleExpand={this.requestToggleExpand}
+            isLoading={this.props.messagesData.isLoading}
+            data={this.props.messagesData.data}
+          />
         </ScrollView>
       </BaseComponent>
     )
   }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center'
-  }
+const mapStateToProps = (state) => ({
+  messagesData: state.messages,
 })
+
+const mapDispatchToProps = (dispatch) => ({
+  getMessages: (tag) => dispatch(getMessages(tag))
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(Chat)
+

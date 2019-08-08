@@ -65,6 +65,7 @@ const BoardHeader = React.memo(({title, isExpanded, requestToggleExpand}) => {
     <TouchableOpacity style={{ 
       flexDirection: 'row', 
       alignItems: 'center',
+      marginTop: 12,
       paddingHorizontal: 16,
       paddingVertical:12
       }} activeOpacity={0.7} onPress={requestToggleExpand}>

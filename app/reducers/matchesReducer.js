@@ -1,8 +1,6 @@
 import { 
-  GET_PENDING_MATCHES_BEGIN, 
-  GET_PENDING_MATCHES_FINISH, 
-  GET_PLAYED_MATCHES_BEGIN,
-  GET_PLAYED_MATCHES_FINISH 
+  GET_PENDING_MATCHES,
+  GET_PLAYED_MATCHES
 } from '../actions/types'
 
 const initialState = {
@@ -18,7 +16,7 @@ const initialState = {
 
 export default matchesReducer = (state = initialState, action) => {
   switch(action.type) {
-    case GET_PENDING_MATCHES_BEGIN:
+    case GET_PENDING_MATCHES.BEGIN:
       return {
         ...state,
         pending: {
@@ -26,7 +24,7 @@ export default matchesReducer = (state = initialState, action) => {
           isLoading: true  
         }
       }
-    case GET_PLAYED_MATCHES_BEGIN:
+    case GET_PLAYED_MATCHES.BEGIN:
       return {
         ...state,
         played: {
@@ -34,7 +32,7 @@ export default matchesReducer = (state = initialState, action) => {
           isLoading: true  
         }
       }
-    case GET_PENDING_MATCHES_FINISH:
+    case GET_PENDING_MATCHES.FINISH:
       return {
         ...state,
         pending: {
@@ -42,7 +40,7 @@ export default matchesReducer = (state = initialState, action) => {
           data: action.payload
         }
       }
-    case GET_PLAYED_MATCHES_FINISH:
+    case GET_PLAYED_MATCHES.FINISH:
       return {
         ...state,
         played: {

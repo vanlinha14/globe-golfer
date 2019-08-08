@@ -6,7 +6,8 @@ import {
   DUMMY_AUTHENTICATION,
   DUMMY_CHALLENGE,
   DUMMY_PENDING_MATCHES,
-  DUMMY_PLAYED_MATCHES
+  DUMMY_PLAYED_MATCHES,
+  DUMMY_MESSAGES
 } from './DummyData'
 import { LOGIN } from './Endpoints';
 import LoginBinder from './Binders/Login';
@@ -21,36 +22,28 @@ export default class Api extends Base {
       return this._instance
   }
 
-  getCountries() {
+  dummData(data) {
     return new Promise((resolve, rejecter) => {
       setTimeout(() => {
-        resolve(DUMMY_COUNTRY)
+        resolve(data)
       }, 1000);
     })
+  }
+
+  getCountries() {
+    return this.dummData(DUMMY_COUNTRY)
   }
 
   getRegions(countryId) {
-    return new Promise((resolve, rejecter) => {
-      setTimeout(() => {
-        resolve(DUMMY_REGION)
-      }, 1000);
-    })
+    return this.dummData(DUMMY_REGION)
   }
 
   getClubs(regionId) {
-    return new Promise((resolve, rejecter) => {
-      setTimeout(() => {
-        resolve(DUMMY_CLUB)
-      }, 1000);
-    })
+    return this.dummData(DUMMY_CLUB)
   }
 
   register() {
-    return new Promise((resolve, rejecter) => {
-      setTimeout(() => {
-        resolve(DUMMY_AUTHENTICATION)
-      }, 2000);
-    })
+    return this.dummData(DUMMY_AUTHENTICATION)
   }
 
   login(email, password) {
@@ -62,42 +55,26 @@ export default class Api extends Base {
   }
 
   loginGoogle(user) {
-    return new Promise((resolve, rejecter) => {
-      setTimeout(() => {
-        resolve(DUMMY_AUTHENTICATION)
-      }, 1000);
-    })
+    return this.dummData(DUMMY_AUTHENTICATION)
   }
 
   loginFacebook(user) {
-    return new Promise((resolve, rejecter) => {
-      setTimeout(() => {
-        resolve(DUMMY_AUTHENTICATION)
-      }, 1000);
-    })
+    return this.dummData(DUMMY_AUTHENTICATION)
   }
 
   getChallenges() {
-    return new Promise((resolve, rejecter) => {
-      setTimeout(() => {
-        resolve(DUMMY_CHALLENGE)
-      }, 1000);
-    })
+    return this.dummData(DUMMY_CHALLENGE)
   }
 
   getPendingMatches() {
-    return new Promise((resolve, rejecter) => {
-      setTimeout(() => {
-        resolve(DUMMY_PENDING_MATCHES)
-      }, 1000);
-    })
+    return this.dummData(DUMMY_PENDING_MATCHES)
   }
 
   getPlayedMatches() {
-    return new Promise((resolve, rejecter) => {
-      setTimeout(() => {
-        resolve(DUMMY_PLAYED_MATCHES)
-      }, 1000);
-    })
+    return this.dummData(DUMMY_PLAYED_MATCHES)
+  }
+
+  getMessages(tag) {
+    return this.dummData(DUMMY_MESSAGES)
   }
 }
