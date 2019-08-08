@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react'
-import { StyleSheet, ScrollView, View, TouchableOpacity, Image } from 'react-native'
+import { ActivityIndicator, ScrollView, View, TouchableOpacity, Image } from 'react-native'
+import { connect } from 'react-redux'
 
 import Theme from '../../res/Theme'
 import Strings from '../../res/Strings'
@@ -10,40 +11,24 @@ import Header from './components/Header'
 import BaseComponent from '../../components/BaseComponent';
 import Filter from './components/Filter';
 import DGText from '../../components/DGText';
+import { getNewNotifications, getHistoryNotifications } from '../../actions/getNotifications';
 
-const NewMessages = React.memo(({isExpanded, requestToggleExpand}) => {
+const NewMessages = React.memo(({isExpanded, isLoading, data, requestToggleExpand}) => {
   return <Board 
     title="NEW MESSAGES" 
     isExpanded={isExpanded}
-    data={[
-      {
-        avatar: "https://usatgolfweek.files.wordpress.com/2019/07/gettyimages-1163432510.jpg",
-        name: "Gentlemen golfer",
-        lastMessage: "Recu",
-        duration: "73:34:40"
-      },
-      {
-        avatar: "http://www.europeantour.com/mm/photo/tournament/tournaments/33/54/31/335431_m16.jpg",
-        name: "French styles golfer",
-        lastMessage: "Envoye",
-        duration: "05:21:12"
-      },
-      {
-        avatar: "https://media.golfdigest.com/photos/5d34b6d7800f6d0008f342b4/master/w_2583,h_1723,c_limit/Shane-Lowry.jpg",
-        name: "The Piranhas",
-        lastMessage: "Recu",
-        duration: "42:28:54"
-      }
-    ]}
+    isLoading={isLoading}
+    data={data}
     requestToggleExpand={requestToggleExpand}
   />
 })
 
-const History = React.memo(({isExpanded, requestToggleExpand}) => {
+const History = React.memo(({isExpanded, isLoading, data, requestToggleExpand}) => {
   return <Board 
     title="HISTORY"
     isExpanded={isExpanded}
-    data={[]}
+    isLoading={isLoading}
+    data={data}
     requestToggleExpand={requestToggleExpand}
   />
 })
@@ -111,41 +96,100 @@ const Messages = React.memo(({data}) => {
   return items
 })
 
-const Board = React.memo(({title, isExpanded, data, requestToggleExpand}) => {
+const Board = React.memo(({title, isLoading, isExpanded, data, requestToggleExpand}) => {
+  let content = undefined;
+
+  if (isExpanded) {
+    if (isLoading || data == null) {
+      content = <ActivityIndicator size='large' color={Theme.buttonPrimary} />
+    }
+    else {
+      content = data.length == 0 ? <EmptyData/> : <Messages data={data} />
+    }
+  }
+  
   return (
     <>
       <BoardHeader title={title} isExpanded={isExpanded} requestToggleExpand={requestToggleExpand}/>
-      {isExpanded ? (data.length == 0 ? <EmptyData/> : <Messages data={data} />) : undefined}
+      {content}
     </>
   )
 })
 
-export default class Notification extends PureComponent {
+class Notification extends PureComponent {
   static navigationOptions = { header: null }
 
   state = {
+    tag: undefined,
     isNewExpand: false,
     isHistoryExpand: true
+  }
+
+  onFilterChanged = (tag) => {
+    if (this.state.isNewExpand) {
+      this.props.getNewNotifications(tag)
+    }
+
+    if (this.state.isHistoryExpand) {
+      this.props.getHistoryNotifications(tag)
+    }
+
+    this.setState({ tag })
+  }
+
+  requestToggleExpandNew = () => {
+    const newValue = !this.state.isNewExpand
+
+    if (newValue == true) {
+      this.props.getNewNotifications(this.state.tag)
+    }
+
+    this.setState({ isNewExpand: newValue })
+  }
+
+  requestToggleExpandHistory = () => {
+    const newValue = !this.state.isHistoryExpand
+
+    if (newValue == true) {
+      this.props.getHistoryNotifications(this.state.tag)
+    }
+
+    this.setState({ isHistoryExpand: newValue })
   }
   
   render() {
     return (
       <BaseComponent>
         <Header />
-        <Filter />
+        <Filter onFilterChanged={this.onFilterChanged} />
         <ScrollView showsVerticalScrollIndicator={false} >
-          <NewMessages isExpanded={this.state.isNewExpand} requestToggleExpand={() => this.setState({ isNewExpand: !this.state.isNewExpand })}/>
-          <History isExpanded={this.state.isHistoryExpand} requestToggleExpand={() => this.setState({ isHistoryExpand: !this.state.isHistoryExpand })}/>
+          <NewMessages 
+            isExpanded={this.state.isNewExpand} 
+            isLoading={this.props.newNotificationsData.isLoading}
+            data={this.props.newNotificationsData.data}
+            requestToggleExpand={this.requestToggleExpandNew}
+          />
+          <History 
+            isExpanded={this.state.isHistoryExpand} 
+            isLoading={this.props.historyNotificationsData.isLoading}
+            data={this.props.historyNotificationsData.data}
+            requestToggleExpand={this.requestToggleExpandHistory}
+          />
         </ScrollView>
       </BaseComponent>
     )
   }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center'
-  }
+
+const mapStateToProps = (state) => ({
+  newNotificationsData: state.notifications.new,
+  historyNotificationsData: state.notifications.history,
 })
+
+const mapDispatchToProps = (dispatch) => ({
+  getNewNotifications: (tag) => dispatch(getNewNotifications(tag)),
+  getHistoryNotifications: (tag) => dispatch(getHistoryNotifications(tag))
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(Notification)

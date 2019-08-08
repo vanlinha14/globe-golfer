@@ -7,7 +7,9 @@ import {
   DUMMY_CHALLENGE,
   DUMMY_PENDING_MATCHES,
   DUMMY_PLAYED_MATCHES,
-  DUMMY_MESSAGES
+  DUMMY_MESSAGES,
+  DUMMY_NEW_NOTIFICATIONS,
+  DUMMY_HISTORY_NOTIFICATIONS
 } from './DummyData'
 import { LOGIN } from './Endpoints';
 import LoginBinder from './Binders/Login';
@@ -76,5 +78,13 @@ export default class Api extends Base {
 
   getMessages(tag) {
     return this.dummData(DUMMY_MESSAGES)
+  }
+
+  getNewNotifications(tag) {
+    return this.dummData(DUMMY_NEW_NOTIFICATIONS)
+  }
+
+  getHistoryNotifications(tag) {
+    return this.dummData(DUMMY_HISTORY_NOTIFICATIONS)
   }
 }

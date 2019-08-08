@@ -100,3 +100,26 @@ export const DUMMY_MESSAGES = [
     timeIndicator: "Nov 2"
   }
 ]
+
+export const DUMMY_NEW_NOTIFICATIONS = [
+  {
+    avatar: "https://usatgolfweek.files.wordpress.com/2019/07/gettyimages-1163432510.jpg",
+    name: "Gentlemen golfer",
+    lastMessage: "Recu",
+    duration: "73:34:40"
+  },
+  {
+    avatar: "http://www.europeantour.com/mm/photo/tournament/tournaments/33/54/31/335431_m16.jpg",
+    name: "French styles golfer",
+    lastMessage: "Envoye",
+    duration: "05:21:12"
+  },
+  {
+    avatar: "https://media.golfdigest.com/photos/5d34b6d7800f6d0008f342b4/master/w_2583,h_1723,c_limit/Shane-Lowry.jpg",
+    name: "The Piranhas",
+    lastMessage: "Recu",
+    duration: "42:28:54"
+  }
+]
+
+export const DUMMY_HISTORY_NOTIFICATIONS = []
