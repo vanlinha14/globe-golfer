@@ -3,6 +3,8 @@ import { View, FlatList, Dimensions } from 'react-native'
 import Permissions from 'react-native-permissions'
 import Contacts from 'react-native-contacts'
 
+import SharingHelper from '../../utils/SharingHelper'
+
 import Theme from '../../res/Theme'
 
 import Toggler from '../../components/Toggler'
@@ -11,7 +13,7 @@ import DGButtonV2 from '../../components/DGButtonV2'
 import Header from './components/Header'
 import BaseComponent from '../../components/BaseComponent';
 import DGText from '../../components/DGText';
-import { showErrorAlert, showErrorAlertWithCallbackAction } from '../../utils';
+import { showErrorAlertWithCallbackAction } from '../../utils';
 import FlexSpacing from './components/FlexSpacing';
 
 const ContactItem = React.memo(({index, name, selected, onChanged}) => {
@@ -117,8 +119,13 @@ export default class Invite extends PureComponent {
   }
 
   onRequestSend = () => {
-    const target = this.state.contacts.filter(i => i.selected)
-    alert(JSON.stringify(target))
+    const target = this.state.contacts.filter(i => 
+      i.selected && 
+      i.phone[0] &&
+      i.phone[0].number
+    )
+    const phoneList = target.map(i => { return i.phone[0].number }).join(";")
+    SharingHelper.shareTo(phoneList)
   }
   
   render() {

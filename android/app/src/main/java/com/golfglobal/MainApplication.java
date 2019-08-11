@@ -1,21 +1,14 @@
 package com.golfglobal;
 
 import android.app.Application;
-import android.util.Log;
 
 import com.facebook.react.PackageList;
-import com.facebook.hermes.reactexecutor.HermesExecutorFactory;
-import com.facebook.react.bridge.JavaScriptExecutorFactory;
 import com.facebook.react.ReactApplication;
-import com.reactnativecommunity.webview.RNCWebViewPackage;
-import com.entria.views.RNViewOverflowPackage;
-import com.facebook.reactnative.androidsdk.FBSDKPackage;
-import co.apptailor.googlesignin.RNGoogleSigninPackage;
-import com.swmansion.reanimated.ReanimatedPackage;
-import com.swmansion.gesturehandler.react.RNGestureHandlerPackage;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.soloader.SoLoader;
+import com.golfglobal.SharingHelper.SharingHelperPackage;
+import com.rt2zz.reactnativecontacts.ReactNativeContacts;
 
 import java.util.List;
 
@@ -32,7 +25,8 @@ public class MainApplication extends Application implements ReactApplication {
       @SuppressWarnings("UnnecessaryLocalVariable")
       List<ReactPackage> packages = new PackageList(this).getPackages();
       // Packages that cannot be autolinked yet can be added manually here, for example:
-      // packages.add(new MyReactNativePackage());
+      // packages.add(new ReactNativeContacts());
+       packages.add(new SharingHelperPackage());
       return packages;
     }
 
