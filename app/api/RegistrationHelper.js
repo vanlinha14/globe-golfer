@@ -12,6 +12,12 @@ export default class RegistrationHelper {
   email = undefined
   password = undefined
 
+  facebookId = undefined
+  facebookToken = undefined
+
+  googleId = undefined
+  googleToken = undefined
+
   card = undefined
 
   firstName = undefined
@@ -28,10 +34,35 @@ export default class RegistrationHelper {
 
   setEmail(email) {
     this.email = email
+    
+    this.facebookId = undefined
+    this.googleId = undefined
   }
 
   setPassword(password) {
     this.password = password
+  }
+
+  setFacebookId(id) {
+    this.facebookId = id
+
+    this.email = undefined
+    this.googleId = undefined
+  }
+
+  setFacebookToken(token) {
+    this.facebookToken = token
+  }
+
+  setGoogleId(id) {
+    this.googleId = id
+
+    this.email = undefined
+    this.facebookId = undefined
+  }
+
+  setGoogleToken(token) {
+    this.googleToken = token
   }
 
   setMembershipCard(card) {
@@ -41,7 +72,7 @@ export default class RegistrationHelper {
   setFirstName(firstName)  {
     this.firstName = firstName
   }
-  
+
   setLastName(lastName) {
     this.lastName = lastName
   }

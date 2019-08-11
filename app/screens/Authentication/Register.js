@@ -17,6 +17,7 @@ import Intro from '../../components/Intro'
 
 import Icon from 'react-native-vector-icons/Ionicons'
 import DialogCombination from '../../components/DialogCombination';
+import RegistrationHelper from '../../api/RegistrationHelper';
 
 export default class Register extends PureComponent {
   static navigationOptions = { header: null }
@@ -67,7 +68,8 @@ export default class Register extends PureComponent {
         } else {
           AccessToken.getCurrentAccessToken().then(
             (data) => {
-              //got the user data, move on
+              RegistrationHelper.instance().setFacebookId(data.userID)
+              RegistrationHelper.instance().setFacebookToken(data.accessToken)
               this.props.navigation.navigate("SetupAccountStepInputScannedCard")
             }
           )

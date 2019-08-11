@@ -53,7 +53,7 @@ export default class Api extends Base {
 
   register() {
     const helper = RegistrationHelper.instance();
-    const body = JSON.stringify({
+    const body = {
       email: helper.email,
       password: helper.password,
       first_name: helper.firstName,
@@ -62,15 +62,38 @@ export default class Api extends Base {
       sex: helper.gender,
       p_index: helper.index,
       golfCourseId: helper.club
-    })
+    }
+
+    var addition = {
+      email: helper.email
+    }
+
+    if (helper.facebookId) {
+      addition = {
+        facebookId: helper.facebookId
+      }
+    } else if (helper.googleId) {
+      addition = {
+        googleId: helper.googleId
+      }
+    }
+
+    const callingBody = {...body, ...addition}
 
     return new Promise((resolve, rejecter) => {
-      this.callPost(REGISTER, body, new RegisterBinder())
+      this.callPost(REGISTER, JSON.stringify(callingBody), new RegisterBinder())
         .then(result => {
           if (result.result === true) {
-            this.login(helper.email, helper.password)
-              .then(data => resolve(data))
-              .catch(e => rejecter(e))
+            if (helper.email) {
+              this.login(helper.email, helper.password)
+                .then(data => resolve(data))
+                .catch(e => rejecter(e))
+            }
+            else if (helper.facebookId) {
+              this.loginFacebook(helper.facebookId, helper.facebookToken)
+                .then(data => resolve(data))
+                .catch(e => rejecter(e))
+            }
           }
           else {
             rejecter()
@@ -92,8 +115,12 @@ export default class Api extends Base {
     return this.dummData(DUMMY_AUTHENTICATION)
   }
 
-  loginFacebook(user) {
-    return this.dummData(DUMMY_AUTHENTICATION)
+  loginFacebook(id, token) {
+    const body = JSON.stringify({
+      facebookId: id,
+	    facebookToken: token
+    })
+    return this.callPost(LOGIN, body, new LoginBinder())
   }
 
   getChallenges() {
