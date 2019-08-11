@@ -141,8 +141,7 @@ class SetupAccountStepInputLocation extends PureComponent {
           value: i.id
         }
       })
-    }
-      
+    } 
 
     return <SelectInputBlockV2
       title={Strings.inputLocation.country} 

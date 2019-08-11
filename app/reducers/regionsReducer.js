@@ -17,6 +17,11 @@ export default regionsReducer = (state = initialState, action) => {
         isLoading: false,
         data: action.payload
       }
+    case GET_REGIONS_ERROR: 
+      return {
+        ...state,
+        isLoading: false
+      }
     default:
       return state
   }

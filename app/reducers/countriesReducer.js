@@ -9,14 +9,20 @@ export default countriesReducer = (state = initialState, action) => {
   switch(action.type) {
     case GET_COUNTRIES_BEGIN:
       return {
-        isLoading: true,
-        data: state.data
+        ...state,
+        isLoading: true
       }
     case GET_COUNTRIES_FINISH:
       return {
         isLoading: false,
         data: action.payload
       }
+    case GET_COUNTRIES_ERROR: {
+      return {
+        ...state,
+        isLoading: false,
+      }
+    }
     default:
       return state
   }

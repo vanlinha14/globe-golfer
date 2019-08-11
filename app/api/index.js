@@ -13,8 +13,9 @@ import {
   DUMMY_FAVORITE_RANKING,
   DUMMY_ALL_RANKING
 } from './DummyData'
-import { LOGIN } from './Endpoints';
+import { LOGIN, GET_COUNTRY, GET_REGION, GET_CLUB } from './Endpoints';
 import LoginBinder from './Binders/Login';
+import CountriesBinder from './Binders/CountriesBinder';
 
 export default class Api extends Base {
   static _instance = null
@@ -35,15 +36,17 @@ export default class Api extends Base {
   }
 
   getCountries() {
-    return this.dummData(DUMMY_COUNTRY)
+    return this.callGet(GET_COUNTRY, new CountriesBinder())
   }
 
   getRegions(countryId) {
-    return this.dummData(DUMMY_REGION)
+    const callingApi = GET_REGION.replace("{countryId}", `${countryId}`)
+    return this.callGet(callingApi, new CountriesBinder())
   }
 
   getClubs(regionId) {
-    return this.dummData(DUMMY_CLUB)
+    const callingApi = GET_CLUB.replace("{regionId}", `${regionId}`)
+    return this.callGet(callingApi, new CountriesBinder())
   }
 
   register() {
