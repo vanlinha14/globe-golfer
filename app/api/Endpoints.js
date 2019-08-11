@@ -4,3 +4,5 @@ export const GET_COUNTRY = BASE + "country"
 export const GET_REGION = BASE + "region/{countryId}"
 export const GET_CLUB = BASE + "club/{regionId}"
 export const GET_FRIEND_LIST = BASE + "authenticated/friend/{userId}"
+
+export const REGISTER = BASE + "user-add"

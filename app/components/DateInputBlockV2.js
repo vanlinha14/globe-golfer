@@ -46,7 +46,7 @@ export default class DateInputBlockV2 extends PureComponent {
         }}
         mode="date"
         placeholder={Strings.tapToSelect}
-        format="DD-MM-YYYY"
+        format="YYYY-MM-DD"
         minDate="1900-01-01"
         confirmBtnText={Strings.confirm}
         cancelBtnText={Strings.cancel}

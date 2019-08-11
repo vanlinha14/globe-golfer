@@ -11,10 +11,19 @@ export default class RegistrationHelper {
 
   email = undefined
   password = undefined
+
   card = undefined
+
+  firstName = undefined
+  lastName = undefined
+  index = undefined
+  license = undefined
+  birthDay = undefined
+  gender = undefined
   country = undefined
   region = undefined
   club = undefined
+
   avatar = undefined
 
   setEmail(email) {
@@ -27,6 +36,30 @@ export default class RegistrationHelper {
 
   setMembershipCard(card) {
     this.card = card
+  }
+
+  setFirstName(firstName)  {
+    this.firstName = firstName
+  }
+  
+  setLastName(lastName) {
+    this.lastName = lastName
+  }
+
+  setIndex(index) {
+    this.index = index
+  }
+
+  setLicense(license) {
+    this.license = license
+  }
+
+  setBirthDay(birthday) {
+    this.birthDay = birthday
+  }
+
+  setGender(gender) {
+    this.gender = gender
   }
 
   setCountry(country) {

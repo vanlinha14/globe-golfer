@@ -33,12 +33,19 @@ export default authenticationReducer = (state = initialState, action) => {
         accessToken
       }
     case REGISTER_FINISH: {
+      const accessToken = action.payload.accessToken
+      Api.instance().setAccessToken(accessToken)
       return {
         isLoading: false,
-        accessToken: action.payload.accessToken
+        accessToken: accessToken
       }
     }
     case LOGIN_ERROR:
+      return {
+        isLoading: false,
+        accessToken: null
+      }
+    case REGISTER_ERROR:
       return {
         isLoading: false,
         accessToken: null

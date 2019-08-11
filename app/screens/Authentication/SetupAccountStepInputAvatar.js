@@ -28,6 +28,9 @@ class SetupAccountStepInputAvatar extends PureComponent {
     if (authenData.isLoading == false && authenData.accessToken) {
       this.props.navigation.navigate("SetupAccountStepFinal")
     }
+    else if (authenData.isLoading == false && authenData.accessToken === null) {
+      showErrorAlert("Your input information to registration is not valid somewhere, please check and try again!")
+    }
   }
 
   requestGoToStepFinal = () => {

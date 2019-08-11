@@ -49,8 +49,8 @@ export default class Base {
       'Content-Type': 'application/json'
     } : {
       'Accept': 'application/json',
-      'Content-Type': 'application/json'
-      // 'Authorization': 'Bearer ' + this.accessToken
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + this.accessToken
     }
 
     const getConfigs = { method, headers }
@@ -65,10 +65,10 @@ export default class Base {
         return Promise.all([statusCode, data])
       })
       .then(([code, data]) => {
+        console.warn(code + "/" + JSON.stringify(data));
         if (code == 401) {
           this._clearApp()
         } else if (code == 200) {
-          console.warn(data);
           const binded = binder.bind(data);
           if (binded.result === false) {
             rejecter()
@@ -80,6 +80,7 @@ export default class Base {
         rejecter(code)
       })
       .catch(e => {
+        console.warn(e);
         rejecter(e)
       })
     })

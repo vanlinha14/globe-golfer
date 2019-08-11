@@ -19,6 +19,9 @@ import SelectInputBlockV2 from '../../components/SelectInputBlockV2';
 import TextInputBlockV2 from '../../components/TextInputBlockV2';
 import DateInputBlockV2 from '../../components/DateInputBlockV2';
 
+
+const GENDERS = ["Male", "Female", "Other"]
+
 class SetupAccountStepInputLocation extends PureComponent {
   static navigationOptions = { header: null }
 
@@ -39,12 +42,14 @@ class SetupAccountStepInputLocation extends PureComponent {
   }
 
   requestGoToActiveLocation = () => {
-    if (!this.fnameTextInput.getText()) {
+    const firstName = this.fnameTextInput.getText();
+    if (!firstName) {
       showErrorAlert("Your first name can not be blank")
       return
     }
 
-    if (!this.lNameTextInput.getText()) {
+    const lastName = this.lNameTextInput.getText()
+    if (!lastName) {
       showErrorAlert("Your last name can not be blank")
       return
     }
@@ -59,12 +64,14 @@ class SetupAccountStepInputLocation extends PureComponent {
       return
     }
 
-    if (!this.indexTextInput.getText()) {
+    const index = this.indexTextInput.getText()
+    if (!index) {
       showErrorAlert("Your index can not be blank")
       return
     }
 
-    if (!this.licenseTextInput.getText()) {
+    const license = this.licenseTextInput.getText()
+    if (!license) {
       showErrorAlert("Your license's number can not be blank")
       return
     }
@@ -84,6 +91,12 @@ class SetupAccountStepInputLocation extends PureComponent {
       return
     }
 
+    RegistrationHelper.instance().setFirstName(firstName)
+    RegistrationHelper.instance().setLastName(lastName)
+    RegistrationHelper.instance().setIndex(index)
+    RegistrationHelper.instance().setLicense(license)
+    RegistrationHelper.instance().setBirthDay(this.selectedBirthday)
+    RegistrationHelper.instance().setGender(this.selectedGender)
     RegistrationHelper.instance().setCountry(this.selectedCountryId)
     RegistrationHelper.instance().setRegion(this.selectedRegionId)
     RegistrationHelper.instance().setClub(this.selectedClubId)
@@ -207,16 +220,15 @@ class SetupAccountStepInputLocation extends PureComponent {
   }
 
   renderSelectGender() {
-    let items = []
-    items = ["Male", "Female", "Other"].map(i => {
+    const items = GENDERS.map(i => {
       return {
         label: i,
         value: i
       }
     })
 
-    return <SelectInputBlockV2 
-      title="Gender" 
+    return <SelectInputBlockV2
+      title="Gender"
       hint="Select your gender"
       items={items}
       onValueChange={this.onGenderSelectionChange}

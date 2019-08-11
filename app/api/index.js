@@ -13,9 +13,11 @@ import {
   DUMMY_FAVORITE_RANKING,
   DUMMY_ALL_RANKING
 } from './DummyData'
-import { LOGIN, GET_COUNTRY, GET_REGION, GET_CLUB } from './Endpoints';
+import { LOGIN, GET_COUNTRY, GET_REGION, GET_CLUB, REGISTER } from './Endpoints';
 import LoginBinder from './Binders/Login';
 import CountriesBinder from './Binders/CountriesBinder';
+import RegisterBinder from './Binders/RegisterBinder';
+import RegistrationHelper from './RegistrationHelper';
 
 export default class Api extends Base {
   static _instance = null
@@ -50,13 +52,38 @@ export default class Api extends Base {
   }
 
   register() {
-    return this.dummData(DUMMY_AUTHENTICATION)
+    const helper = RegistrationHelper.instance();
+    const body = JSON.stringify({
+      email: helper.email,
+      password: helper.password,
+      first_name: helper.firstName,
+      last_name: helper.lastName,
+      date_of_born: helper.birthDay,
+      sex: helper.gender,
+      p_index: helper.index,
+      golfCourseId: helper.club
+    })
+
+    return new Promise((resolve, rejecter) => {
+      this.callPost(REGISTER, body, new RegisterBinder())
+        .then(result => {
+          if (result.result === true) {
+            this.login(helper.email, helper.password)
+              .then(data => resolve(data))
+              .catch(e => rejecter(e))
+          }
+          else {
+            rejecter()
+          }
+        })
+        .catch(e => rejecter(e))
+    })
   }
 
   login(email, password) {
     const body = JSON.stringify({
-      username : email,
-	    password : password
+      username: email,
+	    password: password
     })
     return this.callPost(LOGIN, body, new LoginBinder())
   }
