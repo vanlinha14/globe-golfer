@@ -125,7 +125,7 @@ export default class Invite extends PureComponent {
       i.phone[0].number
     )
     const phoneList = target.map(i => { return i.phone[0].number }).join(";")
-    SharingHelper.shareTo(phoneList)
+    SharingHelper.shareTo(phoneList, "Download GG application to join us and play Golf by the awesome way. https://google.com")
   }
   
   render() {
