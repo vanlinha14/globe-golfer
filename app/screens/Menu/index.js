@@ -31,13 +31,17 @@ const Body = React.memo(() => {
   const menuBlock = React.useRef(null)
   const { navigate } = useNavigation()
 
-  const onRequestGoToPlay = () => {}
+  const onRequestGoToPlay = () => {
+    navigate('Play')
+  }
 
   const onRequestGoToChallenge = () => {
     navigate('Challenge')
   }
 
-  const onRequestGoToScores = () => {}
+  const onRequestGoToScores = () => {
+    navigate("LeaderBoard")
+  }
 
   const requestMenuNext = () => {
     if (menuBlock && menuBlock.current && menuBlock.current.requestNext) {

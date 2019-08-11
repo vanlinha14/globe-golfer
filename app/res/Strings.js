@@ -110,7 +110,7 @@ const inputLocation = {
 const activeLocation = {
   title: "Active location service",
   message: "Your location will be used to help you break into matches near you and access the geolocation based options available. Click on \"Learn more\" to get more information",
-  error: "Without your location permission. We can not continue process your profile. Please go to setting page and allow us to access you location."
+  error: "Without your location permission. We can not continue to process your profile. Please go to setting page and allow us to access you location."
 }
 
 const avatar = {

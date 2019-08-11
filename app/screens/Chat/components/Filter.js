@@ -49,8 +49,6 @@ export default class Filter extends React.PureComponent {
     }
   }
 
-  
-
   render() {
     return (
       <View style={{

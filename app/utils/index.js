@@ -30,3 +30,12 @@ export function passwordValidationFunction(text) {
 export function showErrorAlert(message) {
   Alert.alert(Strings.error, message)
 }
+
+export function showErrorAlertWithCallbackAction(message, action) {
+  Alert.alert(
+    Strings.error, 
+    message, 
+    [ { text: "OK", onPress: action } ], 
+    { onDismiss: action }
+  )
+}

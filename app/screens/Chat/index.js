@@ -41,7 +41,10 @@ const Challengers = React.memo(({data}) => {
         color: Theme.textWhite, 
         marginHorizontal: 16 
       }}>Challengers</DGText>
-      <ScrollView style={{ paddingHorizontal: 8 }} showsHorizontalScrollIndicator={false} horizontal={true}>
+      <ScrollView style={{ 
+        paddingHorizontal: 8,
+        marginTop: 12
+      }} showsHorizontalScrollIndicator={false} horizontal={true}>
         {items}
       </ScrollView>
     </>

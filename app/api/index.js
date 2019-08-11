@@ -118,7 +118,7 @@ export default class Api extends Base {
   loginFacebook(id, token) {
     const body = JSON.stringify({
       facebookId: id,
-	    facebookToken: token
+	    facebookToken: '503331813804161'
     })
     return this.callPost(LOGIN, body, new LoginBinder())
   }

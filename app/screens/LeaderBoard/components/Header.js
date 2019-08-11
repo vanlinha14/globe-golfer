@@ -38,8 +38,8 @@ const Header = React.memo(({isOn, onViewModeChanged}) => {
 
   const { goBack, navigate } = useNavigation()
 
-  const onGoBack = () => {
-    goBack()
+  const onGoToInvite = () => {
+    navigate('Invite')
   }
 
   const onGoToSetting = () => {
@@ -57,7 +57,7 @@ const Header = React.memo(({isOn, onViewModeChanged}) => {
       borderBottomWidth: 1,
       borderBottomColor: Theme.separator
     }}>
-      <HeaderIcon name={"ios-home"} action={onGoBack}/>
+      <HeaderIcon name={"ios-home"} action={onGoToInvite}/>
       <CenterButton />
       <HeaderIcon name={"ios-settings"} action={onGoToSetting}/>
     </View>

@@ -35,6 +35,8 @@ import Notification from './screens/Notification'
 import Menu from './screens/Menu'
 import LeaderBoard from './screens/LeaderBoard'
 
+import Invite from './screens/Invite'
+
 import Theme from './res/Theme'
 
 import { createStackNavigator, createAppContainer, createBottomTabNavigator } from "react-navigation"
@@ -159,6 +161,7 @@ const AppNavigator = createStackNavigator({
   Main,
   Profile,
   Settings,
+  Invite,
   ...loginNavigator,
   ...setupAccountNavigator
 }, {

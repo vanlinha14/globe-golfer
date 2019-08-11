@@ -88,13 +88,15 @@ export default class MenuBlock extends PureComponent {
         name: "Invite a Friend"
       },
       {
-        name: "Play"
+        name: "Play",
+        onPress: this.props.onPlayPress
       },
       {
         name: "All in 1"
       },
       {
-        name: "Scores"
+        name: "Scores",
+        onPress: this.props.onScoresPress
       },
       {
         name: "Premium"

@@ -46,7 +46,7 @@ class LoginWithEmail extends PureComponent {
     }
 
     if (authenData.isLoading == false && authenData.accessToken == null) {
-      alert("login error")
+      alert("Your email or password is not valid. Please check and try again!")
     }
   }
 

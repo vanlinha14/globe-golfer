@@ -4,7 +4,7 @@ import { View } from 'react-native'
 import Icon from 'react-native-vector-icons/Ionicons'
 import { useNavigation } from 'react-navigation-hooks'
 import FlexSpacing from './FlexSpacing'
-import Toggler from '@components/Toggler';
+import Theme from '../../../res/Theme'
 
 const HeaderIcon = React.memo(({name, action}) => (
   <Icon 
@@ -19,8 +19,8 @@ const Header = React.memo(({isOn, onViewModeChanged}) => {
 
   const { goBack, navigate } = useNavigation()
 
-  const onGoToInvite = () => {
-    navigate('Invite')
+  const onGoBack = () => {
+    goBack()
   }
 
   const onGoToSetting = () => {
@@ -34,9 +34,11 @@ const Header = React.memo(({isOn, onViewModeChanged}) => {
       alignItems: 'center',
       paddingHorizontal: 16,
       paddingVertical: 12,
-      marginTop: 20
+      marginTop: 20,
+      borderBottomWidth: 1,
+      borderBottomColor: Theme.separator
     }}>
-      <HeaderIcon name={"ios-person-add"} action={onGoToInvite}/>
+      <HeaderIcon name={"ios-home"} action={onGoBack}/>
       <FlexSpacing />
       <HeaderIcon name={"ios-settings"} action={onGoToSetting}/>
     </View>
