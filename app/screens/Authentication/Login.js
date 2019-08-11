@@ -17,7 +17,7 @@ import DGButton from '../../components/DGButton'
 import Strings from '../../res/Strings'
 import DGText from '../../components/DGText'
 import Theme from '../../res/Theme'
-import { liginWithFacebook, liginWithGoogle } from '../../actions/login'
+import { loginWithFacebook, loginWithGoogle } from '../../actions/login'
 import { StackActions, NavigationActions } from 'react-navigation';
 
 class Login extends PureComponent {
@@ -42,7 +42,7 @@ class Login extends PureComponent {
         } else {
           AccessToken.getCurrentAccessToken().then(
             (data) => {
-              this.props.loginWithFacebook(data)
+              this.props.loginWithFacebook(data.userID, data.accessToken)
             }
           )
         }
@@ -278,8 +278,8 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = (dispatch) => ({
-  loginWithFacebook: (userInfo) => dispatch(liginWithFacebook(userInfo)),
-  loginWithGoogle: (userInfo) => dispatch(liginWithGoogle(userInfo))
+  loginWithFacebook: (id, token) => dispatch(loginWithFacebook(id, token)),
+  loginWithGoogle: (userInfo) => dispatch(loginWithGoogle(userInfo))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login)

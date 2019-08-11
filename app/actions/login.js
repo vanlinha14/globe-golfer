@@ -38,21 +38,21 @@ export function loginWithEmail(email, password) {
   }
 }
 
-export function liginWithGoogle(userInfo) {
+export function loginWithGoogle(id, token) {
   return function (dispatch) {
     dispatch(loginBegin())
     return Api.instance()
-      .loginGoogle(userInfo)
+      .loginGoogle(id, token)
       .then(authenData => dispatch(loginFinish(authenData)))
       .catch(error => dispatch(loginError(error)))
   }
 }
 
-export function liginWithFacebook(userInfo) {
+export function loginWithFacebook(id, token) {
   return function (dispatch) {
     dispatch(loginBegin())
     return Api.instance()
-      .loginFacebook(userInfo)
+      .loginFacebook(id, token)
       .then(authenData => dispatch(loginFinish(authenData)))
       .catch(error => dispatch(loginError(error)))
   }
