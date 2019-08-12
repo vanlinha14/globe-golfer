@@ -1,19 +1,20 @@
-import React, { PureComponent } from 'react'
-import { View, Text, StyleSheet, Switch } from 'react-native'
+import React, { memo } from 'react'
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 
 import DGText from './DGText'
 import Theme from '../res/Theme'
 
-export default class SettingClickable extends PureComponent {
-  render() {
-    let textAlign = this.props.titleAlign
-    return (
-      <View style={[styles.container, this.props.style]}>
-        <DGText style={[styles.title, { alignSelf: textAlign }]}>{this.props.title}</DGText>
-      </View>
-    )
-  }
-}
+export default SettingClickable = memo(({style, titleAlign, title, onPress}) => {
+  return (
+    <TouchableOpacity 
+      style={[styles.container, style]}
+      activeOpacity={0.7}
+      onPress={onPress}
+    >
+      <DGText style={[styles.title, { alignSelf: titleAlign }]}>{title}</DGText>
+    </TouchableOpacity>
+  )
+})
 
 const styles = StyleSheet.create({
   container: {

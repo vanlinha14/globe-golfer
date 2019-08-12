@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react'
-import { View, StyleSheet, Dimensions } from 'react-native'
+import { View, StyleSheet, Dimensions, AsyncStorage } from 'react-native'
 
 import { getBottomSpace } from 'react-native-iphone-x-helper'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
@@ -15,9 +15,31 @@ import SettingRange from '../../components/SettingRange'
 import Strings from '../../res/Strings'
 import Theme from '../../res/Theme'
 import SettingSlider from '../../components/SettingSlider'
+import { ACCESS_TOKEN_STORE_KEY } from '../../utils/constants';
+import { StackActions, NavigationActions } from 'react-navigation';
+import DialogCombination from '../../components/DialogCombination';
 
 export default class Settings extends PureComponent {
   static navigationOptions = { header: null }
+
+  onRequestLogout = () => {
+    this.container.showYesNoDialog(
+      "Logout",
+      "Are you sure to want to logout from this account?",
+      "Yes",
+      "No",
+      () => {
+        AsyncStorage.removeItem(ACCESS_TOKEN_STORE_KEY).then(() => {
+          this.props.navigation.dispatch(StackActions.reset({
+            index: 0, 
+            key: null, 
+            actions: [NavigationActions.navigate({ routeName: 'Authentication' })]
+          }));
+        });
+      },
+      () => {}
+    )
+  }
 
   renderTopBlock() {
     let ggSubscriptionButton = <DGButton 
@@ -94,7 +116,7 @@ export default class Settings extends PureComponent {
     return (
       <View>
         {this.renderClickableItem(Strings.settings.changePassword)} 
-        {this.renderClickableItem(Strings.settings.logout)} 
+        {this.renderClickableItem(Strings.settings.logout, undefined, this.onRequestLogout)} 
         {this.renderClickableItem(Strings.settings.deleteAccount)} 
       </View>
     )
@@ -144,12 +166,14 @@ export default class Settings extends PureComponent {
     return item;
   }
 
-  renderClickableItem(title, align) {
+  renderClickableItem(title, align, onPress) {
     let item = <SettingClickable 
       key="clickable item" 
       titleAlign={align ? align : 'center'}
       style={{ paddingBottom: 8, paddingTop: 16 }}
-      title={title} />
+      title={title}
+      onPress={onPress}
+    />
     return item;
   }
 
@@ -187,7 +211,10 @@ export default class Settings extends PureComponent {
         title: Strings.settings.title,
         onBack: () => this.props.navigation.goBack()
       }}>
-        <KeyboardAwareScrollView contentContainerStyle={{ paddingTop: 24 }}>
+        <DialogCombination 
+          ref={r => this.container = r}
+          contentContainerStyle={{ paddingTop: 24 }}
+        >
           {this.renderTopBlock()}
           {this.renderSeparator()}
           {this.renderSpacing(44)}
@@ -202,7 +229,7 @@ export default class Settings extends PureComponent {
           {this.renderSpacing(44)}
           {this.renderLogoutBlock()}
           {this.renderSpacing(44)}
-        </KeyboardAwareScrollView>
+        </DialogCombination>
       </BaseComponent>
     )
   }

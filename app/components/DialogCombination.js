@@ -2,9 +2,9 @@ import React, { PureComponent } from 'react'
 import { 
   View, 
   StyleSheet, 
-  TouchableOpacity, 
-  ScrollView
+  TouchableOpacity
 } from 'react-native'
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 
 import Modal from 'react-native-modal'
 import DGText from './DGText'
@@ -166,10 +166,16 @@ export default class DialogCombination extends PureComponent {
 
   render() {
     return (
-      <ScrollView contentContainerStyle={[styles.body, { backgroundColor: Theme.mainBackground }]}>
+      <KeyboardAwareScrollView 
+        contentContainerStyle={
+          [
+            styles.body, 
+            this.props.contentContainerStyle,
+            { backgroundColor: Theme.mainBackground }
+          ]}>
         {this.props.children}
         {this.renderModals()}
-      </ScrollView>
+      </KeyboardAwareScrollView>
     )
   }
 }
