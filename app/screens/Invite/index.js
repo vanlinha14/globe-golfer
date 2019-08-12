@@ -24,8 +24,9 @@ const ContactItem = React.memo(({index, name, selected, onChanged}) => {
 
   return (
     <View style={{
-      width: Dimensions.get('window').width - 32, 
-      height: 60,
+      width: Dimensions.get('window').width - 32,
+      height: 48,
+      marginBottom: 12,
       alignItems: 'center',
       flexDirection: 'row'
     }}>
@@ -55,7 +56,9 @@ const ContactList = React.memo(({data, onDataChanged}) => {
   return (
     <FlatList 
       style={{ 
-        alignSelf: 'center',
+        alignSelf: 'center'
+      }}
+      contentContainerStyle={{
         paddingVertical: 24
       }}
       keyExtractor={keyExtractor}

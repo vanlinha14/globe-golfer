@@ -16,14 +16,14 @@ const HeaderIcon = React.memo(({name, action}) => (
   />
 ))
 
-const CenterButton = React.memo(({}) => {
+const CenterButton = React.memo(({action}) => {
   return (
     <TouchableOpacity style={{ 
       flex: 1,
       justifyContent: 'center', 
       alignItems: 'center',
       flexDirection: 'row'
-    }} activeOpacity={0.7} onPress={() => alert("go to invite friend screen")}>
+    }} activeOpacity={0.7} onPress={action}>
       <Icon 
         size={32}
         color={'white'}
@@ -37,6 +37,10 @@ const CenterButton = React.memo(({}) => {
 const Header = React.memo(({isOn, onViewModeChanged}) => {
 
   const { goBack, navigate } = useNavigation()
+
+  const onGoBack = () => {
+    goBack()
+  }
 
   const onGoToInvite = () => {
     navigate('Invite')
@@ -57,8 +61,8 @@ const Header = React.memo(({isOn, onViewModeChanged}) => {
       borderBottomWidth: 1,
       borderBottomColor: Theme.separator
     }}>
-      <HeaderIcon name={"ios-home"} action={onGoToInvite}/>
-      <CenterButton />
+      <HeaderIcon name={"ios-home"} action={onGoBack}/>
+      <CenterButton action={onGoToInvite} />
       <HeaderIcon name={"ios-settings"} action={onGoToSetting}/>
     </View>
   )
