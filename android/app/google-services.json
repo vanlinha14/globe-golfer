@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "150393205713-c7ohrv4e74p1r02r7a3q4aoa1123kfa6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.golfglobal",
+            "certificate_hash": "076c2b0b2ebcdc1d8bb52b44abc93be46a1a01a6"
+          }
+        },
+        {
           "client_id": "150393205713-niluqkkcdf6kir5trl7odkfdoe7aeqio.apps.googleusercontent.com",
           "client_type": 3
         }

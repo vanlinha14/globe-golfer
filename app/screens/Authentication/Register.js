@@ -26,6 +26,10 @@ export default class Register extends PureComponent {
     visibleModal: undefined
   }
 
+  componentDidMount() {
+    GoogleSignin.configure({ webClientId: '150393205713-niluqkkcdf6kir5trl7odkfdoe7aeqio.apps.googleusercontent.com' })
+  }
+
   onRequestGoToInputEmail = () => {
     this.props.navigation.navigate("SetupAccountStepInputEmail")
   }
@@ -82,7 +86,6 @@ export default class Register extends PureComponent {
   }
 
   onRequestLoginWithGoogle = () => {
-    GoogleSignin.configure({ webClientId: '150393205713-niluqkkcdf6kir5trl7odkfdoe7aeqio.apps.googleusercontent.com' })
     GoogleSignin.signIn().then(user => {
       //got the user info, move on
       this.props.navigation.navigate("SetupAccountStepInputScannedCard")
