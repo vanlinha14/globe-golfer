@@ -12,6 +12,7 @@ import BaseComponent from '../../components/BaseComponent';
 import Filter from './components/Filter';
 import DGText from '../../components/DGText';
 import { getMessages } from '../../actions/getMessages';
+import { useNavigation } from 'react-navigation-hooks';
 
 const Challenge = React.memo(({item, onPress}) => {
   return (
@@ -64,8 +65,25 @@ const EmptyData = React.memo(() => {
 })
 
 const MessageItem = React.memo(({item}) => {
+
+  const { navigate } = useNavigation()
+
+  const onPress = () => {
+    navigate("ChatDetail")
+  }
+
   return (
-    <View style={{ flexDirection: 'row', justifyContent: 'center', paddingHorizontal: 16, height: 80, marginTop: 24 }}>
+    <TouchableOpacity 
+      style={{ 
+        flexDirection: 'row', 
+        justifyContent: 'center', 
+        paddingHorizontal: 16, 
+        height: 80, 
+        marginTop: 24 
+      }}
+      activeOpacity={0.7}
+      onPress={onPress}
+    >
       <Image
         style={{
           width: 60,
@@ -95,7 +113,7 @@ const MessageItem = React.memo(({item}) => {
         top: 0,
         right: 0
       }}>{item.timeIndicator}</DGText>
-    </View>
+    </TouchableOpacity>
   )
 })
 
