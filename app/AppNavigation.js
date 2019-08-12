@@ -34,6 +34,8 @@ import Chat from './screens/Chat'
 import ChatDetail from './screens/Chat/detail'
 
 import Notification from './screens/Notification'
+import NotificationDetail from './screens/Notification/detail'
+
 import Menu from './screens/Menu'
 import LeaderBoard from './screens/LeaderBoard'
 
@@ -165,6 +167,7 @@ const AppNavigator = createStackNavigator({
   Settings,
   Invite,
   ChatDetail,
+  NotificationDetail,
   ...loginNavigator,
   ...setupAccountNavigator
 }, {

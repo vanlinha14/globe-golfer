@@ -12,6 +12,7 @@ import BaseComponent from '../../components/BaseComponent';
 import Filter from './components/Filter';
 import DGText from '../../components/DGText';
 import { getNewNotifications, getHistoryNotifications } from '../../actions/getNotifications';
+import { useNavigation } from 'react-navigation-hooks';
 
 const NewMessages = React.memo(({isExpanded, isLoading, data, requestToggleExpand}) => {
   return <Board 
@@ -62,8 +63,25 @@ const EmptyData = React.memo(() => {
 })
 
 const MessageItem = React.memo(({item}) => {
+
+  const { navigate } = useNavigation()
+
+  const onPress = () => {
+    navigate("NotificationDetail")
+  }
+
   return (
-    <View style={{ flexDirection: 'row', justifyContent: 'center', paddingHorizontal: 16, height: 80, marginTop: 8 }}>
+    <TouchableOpacity 
+      style={{ 
+        flexDirection: 'row', 
+        justifyContent: 'center', 
+        paddingHorizontal: 16, 
+        height: 80, 
+        marginTop: 8 
+      }}
+      activeOpacity={0.7}
+      onPress={onPress}
+    >
       <Image
         style={{
           width: 60,
@@ -87,7 +105,7 @@ const MessageItem = React.memo(({item}) => {
         }}>{item.lastMessage}</DGText>
       </View>
       <DGText style={{ marginTop: 12, color: Theme.textWhite }}>{item.duration}</DGText>
-    </View>
+    </TouchableOpacity>
   )
 })
 
