@@ -42,4 +42,6 @@ target 'GolfGlobal' do
 
   pod 'react-native-webview', :path => '../node_modules/react-native-webview'
 
+  pod 'BVLinearGradient', :path => '../node_modules/react-native-linear-gradient'
+
 end

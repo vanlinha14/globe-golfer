@@ -17,6 +17,7 @@ import SettingSlider from '../../components/SettingSlider'
 import { ACCESS_TOKEN_STORE_KEY } from '../../utils/constants';
 import { StackActions, NavigationActions } from 'react-navigation';
 import DialogCombination from '../../components/DialogCombination';
+import Api from '../../api';
 
 export default class Settings extends PureComponent {
   static navigationOptions = { header: null }
@@ -29,6 +30,7 @@ export default class Settings extends PureComponent {
       "No",
       () => {
         AsyncStorage.removeItem(ACCESS_TOKEN_STORE_KEY).then(() => {
+          Api.instance().setAccessToken(undefined)
           this.props.navigation.dispatch(StackActions.reset({
             index: 0, 
             key: null, 

@@ -13,11 +13,12 @@ import {
   DUMMY_FAVORITE_RANKING,
   DUMMY_ALL_RANKING
 } from './DummyData'
-import { LOGIN, GET_COUNTRY, GET_REGION, GET_CLUB, REGISTER } from './Endpoints';
+import { LOGIN, GET_COUNTRY, GET_REGION, GET_CLUB, REGISTER, GET_CHALLENGES } from './Endpoints';
 import LoginBinder from './Binders/Login';
 import CountriesBinder from './Binders/CountriesBinder';
 import RegisterBinder from './Binders/RegisterBinder';
 import RegistrationHelper from './RegistrationHelper';
+import ChallengesBinder from './Binders/ChallengesBinder';
 
 export default class Api extends Base {
   static _instance = null
@@ -124,7 +125,7 @@ export default class Api extends Base {
   }
 
   getChallenges() {
-    return this.dummData(DUMMY_CHALLENGE)
+    return this.callGet(GET_CHALLENGES, new ChallengesBinder())
   }
 
   getPendingMatches() {

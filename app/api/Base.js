@@ -44,22 +44,25 @@ export default class Base {
   }
 
   call(method, url, body, binder) {
-    const headers = this.accessToken == null ? {
-      'Accept': 'application/json',
-      'Content-Type': 'application/json'
-    } : {
+    const headers = this.accessToken ? {
       'Accept': 'application/json',
       'Content-Type': 'application/json',
       'Authorization': 'Bearer ' + this.accessToken
+    } : {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
     }
 
     const getConfigs = { method, headers }
     const postConfigs = body ? { ...getConfigs, body } : getConfigs
     const configs = method == 'POST' ? postConfigs : getConfigs
 
+    console.warn(configs);
+
     return new Promise((resolve, rejecter) => {
       fetch(url, configs)
       .then(response => {
+        console.warn(response);
         const statusCode = response.status
         const data = response.json()
         return Promise.all([statusCode, data])

@@ -181,7 +181,6 @@ class Notification extends PureComponent {
   }
 }
 
-
 const mapStateToProps = (state) => ({
   newNotificationsData: state.notifications.new,
   historyNotificationsData: state.notifications.history,
