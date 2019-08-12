@@ -105,7 +105,7 @@ const RankingItem = React.memo(({item, isHeader}) => {
 })
 
 const Ranking = React.memo(({data}) => {
-  const items = data.map(item => <RankingItem item={item} />)
+  const items = data.map(item => <RankingItem key={`ranking-${item.index}`} item={item} />)
   const header = <RankingItem item={{
     index: "Pos",
     name: "Name",

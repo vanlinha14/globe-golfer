@@ -12,6 +12,7 @@ import BaseComponent from '../../components/BaseComponent';
 import DGText from '../../components/DGText';
 import { getPendingMatches } from '../../actions/getPendingMatches';
 import { getPlayedMatches } from '../../actions/getPlayedMatches';
+import DialogCombination from '../../components/DialogCombination';
 
 const Title = React.memo(() => {
   return (
@@ -91,7 +92,7 @@ const PendingItems = React.memo(({isLoading, data}) => {
     return <ActivityIndicator size='large' color={Theme.buttonPrimary} />
   }
 
-  return data.map(item => <PendingItem item={item}/>)
+  return data.map((item, index) => <PendingItem key={`pending-item-${index}`} item={item}/>)
 })
 
 const PendingBlock = React.memo(({isLoading, isExpanded, requestToggleExpand, data}) => {
@@ -148,7 +149,7 @@ const PlayedItems = React.memo(({isLoading, data}) => {
     return <ActivityIndicator size='large' color={Theme.buttonPrimary} />
   }
 
-  return data.map(item => <PlayedItem item={item}/>)
+  return data.map((item, index) => <PlayedItem key={`played-item-${index}`} item={item}/>)
 })
 
 const PlayedBlock = React.memo(({isLoading, isExpanded, requestToggleExpand, data}) => {
@@ -196,19 +197,21 @@ class Play extends PureComponent {
     return (
       <BaseComponent>
         <Header />
-        <Title />
-        <PendingBlock 
-          data={this.props.pendingData.data}
-          isExpanded={this.state.isPendingExpand}
-          isLoading={this.props.pendingData.isLoading}
-          requestToggleExpand={this.requestTogglePendingBlock} 
-        />
-        <PlayedBlock 
-          data={this.props.playedData.data}
-          isExpanded={this.state.isPlayedExpand} 
-          isLoading={this.props.playedData.isLoading}
-          requestToggleExpand={this.requestTogglePlayedBlock} 
-        />
+        <DialogCombination>
+          <Title />
+          <PendingBlock 
+            data={this.props.pendingData.data}
+            isExpanded={this.state.isPendingExpand}
+            isLoading={this.props.pendingData.isLoading}
+            requestToggleExpand={this.requestTogglePendingBlock} 
+          />
+          <PlayedBlock 
+            data={this.props.playedData.data}
+            isExpanded={this.state.isPlayedExpand} 
+            isLoading={this.props.playedData.isLoading}
+            requestToggleExpand={this.requestTogglePlayedBlock} 
+          />
+        </DialogCombination>
       </BaseComponent>
     )
   }

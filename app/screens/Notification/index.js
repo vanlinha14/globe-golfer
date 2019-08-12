@@ -92,7 +92,7 @@ const MessageItem = React.memo(({item}) => {
 })
 
 const Messages = React.memo(({data}) => {
-  const items = data.map(item => <MessageItem item={item} />)
+  const items = data.map((item, index) => <MessageItem key={`message-item-${index}`} item={item} />)
   return items
 })
 

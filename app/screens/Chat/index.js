@@ -30,7 +30,7 @@ const Challenge = React.memo(({item, onPress}) => {
 
 const Challengers = React.memo(({data}) => {
 
-  const items = data.map(item => <Challenge item={item} />)
+  const items = data.map((item, index) => <Challenge key={`challenge-${index}`} item={item} />)
 
   return (
     <>
@@ -100,7 +100,7 @@ const MessageItem = React.memo(({item}) => {
 })
 
 const MessageBlock = React.memo(({data}) => {
-  const items = data.map(item => <MessageItem item={item} />)
+  const items = data.map((item, index) => <MessageItem key={`message-item-${index}`} item={item} />)
   return (
     <>
       {items}
