@@ -3,9 +3,6 @@ import { ActivityIndicator, ScrollView, View, TouchableOpacity, Image } from 're
 import { connect } from 'react-redux'
 
 import Theme from '../../res/Theme'
-import Strings from '../../res/Strings'
-
-import Icon from 'react-native-vector-icons/Ionicons'
 
 import Header from './components/Header'
 import BaseComponent from '../../components/BaseComponent';

@@ -1,8 +1,8 @@
 import React, { PureComponent } from 'react'
-import { StyleSheet, ScrollView, View, TouchableOpacity } from 'react-native'
+import { ScrollView, View, TouchableOpacity, ActivityIndicator } from 'react-native'
+import { connect } from 'react-redux'
 
 import Theme from '../../res/Theme'
-import Strings from '../../res/Strings'
 
 import Icon from 'react-native-vector-icons/Ionicons'
 
@@ -10,52 +10,24 @@ import Header from './components/Header'
 import BaseComponent from '../../components/BaseComponent';
 import Filter from './components/Filter';
 import DGText from '../../components/DGText';
+import { getFavoriteRanking, getAllRanking } from '../../actions/getRanking';
 
-const Favorite = React.memo(({isExpanded, requestToggleExpand}) => {
+const Favorite = React.memo(({isExpanded, requestToggleExpand, isLoading, data}) => {
   return <Board 
     title="FAVORITE PLAYER" 
     isExpanded={isExpanded}
-    data={[]}
+    isLoading={isLoading}
+    data={data}
     requestToggleExpand={requestToggleExpand}
   />
 })
 
-const AllPlayer = React.memo(({isExpanded, requestToggleExpand}) => {
+const AllPlayer = React.memo(({isExpanded, requestToggleExpand, isLoading, data}) => {
   return <Board 
     title="ALL PLAYER"
     isExpanded={isExpanded}
-    data={[
-      {
-        index: 1,
-        name: "OLIVER, Sam",
-        total: -12
-      },
-      {
-        index: 2,
-        name: "Prase, Lee",
-        total: -9
-      },
-      {
-        index: 3,
-        name: "Jack, Peter",
-        total: -6
-      },
-      {
-        index: 4,
-        name: "Flash, James",
-        total: -3
-      },
-      {
-        index: 5,
-        name: "OLIVER, Queen",
-        total: 1
-      },
-      {
-        index: 6,
-        name: "Justin, Selena",
-        total: 12
-      }
-    ]}
+    isLoading={isLoading}
+    data={data}
     requestToggleExpand={requestToggleExpand}
   />
 })
@@ -119,33 +91,101 @@ const Ranking = React.memo(({data}) => {
   )
 })
 
-const Board = React.memo(({title, isExpanded, data, requestToggleExpand}) => {
+const Board = React.memo(({title, isExpanded, isLoading, data, requestToggleExpand}) => {
+
+  let content = undefined;
+
+  if (isExpanded) {
+    if (isLoading || data == null) {
+      content = <ActivityIndicator size='large' color={Theme.buttonPrimary} />
+    }
+    else {
+      content = data.length == 0 ? <EmptyData /> : <Ranking data={data} />
+    }
+  }
+
   return (
     <>
       <BoardHeader title={title} isExpanded={isExpanded} requestToggleExpand={requestToggleExpand}/>
-      {isExpanded ? (data.length == 0 ? <EmptyData/> : <Ranking data={data} />) : undefined}
+      {content}
     </>
   )
 })
 
-export default class LeaderBoard extends PureComponent {
+class LeaderBoard extends PureComponent {
   static navigationOptions = { header: null }
 
   state = {
+    tag: undefined,
     isFavoriteExpand: false,
     isAllExpand: true
+  }
+
+  onFilterChanged = (tag) => {
+    if (this.state.isFavoriteExpand) {
+      this.props.getFavoriteRanking(tag)
+    }
+
+    if (this.state.isAllExpand) {
+      this.props.getAllRanking(tag)
+    }
+
+    this.setState({ tag })
+  }
+
+  requestToggleExpandFavorite = () => {
+    const newValue = !this.state.isFavoriteExpand
+
+    if (newValue == true) {
+      this.props.getFavoriteRanking(this.state.tag)
+    }
+
+    this.setState({ isFavoriteExpand: newValue })
+  }
+
+  requestToggleExpandAll = () => {
+    const newValue = !this.state.isAllExpand
+
+    if (newValue == true) {
+      this.props.getAllRanking(this.state.tag)
+    }
+
+    this.setState({ isAllExpand: newValue })
   }
   
   render() {
     return (
       <BaseComponent>
         <Header />
-        <Filter />
+        <Filter onFilterChanged={this.onFilterChanged} />
         <ScrollView showsVerticalScrollIndicator={false} >
-          <Favorite isExpanded={this.state.isFavoriteExpand} requestToggleExpand={() => this.setState({ isFavoriteExpand: !this.state.isFavoriteExpand })}/>
-          <AllPlayer isExpanded={this.state.isAllExpand} requestToggleExpand={() => this.setState({ isAllExpand: !this.state.isAllExpand })}/>
+          <Favorite 
+            isLoading={this.props.favoriteRankingData.isLoading}
+            data={this.props.favoriteRankingData.data}
+            isExpanded={this.state.isFavoriteExpand} 
+            requestToggleExpand={this.requestToggleExpandFavorite}
+          />
+          <AllPlayer 
+            isLoading={this.props.allRankingData.isLoading}
+            data={this.props.allRankingData.data}
+            isExpanded={this.state.isAllExpand} 
+            requestToggleExpand={this.requestToggleExpandAll}
+          />
         </ScrollView>
       </BaseComponent>
     )
   }
 }
+
+
+const mapStateToProps = (state) => ({
+  favoriteRankingData: state.ranking.favorite,
+  allRankingData: state.ranking.all
+})
+
+const mapDispatchToProps = (dispatch) => ({
+  getFavoriteRanking: (tag) => dispatch(getFavoriteRanking(tag)),
+  getAllRanking: (tag) => dispatch(getAllRanking(tag))
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(LeaderBoard)

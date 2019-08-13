@@ -85,7 +85,8 @@ export default class MenuBlock extends PureComponent {
         onPress: this.props.onChallengePress
       },
       {
-        name: "Invite a Friend"
+        name: "Invite a Friend",
+        onPress: this.props.onInvitePress
       },
       {
         name: "Play",

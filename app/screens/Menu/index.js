@@ -43,6 +43,10 @@ const Body = React.memo(() => {
     navigate("LeaderBoard")
   }
 
+  const onInvitePress = () => {
+    navigate("Invite")
+  }
+
   const requestMenuNext = () => {
     if (menuBlock && menuBlock.current && menuBlock.current.requestNext) {
       menuBlock.current.requestNext()
@@ -62,6 +66,7 @@ const Body = React.memo(() => {
         onPlayPress={onRequestGoToPlay}
         onChallengePress={onRequestGoToChallenge}
         onScoresPress={onRequestGoToScores}
+        onInvitePress={onInvitePress}
       />
     </View>
   )

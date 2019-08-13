@@ -51,6 +51,20 @@ export default class Filter extends React.PureComponent {
     selectedIndex: 0
   }
 
+  componentDidMount() {
+    if (this.props.onFilterChanged) {
+      this.props.onFilterChanged(this.state.selectedIndex)
+    }
+  }
+
+  onFilterChanged = (index) => {
+    this.setState({ selectedIndex: index })
+
+    if (this.props.onFilterChanged) {
+      this.props.onFilterChanged(index)
+    }
+  }
+
   render() {
     return (
       <View style={{
@@ -66,25 +80,25 @@ export default class Filter extends React.PureComponent {
           title="FRIENDS" 
           icon="ios-notifications-outline" 
           isSelected={this.state.selectedIndex == 0}
-          onPress={() => this.setState({ selectedIndex: 0 })}
+          onPress={() => this.onFilterChanged(0)}
         />
         <Item 
           title="CLUB" 
           icon="ios-notifications-outline" 
           isSelected={this.state.selectedIndex == 1}
-          onPress={() => this.setState({ selectedIndex: 1 })}
+          onPress={() => this.onFilterChanged(1)}
         />
         <Item 
           title="CHAMPIONSHIP CLUB" 
           icon="ios-notifications-outline" 
           isSelected={this.state.selectedIndex == 2}
-          onPress={() => this.setState({ selectedIndex: 2 })}
+          onPress={() => this.onFilterChanged(2)}
         />
         <Item 
           title="CHAMPIONSHIP INDIVIDUAL" 
           icon="ios-notifications-outline" 
           isSelected={this.state.selectedIndex == 3}
-          onPress={() => this.setState({ selectedIndex: 3 })}
+          onPress={() => this.onFilterChanged(3)}
         />
       </View>
     )
