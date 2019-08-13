@@ -30,7 +30,7 @@ export default class Settings extends PureComponent {
       "No",
       () => {
         AsyncStorage.removeItem(ACCESS_TOKEN_STORE_KEY).then(() => {
-          Api.instance().setAccessToken(undefined)
+          Api.instance().setAccessToken(null)
           this.props.navigation.dispatch(StackActions.reset({
             index: 0, 
             key: null, 

@@ -3,11 +3,11 @@ import { ActivityIndicator, View, TouchableOpacity, Image } from 'react-native'
 import { connect } from 'react-redux'
 
 import Theme from '../../res/Theme'
-import Strings from '../../res/Strings'
 
 import Icon from 'react-native-vector-icons/Ionicons'
 
 import Header from './components/Header'
+import PendingItem from './components/PendingItem'
 import BaseComponent from '../../components/BaseComponent';
 import DGText from '../../components/DGText';
 import { getPendingMatches } from '../../actions/getPendingMatches';
@@ -45,45 +45,6 @@ const BoardHeader = React.memo(({title, isExpanded, requestToggleExpand}) => {
       
       <DGText style={{ color: Theme.textWhite, marginHorizontal: 8 }} >{title}</DGText>
     </TouchableOpacity>
-  )
-})
-
-const PendingItem = React.memo(({item}) => {
-  return (
-    <View style={{ marginVertical: 16, flexDirection: 'row', justifyContent: 'center' }}>
-      <Image
-        style={{
-          width: 100,
-          height: 100,
-          borderRadius: 50
-        }}
-        source={{uri: "https://usatgolfweek.files.wordpress.com/2019/07/gettyimages-1163432510.jpg"}}
-      />
-      <View style={{ marginHorizontal: 24, justifyContent: 'center', alignItems: 'center' }}>
-        <DGText style={{ 
-          fontSize: 20,
-          marginBottom: 4,
-          color: Theme.buttonPrimary 
-        }} >VS</DGText>
-        <TouchableOpacity activeOpacity={0.7} onPress={() => alert("Request play with victim")}>
-          <DGText style={{ 
-            backgroundColor: Theme.buttonPrimary,
-            color: Theme.textWhite,
-            paddingHorizontal: 12,
-            paddingVertical: 8
-          }}>PLAY NOW</DGText>
-        </TouchableOpacity>
-        
-      </View>
-      <Image
-        style={{
-          width: 100,
-          height: 100,
-          borderRadius: 50
-        }}
-        source={{uri: item.avatar}}
-      />
-    </View>
   )
 })
 

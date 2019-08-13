@@ -29,6 +29,7 @@ import Profile from './screens/Profile'
 import Challenge from './screens/Challenge'
 
 import Play from './screens/Play'
+import PlayConfiguration from './screens/Play/configuration'
 
 import Chat from './screens/Chat'
 import ChatDetail from './screens/Chat/detail'
@@ -168,6 +169,7 @@ const AppNavigator = createStackNavigator({
   Invite,
   ChatDetail,
   NotificationDetail,
+  PlayConfiguration,
   ...loginNavigator,
   ...setupAccountNavigator
 }, {
