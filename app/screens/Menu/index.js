@@ -4,11 +4,13 @@ import {
   StyleSheet
 } from 'react-native'
 import FastImage from 'react-native-fast-image'
+import { connect } from 'react-redux'
 
 import MenuBlock from './MenuBlock'
 import BaseComponent from '../../components/BaseComponent'
 import { useNavigation } from 'react-navigation-hooks';
 import Header from './components/Header'
+import { getProfile } from '../../actions/getProfile';
 
 const Logo = React.memo(() => (
   <FastImage
@@ -47,18 +49,6 @@ const Body = React.memo(() => {
     navigate("Invite")
   }
 
-  const requestMenuNext = () => {
-    if (menuBlock && menuBlock.current && menuBlock.current.requestNext) {
-      menuBlock.current.requestNext()
-    }
-  }
-
-  const requestMenuPrevious = () => {
-    if (menuBlock && menuBlock.current && menuBlock.current.requestPrevious) {
-      menuBlock.current.requestPrevious()
-    }
-  }
-
   return (
     <View style={styles.body}>
       <MenuBlock 
@@ -72,7 +62,12 @@ const Body = React.memo(() => {
   )
 })
 
-export default class Menu extends PureComponent {
+class Menu extends PureComponent {
+
+  componentDidMount() {
+    this.props.getProfile()
+  }
+
   render() {
     return (
       <BaseComponent withDotBackground={true}>
@@ -108,3 +103,11 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   }
 })
+
+const mapStateToProps = (state) => ({})
+
+const mapDispatchToProps = (dispatch) => ({
+  getProfile: () => dispatch(getProfile())
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(Menu)

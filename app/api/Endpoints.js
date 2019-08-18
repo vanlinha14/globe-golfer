@@ -8,3 +8,4 @@ export const REGISTER = BASE + "user-add"
 
 export const GET_FRIEND_LIST = BASE + "authenticated/friend/{userId}"
 export const GET_CHALLENGES = BASE + "authenticated/challenge/list-info"
+export const GET_PROFILE = BASE + "authenticated/profile"
