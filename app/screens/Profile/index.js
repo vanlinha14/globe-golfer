@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react'
-import { View, StyleSheet, Dimensions, FlatList } from 'react-native'
+import { View, StyleSheet, Dimensions, FlatList, TouchableOpacity } from 'react-native'
 import FastImage from 'react-native-fast-image'
 import { connect } from 'react-redux'
 
@@ -18,13 +18,28 @@ import Strings from '../../res/Strings'
 import Theme from '../../res/Theme'
 import SettingSlider from '../../components/SettingSlider'
 
-const fakeInterests = [
-  "Guitar",
-  "Music",
-  "Fishing",
-  "Book",
-  "Dance"
-]
+const InterestItem = React.memo(({name, style, onPress}) => {
+  const itemWidth = (Dimensions.get('window').width - 60) / 3
+  return (
+    <TouchableOpacity style={[
+      {
+        marginHorizontal: 4,
+        marginBottom: 8,
+        borderWidth: 1,
+        height: 40,
+        width: itemWidth,
+        justifyContent: 'center',
+        borderColor: 'gray'
+      },
+      style
+    ]} disabled={!onPress} onPress={onPress} activeOpacity={0.7}>
+      <DGText style={{
+        alignSelf: 'center',
+        color: 'white'
+      }}>{name}</DGText>
+    </TouchableOpacity> 
+  )
+})
 
 class Profile extends PureComponent {
   static navigationOptions = { header: null }
@@ -67,6 +82,8 @@ class Profile extends PureComponent {
           marginHorizontal: 16,
         }}>{user.about}</DGText>
         {this.renderSpacing(24)}
+        {this.renderSectionTitle("My Interests")}
+        {this.renderSpacing(8)}
         {this.renderInterests()}
       </View>
     )
@@ -76,37 +93,25 @@ class Profile extends PureComponent {
     const user = this.props.user
     const interest = user.interest
     if (!Array.isArray(interest) || interest.length == 0) {
-      return
+      return <InterestItem 
+        name={"+"} 
+        style={{
+          marginHorizontal: 16
+        }}
+        onPress={() => alert("add interest")}
+      />
     }
-    
-    const itemWidth = (Dimensions.get('window').width - 60) / 3
+
     return (
-      <>
-        {this.renderSectionTitle("My Interests")}
-        {this.renderSpacing(8)}
-        <FlatList
+      <FlatList
         style={{ marginLeft: 12 }}
-        data={fakeInterests}
+        data={interest}
         numColumns={3}
         keyExtractor={(_, index) => index}
         renderItem={({item}) => (
-          <View style={{
-            marginHorizontal: 4,
-            marginBottom: 8,
-            borderWidth: 1,
-            height: 40,
-            width: itemWidth,
-            justifyContent: 'center',
-            borderColor: 'gray'
-          }}>
-            <DGText style={{
-              alignSelf: 'center',
-              color: 'white'
-            }}>{item}</DGText>
-          </View> 
+          <InterestItem name={item.name} />
         )}
       />
-      </>
     )
   }
 
