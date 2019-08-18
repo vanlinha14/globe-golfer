@@ -125,6 +125,11 @@ export default class Invite extends PureComponent {
   }
 
   onRequestSend = () => {
+    const isiOS = Platform.OS === 'ios'
+    if (isiOS) {
+      alert("Features is under development!")
+      return
+    }
     const target = this.state.contacts.filter(i => 
       i.selected && 
       i.phone[0] &&
