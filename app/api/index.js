@@ -154,7 +154,6 @@ export default class Api extends Base {
   }
 
   getProfile() {
-    alert("???")
     return this.callGet(GET_PROFILE, new ProfileBinder());
   }
 }

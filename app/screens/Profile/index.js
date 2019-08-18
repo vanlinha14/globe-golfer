@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react'
-import { View, StyleSheet, Dimensions, Image, FlatList } from 'react-native'
+import { View, StyleSheet, Dimensions, FlatList } from 'react-native'
 import FastImage from 'react-native-fast-image'
+import { connect } from 'react-redux'
 
 import { getBottomSpace } from 'react-native-iphone-x-helper'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
@@ -25,7 +26,7 @@ const fakeInterests = [
   "Dance"
 ]
 
-export default class Profile extends PureComponent {
+class Profile extends PureComponent {
   static navigationOptions = { header: null }
 
   requestGoToEditProfile = () => {
@@ -47,13 +48,16 @@ export default class Profile extends PureComponent {
   }
 
   renderPersonalInfoBlock() {
+    const user = this.props.user
+    const name = [user.firstName, user.lastName].join(" ")
+
     return (
       <View>
-        {this.renderValueClickableItem("Full Name", "Aaron Smith")}
+        {this.renderValueClickableItem("Full Name", name)}
         {this.renderValueClickableItem("My Country", "France")}
         {this.renderValueClickableItem("My Region", "lle de france")}
-        {this.renderValueClickableItem("My Club", "La Boulie")}
-        {this.renderValueClickableItem("Index", "11.1")}
+        {this.renderValueClickableItem("My Club", user.club)}
+        {this.renderValueClickableItem("Index", user.index)}
         {this.renderSpacing(24)}
         {this.renderSectionTitle("About Me")}
         {this.renderSpacing(8)}
@@ -61,19 +65,26 @@ export default class Profile extends PureComponent {
           width: '80%',
           color: Theme.textWhite,
           marginHorizontal: 16,
-        }}>{"I really love to play golf with friends and another one. So if you want to become my friend or you want to win me. Come and get it."}</DGText>
+        }}>{user.about}</DGText>
         {this.renderSpacing(24)}
-        {this.renderSectionTitle("My Interests")}
-        {this.renderSpacing(8)}
         {this.renderInterests()}
       </View>
     )
   }
 
   renderInterests() {
+    const user = this.props.user
+    const interest = user.interest
+    if (!Array.isArray(interest) || interest.length == 0) {
+      return
+    }
+    
     const itemWidth = (Dimensions.get('window').width - 60) / 3
     return (
-      <FlatList
+      <>
+        {this.renderSectionTitle("My Interests")}
+        {this.renderSpacing(8)}
+        <FlatList
         style={{ marginLeft: 12 }}
         data={fakeInterests}
         numColumns={3}
@@ -95,6 +106,7 @@ export default class Profile extends PureComponent {
           </View> 
         )}
       />
+      </>
     )
   }
 
@@ -242,3 +254,12 @@ const styles = StyleSheet.create({
     marginRight: 16,
   }
 })
+
+const mapStateToProps = (state) => ({
+  user: state.profile.user,
+  settings: state.profile.settings
+})
+
+const mapDispatchToProps = (dispatch) => ({})
+
+export default connect(mapStateToProps, mapDispatchToProps)(Profile)
