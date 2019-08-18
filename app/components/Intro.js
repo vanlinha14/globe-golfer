@@ -2,8 +2,8 @@ import React from 'react'
 import {
   Dimensions,
   View,
-  Image
 } from 'react-native'
+import FastImage from 'react-native-fast-image'
 
 import Carousel, { Pagination } from 'react-native-snap-carousel'
 import DGText from './DGText'
@@ -58,7 +58,7 @@ const itemWidth = carouselWidth - 32
 const renderItem = ({item}) => {
   return (
     <View>
-      <Image 
+      <FastImage 
         style={{ 
           width: itemWidth, 
           height: itemWidth,

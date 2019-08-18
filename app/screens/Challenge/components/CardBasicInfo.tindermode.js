@@ -1,5 +1,7 @@
 import React from 'react'
-import { View, Image, Dimensions } from 'react-native'
+import { View, Dimensions } from 'react-native'
+import FastImage from 'react-native-fast-image'
+
 import DGText from '@components/DGText'
 import CardRatingBar from './CardRatingBar'
 import LinearGradient from 'react-native-linear-gradient'
@@ -10,7 +12,7 @@ const CardBasicInfo = React.memo(({ avatar, name, location, rating }) => {
   const avatarSource = avatar ? { uri: avatar } : require('../../../res/images/golfer_placeholder.png')
   return (
     <View style={{ alignItems: 'center', marginTop: 20 }}>
-      <Image 
+      <FastImage 
         style={{ 
           width: windowWidth - 80, 
           height: windowWidth - 80,

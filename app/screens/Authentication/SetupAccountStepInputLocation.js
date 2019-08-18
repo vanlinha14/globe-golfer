@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react'
 import { View, Image, StyleSheet, Dimensions } from 'react-native'
+import FastImage from 'react-native-fast-image'
 
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { getBottomSpace } from 'react-native-iphone-x-helper'
@@ -207,7 +208,7 @@ class SetupAccountStepInputLocation extends PureComponent {
 
   renderLogo() {
     return (
-      <Image
+      <FastImage
         style={{
           marginTop: 60,
           width: 120,

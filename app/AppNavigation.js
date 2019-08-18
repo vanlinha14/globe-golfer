@@ -1,9 +1,9 @@
 import React from 'react'
 import {
   View,
-  Image
 } from 'react-native'
 import Authentication from './screens/Authentication'
+import FastImage from 'react-native-fast-image'
 
 import Login from './screens/Authentication/Login'
 import LoginWithEmail from './screens/Authentication/LoginWithEmail'
@@ -55,7 +55,7 @@ const iconStyle = {
 const TabBarIcon = React.memo(({selectedIcon, unselectedIcon, isSelected}) => {
   return (
     <View style={{ height: 56, width: 56, justifyContent: 'center' }}>
-      <Image
+      <FastImage
         style={iconStyle}
         source={isSelected ? selectedIcon : unselectedIcon}
       />

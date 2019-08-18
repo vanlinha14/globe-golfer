@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react'
 import { ActivityIndicator, View, TouchableOpacity, Image } from 'react-native'
 import { connect } from 'react-redux'
+import FastImage from 'react-native-fast-image'
 
 import Theme from '../../res/Theme'
 
@@ -68,7 +69,7 @@ const PendingBlock = React.memo(({isLoading, isExpanded, requestToggleExpand, da
 const PlayedItem = React.memo(({item}) => {
   return (
     <View style={{ marginVertical: 16, flexDirection: 'row', justifyContent: 'center' }}>
-      <Image
+      <FastImage
         style={{
           width: 100,
           height: 100,
@@ -93,7 +94,7 @@ const PlayedItem = React.memo(({item}) => {
         </TouchableOpacity>
         
       </View>
-      <Image
+      <FastImage
         style={{
           width: 100,
           height: 100,

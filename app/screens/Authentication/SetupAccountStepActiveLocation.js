@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react'
-import { View, Image, StyleSheet, Platform } from 'react-native'
+import { View, StyleSheet, Platform } from 'react-native'
+import FastImage from 'react-native-fast-image'
 
 import Permissions from 'react-native-permissions'
 
@@ -49,7 +50,7 @@ export default class SetupAccountStepActiveLocation extends PureComponent {
 
   renderLogo() {
     return (
-      <Image
+      <FastImage
         style={{
           marginTop: 60,
           width: 120,

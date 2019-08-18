@@ -1,9 +1,9 @@
 import React, { PureComponent } from 'react'
 import { 
   View, 
-  Image,
   StyleSheet
 } from 'react-native'
+import FastImage from 'react-native-fast-image'
 
 import MenuBlock from './MenuBlock'
 import BaseComponent from '../../components/BaseComponent'
@@ -11,7 +11,7 @@ import { useNavigation } from 'react-navigation-hooks';
 import Header from './components/Header'
 
 const Logo = React.memo(() => (
-  <Image
+  <FastImage
     style={[
       styles.logo,
       {

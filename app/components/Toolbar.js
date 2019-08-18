@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react'
-import { View, StyleSheet, TouchableOpacity } from 'react-native'
+import { View, StyleSheet, TouchableOpacity, Platform } from 'react-native'
 import DGText from './DGText'
 import Theme from '../res/Theme'
 import { getStatusBarHeight } from 'react-native-iphone-x-helper';
@@ -37,7 +37,8 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: Theme.toolbarTitle,
     textAlignVertical: 'center',
-    marginHorizontal: 16
+    marginHorizontal: 16,
+    marginTop: Platform.OS == 'ios' ? 2 : 0
   },
   separator: {
     width: '100%',

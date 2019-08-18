@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react'
 import { View, StyleSheet, Dimensions, Image, FlatList } from 'react-native'
+import FastImage from 'react-native-fast-image'
 
 import { getBottomSpace } from 'react-native-iphone-x-helper'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
@@ -33,7 +34,7 @@ export default class Profile extends PureComponent {
 
   renderAvatar() {
     const avatarSize = 280
-    return <Image 
+    return <FastImage 
       style={{
         width: avatarSize,
         height: avatarSize,

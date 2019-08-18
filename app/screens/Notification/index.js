@@ -1,5 +1,7 @@
 import React, { PureComponent } from 'react'
 import { ActivityIndicator, ScrollView, View, TouchableOpacity, Image } from 'react-native'
+import FastImage from 'react-native-fast-image'
+
 import { connect } from 'react-redux'
 
 import Theme from '../../res/Theme'
@@ -82,7 +84,7 @@ const MessageItem = React.memo(({item}) => {
       activeOpacity={0.7}
       onPress={onPress}
     >
-      <Image
+      <FastImage
         style={{
           width: 60,
           height: 60,

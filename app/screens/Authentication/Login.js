@@ -1,11 +1,12 @@
 import React, { PureComponent } from 'react'
 import { 
-  View, 
-  Image, 
+  View,
   StyleSheet, 
   TouchableOpacity,
-  ScrollView
+  ScrollView,
+  SafeAreaView
 } from 'react-native'
+import FastImage from 'react-native-fast-image'
 
 import { GoogleSignin } from 'react-native-google-signin'
 import { LoginManager, AccessToken } from "react-native-fbsdk"
@@ -71,7 +72,7 @@ class Login extends PureComponent {
 
   renderLogo() {
     return (
-      <Image
+      <FastImage
         style={{
           marginTop: 20,
           width: 120,
@@ -107,7 +108,7 @@ class Login extends PureComponent {
     return this.renderSocialButton(
       true,
       Theme.mainBackground,
-      <Image 
+      <FastImage 
         style={[styles.socialIcon, { width: 30, height: 30 }]} 
         source={require('../../res/images/ic_google.png')}
       />,
@@ -232,11 +233,18 @@ class Login extends PureComponent {
 
   render() {
     return (
-      <ScrollView contentContainerStyle={[styles.body, { backgroundColor: Theme.mainBackground }]}>
-        {this.renderLogo()}
-        {this.renderIntroBlock()}
-        {this.renderControls()}
-      </ScrollView>
+      <SafeAreaView>
+        <ScrollView 
+          style={{ backgroundColor: Theme.mainBackground }}
+          contentContainerStyle={[
+            styles.body, 
+            { backgroundColor: Theme.mainBackground }
+          ]}>
+          {this.renderLogo()}
+          {this.renderIntroBlock()}
+          {this.renderControls()}
+        </ScrollView>
+      </SafeAreaView>
     )
   }
 }

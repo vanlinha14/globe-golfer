@@ -2,7 +2,8 @@ import React, { PureComponent } from 'react'
 import { 
   View, 
   StyleSheet, 
-  TouchableOpacity
+  TouchableOpacity,
+  SafeAreaView
 } from 'react-native'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 
@@ -166,16 +167,19 @@ export default class DialogCombination extends PureComponent {
 
   render() {
     return (
-      <KeyboardAwareScrollView 
-        contentContainerStyle={
-          [
-            styles.body, 
-            this.props.contentContainerStyle,
-            { backgroundColor: Theme.mainBackground }
-          ]}>
-        {this.props.children}
-        {this.renderModals()}
-      </KeyboardAwareScrollView>
+      <SafeAreaView>
+        <KeyboardAwareScrollView 
+          style={{ backgroundColor: Theme.mainBackground }}
+          contentContainerStyle={
+            [
+              styles.body, 
+              this.props.contentContainerStyle,
+              { backgroundColor: Theme.mainBackground }
+            ]}>
+          {this.props.children}
+          {this.renderModals()}
+        </KeyboardAwareScrollView>
+      </SafeAreaView>
     )
   }
 }

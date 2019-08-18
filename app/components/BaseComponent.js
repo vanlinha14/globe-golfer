@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react'
-import { StyleSheet, View, ImageBackground, Dimensions } from 'react-native'
+import { StyleSheet, View, ImageBackground, SafeAreaView } from 'react-native'
 
 import Toolbar from './Toolbar'
 import Theme from '../res/Theme';
@@ -44,10 +44,18 @@ export default class BaseComponent extends PureComponent {
   render() {
     const { withDotBackground } = this.props
     if (withDotBackground) {
-      return this.renderWithBackgroundContent()
+      return (
+        <SafeAreaView>
+          {this.renderWithBackgroundContent()}
+        </SafeAreaView>
+      )
     }
     else {
-      return this.renderWithoutBackgroundContent()
+      return (
+        <SafeAreaView>
+          {this.renderWithoutBackgroundContent()}
+        </SafeAreaView>
+      ) 
     }
   }
 }

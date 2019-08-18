@@ -1,5 +1,7 @@
 import React, { PureComponent } from 'react'
-import { ActivityIndicator, ScrollView, View, TouchableOpacity, Image } from 'react-native'
+import { ActivityIndicator, ScrollView, View, TouchableOpacity } from 'react-native'
+import FastImage from 'react-native-fast-image'
+
 import { connect } from 'react-redux'
 
 import Theme from '../../res/Theme'
@@ -14,7 +16,7 @@ import { useNavigation } from 'react-navigation-hooks';
 const Challenge = React.memo(({item, onPress}) => {
   return (
     <TouchableOpacity style={{ marginHorizontal: 8 }} activeOpacity={0.7} onPress={onPress}>
-      <Image
+      <FastImage
         style={{
           width: 50,
           height: 50,
@@ -81,7 +83,7 @@ const MessageItem = React.memo(({item}) => {
       activeOpacity={0.7}
       onPress={onPress}
     >
-      <Image
+      <FastImage
         style={{
           width: 60,
           height: 60,
