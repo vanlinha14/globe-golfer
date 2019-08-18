@@ -186,6 +186,7 @@ export default class DialogCombination extends PureComponent {
 
 const styles = StyleSheet.create({
   body: {
-    justifyContent: 'center'
+    justifyContent: 'center',
+    paddingBottom: 80
   }
 })

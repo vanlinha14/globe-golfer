@@ -110,7 +110,7 @@ const MessageItem = React.memo(({item}) => {
         color: Theme.textWhite,
         fontSize: 12,
         top: 0,
-        right: 0
+        right: 16
       }}>{item.timeIndicator}</DGText>
     </TouchableOpacity>
   )

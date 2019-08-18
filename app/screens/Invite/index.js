@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react'
-import { View, FlatList, Dimensions } from 'react-native'
+import { View, FlatList, Dimensions, Platform } from 'react-native'
 import Permissions from 'react-native-permissions'
 import Contacts from 'react-native-contacts'
 
@@ -101,11 +101,14 @@ export default class Invite extends PureComponent {
   }
 
   getContactList() {
+    const isiOS = Platform.OS === 'ios'
     Contacts.getAll((err, contacts) => {
+      console.warn(contacts);
+      
       this.setState({
         contacts: contacts.map(i => { 
           return { 
-            displayName: i.displayName,
+            displayName: isiOS ? i.givenName : i.displayName,
             phone: i.phoneNumbers,
             selected: false
           }
