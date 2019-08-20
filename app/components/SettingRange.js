@@ -25,6 +25,10 @@ export default class SettingRange extends PureComponent {
       left: value[0],
       right: value[1]
     })
+
+    if (this.props.onValueChange) {
+      this.props.onValueChange(value[0], value[1])
+    }
   }
 
   render() {

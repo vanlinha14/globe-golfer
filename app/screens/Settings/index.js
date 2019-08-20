@@ -69,9 +69,34 @@ class Settings extends PureComponent {
         {this.renderValueClickableItem(Strings.settings.location, user.country)}
         {this.renderValueClickableItem(Strings.settings.region, user.region)}
         {this.renderValueClickableItem(Strings.settings.club, user.club)}
-        {this.renderSliderItem(Strings.settings.maxDistance, "%s km", 1, 100, this.state.distance)}
-        {this.renderRangeItem(Strings.settings.ageRange, 18, 50, [this.state.ageRange.min, this.state.ageRange.max])}
-        {this.renderRangeItem(Strings.settings.indexRange, 18, 50, [this.state.indexRange.min, this.state.indexRange.max])}
+        {
+          this.renderSliderItem(
+            Strings.settings.maxDistance, 
+            "%s km", 
+            1, 
+            100, 
+            this.state.distance,
+            (newValue) => this.setState({ distance: newValue })
+          )
+        }
+        {
+          this.renderRangeItem(
+            Strings.settings.ageRange, 
+            18, 
+            50, 
+            [this.state.ageRange.min, this.state.ageRange.max],
+            (nmin, mmax) => this.setState({ ageRange: { min: nmin, max: mmax }})
+          )
+        }
+        {
+          this.renderRangeItem(
+            Strings.settings.indexRange, 
+            18, 
+            50, 
+            [this.state.indexRange.min, this.state.indexRange.max],
+            (nmin, mmax) => this.setState({ indexRange: { min: nmin, max: mmax }})
+          )
+        }
       </View>
     )
   }
@@ -204,7 +229,7 @@ class Settings extends PureComponent {
     )
   }
 
-  renderRangeItem(title, min, max, value) {
+  renderRangeItem(title, min, max, value, onChange) {
     let item = <SettingRange
       key={"range-item-" + title}
       style={{ paddingBottom: 0 }}
@@ -212,11 +237,12 @@ class Settings extends PureComponent {
       min={min}
       max={max}
       value={value}
+      onValueChange={onChange}
     />
     return item;
   }
 
-  renderSliderItem(title, valueTemplate, min, max, value) {
+  renderSliderItem(title, valueTemplate, min, max, value, onChange) {
     let item = <SettingSlider
       key={"slider-item-" + title}
       style={{ paddingBottom: 0 }}
@@ -225,6 +251,7 @@ class Settings extends PureComponent {
       min={min}
       max={max} 
       value={value}
+      onValueChange={onChange}
     />
     return item;
   }

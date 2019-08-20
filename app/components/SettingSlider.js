@@ -19,6 +19,9 @@ export default class SettingSlider extends PureComponent {
 
   onValueChange = (data) => {
     this.setState({ value: data[0] })
+    if (this.props.onValueChange) {
+      this.props.onValueChange(data[0])
+    }
   }
 
   render() {
