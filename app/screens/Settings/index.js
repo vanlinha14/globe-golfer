@@ -3,6 +3,8 @@ import { View, StyleSheet, Dimensions, AsyncStorage } from 'react-native'
 import { connect } from 'react-redux'
 import { getBottomSpace } from 'react-native-iphone-x-helper'
 
+import lodash from 'lodash'
+
 import BaseComponent from '../../components/BaseComponent'
 import DGText from '../../components/DGText'
 import DGButton from '../../components/DGButton'
@@ -21,6 +23,16 @@ import Api from '../../api';
 
 class Settings extends PureComponent {
   static navigationOptions = { header: null }
+
+  currentSetting = undefined
+
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      ...props.settings
+    }
+  }
 
   onRequestLogout = () => {
     this.container.showYesNoDialog(
@@ -53,26 +65,25 @@ class Settings extends PureComponent {
 
   renderDiscoverBlock() {
     const user = this.props.user
-    const settings = this.props.settings
     return (
       <View>
         {this.renderSectionTitle(Strings.settings.defaultSettings)}
         {this.renderValueClickableItem(Strings.settings.location, user.country)}
         {this.renderValueClickableItem(Strings.settings.region, user.region)}
         {this.renderValueClickableItem(Strings.settings.club, user.club)}
-        {this.renderSliderItem(Strings.settings.maxDistance, "%s km", 1, 100, settings.distance)}
-        {this.renderRangeItem(Strings.settings.ageRange, 18, 50, [settings.ageRange.min, settings.ageRange.max])}
-        {this.renderRangeItem(Strings.settings.indexRange, 18, 50, [settings.indexRange.min, settings.indexRange.max])}
+        {this.renderSliderItem(Strings.settings.maxDistance, "%s km", 1, 100, this.state.distance)}
+        {this.renderRangeItem(Strings.settings.ageRange, 18, 50, [this.state.ageRange.min, this.state.ageRange.max])}
+        {this.renderRangeItem(Strings.settings.indexRange, 18, 50, [this.state.indexRange.min, this.state.indexRange.max])}
       </View>
     )
   }
 
   renderVisibilityBlock() {
-    const settings = this.props.settings
     let showGG = this.renderToggleItem(
       Strings.settings.showMeOnGG.title, 
       Strings.settings.showMeOnGG.message,
-      settings.showGG === 1
+      this.state.showGG === 1,
+      () => { this.setState({ showGG: this.state.showGG === 1 ? 0 : 1 }) }
     )
 
     return showGG
@@ -88,7 +99,6 @@ class Settings extends PureComponent {
   }
 
   renderNotificationBlock() {
-    const settings = this.props.settings
     return (
       <View>
         {this.renderSectionTitle(Strings.settings.notifications.title)}
@@ -96,14 +106,16 @@ class Settings extends PureComponent {
           this.renderToggleItem(
             Strings.settings.notifications.messages,
             undefined,
-            settings.message === 1
+            this.state.message === 1,
+            () => { this.setState({ message: this.state.message === 1 ? 0 : 1 }) }
           )
         }
         {
           this.renderToggleItem(
             Strings.settings.notifications.globeGolfer,
             undefined,
-            settings.globegolfer === 1
+            this.state.globegolfer === 1,
+            () => { this.setState({ globegolfer: this.state.globegolfer === 1 ? 0 : 1 }) }
           )
         }
       </View>
@@ -125,10 +137,34 @@ class Settings extends PureComponent {
     return (
       <View>
         {this.renderSectionTitle(Strings.settings.legal)}
-        {this.renderClickableItem(Strings.settings.privacyPolicy, "flex-start")}
-        {this.renderClickableItem(Strings.settings.termOfService, "flex-start")}
-        {this.renderClickableItem(Strings.settings.rulesAndEtiquettes, "flex-start")} 
-        {this.renderClickableItem(Strings.settings.licenses, "flex-start")}
+        {
+          this.renderClickableItem(
+            Strings.settings.privacyPolicy, 
+            "flex-start",
+            () => alert("Open privary policy")
+          )
+        }
+        {
+          this.renderClickableItem(
+            Strings.settings.termOfService, 
+            "flex-start",
+            () => alert("Open term of service")
+          )
+        }
+        {
+          this.renderClickableItem(
+            Strings.settings.rulesAndEtiquettes, 
+            "flex-start",
+            () => alert("Open rules and etiquettes")
+          )
+        } 
+        {
+          this.renderClickableItem(
+            Strings.settings.licenses, 
+            "flex-start",
+            () => alert("Open licenses")
+          )
+        }
       </View>
     )
   }
@@ -136,9 +172,27 @@ class Settings extends PureComponent {
   renderLogoutBlock() {
     return (
       <View>
-        {this.renderClickableItem(Strings.settings.changePassword)} 
-        {this.renderClickableItem(Strings.settings.logout, undefined, this.onRequestLogout)} 
-        {this.renderClickableItem(Strings.settings.deleteAccount)} 
+        {
+          this.renderClickableItem(
+            Strings.settings.changePassword,
+            undefined, 
+            () => alert("Open change password")
+          )
+        } 
+        {
+          this.renderClickableItem(
+            Strings.settings.logout, 
+            undefined, 
+            this.onRequestLogout
+          )
+        } 
+        {
+          this.renderClickableItem(
+            Strings.settings.deleteAccount,
+            undefined, 
+            () => alert("Open delete account")
+          )
+        } 
       </View>
     )
   }
@@ -154,7 +208,7 @@ class Settings extends PureComponent {
 
   renderRangeItem(title, min, max, value) {
     let item = <SettingRange
-      key="range item"
+      key={"range-item-" + title}
       style={{ paddingBottom: 0 }}
       title={title}
       min={min}
@@ -166,7 +220,7 @@ class Settings extends PureComponent {
 
   renderSliderItem(title, valueTemplate, min, max, value) {
     let item = <SettingSlider
-      key="slider item"
+      key={"slider-item-" + title}
       style={{ paddingBottom: 0 }}
       title={title}
       valueTemplate={valueTemplate}
@@ -179,7 +233,7 @@ class Settings extends PureComponent {
 
   renderValueClickableItem(title, value) {
     let item = <SettingValueClickable
-      key="value clickable item" 
+      key={"value-clickable-item-" + title}
       style={{ paddingBottom: 12, paddingTop: 16 }}
       title={title}
       value={value}
@@ -189,7 +243,7 @@ class Settings extends PureComponent {
 
   renderClickableItem(title, align, onPress) {
     let item = <SettingClickable 
-      key="clickable item" 
+      key={"clickable-item-" + title} 
       titleAlign={align ? align : 'center'}
       style={{ paddingBottom: 8, paddingTop: 16 }}
       title={title}
@@ -200,7 +254,7 @@ class Settings extends PureComponent {
 
   renderToggleItem(title, description, isOn, onChanged) {
     let item = <SettingToggle
-      key="toggle item"
+      key={"toggle-item-" + title}
       style={{ paddingBottom: 4 }}
       title={title}
       description={description}
