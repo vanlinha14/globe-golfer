@@ -20,6 +20,7 @@ import { ACCESS_TOKEN_STORE_KEY } from '../../utils/constants';
 import { StackActions, NavigationActions } from 'react-navigation';
 import DialogCombination from '../../components/DialogCombination';
 import Api from '../../api';
+import { updateProfile } from '../../actions/updateProfile';
 
 class Settings extends PureComponent {
   static navigationOptions = { header: null }
@@ -308,7 +309,18 @@ class Settings extends PureComponent {
   }
 
   onApply = () => {
+    const objToUpdate = {
+      distance: this.state.distance,
+      index_min: this.state.indexRange.min,
+      index_max: this.state.indexRange.max,
+      age_min: this.state.ageRange.min,
+      age_max: this.state.ageRange.max,
+      show_gg: this.state.showGG,
+      message: this.state.message,
+      globe_golfer: this.state.globeGolfer
+    }
 
+    this.props.updateProfile(objToUpdate)
   }
 
   render() {
@@ -401,6 +413,8 @@ const mapStateToProps = (state) => ({
   settings: state.profile.settings
 })
 
-const mapDispatchToProps = (dispatch) => ({})
+const mapDispatchToProps = (dispatch) => ({
+  updateProfile: (objToUpdate) => dispatch(updateProfile(objToUpdate))
+})
 
 export default connect(mapStateToProps, mapDispatchToProps)(Settings)

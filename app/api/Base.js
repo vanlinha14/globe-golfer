@@ -39,6 +39,10 @@ export default class Base {
     return this.call('POST', url, body, binder)
   }
 
+  callPut(url, body, binder) {
+    return this.call('PUT', url, body, binder)
+  }
+
   callGet(url, binder) {
     return this.call('GET', url, null, binder)
   }
@@ -55,7 +59,7 @@ export default class Base {
 
     const getConfigs = { method, headers }
     const postConfigs = body ? { ...getConfigs, body } : getConfigs
-    const configs = method == 'POST' ? postConfigs : getConfigs
+    const configs = method != 'GET' ? postConfigs : getConfigs
 
     console.warn(configs);
 

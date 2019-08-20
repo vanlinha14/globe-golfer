@@ -158,6 +158,10 @@ export default class Api extends Base {
     return this.callGet(GET_PROFILE, new ProfileBinder());
   }
 
+  updateProfile(objToUpdate) {
+    return this.callPut(GET_PROFILE, JSON.stringify(objToUpdate), new ProfileBinder());
+  }
+
   getInterest() {
     return this.callGet(GET_INTEREST, new InterestBinder());
   }
