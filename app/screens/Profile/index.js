@@ -69,8 +69,8 @@ class Profile extends PureComponent {
     return (
       <View>
         {this.renderValueClickableItem("Full Name", name)}
-        {this.renderValueClickableItem("My Country", "France")}
-        {this.renderValueClickableItem("My Region", "lle de france")}
+        {this.renderValueClickableItem("My Country", user.country)}
+        {this.renderValueClickableItem("My Region", user.region)}
         {this.renderValueClickableItem("My Club", user.club)}
         {this.renderValueClickableItem("Index", user.index)}
         {this.renderSpacing(24)}

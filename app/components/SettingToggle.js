@@ -19,7 +19,11 @@ export default class SettingToggle extends PureComponent {
       <View style={[styles.container, this.props.style]}>
         <View style={styles.subContainer}>
           <DGText style={styles.title}>{this.props.title}</DGText>
-          <Toggler style={styles.value}/>
+          <Toggler 
+            style={styles.value}
+            isOn={this.props.isOn}
+            onChanged={this.props.onChanged}
+          />
         </View>
         {this.renderDescription()}
       </View>

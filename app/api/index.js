@@ -9,13 +9,14 @@ import {
   DUMMY_FAVORITE_RANKING,
   DUMMY_ALL_RANKING
 } from './DummyData'
-import { LOGIN, GET_COUNTRY, GET_REGION, GET_CLUB, REGISTER, GET_CHALLENGES, GET_PROFILE } from './Endpoints';
+import { LOGIN, GET_COUNTRY, GET_REGION, GET_CLUB, REGISTER, GET_CHALLENGES, GET_PROFILE, GET_INTEREST } from './Endpoints';
 import LoginBinder from './Binders/Login';
 import CountriesBinder from './Binders/CountriesBinder';
 import RegisterBinder from './Binders/RegisterBinder';
 import RegistrationHelper from './RegistrationHelper';
 import ChallengesBinder from './Binders/ChallengesBinder';
 import ProfileBinder from './Binders/ProfileBinder';
+import InterestBinder from './Binders/InterestBinder';
 
 export default class Api extends Base {
   static _instance = null
@@ -155,5 +156,9 @@ export default class Api extends Base {
 
   getProfile() {
     return this.callGet(GET_PROFILE, new ProfileBinder());
+  }
+
+  getInterest() {
+    return this.callGet(GET_INTEREST, new InterestBinder());
   }
 }

@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react'
 import { View, StyleSheet, Dimensions, AsyncStorage } from 'react-native'
-
+import { connect } from 'react-redux'
 import { getBottomSpace } from 'react-native-iphone-x-helper'
 
 import BaseComponent from '../../components/BaseComponent'
@@ -19,7 +19,7 @@ import { StackActions, NavigationActions } from 'react-navigation';
 import DialogCombination from '../../components/DialogCombination';
 import Api from '../../api';
 
-export default class Settings extends PureComponent {
+class Settings extends PureComponent {
   static navigationOptions = { header: null }
 
   onRequestLogout = () => {
@@ -52,21 +52,28 @@ export default class Settings extends PureComponent {
   }
 
   renderDiscoverBlock() {
+    const user = this.props.user
+    const settings = this.props.settings
     return (
       <View>
         {this.renderSectionTitle(Strings.settings.defaultSettings)}
-        {this.renderValueClickableItem(Strings.settings.location, "France")}
-        {this.renderValueClickableItem(Strings.settings.region, "Paris")}
-        {this.renderValueClickableItem(Strings.settings.club, "Limousin")}
-        {this.renderSliderItem(Strings.settings.maxDistance, "%s km", 1, 100, 40)}
-        {this.renderRangeItem(Strings.settings.ageRange, 18, 50, [22, 40])}
-        {this.renderRangeItem(Strings.settings.indexRange, 18, 50, [22, 40])}
+        {this.renderValueClickableItem(Strings.settings.location, user.country)}
+        {this.renderValueClickableItem(Strings.settings.region, user.region)}
+        {this.renderValueClickableItem(Strings.settings.club, user.club)}
+        {this.renderSliderItem(Strings.settings.maxDistance, "%s km", 1, 100, settings.distance)}
+        {this.renderRangeItem(Strings.settings.ageRange, 18, 50, [settings.ageRange.min, settings.ageRange.max])}
+        {this.renderRangeItem(Strings.settings.indexRange, 18, 50, [settings.indexRange.min, settings.indexRange.max])}
       </View>
     )
   }
 
   renderVisibilityBlock() {
-    let showGG = this.renderToggleItem(Strings.settings.showMeOnGG.title, Strings.settings.showMeOnGG.message)
+    const settings = this.props.settings
+    let showGG = this.renderToggleItem(
+      Strings.settings.showMeOnGG.title, 
+      Strings.settings.showMeOnGG.message,
+      settings.showGG === 1
+    )
 
     return showGG
   }
@@ -81,11 +88,24 @@ export default class Settings extends PureComponent {
   }
 
   renderNotificationBlock() {
+    const settings = this.props.settings
     return (
       <View>
         {this.renderSectionTitle(Strings.settings.notifications.title)}
-        {this.renderToggleItem(Strings.settings.notifications.messages)}
-        {this.renderToggleItem(Strings.settings.notifications.globeGolfer)}
+        {
+          this.renderToggleItem(
+            Strings.settings.notifications.messages,
+            undefined,
+            settings.message === 1
+          )
+        }
+        {
+          this.renderToggleItem(
+            Strings.settings.notifications.globeGolfer,
+            undefined,
+            settings.globegolfer === 1
+          )
+        }
       </View>
     )
   }
@@ -178,12 +198,14 @@ export default class Settings extends PureComponent {
     return item;
   }
 
-  renderToggleItem(title, description) {
+  renderToggleItem(title, description, isOn, onChanged) {
     let item = <SettingToggle
       key="toggle item"
       style={{ paddingBottom: 4 }}
       title={title}
       description={description}
+      isOn={isOn}
+      onChanged={onChanged}
     />
     return item;
   }
@@ -281,3 +303,12 @@ const styles = StyleSheet.create({
     marginRight: 16,
   }
 })
+
+const mapStateToProps = (state) => ({
+  user: state.profile.user,
+  settings: state.profile.settings
+})
+
+const mapDispatchToProps = (dispatch) => ({})
+
+export default connect(mapStateToProps, mapDispatchToProps)(Settings)

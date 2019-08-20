@@ -10,9 +10,16 @@ export default class ProfileBinder {
       const avatar = user.avatar
       const about = user.about
       const club = user.golfCourseName
-      const indexRange = user.index_range
-      const ageRange = user.age_range
+      const region = user.regionName
+      const country = user.countryName
+      const distance = user.distance
+      const indexMin = user.index_min
+      const indexMax = user.index_max
+      const ageMin = user.age_min
+      const ageMax = user.age_max
       const showGG = user.show_gg
+      const message = user.message
+      const globegolfer = user.globe_golfer
       const interest = user.interest.map(i => {
         return {
           id: i.interestId,
@@ -27,6 +34,8 @@ export default class ProfileBinder {
             id,
             index,
             club,
+            region, 
+            country,
             firstName: fname,
             lastName: lname,
             avatar,
@@ -34,9 +43,18 @@ export default class ProfileBinder {
             interest
           },
           settings: {
-            indexRange,
-            ageRange,
-            showGG
+            indexRange: {
+              min: indexMin,
+              max: indexMax
+            },
+            ageRange: {
+              min: ageMin,
+              max: ageMax
+            },
+            distance,
+            globegolfer,
+            showGG,
+            message
           }
         }
       }
