@@ -24,8 +24,6 @@ import Api from '../../api';
 class Settings extends PureComponent {
   static navigationOptions = { header: null }
 
-  currentSetting = undefined
-
   constructor(props) {
     super(props)
 
@@ -282,11 +280,24 @@ class Settings extends PureComponent {
     return <View key="separator" style={styles.separator} />
   }
 
+  onApply = () => {
+
+  }
+
   render() {
+    var right;
+    if (!lodash.isEqual(this.state, this.props.settings)) {
+      var right = {
+        title: "Apply",
+        onPress: this.onApply
+      }
+    }
+
     return (
       <BaseComponent toolbar={{
         title: Strings.settings.title,
-        onBack: () => this.props.navigation.goBack()
+        onBack: () => this.props.navigation.goBack(),
+        right
       }}>
         <DialogCombination 
           ref={r => this.container = r}

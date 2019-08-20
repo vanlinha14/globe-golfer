@@ -13,6 +13,7 @@ export default class BaseComponent extends PureComponent {
         <Toolbar 
           title={toolbar.title}
           onBack={toolbar.onBack}
+          rightComponent={toolbar.right}
         />
       )
     }

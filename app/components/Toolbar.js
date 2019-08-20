@@ -14,6 +14,14 @@ export default class Toolbar extends PureComponent {
             <Icon name="ios-arrow-back" color={Theme.buttonPrimary} size={30} />
           </TouchableOpacity>
           <DGText style={styles.text}>{this.props.title}</DGText>
+          {
+            this.props.rightComponent ? (
+              <TouchableOpacity onPress={this.props.rightComponent.onPress} activeOpacity={0.7}>
+                <DGText style={styles.textRight}>{this.props.rightComponent.title}</DGText>
+              </TouchableOpacity>
+            ) : undefined
+          }
+          
         </View>
       </View>
     )
@@ -38,6 +46,13 @@ const styles = StyleSheet.create({
     color: Theme.toolbarTitle,
     textAlignVertical: 'center',
     marginHorizontal: 16,
+    marginTop: Platform.OS == 'ios' ? 2 : 0
+  },
+  textRight: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: Theme.toolbarTitle,
+    textAlignVertical: 'center',
     marginTop: Platform.OS == 'ios' ? 2 : 0
   },
   separator: {
