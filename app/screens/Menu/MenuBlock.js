@@ -110,9 +110,12 @@ export default class MenuBlock extends PureComponent {
         <Carousel
           ref={(c) => { this.carousel = c; }}
           data={data}
+          contentContainerCustomStyle={{ justifyContent: 'center', alignItems: 'center' }}
           renderItem={this.renderItem}
           sliderWidth={windowWidth}
+          sliderHeight={itemWidth}
           itemWidth={itemWidth}
+          itemHeight={itemWidth}
           loop={true}
           inactiveSlideScale={0.6}
           onSnapToItem={(index) => this.setState({ activeSlide: index })}

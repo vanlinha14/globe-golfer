@@ -44,4 +44,6 @@ target 'GolfGlobal' do
 
   pod 'BVLinearGradient', :path => '../node_modules/react-native-linear-gradient'
 
+  pod 'react-native-onesignal', :path => '../node_modules/react-native-onesignal'
+
 end

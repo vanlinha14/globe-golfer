@@ -109,14 +109,14 @@ export default class Filter extends React.PureComponent {
           icon="ios-notifications-outline" 
           isSelected={this.state.selectedIndex == 0}
           onPress={() => this.onFilterChanged(0)}
-          badge={4}
+          badge={0}
         />
         <Item 
           title="LOTTERY" 
           icon="ios-notifications-outline" 
           isSelected={this.state.selectedIndex == 1}
           onPress={() => this.onFilterChanged(1)}
-          badge={2}
+          badge={0}
         />
         <Item 
           title="WINNERS" 

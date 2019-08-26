@@ -60,6 +60,7 @@ PODS:
   - libwebp/utils (1.0.2):
     - libwebp/core
   - libwebp/webp (1.0.2)
+  - OneSignal (2.10.1)
   - React (0.60.3):
     - React-Core (= 0.60.3)
     - React-DevSupport (= 0.60.3)
@@ -124,7 +125,10 @@ PODS:
     - React
   - react-native-image-picker (0.28.1):
     - React
-  - react-native-webview (6.6.0):
+  - react-native-onesignal (3.3.2):
+    - OneSignal (= 2.10.1)
+    - React (< 1.0.0, >= 0.13.0)
+  - react-native-webview (6.9.0):
     - React
   - React-RCTActionSheet (0.60.3):
     - React-Core (= 0.60.3)
@@ -150,7 +154,9 @@ PODS:
   - React-RCTWebSocket (0.60.3):
     - React-Core (= 0.60.3)
     - React-fishhook (= 0.60.3)
-  - ReactNativePermissions (1.1.1):
+  - ReactNativePermissions (1.2.0):
+    - React
+  - RNCAsyncStorage (1.6.1):
     - React
   - RNFastImage (7.0.2):
     - React
@@ -161,7 +167,7 @@ PODS:
   - RNGoogleSignin (2.0.0):
     - GoogleSignIn (~> 4.4.0)
     - React
-  - RNReanimated (1.1.0):
+  - RNReanimated (1.2.0):
     - React
   - RNVectorIcons (6.6.0):
     - React
@@ -191,6 +197,7 @@ DEPENDENCIES:
   - react-native-contacts (from `../node_modules/react-native-contacts`)
   - react-native-fbsdk (from `../node_modules/react-native-fbsdk`)
   - react-native-image-picker (from `../node_modules/react-native-image-picker`)
+  - react-native-onesignal (from `../node_modules/react-native-onesignal`)
   - react-native-webview (from `../node_modules/react-native-webview`)
   - React-RCTActionSheet (from `../node_modules/react-native/Libraries/ActionSheetIOS`)
   - React-RCTAnimation (from `../node_modules/react-native/Libraries/NativeAnimation`)
@@ -203,6 +210,7 @@ DEPENDENCIES:
   - React-RCTVibration (from `../node_modules/react-native/Libraries/Vibration`)
   - React-RCTWebSocket (from `../node_modules/react-native/Libraries/WebSocket`)
   - ReactNativePermissions (from `../node_modules/react-native-permissions`)
+  - "RNCAsyncStorage (from `../node_modules/@react-native-community/async-storage`)"
   - RNFastImage (from `../node_modules/react-native-fast-image`)
   - RNGestureHandler (from `../node_modules/react-native-gesture-handler`)
   - RNGoogleSignin (from `../node_modules/react-native-google-signin`)
@@ -220,6 +228,7 @@ SPEC REPOS:
     - GoogleToolboxForMac
     - GTMSessionFetcher
     - libwebp
+    - OneSignal
     - SDWebImage
     - SDWebImageWebPCoder
 
@@ -254,6 +263,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-fbsdk"
   react-native-image-picker:
     :path: "../node_modules/react-native-image-picker"
+  react-native-onesignal:
+    :path: "../node_modules/react-native-onesignal"
   react-native-webview:
     :path: "../node_modules/react-native-webview"
   React-RCTActionSheet:
@@ -278,6 +289,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/Libraries/WebSocket"
   ReactNativePermissions:
     :path: "../node_modules/react-native-permissions"
+  RNCAsyncStorage:
+    :path: "../node_modules/@react-native-community/async-storage"
   RNFastImage:
     :path: "../node_modules/react-native-fast-image"
   RNGestureHandler:
@@ -304,6 +317,7 @@ SPEC CHECKSUMS:
   GoogleToolboxForMac: b3553629623a3b1bff17f555e736cd5a6d95ad55
   GTMSessionFetcher: 61bb0f61a4cb560030f1222021178008a5727a23
   libwebp: b068a3bd7c45f7460f6715be7bed1a18fd5d6b48
+  OneSignal: 8fb749fa07f88006403c9b659a570fb7fb74519a
   React: ac23e9cc8d2d4cfe9b536b5cc0c32d19b9937bcf
   React-Core: 84de3cf80e31f0267c5ce0b5b482d59ce30a8a57
   React-cxxreact: a802a1c6b14f3de66ba032460b424c17ececd1e2
@@ -312,10 +326,11 @@ SPEC CHECKSUMS:
   React-jsi: c2b6e57836bcae2677a036384111dc2c58e94369
   React-jsiexecutor: d9023c5c199114d2b6f38ec861a4d923c73d0735
   React-jsinspector: 817b64f3c8a807f09d78620f4f505868d89b26f3
-  react-native-contacts: a311f1e1536a6b037c5bf688e7979c26a865aba8
+  react-native-contacts: b08f96846ebd82f16c92c039b0da7a379067498a
   react-native-fbsdk: 080f3bb23513c5b59b6528543206fe0d1436bb7e
   react-native-image-picker: fd93361c666f397bdf72f9c6c23f13d2685b9173
-  react-native-webview: 30d530721a32b97b48bd4de131d0a03c0cbf8277
+  react-native-onesignal: 8958311abbd9125f26e600914e48833b57321cbf
+  react-native-webview: 2d8de2be422f0f8b9ba38db3f013f9ebfdb9b78f
   React-RCTActionSheet: 9c42321fd5652515d706dd722c5a10b1970d7ec8
   React-RCTAnimation: fabb087dde8964c9a835a7fabd0e7e5701787913
   React-RCTBlob: 93f34281d9c9c9e216b25824309eed9fe22a5d41
@@ -326,16 +341,17 @@ SPEC CHECKSUMS:
   React-RCTText: b026f8350c2cbe0daeb9880dd9c6e018fce0daf7
   React-RCTVibration: 5d9ed4a968e9d42880ddcc7c29bee3417c745408
   React-RCTWebSocket: 69d8565d66043f244b4129f3d7154c5689fb7d3e
-  ReactNativePermissions: 2e324bb3baf12702e3ec27f76c8ae1158fa69fc6
+  ReactNativePermissions: f3beb8871251594a8ea2c6b19a3f8252d5c7379d
+  RNCAsyncStorage: 2e2e3feb9bdadc752a026703d8c4065ca912e75a
   RNFastImage: 9b0c22643872bb7494c8d87bbbb66cc4c0d9e7a2
   RNGestureHandler: 5329a942fce3d41c68b84c2c2276ce06a696d8b0
   RNGoogleSignin: d030c6c6591db24c3cee649f64c7babf0a1699a0
-  RNReanimated: 7a52c90473b5e81c13408d40d797b98387eaddde
+  RNReanimated: 1b52415c4302f198cb581282a0166690bad62c43
   RNVectorIcons: 0bb4def82230be1333ddaeee9fcba45f0b288ed4
   SDWebImage: 920f1a2ff1ca8296ad34f6e0510a1ef1d70ac965
   SDWebImageWebPCoder: 7568737603c50f6237850afedd7e9e28e5917e6b
   yoga: 843fe25849b56131275bf3e5da2c468e96f68aff
 
-PODFILE CHECKSUM: 3947422a355412b75ae19f9cd5efa931b3330f89
+PODFILE CHECKSUM: e70f230b6331cba94e84aa1ed04883b868b3b23c
 
 COCOAPODS: 1.7.5
