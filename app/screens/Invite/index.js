@@ -45,12 +45,12 @@ const ContactList = React.memo(({data, onDataChanged}) => {
     onDataChanged(index)
   }
 
-  const renderItem = ({item, index}) => (
+  const renderItem = ({item, index, section}) => (
     <ContactItem
       index={index}
       name={item.displayName}
       selected={item.selected}
-      onChanged={onListPropsChanged}
+      onChanged={() => onDataChanged(section, index)}
     />
   );
 
@@ -140,10 +140,25 @@ export default class Invite extends PureComponent {
     })
   }
 
-  onDataChanged = (index) => {
-    this.state.contacts[index].selected = !this.state.contacts[index].selected
-    
-    const contacts = this.state.contacts.slice()
+  onDataChanged = (section, index) => {
+    const contacts = this.state.contacts.map(i => {
+      let newi = i
+      if (newi.title === section.title) {
+        newi.data = i.data.map((ii, id) => {
+          if (id === index) {
+            return {
+              ...ii,
+              selected: !ii.selected
+            }
+          }
+
+          return ii;
+        })
+      }
+
+      return newi
+    });
+
     this.setState({ contacts })
   }
 
@@ -153,11 +168,13 @@ export default class Invite extends PureComponent {
       alert("Features is under development!")
       return
     }
-    const target = this.state.contacts.filter(i => 
-      i.selected && 
-      i.phone[0] &&
-      i.phone[0].number
+
+    const target = lodash(this.state.contacts).flatMap(i => i.data).filter(ii => 
+      ii.selected && 
+      ii.phone[0] &&
+      ii.phone[0].number
     )
+
     const phoneList = target.map(i => { return i.phone[0].number }).join(";")
     SharingHelper.shareTo(phoneList, "Download GG application to join us and play Golf by the awesome way. https://google.com")
   }

@@ -24,6 +24,7 @@ public class SharingHelperModule extends ReactContextBaseJavaModule {
     public void shareTo(String phoneList, String content) {
         Intent smsIntent = new Intent(Intent.ACTION_SENDTO, Uri.parse("smsto:" + phoneList));
         smsIntent.putExtra("sms_body", content);
+        smsIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         getReactApplicationContext().startActivity(smsIntent);
     }
 }
