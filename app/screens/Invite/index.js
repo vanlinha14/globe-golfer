@@ -1,7 +1,8 @@
 import React, { PureComponent } from 'react'
-import { View, FlatList, Dimensions, Platform } from 'react-native'
+import { View, SectionList, Dimensions, Platform } from 'react-native'
 import Permissions from 'react-native-permissions'
 import Contacts from 'react-native-contacts'
+import lodash from 'lodash'
 
 import SharingHelper from '../../utils/SharingHelper'
 
@@ -53,8 +54,14 @@ const ContactList = React.memo(({data, onDataChanged}) => {
     />
   );
 
+  const renderHeader = ({section: {title}}) => {
+    return <View style={{backgroundColor: Theme.mainBackground}}>
+      <DGText style={{color: Theme.buttonPrimary, fontWeight: 'bold', fontSize: 30}}>{title}</DGText>
+    </View>
+  }
+
   return (
-    <FlatList 
+    <SectionList
       style={{ 
         alignSelf: 'center'
       }}
@@ -62,8 +69,10 @@ const ContactList = React.memo(({data, onDataChanged}) => {
         paddingVertical: 24
       }}
       keyExtractor={keyExtractor}
-      data={data}
+      sections={data}
       renderItem={renderItem}
+      renderSectionHeader={renderHeader}
+      stickySectionHeadersEnabled={true}
     />
   )
 })
@@ -102,17 +111,31 @@ export default class Invite extends PureComponent {
 
   getContactList() {
     const isiOS = Platform.OS === 'ios'
-    Contacts.getAll((err, contacts) => {
-      console.warn(contacts);
-      
-      this.setState({
-        contacts: contacts.map(i => { 
+    Contacts.getAll((_, contacts) => {
+      const mapped = contacts
+        .filter(i => i.phoneNumbers.length > 0)
+        .map(i => {
+          const displayName = isiOS ? i.givenName : i.displayName
+          
           return { 
-            displayName: isiOS ? i.givenName : i.displayName,
+            firstLetter: displayName.charAt(0),
+            displayName,
             phone: i.phoneNumbers,
             selected: false
           }
         })
+      const sorted = lodash.sortBy(mapped, o => o.displayName)
+      const dics = lodash.groupBy(sorted, "firstLetter")
+
+      const result = Object.keys(dics).map(k => {
+        return {
+          title: k,
+          data: dics[k]
+        }
+      })
+      
+      this.setState({
+        contacts: result
       })
     })
   }
