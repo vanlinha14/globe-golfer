@@ -29,6 +29,12 @@ export default class Api extends Base {
       return this._instance
   }
 
+  currentUserProfile = undefined;
+
+  setCurrentUserProfile(profile) {
+    this.currentUserProfile = profile;
+  }
+
   dummData(data) {
     return new Promise((resolve, rejecter) => {
       setTimeout(() => {
@@ -171,11 +177,11 @@ export default class Api extends Base {
 
   challengeTo(userId) {
     const body = JSON.stringify({
-      user_from: 133,
+      user_from: this.currentUserProfile.id,
       user_to: userId,
       status: 0
     })
 
-    return this.callPost(CHALLENGE_SOME_ONE, body, new InterestBinder());
+    return this.callPost(CHALLENGE_SOME_ONE, body);
   }
 }

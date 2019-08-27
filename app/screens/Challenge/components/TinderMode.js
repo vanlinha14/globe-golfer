@@ -11,7 +11,7 @@ const TinderMode = React.memo(({data, showingItemIndex}) => {
 
   const onSwipedRight = (index) => {
     const target = data[index]
-    Api.instance().challengeTo(132);
+    Api.instance().challengeTo(target.id);
   }
 
   return (

@@ -76,12 +76,17 @@ export default class Base {
         if (code == 401) {
           this._clearApp()
         } else if (code == 200) {
-          const binded = binder.bind(data);
-          if (binded.result === false) {
-            rejecter()
+          if (binder) {
+            const binded = binder.bind(data);
+            if (binded.result === false) {
+              rejecter()
+            }
+            else {
+              resolve(binded)
+            }
           }
           else {
-            resolve(binded)
+            resolve()
           }
         }
         rejecter(code)

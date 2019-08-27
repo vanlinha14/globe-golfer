@@ -58,7 +58,7 @@ class Profile extends PureComponent {
         alignSelf: 'center',
         backgroundColor: 'white'
       }}
-      source={{ uri: "http://www.europeantour.com/mm/photo/tournament/tournaments/33/54/31/335431_m16.jpg" }}
+      source={{ uri: this.props.user.avatar }}
     />
   }
 

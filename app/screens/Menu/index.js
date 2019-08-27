@@ -70,7 +70,6 @@ class Menu extends PureComponent {
 
     OneSignal.init("316ed61c-0349-4eaf-aa5c-634a7bfad659");
     OneSignal.inFocusDisplaying(2)
-    // OneSignal.sendTag("user_id", )
   }
 
   componentDidMount() {

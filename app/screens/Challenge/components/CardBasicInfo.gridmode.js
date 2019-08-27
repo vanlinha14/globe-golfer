@@ -9,7 +9,8 @@ import LinearGradient from 'react-native-linear-gradient'
 const windowWidth = Dimensions.get('window').width
 
 const CardBasicInfo = React.memo(({ index, avatar, name, location, rating, onPress }) => {
-  const avatarSource = avatar ? { uri: avatar } : require('../../../res/images/golfer_placeholder.png')
+  
+  const avatarSource = avatar && avatar.startsWith("http") ? { uri: avatar } : require('../../../res/images/golfer_placeholder.png')
   return (
     <TouchableOpacity 
       style={{ alignItems: 'center', marginTop: 20, width: windowWidth / 2 }}

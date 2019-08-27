@@ -1,4 +1,5 @@
 import { GET_PROFILE, UPDATE_PROFILE } from '../actions/types'
+import Api from '../api';
 
 const initialState = {
   isLoading: false,
@@ -34,6 +35,7 @@ export default profileReducer = (state = initialState, action) => {
       }
     case GET_PROFILE.FINISH:
       if (action.payload.result) {
+        Api.instance().setCurrentUserProfile(action.payload.user)
         return {
           isLoading: false,
           user: action.payload.user,
