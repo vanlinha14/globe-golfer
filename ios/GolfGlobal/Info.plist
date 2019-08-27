@@ -2,8 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>NSContactsUsageDescription</key>
-	<string>We need you to allow us to access your contact to get your friend list</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
@@ -67,10 +65,12 @@
 			</dict>
 		</dict>
 	</dict>
-	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>We need you to allow us to know your current location for better experiences.</string>
 	<key>NSCameraUsageDescription</key>
 	<string>We need your camera usage permission to capture image of your card, your best moment.</string>
+	<key>NSContactsUsageDescription</key>
+	<string>We need you to allow us to access your contact to get your friend list</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>We need you to allow us to know your current location for better experiences.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>We need access to your photo library to get an image of your card, your best photo.</string>
 	<key>UIAppFonts</key>
@@ -98,11 +98,11 @@
 	<array>
 		<string>armv7</string>
 	</array>
+	<key>UIStatusBarStyle</key>
+	<string>UIStatusBarStyleLightContent</string>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
-		<string>UIInterfaceOrientationLandscapeLeft</string>
-		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>

@@ -167,7 +167,7 @@ export default class DialogCombination extends PureComponent {
 
   render() {
     return (
-      <SafeAreaView>
+      <SafeAreaView style={{ backgroundColor: 'black' }}>
         <KeyboardAwareScrollView 
           style={{ backgroundColor: Theme.mainBackground }}
           contentContainerStyle={

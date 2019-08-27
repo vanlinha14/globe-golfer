@@ -233,7 +233,7 @@ class Login extends PureComponent {
 
   render() {
     return (
-      <SafeAreaView>
+      <SafeAreaView style={{ backgroundColor: 'black' }}>
         <ScrollView 
           style={{ backgroundColor: Theme.mainBackground }}
           contentContainerStyle={[

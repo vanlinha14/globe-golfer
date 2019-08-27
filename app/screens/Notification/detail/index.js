@@ -1,29 +1,59 @@
 import React from 'react'
-import { View } from 'react-native'
+import { View, SafeAreaView, TouchableOpacity } from 'react-native'
 import { GiftedChat } from 'react-native-gifted-chat'
 import Header from './Header'
 import Theme from '../../../res/Theme';
+import DGText from '../../../components/DGText';
+
+const Button = React.memo(({text, backgroundColor}) => {
+  return (
+    <TouchableOpacity style={{ 
+      flex: 1, 
+      backgroundColor,
+      height: 44,
+      justifyContent: 'center',
+      alignItems: 'center'
+    }} activeOpacity={0.7}>
+      <DGText style={{
+        color: Theme.textWhite,
+        fontWeight: 'bold',
+      }}>{text}</DGText>
+    </TouchableOpacity>
+  )
+})
 
 export default class NotificationDetail extends React.PureComponent {
-  state = {
-    messages: [],
-  }
+  constructor(props) {
+    super(props)
 
-  componentWillMount() {
-    this.setState({
+    const notification = this.props.navigation.getParam("notification")
+
+    this.state = {
+      header: notification.name,
       messages: [
         {
-          _id: 1,
-          text: 'The user did not accept your request!',
-          createdAt: new Date(),
+          _id: notification.id,
+          text: notification.lastMessage,
+          createdAt: notification.createAt,
           user: {
-            _id: 2,
-            name: 'React Native',
-            avatar: 'https://placeimg.com/140/140/any',
+            name: notification.name,
+            avatar: notification.avatar,
           },
-        },
+        }
       ],
-    })
+    }
+  }
+
+  renderInput = () => {
+    const notification = this.props.navigation.getParam("notification")
+    if (notification.type == 1) {
+      return (
+        <View style={{ flex: 1, flexDirection: 'row' }}>
+          <Button text="Accept" backgroundColor={Theme.buttonPrimary}/>
+          <Button text="Decline" backgroundColor={Theme.buttonSecondary}/>
+        </View>
+      )
+    }
   }
 
   onSend(messages = []) {
@@ -34,17 +64,18 @@ export default class NotificationDetail extends React.PureComponent {
 
   render() {
     return (
-      <View style={{ backgroundColor: Theme.mainBackground, flex: 1 }}>
-        <Header />
+      <SafeAreaView style={{ backgroundColor: Theme.mainBackground, flex: 1 }}>
+        <Header title={this.state.header} />
         <GiftedChat
+          alignTop={true}
           messages={this.state.messages}
           onSend={messages => this.onSend(messages)}
           user={{
             _id: 1,
           }}
-          renderInputToolbar={()=>{}}
+          renderInputToolbar={this.renderInput}
         />
-      </View>
+      </SafeAreaView>
     )
   }
 }

@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 
 import Theme from '../../res/Theme'
 
-import Icon from 'react-native-vector-icons/Ionicons'
+import FastImage from 'react-native-fast-image'
 
 import Header from './components/Header'
 import BaseComponent from '../../components/BaseComponent';
@@ -33,6 +33,7 @@ const AllPlayer = React.memo(({isExpanded, requestToggleExpand, isLoading, data}
 })
 
 const BoardHeader = React.memo(({title, isExpanded, requestToggleExpand}) => {
+  const icon = isExpanded ? require('../../res/images/ic_down.png') : require('../../res/images/ic_right.png')
   return (
     <TouchableOpacity style={{ 
       flexDirection: 'row', 
@@ -41,17 +42,13 @@ const BoardHeader = React.memo(({title, isExpanded, requestToggleExpand}) => {
       paddingHorizontal: 16,
       paddingVertical:12
       }} activeOpacity={0.7} onPress={requestToggleExpand}>
-      <View style={{ 
-        width: 30, 
-        height: 30, 
-        borderRadius: 15,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: Theme.buttonPrimary
-      }}>
-        <Icon name={isExpanded ? "ios-arrow-down" : "ios-arrow-forward"} color="white" size={20} />
-      </View>
-      
+      <FastImage
+        style={{
+          width: 30, 
+          height: 30, 
+        }} 
+        source={icon}
+      />
       <DGText style={{ color: Theme.textWhite, marginHorizontal: 8 }} >{title}</DGText>
     </TouchableOpacity>
   )

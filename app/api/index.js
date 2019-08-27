@@ -147,6 +147,8 @@ export default class Api extends Base {
 
   getNewNotifications(tag) {
     const callingApi = GET_NEW_NOTIFICATIONS.replace("{tag}", tag + 1);
+    console.warn(callingApi);
+    
     return this.callGet(callingApi, new NotificationBinder())
   }
 
@@ -168,7 +170,12 @@ export default class Api extends Base {
   }
 
   updateProfile(objToUpdate) {
-    return this.callPut(GET_PROFILE, JSON.stringify(objToUpdate), new ProfileBinder());
+    return new Promise((resolve, rejecter) => {
+      this.callPut(GET_PROFILE, JSON.stringify(objToUpdate)).then(_ => {
+        this.getProfile().then(resolve).catch(rejecter)
+      })
+      .catch(rejecter)
+    })
   }
 
   getInterest() {

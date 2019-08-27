@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react'
-import { StyleSheet, View, ActivityIndicator } from 'react-native'
+import { StyleSheet, View, ActivityIndicator, SafeAreaView } from 'react-native'
 import { connect } from 'react-redux'
 
 import Theme from '../../res/Theme'
@@ -50,12 +50,12 @@ class Challenge extends PureComponent {
 
   render() {
     return (
-      <View style={styles.container}>
+      <SafeAreaView style={styles.container}>
         <Header isOn={this.state.isGridMode} onViewModeChanged={this.onViewModeChanged} />
         <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
           {this.renderContent()}
         </View>
-      </View>
+      </SafeAreaView>
     )
   }
 }

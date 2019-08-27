@@ -37,6 +37,7 @@ const History = React.memo(({isExpanded, isLoading, data, requestToggleExpand}) 
 })
 
 const BoardHeader = React.memo(({title, isExpanded, requestToggleExpand}) => {
+  const icon = isExpanded ? require('../../res/images/ic_down.png') : require('../../res/images/ic_right.png')
   return (
     <TouchableOpacity style={{ 
       flexDirection: 'row', 
@@ -44,17 +45,13 @@ const BoardHeader = React.memo(({title, isExpanded, requestToggleExpand}) => {
       paddingHorizontal: 16,
       paddingVertical:12
       }} activeOpacity={0.7} onPress={requestToggleExpand}>
-      <View style={{ 
-        width: 30, 
-        height: 30, 
-        borderRadius: 15,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: Theme.buttonPrimary
-      }}>
-        <Icon name={isExpanded ? "ios-arrow-down" : "ios-arrow-forward"} color="white" size={20} />
-      </View>
-      
+      <FastImage
+        style={{
+          width: 30, 
+          height: 30, 
+        }} 
+        source={icon}
+      />
       <DGText style={{ color: Theme.textWhite, marginHorizontal: 8 }} >{title}</DGText>
     </TouchableOpacity>
   )
@@ -69,7 +66,7 @@ const MessageItem = React.memo(({item}) => {
   const { navigate } = useNavigation()
 
   const onPress = () => {
-    navigate("NotificationDetail")
+    navigate("NotificationDetail", { notification: item })
   }
 
   return (
@@ -100,10 +97,13 @@ const MessageItem = React.memo(({item}) => {
       }}>
         <DGText style={{
           color: Theme.textWhite,
-          fontSize: 20
+          fontSize: 20,
+          fontWeight: 'bold',
+          marginBottom: 4,
         }}>{item.name}</DGText>
         <DGText style={{ 
-          color: Theme.textWhite 
+          color: Theme.textWhite,
+          marginTop: 4,
         }}>{item.lastMessage}</DGText>
       </View>
       <DGText style={{ marginTop: 12, color: Theme.textWhite }}>{item.duration}</DGText>

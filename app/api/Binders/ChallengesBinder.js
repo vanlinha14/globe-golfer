@@ -5,7 +5,7 @@ export default class ChallengesBinder {
       if (Array.isArray(data)) {
         return data.map(item => {
           return {
-            id: item.id,
+            id: item.userId,
             name: item.name,
             location: item.gofl_name,
             rating: item.rate,

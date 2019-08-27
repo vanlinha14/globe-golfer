@@ -136,7 +136,7 @@ class Settings extends PureComponent {
         }
         {
           this.renderToggleItem(
-            Strings.settings.notifications.globeGolfer,
+            Strings.settings.notifications.globegolfer,
             undefined,
             this.state.globegolfer === 1,
             () => { this.setState({ globegolfer: this.state.globegolfer === 1 ? 0 : 1 }) }
@@ -317,9 +317,11 @@ class Settings extends PureComponent {
       age_max: this.state.ageRange.max,
       show_gg: this.state.showGG,
       message: this.state.message,
-      globe_golfer: this.state.globeGolfer
+      globe_golfer: this.state.globegolfer
     }
 
+    console.warn(this.state);
+    
     this.props.updateProfile(objToUpdate)
   }
 
@@ -335,7 +337,7 @@ class Settings extends PureComponent {
     return (
       <BaseComponent toolbar={{
         title: Strings.settings.title,
-        onBack: () => this.props.navigation.goBack(),
+        onBack: this.props.navigation.goBack,
         right
       }}>
         <DialogCombination 

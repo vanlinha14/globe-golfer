@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react'
-import { ActivityIndicator, View, TouchableOpacity, Image } from 'react-native'
+import { ActivityIndicator, View, TouchableOpacity, Platform } from 'react-native'
 import { connect } from 'react-redux'
 import FastImage from 'react-native-fast-image'
 
@@ -26,6 +26,7 @@ const Title = React.memo(() => {
 })
 
 const BoardHeader = React.memo(({title, isExpanded, requestToggleExpand}) => {
+  const icon = isExpanded ? require('../../res/images/ic_down.png') : require('../../res/images/ic_right.png')
   return (
     <TouchableOpacity style={{ 
       flexDirection: 'row', 
@@ -33,40 +34,36 @@ const BoardHeader = React.memo(({title, isExpanded, requestToggleExpand}) => {
       paddingHorizontal: 16,
       paddingVertical:12
       }} activeOpacity={0.7} onPress={requestToggleExpand}>
-      <View style={{ 
-        width: 30, 
-        height: 30, 
-        borderRadius: 15,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: Theme.buttonPrimary
-      }}>
-        <Icon name={isExpanded ? "ios-arrow-down" : "ios-arrow-forward"} color="white" size={20} />
-      </View>
-      
+      <FastImage
+        style={{
+          width: 30, 
+          height: 30, 
+        }} 
+        source={icon}
+      />
       <DGText style={{ color: Theme.textWhite, marginHorizontal: 8 }} >{title}</DGText>
     </TouchableOpacity>
   )
 })
 
-const PendingItems = React.memo(({isLoading, data}) => {
+const PendingItems = React.memo(({isLoading, data, userAvatar}) => {
   if (isLoading || data == null) {
     return <ActivityIndicator size='large' color={Theme.buttonPrimary} />
   }
 
-  return data.map((item, index) => <PendingItem key={`pending-item-${index}`} item={item}/>)
+  return data.map((item, index) => <PendingItem key={`pending-item-${index}`} item={item} userAvatar={userAvatar}/>)
 })
 
-const PendingBlock = React.memo(({isLoading, isExpanded, requestToggleExpand, data}) => {
+const PendingBlock = React.memo(({isLoading, isExpanded, requestToggleExpand, data, userAvatar}) => {
   return (
     <>
       <BoardHeader title={"PENDING"} isExpanded={isExpanded} requestToggleExpand={requestToggleExpand}/>
-      {isExpanded ? <PendingItems isLoading={isLoading} data={data} /> : undefined}
+      {isExpanded ? <PendingItems isLoading={isLoading} data={data} userAvatar={userAvatar} /> : undefined}
     </>
   )
 })
 
-const PlayedItem = React.memo(({item}) => {
+const PlayedItem = React.memo(({item, userAvatar}) => {
   return (
     <View style={{ marginVertical: 16, flexDirection: 'row', justifyContent: 'center' }}>
       <FastImage
@@ -75,7 +72,7 @@ const PlayedItem = React.memo(({item}) => {
           height: 100,
           borderRadius: 50
         }}
-        source={{uri: "https://usatgolfweek.files.wordpress.com/2019/07/gettyimages-1163432510.jpg"}}
+        source={{uri: userAvatar}}
       />
       <View style={{ marginHorizontal: 24, justifyContent: 'center', alignItems: 'center' }}>
         <DGText style={{ 
@@ -106,19 +103,19 @@ const PlayedItem = React.memo(({item}) => {
   )
 })
 
-const PlayedItems = React.memo(({isLoading, data}) => {
+const PlayedItems = React.memo(({isLoading, data, userAvatar}) => {
   if (isLoading || data == null) {
     return <ActivityIndicator size='large' color={Theme.buttonPrimary} />
   }
 
-  return data.map((item, index) => <PlayedItem key={`played-item-${index}`} item={item}/>)
+  return data.map((item, index) => <PlayedItem key={`played-item-${index}`} item={item} userAvatar={userAvatar} />)
 })
 
-const PlayedBlock = React.memo(({isLoading, isExpanded, requestToggleExpand, data}) => {
+const PlayedBlock = React.memo(({isLoading, isExpanded, requestToggleExpand, data, userAvatar}) => {
   return (
     <>
       <BoardHeader title={"PLAYED"} isExpanded={isExpanded} requestToggleExpand={requestToggleExpand}/>
-      {isExpanded ? <PlayedItems isLoading={isLoading} data={data} /> : undefined}
+      {isExpanded ? <PlayedItems isLoading={isLoading} data={data} userAvatar={userAvatar} /> : undefined}
     </>
   )
 })
@@ -166,12 +163,14 @@ class Play extends PureComponent {
             isExpanded={this.state.isPendingExpand}
             isLoading={this.props.pendingData.isLoading}
             requestToggleExpand={this.requestTogglePendingBlock} 
+            userAvatar={this.props.user.avatar}
           />
           <PlayedBlock 
             data={this.props.playedData.data}
             isExpanded={this.state.isPlayedExpand} 
             isLoading={this.props.playedData.isLoading}
             requestToggleExpand={this.requestTogglePlayedBlock} 
+            userAvatar={this.props.user.avatar}
           />
         </DialogCombination>
       </BaseComponent>
@@ -180,8 +179,9 @@ class Play extends PureComponent {
 }
 
 const mapStateToProps = (state) => ({
+  user: state.profile.user,
   pendingData: state.matches.pending,
-  playedData: state.matches.played 
+  playedData: state.matches.played
 })
 
 const mapDispatchToProps = (dispatch) => ({

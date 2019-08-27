@@ -5,7 +5,7 @@ import FastImage from 'react-native-fast-image'
 import { useNavigation } from 'react-navigation-hooks';
 import DGText from '../../../components/DGText';
 
-export default PendingItem = React.memo(({item, viewOnly}) => {
+export default PendingItem = React.memo(({item, viewOnly, userAvatar}) => {
 
   const { navigate } = useNavigation()
 
@@ -21,7 +21,7 @@ export default PendingItem = React.memo(({item, viewOnly}) => {
           height: 100,
           borderRadius: 50
         }}
-        source={{uri: "https://usatgolfweek.files.wordpress.com/2019/07/gettyimages-1163432510.jpg"}}
+        source={{uri: userAvatar}}
       />
       <View style={{ marginHorizontal: 24, justifyContent: 'center', alignItems: 'center' }}>
         <DGText style={{ 

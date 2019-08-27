@@ -1,14 +1,20 @@
+import moment from 'moment'
+
 export default class NotificationBinder {
   bind(input) {
     try {
       const data = input.data
+      const currentDate = new Date()
       return data.map(i => {
         return {
           id: i.id,
           challengeId: i.challenge_id,
           type: i.type,
           lastMessage: i.detail,
-          duration: i.create_at
+          duration: moment(i.create_at).fromNow(),
+          avatar: i.avatar,
+          name: i.full_name,
+          createAt: i.create_at
         }
       })
     }

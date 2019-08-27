@@ -16,25 +16,24 @@ const HeaderIcon = React.memo(({name, action}) => (
   />
 ))
 
-const CenterButton = React.memo(({action}) => {
+const Title = React.memo(({title}) => {
   return (
-    <TouchableOpacity style={{ 
+    <View style={{ 
       flex: 1,
       justifyContent: 'center', 
       alignItems: 'center',
       flexDirection: 'row'
-    }} activeOpacity={0.7} onPress={action}>
-      <Icon 
-        size={32}
-        color={'white'}
-        name={"ios-person-add"}
-      />
-      <DGText style={{ color: Theme.textWhite, marginLeft: 12 }}>Invite a Friend</DGText>
-    </TouchableOpacity>
+    }}>
+      <DGText style={{ 
+        color: Theme.buttonPrimary, 
+        fontWeight: 'bold',
+        fontSize: 20
+      }}>{title}</DGText>
+    </View>
   )
 })
 
-const Header = React.memo(({isOn, onViewModeChanged}) => {
+const Header = React.memo(({title}) => {
 
   const { goBack, navigate } = useNavigation()
 
@@ -62,7 +61,13 @@ const Header = React.memo(({isOn, onViewModeChanged}) => {
       borderBottomColor: Theme.separator
     }}>
       <HeaderIcon name={"ios-home"} action={onGoBack}/>
-      <FlexSpacing />
+      
+      <Title style={{ 
+        flex: 1,
+        color: Theme.buttonPrimary, 
+        fontWeight: 'bold',
+        fontSize: 20
+      }} title={title} />
       <HeaderIcon name={"ios-settings"} action={onGoToSetting}/>
     </View>
   )

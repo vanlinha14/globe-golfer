@@ -4,29 +4,35 @@ import DGText from './DGText'
 import Theme from '../res/Theme'
 import { getStatusBarHeight } from 'react-native-iphone-x-helper';
 import Icon from 'react-native-vector-icons/Ionicons'
+import { useNavigation } from 'react-navigation-hooks';
 
-export default class Toolbar extends PureComponent {
-  render() {
-    return (
-      <View {...this.props} style={[styles.container, this.props.style]}>
-        <View style={styles.contentContainer}>
-          <TouchableOpacity onPress={this.props.onBack} activeOpacity={0.7}>
-            <Icon name="ios-arrow-back" color={Theme.buttonPrimary} size={30} />
-          </TouchableOpacity>
-          <DGText style={styles.text}>{this.props.title}</DGText>
-          {
-            this.props.rightComponent ? (
-              <TouchableOpacity onPress={this.props.rightComponent.onPress} activeOpacity={0.7}>
-                <DGText style={styles.textRight}>{this.props.rightComponent.title}</DGText>
-              </TouchableOpacity>
-            ) : undefined
-          }
-          
-        </View>
-      </View>
-    )
+const Toolbar = React.memo((props) => {
+
+  const { goBack } = useNavigation()
+
+  const onBack = () => {
+    goBack();
   }
-}
+
+  return (
+    <View {...props} style={[styles.container, props.style]}>
+      <View style={styles.contentContainer}>
+        <TouchableOpacity onPress={onBack} activeOpacity={0.7}>
+          <Icon name="ios-arrow-back" color={Theme.buttonPrimary} size={30} />
+        </TouchableOpacity>
+        <DGText style={styles.text}>{props.title}</DGText>
+        {
+          props.rightComponent ? (
+            <TouchableOpacity onPress={props.rightComponent.onPress} activeOpacity={0.7}>
+              <DGText style={styles.textRight}>{props.rightComponent.title}</DGText>
+            </TouchableOpacity>
+          ) : undefined
+        }
+        
+      </View>
+    </View>
+  )
+})
 
 const styles = StyleSheet.create({
   container: {
@@ -46,7 +52,7 @@ const styles = StyleSheet.create({
     color: Theme.toolbarTitle,
     textAlignVertical: 'center',
     marginHorizontal: 16,
-    marginTop: Platform.OS == 'ios' ? 2 : 0
+    marginTop: Platform.OS == 'ios' ? 6 : 0
   },
   textRight: {
     fontSize: 20,
@@ -62,3 +68,5 @@ const styles = StyleSheet.create({
     backgroundColor: Theme.separator
   }
 })
+
+export default Toolbar

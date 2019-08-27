@@ -200,7 +200,7 @@ class Profile extends PureComponent {
     return (
       <BaseComponent toolbar={{
         title: "Profile",
-        onBack: () => this.props.navigation.goBack()
+        onBack: this.props.navigation.goBack
       }}>
         <KeyboardAwareScrollView contentContainerStyle={{ paddingTop: 24 }}>
           {this.renderAvatar()}

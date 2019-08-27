@@ -46,14 +46,14 @@ export default class BaseComponent extends PureComponent {
     const { withDotBackground } = this.props
     if (withDotBackground) {
       return (
-        <SafeAreaView>
+        <SafeAreaView style={{ backgroundColor: 'black' }}>
           {this.renderWithBackgroundContent()}
         </SafeAreaView>
       )
     }
     else {
       return (
-        <SafeAreaView>
+        <SafeAreaView style={{ backgroundColor: 'black' }}>
           {this.renderWithoutBackgroundContent()}
         </SafeAreaView>
       ) 
