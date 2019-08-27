@@ -3,10 +3,17 @@ import { Dimensions } from 'react-native'
 import Swiper from 'react-native-deck-swiper'
 import Card from './Card'
 import Strings from '../../../res/Strings'
+import Api from '../../../api';
 
 const windowWidth = Dimensions.get('window').width
 
 const TinderMode = React.memo(({data, showingItemIndex}) => {
+
+  const onSwipedRight = (index) => {
+    const target = data[index]
+    Api.instance().challengeTo(132);
+  }
+
   return (
     <Swiper
       cards={data}
@@ -15,7 +22,7 @@ const TinderMode = React.memo(({data, showingItemIndex}) => {
       verticalSwipe={false}
       backgroundColor={Theme.mainBackground}
       onSwipedLeft={() => { console.warn("swipe left")}}
-      onSwipedRight={() => { console.warn("swipe right")}}
+      onSwipedRight={onSwipedRight}
       cardIndex={showingItemIndex}
       stackSize= {3}
       outputRotationRange={["0deg", "0deg", "0deg"]}

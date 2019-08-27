@@ -5,7 +5,10 @@ export default class NotificationBinder {
       return data.map(i => {
         return {
           id: i.id,
-          title: i.name
+          challengeId: i.challenge_id,
+          type: i.type,
+          lastMessage: i.detail,
+          duration: i.create_at
         }
       })
     }
@@ -16,3 +19,8 @@ export default class NotificationBinder {
     }
   }
 }
+
+// avatar: "https://usatgolfweek.files.wordpress.com/2019/07/gettyimages-1163432510.jpg",
+// name: "Gentlemen golfer",
+// lastMessage: "Recu",
+// duration: "73:34:40"

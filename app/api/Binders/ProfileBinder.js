@@ -3,7 +3,7 @@ export default class ProfileBinder {
     try {
       const result = input.result
       const user = input.data[0]
-      const id = user.id
+      const id = user.userId
       const index = user.p_index
       const fname = user.firstname
       const lname = user.lastname

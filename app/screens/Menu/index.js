@@ -5,6 +5,7 @@ import {
 } from 'react-native'
 import FastImage from 'react-native-fast-image'
 import { connect } from 'react-redux'
+import OneSignal from 'react-native-onesignal'
 
 import MenuBlock from './MenuBlock'
 import BaseComponent from '../../components/BaseComponent'
@@ -64,8 +65,22 @@ const Body = React.memo(() => {
 
 class Menu extends PureComponent {
 
+  constructor(props) {
+    super(props)
+
+    OneSignal.init("316ed61c-0349-4eaf-aa5c-634a7bfad659");
+    OneSignal.inFocusDisplaying(2)
+    // OneSignal.sendTag("user_id", )
+  }
+
   componentDidMount() {
     this.props.getProfile()
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.user && nextProps.user.id) {
+      OneSignal.sendTag("user_id", nextProps.user.id + "")
+    }
   }
 
   render() {
@@ -104,7 +119,9 @@ const styles = StyleSheet.create({
   }
 })
 
-const mapStateToProps = (state) => ({})
+const mapStateToProps = (state) => ({
+  user: state.profile.user
+})
 
 const mapDispatchToProps = (dispatch) => ({
   getProfile: () => dispatch(getProfile())

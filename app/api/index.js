@@ -9,7 +9,7 @@ import {
   DUMMY_FAVORITE_RANKING,
   DUMMY_ALL_RANKING
 } from './DummyData'
-import { LOGIN, GET_COUNTRY, GET_REGION, GET_CLUB, REGISTER, GET_CHALLENGES, GET_PROFILE, GET_INTEREST, GET_NEW_NOTIFICATIONS, GET_HISTORY_NOTIFICATIONS } from './Endpoints';
+import { LOGIN, GET_COUNTRY, GET_REGION, GET_CLUB, REGISTER, GET_CHALLENGES, GET_PROFILE, GET_INTEREST, GET_NEW_NOTIFICATIONS, GET_HISTORY_NOTIFICATIONS, CHALLENGE_SOME_ONE } from './Endpoints';
 import LoginBinder from './Binders/Login';
 import CountriesBinder from './Binders/CountriesBinder';
 import RegisterBinder from './Binders/RegisterBinder';
@@ -167,5 +167,15 @@ export default class Api extends Base {
 
   getInterest() {
     return this.callGet(GET_INTEREST, new InterestBinder());
+  }
+
+  challengeTo(userId) {
+    const body = JSON.stringify({
+      user_from: 133,
+      user_to: userId,
+      status: 0
+    })
+
+    return this.callPost(CHALLENGE_SOME_ONE, body, new InterestBinder());
   }
 }
