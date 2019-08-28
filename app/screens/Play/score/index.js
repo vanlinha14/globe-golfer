@@ -1,7 +1,7 @@
 import React from 'react'
 import { View, TouchableOpacity, Dimensions, TextInput, SafeAreaView, ScrollView } from 'react-native'
 import DialogCombination from '../../../components/DialogCombination';
-import Header from '../components/Header';
+import Header from './Header';
 import DGText from '../../../components/DGText';
 import Theme from '../../../res/Theme';
 
