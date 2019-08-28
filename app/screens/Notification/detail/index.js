@@ -4,16 +4,17 @@ import { GiftedChat } from 'react-native-gifted-chat'
 import Header from './Header'
 import Theme from '../../../res/Theme';
 import DGText from '../../../components/DGText';
+import Api from '../../../api';
 
-const Button = React.memo(({text, backgroundColor}) => {
+const Button = React.memo(({text, backgroundColor, onPress}) => {
   return (
     <TouchableOpacity style={{ 
       flex: 1, 
       backgroundColor,
-      height: 44,
+      height: 56,
       justifyContent: 'center',
       alignItems: 'center'
-    }} activeOpacity={0.7}>
+    }} activeOpacity={0.7} onPress={onPress}>
       <DGText style={{
         color: Theme.textWhite,
         fontWeight: 'bold',
@@ -44,13 +45,24 @@ export default class NotificationDetail extends React.PureComponent {
     }
   }
 
+  acceptMath = () => {
+
+  }
+
+  declineMatch = () => {
+    const notification = this.props.navigation.getParam("notification")
+    Api.instance().updateNotificationStatus(notification.id, 33).then(result => {
+
+    })
+  }
+
   renderInput = () => {
     const notification = this.props.navigation.getParam("notification")
     if (notification.type == 1) {
       return (
         <View style={{ flex: 1, flexDirection: 'row' }}>
-          <Button text="Accept" backgroundColor={Theme.buttonPrimary}/>
-          <Button text="Decline" backgroundColor={Theme.buttonSecondary}/>
+          <Button text="Accept" backgroundColor={Theme.buttonPrimary} onPress={this.acceptMath}/>
+          <Button text="Decline" backgroundColor={Theme.buttonSecondary} onPress={this.declineMatch}/>
         </View>
       )
     }

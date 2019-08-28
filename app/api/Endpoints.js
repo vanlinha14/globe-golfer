@@ -13,5 +13,6 @@ export const GET_INTEREST = BASE + "authenticated/add-user-interest"
 
 export const GET_NEW_NOTIFICATIONS = BASE + "authenticated/notification/list-new/{tag}?limit=0&item=2"
 export const GET_HISTORY_NOTIFICATIONS = BASE + "authenticated/notification/list-history/{tag}?limit=0&item=2"
+export const UPDATE_NOTIFICATION = BASE + "authenticated/notification/update/{id}"
 
 export const CHALLENGE_SOME_ONE = BASE + "authenticated/add-challenge"
