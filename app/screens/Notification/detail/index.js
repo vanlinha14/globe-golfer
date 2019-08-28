@@ -58,7 +58,7 @@ export default class NotificationDetail extends React.PureComponent {
 
   renderInput = () => {
     const notification = this.props.navigation.getParam("notification")
-    if (notification.type == 1) {
+    if (notification.type == 1 || notification.type == 11) {
       return (
         <View style={{ flex: 1, flexDirection: 'row' }}>
           <Button text="Accept" backgroundColor={Theme.buttonPrimary} onPress={this.acceptMath}/>
@@ -66,6 +66,8 @@ export default class NotificationDetail extends React.PureComponent {
         </View>
       )
     }
+
+    alert(JSON.stringify(notification.type))
   }
 
   onSend(messages = []) {
