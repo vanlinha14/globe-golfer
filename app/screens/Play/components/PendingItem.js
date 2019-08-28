@@ -5,12 +5,12 @@ import FastImage from 'react-native-fast-image'
 import { useNavigation } from 'react-navigation-hooks';
 import DGText from '../../../components/DGText';
 
-export default PendingItem = React.memo(({item, viewOnly, userAvatar}) => {
+export default PendingItem = React.memo(({item, viewOnly}) => {
 
   const { navigate } = useNavigation()
 
   const requestPlayTo = () => {
-    navigate("PlayConfiguration", { data: item, user: { avatar: userAvatar } })
+    navigate("PlayConfiguration", { data: item })
   }
 
   return (
@@ -21,7 +21,7 @@ export default PendingItem = React.memo(({item, viewOnly, userAvatar}) => {
           height: 100,
           borderRadius: 50
         }}
-        source={{uri: userAvatar}}
+        source={{uri: item.from.avatar}}
       />
       <View style={{ marginHorizontal: 24, justifyContent: 'center', alignItems: 'center' }}>
         <DGText style={{ 
@@ -48,7 +48,7 @@ export default PendingItem = React.memo(({item, viewOnly, userAvatar}) => {
           height: 100,
           borderRadius: 50
         }}
-        source={{uri: item.avatar}}
+        source={{uri: item.to.avatar}}
       />
     </View>
   )

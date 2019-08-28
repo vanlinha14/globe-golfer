@@ -16,3 +16,7 @@ export const GET_HISTORY_NOTIFICATIONS = BASE + "authenticated/notification/list
 export const UPDATE_NOTIFICATION = BASE + "authenticated/notification/update/{id}"
 
 export const CHALLENGE_SOME_ONE = BASE + "authenticated/add-challenge"
+
+export const GET_PENDING_MATCHES = BASE + "authenticated/pendings/list-new?limit=0&item=100"
+
+export const ACCEPT_CHALLENGE = BASE + "authenticated/match-challenge/{id}"

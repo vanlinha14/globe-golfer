@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, SafeAreaView, TouchableOpacity } from 'react-native'
+import { View, SafeAreaView, TouchableOpacity, Alert } from 'react-native'
 import { GiftedChat } from 'react-native-gifted-chat'
 import Header from './Header'
 import Theme from '../../../res/Theme';
@@ -59,11 +59,17 @@ class NotificationDetail extends React.PureComponent {
   }
 
   acceptMath = () => {
-
+    const notification = this.props.navigation.getParam("notification")
+    Api.instance().acceptChallenge(notification.challengeId).then(_ => {
+      Alert.alert("ACCEPT CHALLENGE", "You just accept the challenge!", [
+        {text: 'OK', onPress: () => this.props.navigation.goBack()},
+      ], { cancelable: false })
+    })
   }
 
   declineMatch = () => {
-    
+    const notification = this.props.navigation.getParam("notification")
+    Api.instance().declineChallenge(notification.challengeId)
   }
 
   renderInput = () => {
@@ -76,8 +82,6 @@ class NotificationDetail extends React.PureComponent {
         </View>
       )
     }
-
-    alert(JSON.stringify(notification.type))
   }
 
   onSend(messages = []) {

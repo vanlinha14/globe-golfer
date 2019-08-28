@@ -9,7 +9,7 @@ import {
   DUMMY_FAVORITE_RANKING,
   DUMMY_ALL_RANKING
 } from './DummyData'
-import { LOGIN, GET_COUNTRY, GET_REGION, GET_CLUB, REGISTER, GET_CHALLENGES, GET_PROFILE, GET_INTEREST, GET_NEW_NOTIFICATIONS, GET_HISTORY_NOTIFICATIONS, CHALLENGE_SOME_ONE, UPDATE_NOTIFICATION } from './Endpoints';
+import { LOGIN, GET_COUNTRY, GET_REGION, GET_CLUB, REGISTER, GET_CHALLENGES, GET_PROFILE, GET_INTEREST, GET_NEW_NOTIFICATIONS, GET_HISTORY_NOTIFICATIONS, CHALLENGE_SOME_ONE, UPDATE_NOTIFICATION, GET_PENDING_MATCHES, ACCEPT_CHALLENGE } from './Endpoints';
 import LoginBinder from './Binders/Login';
 import CountriesBinder from './Binders/CountriesBinder';
 import RegisterBinder from './Binders/RegisterBinder';
@@ -18,6 +18,7 @@ import ChallengesBinder from './Binders/ChallengesBinder';
 import ProfileBinder from './Binders/ProfileBinder';
 import InterestBinder from './Binders/InterestBinder';
 import NotificationBinder from './Binders/NotificationBinder';
+import MatchInfoBinder from './Binders/MatchInfoBinder';
 
 export default class Api extends Base {
   static _instance = null
@@ -134,7 +135,7 @@ export default class Api extends Base {
   }
 
   getPendingMatches() {
-    return this.dummData(DUMMY_PENDING_MATCHES)
+    return this.callGet(GET_PENDING_MATCHES, new MatchInfoBinder())
   }
 
   getPlayedMatches() {
@@ -193,5 +194,10 @@ export default class Api extends Base {
   updateNotificationStatus(id) {
     const callingApi = UPDATE_NOTIFICATION.replace("{id}", id)
     return this.callPut(callingApi);
+  }
+
+  acceptChallenge(id) {
+    const callingApi = ACCEPT_CHALLENGE.replace("{id}", id)
+    return this.callGet(callingApi)
   }
 }

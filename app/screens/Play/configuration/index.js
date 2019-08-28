@@ -109,14 +109,13 @@ export default class PlayConfiguration extends React.PureComponent {
 
   render() {
     const item = this.props.navigation.getParam("data")
-    const user = this.props.navigation.getParam("user")
     return (
       <DialogCombination>
         <View style={{ minHeight: Dimensions.get('window').height }}>
           <Header />
           <MatchInfo />
           <Spacing />
-          <PendingItem item={item} viewOnly={true} userAvatar={user.avatar} />
+          <PendingItem item={item} viewOnly={true} />
           <CurrentConfiguration game={this.state.game} course={this.state.course} />
           <GameConfiguration 
             game={this.state.game} 
