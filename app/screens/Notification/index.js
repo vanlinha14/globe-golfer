@@ -16,23 +16,25 @@ import DGText from '../../components/DGText';
 import { getNewNotifications, getHistoryNotifications } from '../../actions/getNotifications';
 import { useNavigation } from 'react-navigation-hooks';
 
-const NewMessages = React.memo(({isExpanded, isLoading, data, requestToggleExpand}) => {
+const NewMessages = React.memo(({isExpanded, isLoading, data, requestToggleExpand, currentTag}) => {
   return <Board 
     title="NEW MESSAGES" 
     isExpanded={isExpanded}
     isLoading={isLoading}
     data={data}
     requestToggleExpand={requestToggleExpand}
+    currentTag={currentTag}
   />
 })
 
-const History = React.memo(({isExpanded, isLoading, data, requestToggleExpand}) => {
+const History = React.memo(({isExpanded, isLoading, data, requestToggleExpand, currentTag}) => {
   return <Board 
     title="HISTORY"
     isExpanded={isExpanded}
     isLoading={isLoading}
     data={data}
     requestToggleExpand={requestToggleExpand}
+    currentTag={currentTag}
   />
 })
 
@@ -61,12 +63,12 @@ const EmptyData = React.memo(() => {
   return <DGText style={{ color: Theme.textWhite, fontStyle: 'italic', marginHorizontal: 16 + 30 + 8, fontSize: 12 }}>No Messages</DGText>
 })
 
-const MessageItem = React.memo(({item}) => {
+const MessageItem = React.memo(({item, currentTag}) => {
 
   const { navigate } = useNavigation()
 
   const onPress = () => {
-    navigate("NotificationDetail", { notification: item })
+    navigate("NotificationDetail", { notification: item, tag: currentTag })
   }
 
   return (
@@ -111,12 +113,12 @@ const MessageItem = React.memo(({item}) => {
   )
 })
 
-const Messages = React.memo(({data}) => {
-  const items = data.map((item, index) => <MessageItem key={`message-item-${index}`} item={item} />)
+const Messages = React.memo(({data, currentTag}) => {
+  const items = data.map((item, index) => <MessageItem key={`message-item-${index}`} item={item} currentTag={currentTag}/>)
   return items
 })
 
-const Board = React.memo(({title, isLoading, isExpanded, data, requestToggleExpand}) => {
+const Board = React.memo(({title, isLoading, isExpanded, data, requestToggleExpand, currentTag}) => {
   let content = undefined;
 
   if (isExpanded) {
@@ -124,7 +126,7 @@ const Board = React.memo(({title, isLoading, isExpanded, data, requestToggleExpa
       content = <ActivityIndicator size='large' color={Theme.buttonPrimary} />
     }
     else {
-      content = data.length == 0 ? <EmptyData/> : <Messages data={data} />
+      content = data.length == 0 ? <EmptyData/> : <Messages data={data} currentTag={currentTag} />
     }
   }
   
@@ -188,12 +190,14 @@ class Notification extends PureComponent {
             isLoading={this.props.newNotificationsData.isLoading}
             data={this.props.newNotificationsData.data}
             requestToggleExpand={this.requestToggleExpandNew}
+            currentTag={this.state.tag}
           />
           <History 
             isExpanded={this.state.isHistoryExpand} 
             isLoading={this.props.historyNotificationsData.isLoading}
             data={this.props.historyNotificationsData.data}
             requestToggleExpand={this.requestToggleExpandHistory}
+            currentTag={this.state.tag}
           />
         </ScrollView>
       </BaseComponent>

@@ -147,8 +147,6 @@ export default class Api extends Base {
 
   getNewNotifications(tag) {
     const callingApi = GET_NEW_NOTIFICATIONS.replace("{tag}", tag + 1);
-    console.warn(callingApi);
-    
     return this.callGet(callingApi, new NotificationBinder())
   }
 
@@ -192,13 +190,8 @@ export default class Api extends Base {
     return this.callPost(CHALLENGE_SOME_ONE, body);
   }
 
-  updateNotificationStatus(id, newStatus) {
-    const body = JSON.stringify({
-      type: newStatus
-    })
-
+  updateNotificationStatus(id) {
     const callingApi = UPDATE_NOTIFICATION.replace("{id}", id)
-
-    return this.callPut(callingApi, body);
+    return this.callPut(callingApi);
   }
 }

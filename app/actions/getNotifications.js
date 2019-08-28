@@ -55,7 +55,7 @@ export function getHistoryNotifications(tag) {
   return function (dispatch) {
     dispatch(getHistoryNotificationsBegin())
     return Api.instance()
-      .getNewNotifications(tag)
+      .getHistoryNotifications(tag)
       .then(notifications => dispatch(getHistoryNotificationsFinish(notifications)))
       .catch(error => dispatch(getHistoryNotificationsError(error)))
   }

@@ -5,6 +5,8 @@ import Header from './Header'
 import Theme from '../../../res/Theme';
 import DGText from '../../../components/DGText';
 import Api from '../../../api';
+import { connect } from 'react-redux'
+import { getNewNotifications, getHistoryNotifications } from '../../../actions/getNotifications';
 
 const Button = React.memo(({text, backgroundColor, onPress}) => {
   return (
@@ -23,7 +25,7 @@ const Button = React.memo(({text, backgroundColor, onPress}) => {
   )
 })
 
-export default class NotificationDetail extends React.PureComponent {
+class NotificationDetail extends React.PureComponent {
   constructor(props) {
     super(props)
 
@@ -45,15 +47,23 @@ export default class NotificationDetail extends React.PureComponent {
     }
   }
 
+  componentDidMount() {
+    const notification = this.props.navigation.getParam("notification")
+    Api.instance().updateNotificationStatus(notification.id).then(_ => {
+      const tag = this.props.navigation.getParam("tag")
+      console.warn(tag);
+      
+      this.props.getNewNotifications(tag);
+      this.props.getHistoryNotifications(tag);
+    })
+  }
+
   acceptMath = () => {
 
   }
 
   declineMatch = () => {
-    const notification = this.props.navigation.getParam("notification")
-    Api.instance().updateNotificationStatus(notification.id, 33).then(result => {
-
-    })
+    
   }
 
   renderInput = () => {
@@ -93,3 +103,14 @@ export default class NotificationDetail extends React.PureComponent {
     )
   }
 }
+
+const mapStateToProps = (state) => ({
+  
+})
+
+const mapDispatchToProps = (dispatch) => ({
+  getNewNotifications: (tag) => dispatch(getNewNotifications(tag)),
+  getHistoryNotifications: (tag) => dispatch(getHistoryNotifications(tag))
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(NotificationDetail)
