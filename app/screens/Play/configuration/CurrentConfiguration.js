@@ -15,7 +15,7 @@ export default CurrentConfiguration = React.memo(({game, course}) => {
         justifyContent: 'center',
       alignItems: 'center'
       }}>
-        <DGText style={{ color: Theme.buttonPrimary }}>Game</DGText>
+        <DGText style={{ color: Theme.buttonPrimary, marginBottom: 8 }}>Game</DGText>
         <DGText style={{ color: Theme.textWhite }}>{game || "-"}</DGText>
       </View>
       <View style={{ width: 72 }} />
@@ -24,7 +24,7 @@ export default CurrentConfiguration = React.memo(({game, course}) => {
         justifyContent: 'center',
         alignItems: 'center'
       }}>
-        <DGText style={{ color: Theme.buttonPrimary }}>Golf course</DGText>
+        <DGText style={{ color: Theme.buttonPrimary, marginBottom: 8 }}>Golf course</DGText>
         <DGText style={{ color: Theme.textWhite }}>{course || "-"}</DGText>
       </View>
     </View>

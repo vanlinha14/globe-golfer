@@ -7,6 +7,7 @@ import PendingItem from '../components/PendingItem'
 import Theme from '../../../res/Theme';
 import MatchInfo from './MatchInfo'
 import CurrentConfiguration from './CurrentConfiguration'
+import { useNavigation } from 'react-navigation-hooks';
 
 const GAMES = [
   "Front 9",
@@ -43,6 +44,12 @@ const SelectItem = React.memo(({index, content, onPress}) => {
 
 const GameConfiguration = React.memo(({game, course, onGameSelected, onCourseSelected}) => {
 
+  const { navigate } = useNavigation()
+
+  const gotoScoreCard = () => {
+    navigate("ScoreCard")
+  }
+
   let title = undefined
   if (game === undefined) {
     title = "Select your Game"
@@ -69,7 +76,7 @@ const GameConfiguration = React.memo(({game, course, onGameSelected, onCourseSel
   } else {
     content = <SelectItem 
       content={"Edit your scorecard"} 
-      onPress={() => { alert("Go to score card") }} 
+      onPress={gotoScoreCard} 
     />
   }
 
@@ -102,13 +109,14 @@ export default class PlayConfiguration extends React.PureComponent {
 
   render() {
     const item = this.props.navigation.getParam("data")
+    const user = this.props.navigation.getParam("user")
     return (
       <DialogCombination>
         <View style={{ minHeight: Dimensions.get('window').height }}>
           <Header />
           <MatchInfo />
           <Spacing />
-          <PendingItem item={item} viewOnly={true} />
+          <PendingItem item={item} viewOnly={true} userAvatar={user.avatar} />
           <CurrentConfiguration game={this.state.game} course={this.state.course} />
           <GameConfiguration 
             game={this.state.game} 

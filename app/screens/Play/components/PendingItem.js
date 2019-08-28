@@ -10,7 +10,7 @@ export default PendingItem = React.memo(({item, viewOnly, userAvatar}) => {
   const { navigate } = useNavigation()
 
   const requestPlayTo = () => {
-    navigate("PlayConfiguration", { data: item })
+    navigate("PlayConfiguration", { data: item, user: { avatar: userAvatar } })
   }
 
   return (
