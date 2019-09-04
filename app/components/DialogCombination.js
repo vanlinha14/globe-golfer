@@ -89,6 +89,7 @@ export default class DialogCombination extends PureComponent {
       <Modal 
         isVisible={this.state.visibleModal === "dialog"}
         useNativeDriver={true}
+        hideModalContentWhileAnimating={true}
         onBackdropPress={() => this.setState({visibleModal: undefined})}
         onBackButtonPress={() => this.setState({visibleModal: undefined})}
         >
@@ -120,6 +121,7 @@ export default class DialogCombination extends PureComponent {
       <Modal 
         isVisible={this.state.visibleModal === "yesno"}
         useNativeDriver={true}
+        hideModalContentWhileAnimating={true}
         onBackdropPress={() => this.setState({visibleModal: undefined})}
         onBackButtonPress={() => this.setState({visibleModal: undefined})}
         >

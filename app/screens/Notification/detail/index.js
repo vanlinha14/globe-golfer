@@ -13,13 +13,13 @@ const Button = React.memo(({text, backgroundColor, onPress}) => {
     <TouchableOpacity style={{ 
       flex: 1, 
       backgroundColor,
-      height: 56,
+      height: 44,
       justifyContent: 'center',
       alignItems: 'center'
     }} activeOpacity={0.7} onPress={onPress}>
       <DGText style={{
         color: Theme.textWhite,
-        fontWeight: 'bold',
+        fontWeight: 'bold'
       }}>{text}</DGText>
     </TouchableOpacity>
   )
@@ -47,34 +47,52 @@ class NotificationDetail extends React.PureComponent {
     }
   }
 
-  componentDidMount() {
-    const notification = this.props.navigation.getParam("notification")
-    Api.instance().updateNotificationStatus(notification.id).then(_ => {
-      const tag = this.props.navigation.getParam("tag")
-      console.warn(tag);
-      
-      this.props.getNewNotifications(tag);
-      this.props.getHistoryNotifications(tag);
-    })
+  reloadAndGoBack = () => {
+    const tag = this.props.navigation.getParam('tag')
+    this.props.getNewNotifications(tag)
+    this.props.getHistoryNotifications(tag)
+    this.props.navigation.goBack()
+  }
+
+  reloadAllMessage = () => {
+    const tag = this.props.navigation.getParam('tag')
+    this.props.getNewNotifications(tag)
+    this.props.getHistoryNotifications(tag)
   }
 
   acceptMath = () => {
     const notification = this.props.navigation.getParam("notification")
     Api.instance().acceptChallenge(notification.challengeId).then(_ => {
-      Alert.alert("ACCEPT CHALLENGE", "You just accept the challenge!", [
-        {text: 'OK', onPress: () => this.props.navigation.goBack()},
-      ], { cancelable: false })
+      this.reloadAllMessage()
+      this.setState(previousState => ({
+        messages: GiftedChat.append(previousState.messages, [{
+          text: "You just accept the challenge!",
+          user: {
+            _id: 1,
+          }
+        }]),
+      }))
     })
   }
 
   declineMatch = () => {
     const notification = this.props.navigation.getParam("notification")
-    Api.instance().declineChallenge(notification.challengeId)
+    Api.instance().declineChallenge(notification.challengeId).then(_ => {
+      this.reloadAllMessage()
+      this.setState(previousState => ({
+        messages: GiftedChat.append(previousState.messages, [{
+          text: "You was not accept the challenge!",
+          user: {
+            _id: 1,
+          }
+        }]),
+      }))
+    })
   }
 
   renderInput = () => {
     const notification = this.props.navigation.getParam("notification")
-    if (notification.type == 1 || notification.type == 11) {
+    if (this.state.messages.length == 1 && (notification.type == 1 || notification.type == 11)) {
       return (
         <View style={{ flex: 1, flexDirection: 'row' }}>
           <Button text="Accept" backgroundColor={Theme.buttonPrimary} onPress={this.acceptMath}/>

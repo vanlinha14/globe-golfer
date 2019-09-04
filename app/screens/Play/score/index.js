@@ -4,6 +4,7 @@ import DialogCombination from '../../../components/DialogCombination';
 import Header from './Header';
 import DGText from '../../../components/DGText';
 import Theme from '../../../res/Theme';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 const GAME = [
   { hole: 1, par: 4 },
@@ -21,8 +22,8 @@ const Input = React.memo(({value, editable, backgroundColor, color}) => {
   return (
     <TextInput 
       style={{
-        width: 56,
-        height: 56,
+        width: 50,
+        height: 50,
         borderRadius: 8,
         backgroundColor,
         textAlign: 'center',
@@ -31,6 +32,8 @@ const Input = React.memo(({value, editable, backgroundColor, color}) => {
         color
       }}
       value={value}
+      placeholder={"-"}
+      keyboardType={'numeric'}
       editable={editable}
     />
   )
@@ -39,10 +42,10 @@ const Input = React.memo(({value, editable, backgroundColor, color}) => {
 const Text = React.memo(({text}) => {
   return (
     <DGText style={{
-      width: 56, 
+      width: 50, 
       color: Theme.textWhite, 
       textAlign: 'center',
-      fontSize: 20,
+      fontSize: 16,
       fontWeight: 'bold',
     }}>{text}</DGText>
   )
@@ -51,17 +54,17 @@ const Text = React.memo(({text}) => {
 const GameHeader = React.memo(() => {
   return (
     <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginHorizontal: 8, marginVertical: 16 }}>
-      <View style={{ flexDirection: 'row', justifyContent: 'space-between', width: 56 * 2 + 8}}>
+      <View style={{ flexDirection: 'row', justifyContent: 'space-between', width: 50 * 2 + 8}}>
         <Text text={"Match"} />
         <Text text={"Score"} />
       </View>
       
-      <View style={{ flexDirection: 'row', justifyContent: 'space-between', width: 56 * 2 + 8}}>
+      <View style={{ flexDirection: 'row', justifyContent: 'space-between', width: 50 * 2 + 8}}>
         <Text text={"Hole"} />
         <Text text={"Par"} />
       </View>
 
-      <View style={{ flexDirection: 'row', justifyContent: 'space-between', width: 56 * 2 + 8}}>
+      <View style={{ flexDirection: 'row', justifyContent: 'space-between', width: 50 * 2 + 8}}>
       <Text text={"Score"} />
         <Text text={"Match"} />
       </View>
@@ -72,19 +75,19 @@ const GameHeader = React.memo(() => {
 const RowItem = React.memo(({game}) => {
   return (
     <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between', marginHorizontal: 8 }}>
-      <View style={{ flexDirection: 'row', justifyContent: 'space-between', width: 56 * 2 + 8}}>
-        <Input backgroundColor={"#FFFFFF"} color={"#000000"} value={"-"} />
-        <Input backgroundColor={"#EC6907"} color={"#FFFFFF"} value={"-"} />
+      <View style={{ flexDirection: 'row', justifyContent: 'space-between', width: 50 * 2 + 8}}>
+        <Input backgroundColor={"#FFFFFF"} color={"#000000"} value={undefined} />
+        <Input backgroundColor={"#EC6907"} color={"#FFFFFF"} value={undefined} />
       </View>
       
-      <View style={{ flexDirection: 'row', justifyContent: 'space-between', width: 56 * 2 + 8}}>
+      <View style={{ flexDirection: 'row', justifyContent: 'space-between', width: 50 * 2 + 8}}>
         <Input backgroundColor={Theme.buttonPrimary} color={"#FFFFFF"} value={game.hole + ""} editable={false}/>
         <Input backgroundColor={Theme.buttonPrimary} color={"#FFFFFF"} value={game.par + ""} editable={false}/>
       </View>
 
-      <View style={{ flexDirection: 'row', justifyContent: 'space-between', width: 56 * 2 + 8}}>
-        <Input backgroundColor={"#EC6907"} color={"#FFFFFF"} value={"-"} />
-        <Input backgroundColor={"#FFFFFF"} color={"#000000"} value={"-"} />
+      <View style={{ flexDirection: 'row', justifyContent: 'space-between', width: 50 * 2 + 8}}>
+        <Input backgroundColor={"#EC6907"} color={"#FFFFFF"} value={undefined} />
+        <Input backgroundColor={"#FFFFFF"} color={"#000000"} value={undefined} />
       </View>
     </View>
   )
@@ -104,13 +107,13 @@ export default class ScoreCard extends React.PureComponent {
       <SafeAreaView style={{flex: 1, backgroundColor: Theme.mainBackground}}>
         <Header />
         <GameHeader />
-        <ScrollView style={{flex: 1}}>
+        <KeyboardAwareScrollView style={{flex: 1}}>
           <View style={{ minHeight: Dimensions.get('window').height }}>
             {
               GAME.map(game => <RowItem game={game} />)
             }
           </View>
-        </ScrollView>
+        </KeyboardAwareScrollView>
       </SafeAreaView>
     )
   }

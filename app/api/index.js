@@ -9,7 +9,7 @@ import {
   DUMMY_FAVORITE_RANKING,
   DUMMY_ALL_RANKING
 } from './DummyData'
-import { LOGIN, GET_COUNTRY, GET_REGION, GET_CLUB, REGISTER, GET_CHALLENGES, GET_PROFILE, GET_INTEREST, GET_NEW_NOTIFICATIONS, GET_HISTORY_NOTIFICATIONS, CHALLENGE_SOME_ONE, UPDATE_NOTIFICATION, GET_PENDING_MATCHES, ACCEPT_CHALLENGE } from './Endpoints';
+import { LOGIN, GET_COUNTRY, GET_REGION, GET_CLUB, REGISTER, GET_CHALLENGES, GET_PROFILE, GET_INTEREST, GET_NEW_NOTIFICATIONS, GET_HISTORY_NOTIFICATIONS, CHALLENGE_SOME_ONE, UPDATE_NOTIFICATION, GET_PENDING_MATCHES, ACCEPT_CHALLENGE, GET_RANKING, DECLINE_CHALLENGE, GET_FAVORITE_RANKING } from './Endpoints';
 import LoginBinder from './Binders/Login';
 import CountriesBinder from './Binders/CountriesBinder';
 import RegisterBinder from './Binders/RegisterBinder';
@@ -19,6 +19,7 @@ import ProfileBinder from './Binders/ProfileBinder';
 import InterestBinder from './Binders/InterestBinder';
 import NotificationBinder from './Binders/NotificationBinder';
 import MatchInfoBinder from './Binders/MatchInfoBinder';
+import RankingBinder from './Binders/RankingBinder';
 
 export default class Api extends Base {
   static _instance = null
@@ -139,7 +140,7 @@ export default class Api extends Base {
   }
 
   getPlayedMatches() {
-    return this.dummData(DUMMY_PLAYED_MATCHES)
+    return this.dummData([])
   }
 
   getMessages(tag) {
@@ -157,11 +158,11 @@ export default class Api extends Base {
   }
 
   getFavoriteRanking(tag) {
-    return this.dummData(DUMMY_FAVORITE_RANKING)
+    return this.callGet(GET_FAVORITE_RANKING, new RankingBinder());
   }
 
   getAllRanking(tag) {
-    return this.dummData(DUMMY_ALL_RANKING)
+    return this.callGet(GET_RANKING, new RankingBinder());
   }
 
   getProfile() {
@@ -198,6 +199,11 @@ export default class Api extends Base {
 
   acceptChallenge(id) {
     const callingApi = ACCEPT_CHALLENGE.replace("{id}", id)
+    return this.callGet(callingApi)
+  }
+
+  declineChallenge(id) {
+    const callingApi = DECLINE_CHALLENGE.replace("{id}", id)
     return this.callGet(callingApi)
   }
 }

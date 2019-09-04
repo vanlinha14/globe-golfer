@@ -1,5 +1,5 @@
 import React from 'react'
-import {
+import RN, {
   Dimensions,
   View,
 } from 'react-native'
@@ -58,7 +58,7 @@ const itemWidth = carouselWidth - 32
 const renderItem = ({item}) => {
   return (
     <View>
-      <FastImage 
+      <RN.Image
         style={{ 
           width: itemWidth, 
           height: itemWidth,

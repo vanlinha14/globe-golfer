@@ -4,7 +4,7 @@ import { Text } from 'react-native'
 export default class DGText extends PureComponent {
   render() {
     return (
-      <Text {...this.props}/>
+      <Text {...this.props} allowFontScaling={false}/>
     )
   }
 }

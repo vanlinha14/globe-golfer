@@ -143,8 +143,8 @@ class Notification extends PureComponent {
 
   state = {
     tag: undefined,
-    isNewExpand: false,
-    isHistoryExpand: true
+    isNewExpand: true,
+    isHistoryExpand: false
   }
 
   onFilterChanged = (tag) => {

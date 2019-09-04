@@ -20,3 +20,7 @@ export const CHALLENGE_SOME_ONE = BASE + "authenticated/add-challenge"
 export const GET_PENDING_MATCHES = BASE + "authenticated/pendings/list-new?limit=0&item=100"
 
 export const ACCEPT_CHALLENGE = BASE + "authenticated/match-challenge/{id}"
+export const DECLINE_CHALLENGE = BASE + "authenticated/not-yet-challenge/{id}"
+
+export const GET_RANKING = BASE + "authenticated/ranking/1"
+export const GET_FAVORITE_RANKING = BASE + "authenticated/ranking/2"
