@@ -36,6 +36,7 @@
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* GolfGlobalTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GolfGlobalTests.m; sourceTree = "<group>"; };
 		053A0530E2A54A98A32003B8 /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = SimpleLineIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/SimpleLineIcons.ttf"; sourceTree = "<group>"; };
+		0E197F19231F3FE3007A83F2 /* GolfGlobal.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = GolfGlobal.entitlements; path = GolfGlobal/GolfGlobal.entitlements; sourceTree = "<group>"; };
 		0ED8BB7C22DF745D00D51605 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* GolfGlobal.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GolfGlobal.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = GolfGlobal/AppDelegate.h; sourceTree = "<group>"; };
@@ -107,6 +108,7 @@
 		13B07FAE1A68108700A75B9A /* GolfGlobal */ = {
 			isa = PBXGroup;
 			children = (
+				0E197F19231F3FE3007A83F2 /* GolfGlobal.entitlements */,
 				0ED8BB7C22DF745D00D51605 /* GoogleService-Info.plist */,
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
@@ -236,6 +238,11 @@
 				TargetAttributes = {
 					13B07F861A680F5B00A75B9A = {
 						DevelopmentTeam = NU865VDUYC;
+						SystemCapabilities = {
+							com.apple.Push = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -427,6 +434,7 @@
 			baseConfigurationReference = A2FFA3F990E8404FF76FEF1C /* Pods-GolfGlobal.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = GolfGlobal/GolfGlobal.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = NU865VDUYC;
@@ -448,6 +456,7 @@
 			baseConfigurationReference = F8DCE83E8FDDD0CF6ACC5551 /* Pods-GolfGlobal.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = GolfGlobal/GolfGlobal.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = NU865VDUYC;
 				INFOPLIST_FILE = GolfGlobal/Info.plist;

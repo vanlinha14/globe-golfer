@@ -17,7 +17,7 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>0.1</string>
+	<string>0.1.1</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleURLTypes</key>
@@ -38,7 +38,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>2</string>
+	<string>3</string>
 	<key>FacebookAppID</key>
 	<string>503331813804161</string>
 	<key>FacebookDisplayName</key>
@@ -65,10 +65,16 @@
 			</dict>
 		</dict>
 	</dict>
+	<key>NSBluetoothPeripheralUsageDescription</key>
+	<string>We need you to allow us to access the Blutooth Peripheral for better experices.</string>
+	<key>NSCalendarsUsageDescription</key>
+	<string>We need you to allow us to access your calendar for setup your dating automatically.</string>
 	<key>NSCameraUsageDescription</key>
 	<string>We need your camera usage permission to capture image of your card, your best moment.</string>
 	<key>NSContactsUsageDescription</key>
 	<string>We need you to allow us to access your contact to get your friend list</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>We need you to allow us to access your location services so that we can know who will be the best selection for you.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>We need you to allow us to know your current location for better experiences.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
@@ -106,5 +112,7 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<key>kTCCServiceMediaLibrary</key>
+	<string>We need you to allow us to access the Music for better experices.</string>
 </dict>
 </plist>
