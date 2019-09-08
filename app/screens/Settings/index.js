@@ -136,7 +136,7 @@ class Settings extends PureComponent {
         }
         {
           this.renderToggleItem(
-            Strings.settings.notifications.globegolfer,
+            Strings.settings.notifications.globeGolfer,
             undefined,
             this.state.globegolfer === 1,
             () => { this.setState({ globegolfer: this.state.globegolfer === 1 ? 0 : 1 }) }
