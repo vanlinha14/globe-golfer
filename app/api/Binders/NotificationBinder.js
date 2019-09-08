@@ -1,4 +1,5 @@
 import moment from 'moment'
+import lodash from 'lodash'
 
 export default class NotificationBinder {
   bind(input) {
@@ -14,8 +15,8 @@ export default class NotificationBinder {
           challengeId: i.challenge_id,
           type: i.type,
           typeMessage: i.type_message,
-          lastMessage: message[message.length - 1],
-          message,
+          lastMessage: message[message.length - 1].trim(),
+          message: lodash.reverse(message),
           duration: moment(i.create_at).fromNow(),
           avatar: i.avatar,
           name: i.full_name,

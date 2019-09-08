@@ -97,18 +97,16 @@ const MessageItem = React.memo(({item, currentTag}) => {
         height: 60,
         justifyContent: 'center',
       }}>
+        <DGText style={{ color: Theme.textWhite, fontSize: 9, marginBottom: 4, }}>{item.duration}</DGText>
         <DGText style={{
           color: Theme.textWhite,
           fontSize: 20,
           fontWeight: 'bold',
-          marginBottom: 4,
         }}>{item.name}</DGText>
         <DGText style={{ 
           color: Theme.textWhite,
-          marginTop: 4,
         }}>{item.lastMessage}</DGText>
       </View>
-      <DGText style={{ marginTop: 12, color: Theme.textWhite }}>{item.duration}</DGText>
     </TouchableOpacity>
   )
 })

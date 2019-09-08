@@ -34,7 +34,7 @@ class NotificationDetail extends React.PureComponent {
     const message = notification.message.map((m, i) => {
       return {
         _id: i,
-        text: m,
+        text: m.trim(),
         createdAt: notification.createAt,
         user: {
           _id: 4213,
@@ -48,6 +48,14 @@ class NotificationDetail extends React.PureComponent {
       header: notification.name,
       messages: message
     }
+  }
+
+  componentDidMount() {
+    const notification = this.props.navigation.getParam("notification")
+    Api.instance().updateNotificationStatus(notification.id).then(_ => {
+      this.props.getNewNotifications(tag)
+      this.props.getHistoryNotifications(tag)
+    })
   }
 
   reloadAndGoBack = () => {

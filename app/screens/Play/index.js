@@ -51,6 +51,10 @@ const PendingItems = React.memo(({isLoading, data}) => {
     return <ActivityIndicator size='large' color={Theme.buttonPrimary} />
   }
 
+  if (data.length == 0) {
+    return <DGText style={{ color: Theme.textWhite, fontStyle: 'italic', marginHorizontal: 16 + 30 + 8, fontSize: 12 }}>No Pending Match</DGText>
+  }
+
   return data.map((item, index) => <PendingItem key={`pending-item-${index}`} item={item} />)
 })
 
@@ -106,6 +110,10 @@ const PlayedItem = React.memo(({item, userAvatar}) => {
 const PlayedItems = React.memo(({isLoading, data, userAvatar}) => {
   if (isLoading || data == null) {
     return <ActivityIndicator size='large' color={Theme.buttonPrimary} />
+  }
+
+  if (data.length == 0) {
+    return <DGText style={{ color: Theme.textWhite, fontStyle: 'italic', marginHorizontal: 16 + 30 + 8, fontSize: 12 }}>No Played Match</DGText>
   }
 
   return data.map((item, index) => <PlayedItem key={`played-item-${index}`} item={item} userAvatar={userAvatar} />)
