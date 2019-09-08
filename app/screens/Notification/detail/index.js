@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, SafeAreaView, TouchableOpacity, Alert } from 'react-native'
+import { View, SafeAreaView, TouchableOpacity, Dimensions } from 'react-native'
 import { GiftedChat } from 'react-native-gifted-chat'
 import Header from './Header'
 import Theme from '../../../res/Theme';
@@ -31,19 +31,22 @@ class NotificationDetail extends React.PureComponent {
 
     const notification = this.props.navigation.getParam("notification")
 
+    const message = notification.message.map((m, i) => {
+      return {
+        _id: i,
+        text: m,
+        createdAt: notification.createAt,
+        user: {
+          _id: 4213,
+          name: notification.name,
+          avatar: notification.avatar,
+        }
+      }
+    })
+
     this.state = {
       header: notification.name,
-      messages: [
-        {
-          _id: notification.id,
-          text: notification.lastMessage,
-          createdAt: notification.createAt,
-          user: {
-            name: notification.name,
-            avatar: notification.avatar,
-          },
-        }
-      ],
+      messages: message
     }
   }
 
@@ -92,7 +95,7 @@ class NotificationDetail extends React.PureComponent {
 
   renderInput = () => {
     const notification = this.props.navigation.getParam("notification")
-    if (this.state.messages.length == 1 && (notification.type == 1 || notification.type == 11)) {
+    if (this.state.messages.length == 1 && (notification.typeMessage == 1)) {
       return (
         <View style={{ flex: 1, flexDirection: 'row' }}>
           <Button text="Accept" backgroundColor={Theme.buttonPrimary} onPress={this.acceptMath}/>
@@ -113,6 +116,11 @@ class NotificationDetail extends React.PureComponent {
       <SafeAreaView style={{ backgroundColor: Theme.mainBackground, flex: 1 }}>
         <Header title={this.state.header} />
         <GiftedChat
+          listViewProps={{
+            style: {
+              paddingVertical: 16,
+            }
+          }}
           alignTop={true}
           messages={this.state.messages}
           onSend={messages => this.onSend(messages)}
@@ -120,6 +128,7 @@ class NotificationDetail extends React.PureComponent {
             _id: 1,
           }}
           renderInputToolbar={this.renderInput}
+          renderAvatarOnTop={true}
         />
       </SafeAreaView>
     )

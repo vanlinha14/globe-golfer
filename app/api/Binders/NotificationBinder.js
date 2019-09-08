@@ -5,11 +5,17 @@ export default class NotificationBinder {
     try {
       const data = input.data
       return data.map(i => {
+
+        const messageString = i.detail.trim()
+        const message = JSON.parse(messageString)
+
         return {
           id: i.id,
           challengeId: i.challenge_id,
           type: i.type,
-          lastMessage: i.detail.trim(),
+          typeMessage: i.type_message,
+          lastMessage: message[message.length - 1],
+          message,
           duration: moment(i.create_at).fromNow(),
           avatar: i.avatar,
           name: i.full_name,
