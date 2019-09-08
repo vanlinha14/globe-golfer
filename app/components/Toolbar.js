@@ -39,11 +39,12 @@ const styles = StyleSheet.create({
     width: '100%',
     paddingTop: 12 + getStatusBarHeight(),
     paddingBottom: 12,
-    justifyContent: 'center'
+    alignItems: 'center'
   },
   contentContainer: {
     flexDirection: 'row',
-    paddingHorizontal: 16
+    paddingHorizontal: 16,
+    alignItems: 'center'
   },
   text: {
     flex: 1,
@@ -52,7 +53,6 @@ const styles = StyleSheet.create({
     color: Theme.toolbarTitle,
     textAlignVertical: 'center',
     marginHorizontal: 16,
-    marginTop: Platform.OS == 'ios' ? 6 : 0
   },
   textRight: {
     fontSize: 20,
