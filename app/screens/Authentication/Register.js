@@ -44,7 +44,7 @@ export default class Register extends PureComponent {
 
   onRequestConfirmGoToFacebook = () => {
     this.container.showYesNoDialog(
-      '"GlobeGolfer" want to use "facebook.com" to connect', 
+      'GlobeGolfer want to use Facebook.com to connect', 
       "This allows us to get some required information from you.", 
       "Continue",
       "Cancel",
@@ -55,7 +55,7 @@ export default class Register extends PureComponent {
 
   onRequestConfirmGoToGoogle = () => {
     this.container.showYesNoDialog(
-      '"GlobeGolfer" want to use "google.com" to connect', 
+      'GlobeGolfer want to use Google.com to connect', 
       "This allows us to get some required information from you.", 
       "Continue",
       "Cancel",
