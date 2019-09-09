@@ -80,7 +80,8 @@ const register = {
   facebook: "Continue with Facebook",
   google: "Continue with Google Account",
   email: "Continue with your e-mail",
-  alreadyMember: "Already member? Connection"
+  alreadyMember: "Already a member?",
+  connection: "Connection"
 }
 
 const login = {

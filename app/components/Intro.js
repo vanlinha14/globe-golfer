@@ -12,11 +12,11 @@ import Theme from '../res/Theme';
 const introData = [
   {
     image: require('../res/images/intro-1.jpg'),
-    content: "challenge and meet other members"
+    content: "Challenge and meet other members"
   },
   {
     image: require('../res/images/intro-2.jpg'),
-    content: "play in match play course & putting green"
+    content: "Play in match play course & putting green"
   },
   {
     image: require('../res/images/intro-3.jpg'),

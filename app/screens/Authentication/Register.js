@@ -213,7 +213,8 @@ export default class Register extends PureComponent {
     return (
       <TouchableOpacity style={{
         marginTop: 12, 
-        justifyContent: 'center'
+        justifyContent: 'center',
+        flexDirection: 'row'
       }} activeOpacity={0.7} onPress={this.onRequestGoToLogin}>
         <DGText style={{
           alignSelf: 'center',
@@ -221,6 +222,13 @@ export default class Register extends PureComponent {
           color: 'white', 
           textAlign: 'center'
         }}>{Strings.register.alreadyMember}</DGText>
+        <DGText style={{
+          alignSelf: 'center',
+          height: 20,
+          color: 'white', 
+          textAlign: 'center',
+          textDecorationLine: 'underline'
+        }}>{` ${Strings.register.connection} `}</DGText>
       </TouchableOpacity>
     )
   }
