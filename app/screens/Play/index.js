@@ -5,8 +5,6 @@ import FastImage from 'react-native-fast-image'
 
 import Theme from '../../res/Theme'
 
-import Icon from 'react-native-vector-icons/Ionicons'
-
 import Header from './components/Header'
 import PendingItem from './components/PendingItem'
 import BaseComponent from '../../components/BaseComponent';

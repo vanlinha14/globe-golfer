@@ -68,13 +68,13 @@ class Profile extends PureComponent {
 
     return (
       <View>
-        {this.renderValueClickableItem("Full Name", name)}
-        {this.renderValueClickableItem("My Country", user.country)}
-        {this.renderValueClickableItem("My Region", user.region)}
-        {this.renderValueClickableItem("My Club", user.club)}
-        {this.renderValueClickableItem("Index", user.index)}
+        {this.renderValueClickableItem(Strings.profile.fullName, name)}
+        {this.renderValueClickableItem(Strings.profile.myCountry, user.country)}
+        {this.renderValueClickableItem(Strings.profile.myRegion, user.region)}
+        {this.renderValueClickableItem(Strings.profile.myCountry, user.club)}
+        {this.renderValueClickableItem(Strings.profile.index, user.index)}
         {this.renderSpacing(24)}
-        {this.renderSectionTitle("About Me")}
+        {this.renderSectionTitle(Strings.profile.aboutMe)}
         {this.renderSpacing(8)}
         <DGText style={{
           width: '80%',
@@ -82,7 +82,7 @@ class Profile extends PureComponent {
           marginHorizontal: 16,
         }}>{user.about}</DGText>
         {this.renderSpacing(24)}
-        {this.renderSectionTitle("My Interests")}
+        {this.renderSectionTitle(Strings.profile.myInterests)}
         {this.renderSpacing(8)}
         {this.renderInterests()}
       </View>
@@ -119,7 +119,7 @@ class Profile extends PureComponent {
     return (
       <DGButtonV2 
         style={{ backgroundColor: Theme.buttonPrimary, width: '50%' }}
-        text="Edit Settings"
+        text={Strings.settings.edit}
         onPress={this.requestGoToEditProfile}
         />
     )

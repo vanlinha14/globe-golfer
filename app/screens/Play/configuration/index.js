@@ -1,5 +1,7 @@
 import React from 'react'
-import { View, TouchableOpacity, Dimensions } from 'react-native'
+import { View, TouchableOpacity, Dimensions, ActivityIndicator } from 'react-native'
+import { connect } from 'react-redux'
+import { getGameMode } from '../../../actions/getGameMode'
 import DGText from '../../../components/DGText'
 import DialogCombination from '../../../components/DialogCombination';
 import Header from '../components/Header';
@@ -8,13 +10,6 @@ import Theme from '../../../res/Theme';
 import MatchInfo from './MatchInfo'
 import CurrentConfiguration from './CurrentConfiguration'
 import { useNavigation } from 'react-navigation-hooks';
-
-const GAMES = [
-  "Front 9",
-  "Back 9",
-  "18",
-  "Putting Green"
-]
 
 const COURSES = [
   "La vallée",
@@ -42,7 +37,7 @@ const SelectItem = React.memo(({index, content, onPress}) => {
   )
 })
 
-const GameConfiguration = React.memo(({game, course, onGameSelected, onCourseSelected}) => {
+const GameConfiguration = React.memo(({game, course, gameMode, onGameSelected, onCourseSelected}) => {
 
   const { navigate } = useNavigation()
 
@@ -59,12 +54,17 @@ const GameConfiguration = React.memo(({game, course, onGameSelected, onCourseSel
 
   let content = undefined
   if (game === undefined) {
-    content = GAMES.map((i, index) => <SelectItem 
-      key={`game-item-${index}`} 
-      index={index}
-      content={i}
-      onPress={onGameSelected} 
-    />)
+    if (Array.isArray(gameMode)) {
+      content = gameMode.map((i, index) => <SelectItem 
+        key={`game-item-${index}`} 
+        index={index}
+        content={i}
+        onPress={onGameSelected} 
+      />)
+    }
+    else {
+      <ActivityIndicator />
+    }
   }
   else if (course === undefined) {
     content = COURSES.map((i, index) => <SelectItem 
@@ -92,7 +92,7 @@ const Spacing = React.memo(() => {
   return <View style={{ height: 32 }} />
 })
 
-export default class PlayConfiguration extends React.PureComponent {
+class PlayConfiguration extends React.PureComponent {
 
   state = {
     game: undefined,
@@ -128,3 +128,13 @@ export default class PlayConfiguration extends React.PureComponent {
     )
   }
 }
+
+const mapStateToProps = (state) => ({
+  gameModeData: state.gameMode
+})
+
+const mapDispatchToProps = (dispatch) => ({
+  getGameMode: () => dispatch(getGameMode())
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(PlayConfiguration)

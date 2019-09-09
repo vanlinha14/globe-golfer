@@ -1,5 +1,6 @@
 const settings = {
   title: "Settings",
+  edit: "Edit Settings",
   getGGSubscription: "Get GG Subscription",
   getGGCredit: "Get More GG Credits",
   notifications: {
@@ -70,7 +71,9 @@ const button = {
   learnMore: "Learn more",
   active: "Active",
   discover: "Discover",
-  acceptAndContinue: "Accept and Continue"
+  acceptAndContinue: "Accept and Continue",
+  yes: "Yes",
+  no: "No"
 }
 
 const register = {
@@ -85,6 +88,11 @@ const login = {
   google: "Login with Google Account",
   email: "Login with your e-mail",
   notMember: "Not a member? Register"
+}
+
+const logout = {
+  title: "Logout",
+  message: "Are you sure to want to logout from this account?"
 }
 
 const scannedCard = {
@@ -127,6 +135,16 @@ const challenge = {
   challenge: "CHALLENGE"
 }
 
+const profile = {
+  fullName: "Full Name",
+  myCountry: "My Country",
+  myRegion: "My Region",
+  myClub: "My Club",
+  index: "Index",
+  aboutMe: "About Me",
+  myInterests: "My Interests"
+}
+
 export default Strings = {
   appName: "Golf Global",
   registration: "Registration",
@@ -156,5 +174,7 @@ export default Strings = {
   settings,
   register,
   login,
-  challenge
+  logout,
+  challenge,
+  profile
 }

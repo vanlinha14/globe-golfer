@@ -35,10 +35,10 @@ class Settings extends PureComponent {
 
   onRequestLogout = () => {
     this.container.showYesNoDialog(
-      "Logout",
-      "Are you sure to want to logout from this account?",
-      "Yes",
-      "No",
+      Strings.logout.title,
+      Strings.logout.message,
+      Strings.button.yes,
+      Strings.button.no,
       () => {
         AsyncStorage.removeItem(ACCESS_TOKEN_STORE_KEY).then(() => {
           Api.instance().setAccessToken(null)
@@ -111,15 +111,6 @@ class Settings extends PureComponent {
     )
 
     return showGG
-  }
-
-  renderWebProfileBlock() {
-    return (
-      <View>
-        {this.renderSectionTitle(Strings.settings.webProfile)}
-        {this.renderValueClickableItem(Strings.settings.username, "Aeron")}
-      </View>
-    )
   }
 
   renderNotificationBlock() {

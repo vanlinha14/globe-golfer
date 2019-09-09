@@ -24,3 +24,6 @@ export const DECLINE_CHALLENGE = BASE + "authenticated/not-yet-challenge/{id}"
 
 export const GET_RANKING = BASE + "authenticated/ranking/1"
 export const GET_FAVORITE_RANKING = BASE + "authenticated/ranking/2"
+
+export const CREATE_NEW_GAME = BASE + "authenticated/schedule"
+export const GET_GAME_MODE = BASE + "authenticated/formule"

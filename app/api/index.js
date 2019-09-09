@@ -9,7 +9,7 @@ import {
   DUMMY_FAVORITE_RANKING,
   DUMMY_ALL_RANKING
 } from './DummyData'
-import { LOGIN, GET_COUNTRY, GET_REGION, GET_CLUB, REGISTER, GET_CHALLENGES, GET_PROFILE, GET_INTEREST, GET_NEW_NOTIFICATIONS, GET_HISTORY_NOTIFICATIONS, CHALLENGE_SOME_ONE, UPDATE_NOTIFICATION, GET_PENDING_MATCHES, ACCEPT_CHALLENGE, GET_RANKING, DECLINE_CHALLENGE, GET_FAVORITE_RANKING } from './Endpoints';
+import { LOGIN, GET_COUNTRY, GET_REGION, GET_CLUB, REGISTER, GET_CHALLENGES, GET_PROFILE, GET_INTEREST, GET_NEW_NOTIFICATIONS, GET_HISTORY_NOTIFICATIONS, CHALLENGE_SOME_ONE, UPDATE_NOTIFICATION, GET_PENDING_MATCHES, ACCEPT_CHALLENGE, GET_RANKING, DECLINE_CHALLENGE, GET_FAVORITE_RANKING, GET_GAME_MODE } from './Endpoints';
 import LoginBinder from './Binders/Login';
 import CountriesBinder from './Binders/CountriesBinder';
 import RegisterBinder from './Binders/RegisterBinder';
@@ -20,6 +20,7 @@ import InterestBinder from './Binders/InterestBinder';
 import NotificationBinder from './Binders/NotificationBinder';
 import MatchInfoBinder from './Binders/MatchInfoBinder';
 import RankingBinder from './Binders/RankingBinder';
+import GameModeBinder from './Binders/GameModeBinder';
 
 export default class Api extends Base {
   static _instance = null
@@ -205,5 +206,10 @@ export default class Api extends Base {
   declineChallenge(id) {
     const callingApi = DECLINE_CHALLENGE.replace("{id}", id)
     return this.callGet(callingApi)
+  }
+
+  getGameMode() {
+    const callingApi = GET_GAME_MODE
+    return this.callGet(callingApi, new GameModeBinder())
   }
 }
