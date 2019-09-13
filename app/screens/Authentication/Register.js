@@ -74,7 +74,7 @@ export default class Register extends PureComponent {
             (data) => {
               RegistrationHelper.instance().setFacebookId(data.userID)
               RegistrationHelper.instance().setFacebookToken(data.accessToken)
-              this.props.navigation.navigate("SetupAccountStepInputScannedCard")
+              this.props.navigation.navigate("SetupAccountStepInputLocation")
             }
           )
         }
@@ -87,8 +87,12 @@ export default class Register extends PureComponent {
 
   onRequestLoginWithGoogle = () => {
     GoogleSignin.signIn().then(user => {
-      //got the user info, move on
-      this.props.navigation.navigate("SetupAccountStepInputScannedCard")
+      console.warn(user);
+      RegistrationHelper.instance().setGoogleId(user.user.id)
+      RegistrationHelper.instance().setGoogleToken(user.idToken)
+      RegistrationHelper.instance().setFirstName(user.user.givenName)
+      RegistrationHelper.instance().setLastName(user.user.familyName)
+      this.props.navigation.navigate("SetupAccountStepInputLocation")
     }).catch(e => alert(e))
   }
 

@@ -22,9 +22,13 @@ export const INPUT_TYPE = {
 
 export default class DGInputV2 extends PureComponent {
 
-  state = {
-    text: undefined,
-    status: INPUT_STATUS.NORMAL
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      text: props.initValue,
+      status: INPUT_STATUS.NORMAL
+    }
   }
 
   getText() {

@@ -237,20 +237,25 @@ class SetupAccountStepInputLocation extends PureComponent {
   }
 
   renderPersonalInfo() {
-    let email = <TextInputBlockV2
+    const initFirstName = RegistrationHelper.instance().firstName
+    const initLastName = RegistrationHelper.instance().lastName
+
+    const email = <TextInputBlockV2
       ref={ref => this.fnameTextInput = ref}
       title="First name"
       placeholder="Enter your first name" 
       inputAlign="left"
+      initValue={initFirstName}
     />
-    let password = <TextInputBlockV2 
+    const password = <TextInputBlockV2 
       ref={ref => this.lNameTextInput = ref}
       title="Last name"
       placeholder="Enter your last name"
       inputAlign="left"
+      initValue={initLastName}
     />
-    let date = <DateInputBlockV2 style={styles.body} title="Birthday" onDateChange={this.onBirthdayChanged}/>
-    let sexSelect = this.renderSelectGender()
+    const date = <DateInputBlockV2 style={styles.body} title="Birthday" onDateChange={this.onBirthdayChanged}/>
+    const sexSelect = this.renderSelectGender()
     return (
       <>
         <View style={{

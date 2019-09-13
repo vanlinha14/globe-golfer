@@ -30,6 +30,7 @@ export default class TextInputBlockV2 extends PureComponent {
       inputAlign={this.props.inputAlign}
       inputType={this.props.inputType}
       validateFunction={this.props.validateFunction}
+      initValue={this.props.initValue}
     />
   }
 

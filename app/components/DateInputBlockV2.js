@@ -13,7 +13,7 @@ import Strings from '../res/Strings'
 export default class DateInputBlockV2 extends PureComponent {
 
   state = {
-    date: null
+    date: "2000-01-01"
   }
 
   onDateChange = (date) => {
