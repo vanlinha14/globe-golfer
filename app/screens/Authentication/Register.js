@@ -8,7 +8,7 @@ import {
 import FastImage from 'react-native-fast-image'
 
 import { GoogleSignin } from 'react-native-google-signin'
-import { LoginManager, AccessToken } from "react-native-fbsdk"
+import { LoginManager, AccessToken, GraphRequest, GraphRequestManager } from "react-native-fbsdk"
 import Modal from 'react-native-modal'
 import DGText from '../../components/DGText'
 import Strings from '../../res/Strings'
@@ -65,7 +65,7 @@ export default class Register extends PureComponent {
   }
 
   onRequestLoginWithFacebook = () => {
-    LoginManager.logInWithPermissions(["public_profile"]).then(
+    LoginManager.logInWithPermissions(["public_profile", "email", "user_about_me"]).then(
       (result) => {
         if (result.isCancelled) {
           alert("Login cancelled");
@@ -74,7 +74,7 @@ export default class Register extends PureComponent {
             (data) => {
               RegistrationHelper.instance().setFacebookId(data.userID)
               RegistrationHelper.instance().setFacebookToken(data.accessToken)
-              this.props.navigation.navigate("SetupAccountStepInputLocation")
+              this.initUser()
             }
           )
         }
@@ -83,6 +83,24 @@ export default class Register extends PureComponent {
         alert("Login fail with error: " + error)
       }
     )
+  }
+
+  initUser = () => {
+    const userInfoRequest = new GraphRequest('/me', {
+        httpMethod: 'GET',
+        version: 'v2.5',
+        parameters: {
+            'fields': {
+                'string' : 'email,name,first_name,last_name'
+            }
+        }
+    }, (err, res) => {
+        RegistrationHelper.instance().setFirstName(res.first_name)
+        RegistrationHelper.instance().setLastName(res.last_name)
+        this.props.navigation.navigate("SetupAccountStepInputLocation")
+    });
+
+    new GraphRequestManager().addRequest(userInfoRequest).start();
   }
 
   onRequestLoginWithGoogle = () => {
