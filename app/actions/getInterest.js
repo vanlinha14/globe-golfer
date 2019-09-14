@@ -21,7 +21,7 @@ export const getInterestError = error => {
   }
 }
 
-export function getInterest() {
+export function getInterests() {
   return function (dispatch) {
     dispatch(getInterestBegin())
     return Api.instance()

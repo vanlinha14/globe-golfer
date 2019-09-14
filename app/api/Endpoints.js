@@ -9,7 +9,7 @@ export const REGISTER = BASE + "user-add"
 export const GET_FRIEND_LIST = BASE + "authenticated/friend/{userId}"
 export const GET_CHALLENGES = BASE + "authenticated/challenge/list-info"
 export const GET_PROFILE = BASE + "authenticated/profile"
-export const GET_INTEREST = BASE + "authenticated/add-user-interest"
+export const GET_INTEREST = BASE + "authenticated/list-interest"
 
 export const GET_NEW_NOTIFICATIONS = BASE + "authenticated/notification/list-new/{tag}?limit=0&item=100"
 export const GET_HISTORY_NOTIFICATIONS = BASE + "authenticated/notification/list-history/{tag}?limit=0&item=100"

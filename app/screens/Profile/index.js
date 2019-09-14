@@ -17,6 +17,7 @@ import SettingRange from '../../components/SettingRange'
 import Strings from '../../res/Strings'
 import Theme from '../../res/Theme'
 import SettingSlider from '../../components/SettingSlider'
+import { getInterests } from '../../actions/getInterest'
 
 const InterestItem = React.memo(({name, style, onPress}) => {
 
@@ -44,6 +45,10 @@ const InterestItem = React.memo(({name, style, onPress}) => {
 
 class Profile extends PureComponent {
   static navigationOptions = { header: null }
+
+  componentDidMount() {
+    this.props.getInterests()
+  }
 
   requestGoToEditProfile = () => {
     this.props.navigation.navigate("Settings")
@@ -275,6 +280,8 @@ const mapStateToProps = (state) => ({
   settings: state.profile.settings
 })
 
-const mapDispatchToProps = (dispatch) => ({})
+const mapDispatchToProps = (dispatch) => ({
+  getInterests: () => dispatch(getInterests())
+})
 
 export default connect(mapStateToProps, mapDispatchToProps)(Profile)

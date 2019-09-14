@@ -21,13 +21,16 @@ export default class SettingRange extends PureComponent {
   }
 
   onValueChange = (value) => {
+    const toFixedValue = this.props.step == 1 ? 0 : 1
+    min = value[0].toFixed(toFixedValue)
+    max = value[1].toFixed(toFixedValue)
     this.setState({
-      left: value[0],
-      right: value[1]
+      left: min,
+      right: max
     })
 
     if (this.props.onValueChange) {
-      this.props.onValueChange(value[0], value[1])
+      this.props.onValueChange(min, max)
     }
   }
 
@@ -41,7 +44,7 @@ export default class SettingRange extends PureComponent {
         <Slider 
           min={this.props.min}
           max={this.props.max}
-          step={1}
+          step={this.props.step}
           sliderLength={Dimensions.get('window').width - 32}
           values={[this.state.left, this.state.right]}
           onValuesChange={this.onValueChange}

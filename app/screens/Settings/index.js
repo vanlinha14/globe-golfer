@@ -83,19 +83,21 @@ class Settings extends PureComponent {
         {
           this.renderRangeItem(
             Strings.settings.ageRange, 
-            18, 
-            50, 
+            3, 
+            99, 
             [this.state.ageRange.min, this.state.ageRange.max],
-            (nmin, mmax) => this.setState({ ageRange: { min: nmin, max: mmax }})
+            (nmin, mmax) => this.setState({ ageRange: { min: nmin, max: mmax }}),
+            1
           )
         }
         {
           this.renderRangeItem(
             Strings.settings.indexRange, 
-            18, 
-            50, 
+            -4.0, 
+            54.0, 
             [this.state.indexRange.min, this.state.indexRange.max],
-            (nmin, mmax) => this.setState({ indexRange: { min: nmin, max: mmax }})
+            (nmin, mmax) => this.setState({ indexRange: { min: nmin, max: mmax }}),
+            0.1
           )
         }
       </View>
@@ -221,7 +223,7 @@ class Settings extends PureComponent {
     )
   }
 
-  renderRangeItem(title, min, max, value, onChange) {
+  renderRangeItem(title, min, max, value, onChange, step) {
     let item = <SettingRange
       key={"range-item-" + title}
       style={{ paddingBottom: 0 }}
@@ -229,6 +231,7 @@ class Settings extends PureComponent {
       min={min}
       max={max}
       value={value}
+      step={step}
       onValueChange={onChange}
     />
     return item;
