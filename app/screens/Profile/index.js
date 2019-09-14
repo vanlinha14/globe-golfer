@@ -50,6 +50,15 @@ class Profile extends PureComponent {
 
   renderAvatar() {
     const avatarSize = 280
+    const avatarUrl = this.props.user.avatar
+    let source = undefined
+    if (avatarUrl.startsWith("http")) {
+      source = {uri: avatarUrl}
+    }
+    else {
+      source = require('../../res/images/golfer_placeholder.png')
+    }
+
     return <FastImage 
       style={{
         width: avatarSize,
@@ -58,7 +67,7 @@ class Profile extends PureComponent {
         alignSelf: 'center',
         backgroundColor: 'white'
       }}
-      source={{ uri: this.props.user.avatar }}
+      source={source}
     />
   }
 
