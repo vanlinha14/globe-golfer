@@ -57,7 +57,7 @@ class Settings extends PureComponent {
     let ggSubscriptionButton = <DGButton 
       style={styles.ggButton}
       text={Strings.settings.getGGSubscription}
-      onPress={this.onRequestScanCard}
+      onPress={() => this.props.navigation.navigate("Premium")}
     />
     return [ggSubscriptionButton]
   }

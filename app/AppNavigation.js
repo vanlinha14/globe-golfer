@@ -25,6 +25,7 @@ import TnC from './screens/Authentication/TnC'
 
 import Settings from './screens/Settings'
 import Profile from './screens/Profile'
+import Interest from './screens/Interest'
 
 import Challenge from './screens/Challenge'
 
@@ -42,6 +43,8 @@ import Menu from './screens/Menu'
 import LeaderBoard from './screens/LeaderBoard'
 
 import Invite from './screens/Invite'
+
+import Premium from './screens/Premium'
 
 import Theme from './res/Theme'
 
@@ -166,8 +169,10 @@ const AppNavigator = createStackNavigator({
   Authentication,
   Main,
   Profile,
+  Interest,
   Settings,
   Invite,
+  Premium,
   ChatDetail,
   NotificationDetail,
   PlayConfiguration,

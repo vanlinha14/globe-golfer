@@ -98,7 +98,8 @@ export default class MenuBlock extends PureComponent {
         onPress: this.props.onScoresPress
       },
       {
-        name: "Premium"
+        name: "Premium",
+        onPress: this.props.onPremiumPress
       }
     ]
 

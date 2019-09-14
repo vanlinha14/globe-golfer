@@ -19,6 +19,7 @@ import Theme from '../../res/Theme'
 import SettingSlider from '../../components/SettingSlider'
 
 const InterestItem = React.memo(({name, style, onPress}) => {
+
   const itemWidth = (Dimensions.get('window').width - 60) / 3
   return (
     <TouchableOpacity style={[
@@ -107,7 +108,7 @@ class Profile extends PureComponent {
         style={{
           marginHorizontal: 16
         }}
-        onPress={() => alert("add interest")}
+        onPress={() => this.props.navigation.navigate("Interest")}
       />
     }
 

@@ -50,6 +50,10 @@ const Body = React.memo(() => {
     navigate("Invite")
   }
 
+  const onPremiumPress = () => {
+    navigate("Premium")
+  }
+
   return (
     <View style={styles.body}>
       <MenuBlock 
@@ -58,6 +62,7 @@ const Body = React.memo(() => {
         onChallengePress={onRequestGoToChallenge}
         onScoresPress={onRequestGoToScores}
         onInvitePress={onInvitePress}
+        onPremiumPress={onPremiumPress}
       />
     </View>
   )
