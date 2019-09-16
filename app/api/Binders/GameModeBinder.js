@@ -5,7 +5,7 @@ export default class GameModeBinder {
       return data.map(i => {
         return {
           id: i.id,
-          detail: i.detail,
+          content: i.detail,
           holeStart: i.hole_start,
           holeCount: i.number_hole
         };

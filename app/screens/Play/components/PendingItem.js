@@ -1,6 +1,6 @@
 import React from 'react'
 import { View, Image, TouchableOpacity } from 'react-native'
-import FastImage from 'react-native-fast-image'
+// import FastImage from 'react-native-fast-image'
 
 import { useNavigation } from 'react-navigation-hooks';
 import DGText from '../../../components/DGText';
@@ -13,15 +13,18 @@ export default PendingItem = React.memo(({item, viewOnly}) => {
     navigate("PlayConfiguration", { data: item })
   }
 
+  const sourceFrom = item.from.avatar ? { uri: item.from.avatar } : require('../../../res/images/golfer_placeholder.png')
+  const sourceTo = item.to.avatar ? { uri: item.to.avatar } : require('../../../res/images/golfer_placeholder.png')
+
   return (
     <View style={{ marginVertical: 16, flexDirection: 'row', justifyContent: 'center' }}>
-      <FastImage
+      <Image
         style={{
           width: 100,
           height: 100,
           borderRadius: 50
         }}
-        source={{uri: item.from.avatar}}
+        source={sourceFrom}
       />
       <View style={{ marginHorizontal: 24, justifyContent: 'center', alignItems: 'center' }}>
         <DGText style={{ 
@@ -42,13 +45,13 @@ export default PendingItem = React.memo(({item, viewOnly}) => {
           )
         }
       </View>
-      <FastImage
+      <Image
         style={{
           width: 100,
           height: 100,
           borderRadius: 50
         }}
-        source={{uri: item.to.avatar}}
+        source={sourceTo}
       />
     </View>
   )

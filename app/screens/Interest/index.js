@@ -4,6 +4,8 @@ import BaseComponent from '../../components/BaseComponent'
 import InterestItem from './components/InterestingItem'
 import { connect } from 'react-redux'
 import Api from '../../api'
+import { ADD_INTEREST } from '../../api/Endpoints'
+import { getProfile } from '../../actions/getProfile'
 
 class Interest extends React.PureComponent {
 
@@ -23,14 +25,14 @@ class Interest extends React.PureComponent {
       currentSelected.splice(index, 1)
 
       this.setState({ selected: currentSelected })
-      Api.instance().removeInterest(this.props.user.id, item.id)
+      Api.instance().removeInterest(this.props.user.id, item.id).then(_ => this.props.getProfile())
     }
     else {
       const currentSelected = this.state.selected.slice()
       currentSelected.push(item)
 
       this.setState({ selected: currentSelected })
-      Api.instance().addInterest(this.props.user.id, item.id)
+      Api.instance().addInterest(this.props.user.id, item.id).then(_ => this.props.getProfile())
     }
   }
 
@@ -71,6 +73,8 @@ const mapStateToProps = (state) => ({
   userInterest: state.profile.user.interest,
 })
 
-const mapDispatchToProps = () => ({})
+const mapDispatchToProps = (dispatch) => ({
+  getProfile: () => dispatch(getProfile())
+})
 
 export default connect(mapStateToProps, mapDispatchToProps)(Interest)

@@ -9,7 +9,7 @@ import {
   DUMMY_FAVORITE_RANKING,
   DUMMY_ALL_RANKING
 } from './DummyData'
-import { LOGIN, GET_COUNTRY, GET_REGION, GET_CLUB, REGISTER, GET_CHALLENGES, GET_PROFILE, GET_INTEREST, GET_NEW_NOTIFICATIONS, GET_HISTORY_NOTIFICATIONS, CHALLENGE_SOME_ONE, UPDATE_NOTIFICATION, GET_PENDING_MATCHES, ACCEPT_CHALLENGE, GET_RANKING, DECLINE_CHALLENGE, GET_FAVORITE_RANKING, GET_GAME_MODE, ADD_INTEREST, REMOVE_INTEREST } from './Endpoints';
+import { LOGIN, GET_COUNTRY, GET_REGION, GET_CLUB, REGISTER, GET_CHALLENGES, GET_PROFILE, GET_INTEREST, GET_NEW_NOTIFICATIONS, GET_HISTORY_NOTIFICATIONS, CHALLENGE_SOME_ONE, UPDATE_NOTIFICATION, GET_PENDING_MATCHES, ACCEPT_CHALLENGE, GET_RANKING, DECLINE_CHALLENGE, GET_FAVORITE_RANKING, GET_GAME_MODE, ADD_INTEREST, REMOVE_INTEREST, GET_CHAT_MATCHES, GET_CHAT_FRIENDS, CREATE_MATCH } from './Endpoints';
 import LoginBinder from './Binders/Login';
 import CountriesBinder from './Binders/CountriesBinder';
 import RegisterBinder from './Binders/RegisterBinder';
@@ -21,6 +21,7 @@ import NotificationBinder from './Binders/NotificationBinder';
 import MatchInfoBinder from './Binders/MatchInfoBinder';
 import RankingBinder from './Binders/RankingBinder';
 import GameModeBinder from './Binders/GameModeBinder';
+import moment from 'moment';
 
 export default class Api extends Base {
   static _instance = null
@@ -145,7 +146,15 @@ export default class Api extends Base {
   }
 
   getMessages(tag) {
-    return this.dummData(DUMMY_MESSAGES)
+    if (tag == 0) {
+      return this.getMatchesChatList()
+    }
+    else if (tag == 1) {
+      return this.getFriendsChatList()
+    }
+    else {
+      return this.dummData(DUMMY_MESSAGES)
+    }
   }
 
   getNewNotifications(tag) {
@@ -194,19 +203,19 @@ export default class Api extends Base {
   }
 
   addInterest(userId, interestId) {
-    const body = {
+    const body = JSON.stringify({
       userId,
       interestId
-    }
+    })
 
     return this.callPost(ADD_INTEREST, body)
   }
 
   removeInterest(userId, interestId) {
-    const body = {
+    const body = JSON.stringify({
       userId,
       interestId
-    }
+    })
 
     return this.callPost(REMOVE_INTEREST, body)
   }
@@ -229,5 +238,24 @@ export default class Api extends Base {
   getGameMode() {
     const callingApi = GET_GAME_MODE
     return this.callGet(callingApi, new GameModeBinder())
+  }
+
+  getMatchesChatList() {
+    return this.callGet(GET_CHAT_MATCHES)
+  }
+
+  getFriendsChatList() {
+    return this.callGet(GET_CHAT_FRIENDS)
+  }
+
+  createMatch(gameId, courseId, challengeId) {
+    const body = JSON.stringify({
+      id_course : courseId,
+      id_challenge : challengeId,
+      date_play : moment().format("YYYY-MM-DD - HH:mm:ss"),
+      id_formuler: gameId
+    })
+
+    return this.callPost(CREATE_MATCH, body)
   }
 }

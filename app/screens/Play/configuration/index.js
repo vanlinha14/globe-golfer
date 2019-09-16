@@ -10,12 +10,14 @@ import Theme from '../../../res/Theme';
 import MatchInfo from './MatchInfo'
 import CurrentConfiguration from './CurrentConfiguration'
 import { useNavigation } from 'react-navigation-hooks';
+import BaseComponent from '../../../components/BaseComponent'
+import Api from '../../../api'
 
-const COURSES = [
-  "La vallée",
-  "La forêt",
-  "Les coteaux"
-]
+// const COURSES = [
+//   "La vallée",
+//   "La forêt",
+//   "Les coteaux"
+// ]
 
 const SelectItem = React.memo(({index, content, onPress}) => {
 
@@ -37,12 +39,19 @@ const SelectItem = React.memo(({index, content, onPress}) => {
   )
 })
 
-const GameConfiguration = React.memo(({game, course, gameMode, onGameSelected, onCourseSelected}) => {
+const GameConfiguration = React.memo(({challengeId, game, course, gameMode, courses, onGameSelected, onCourseSelected}) => {
 
   const { navigate } = useNavigation()
 
   const gotoScoreCard = () => {
-    navigate("ScoreCard")
+    Api.instance().createMatch(game.id, course.id, challengeId)
+    .then(res => {
+      alert(JSON.stringify(res))
+      navigate("ScoreCard")
+    })
+    .catch(ex => {
+      alert(JSON.stringify(ex))
+    })
   }
 
   let title = undefined
@@ -58,7 +67,7 @@ const GameConfiguration = React.memo(({game, course, gameMode, onGameSelected, o
       content = gameMode.map((i, index) => <SelectItem 
         key={`game-item-${index}`} 
         index={index}
-        content={i}
+        content={i.content}
         onPress={onGameSelected} 
       />)
     }
@@ -67,10 +76,10 @@ const GameConfiguration = React.memo(({game, course, gameMode, onGameSelected, o
     }
   }
   else if (course === undefined) {
-    content = COURSES.map((i, index) => <SelectItem 
+    content = courses.map((i, index) => <SelectItem 
       key={`game-item-${index}`} 
       index={index}
-      content={i} 
+      content={i.name} 
       onPress={onCourseSelected} 
     />)
   } else {
@@ -96,40 +105,57 @@ class PlayConfiguration extends React.PureComponent {
 
   state = {
     game: undefined,
-    course: undefined
+    course: undefined,
+    courses: []
+  }
+
+  componentDidMount() {
+    this.props.getGameMode()
+    this.setState({
+      courses: [{id: this.props.user.clubId, name: this.props.user.club}]
+    })
   }
 
   onGameSelected = (index) => {
-    this.setState({ game: GAMES[index] })
+    this.setState({ game: this.props.gameModeData.data[index] })
   }
 
   onCourseSelected = (index) => {
-    this.setState({ course: COURSES[index] })
+    this.setState({ course: this.state.courses[index] })
   }
 
   render() {
     const item = this.props.navigation.getParam("data")
     return (
-      <DialogCombination>
-        <View style={{ minHeight: Dimensions.get('window').height }}>
-          <Header />
-          <MatchInfo />
-          <Spacing />
-          <PendingItem item={item} viewOnly={true} />
-          <CurrentConfiguration game={this.state.game} course={this.state.course} />
-          <GameConfiguration 
-            game={this.state.game} 
-            course={this.state.course} 
-            onGameSelected={this.onGameSelected}
-            onCourseSelected={this.onCourseSelected}  
-          />
-        </View>
-      </DialogCombination>
+      <BaseComponent>
+        <Header />
+        <DialogCombination>
+          <View style={{ minHeight: Dimensions.get('window').height }}>  
+            <MatchInfo />
+            <Spacing />
+            <PendingItem item={item} viewOnly={true} />
+            <CurrentConfiguration 
+              game={this.state.game ? this.state.game.content : undefined} 
+              course={this.state.course ? this.state.course.name : undefined} 
+            />
+            <GameConfiguration 
+              challengeId={item.id}
+              game={this.state.game} 
+              course={this.state.course} 
+              courses={this.state.courses}
+              gameMode={this.props.gameModeData.data}
+              onGameSelected={this.onGameSelected}
+              onCourseSelected={this.onCourseSelected}  
+            />
+          </View>
+        </DialogCombination>
+      </BaseComponent>
     )
   }
 }
 
 const mapStateToProps = (state) => ({
+  user: state.profile.user,
   gameModeData: state.gameMode
 })
 

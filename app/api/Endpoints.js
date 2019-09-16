@@ -30,3 +30,9 @@ export const GET_FAVORITE_RANKING = BASE + "authenticated/ranking/2"
 
 export const CREATE_NEW_GAME = BASE + "authenticated/schedule"
 export const GET_GAME_MODE = BASE + "authenticated/formule"
+
+export const GET_CHAT_MATCHES = BASE + "authenticated/list-conversation/matchs"
+export const GET_CHAT_FRIENDS = BASE + "authenticated/list-conversation/friends"
+
+export const GET_AVATAR = BASE + "avatar/{id}"
+export const CREATE_MATCH = BASE + "authenticated/schedule"

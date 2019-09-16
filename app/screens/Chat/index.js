@@ -1,6 +1,5 @@
 import React, { PureComponent } from 'react'
-import { ActivityIndicator, ScrollView, View, TouchableOpacity } from 'react-native'
-import FastImage from 'react-native-fast-image'
+import { ActivityIndicator, ScrollView, View, TouchableOpacity, Image } from 'react-native'
 
 import { connect } from 'react-redux'
 
@@ -12,11 +11,13 @@ import Filter from './components/Filter';
 import DGText from '../../components/DGText';
 import { getMessages } from '../../actions/getMessages';
 import { useNavigation } from 'react-navigation-hooks';
+import { getPendingMatches } from '../../actions/getPendingMatches'
+import { getPlayedMatches } from '../../actions/getPlayedMatches'
 
 const Challenge = React.memo(({item, onPress}) => {
   return (
     <TouchableOpacity style={{ marginHorizontal: 8 }} activeOpacity={0.7} onPress={onPress}>
-      <FastImage
+      <Image
         style={{
           width: 50,
           height: 50,
@@ -83,7 +84,7 @@ const MessageItem = React.memo(({item}) => {
       activeOpacity={0.7}
       onPress={onPress}
     >
-      <FastImage
+      <Image
         style={{
           width: 60,
           height: 60,
@@ -157,6 +158,11 @@ const Board = React.memo(({title, isLoading, data}) => {
 class Chat extends PureComponent {
   static navigationOptions = { header: null }
 
+  componentDidMount() {
+    this.props.getPendingMatches()
+    this.props.getPlayedMatches()
+  }
+
   requestToggleExpand = () => {
     this.setState({ isAllExpand: !this.state.isAllExpand })
   }
@@ -166,22 +172,26 @@ class Chat extends PureComponent {
   }
   
   render() {
+    const challengersData = []
+    
+    if (Array.isArray(this.props.pendingData.data)) {
+      this.props.pendingData.data.forEach(d => {
+        challengersData.push(d.to)
+      });
+    }
+
+    if (Array.isArray(this.props.playedData.data)) {
+      this.props.playedData.data.forEach(d => {
+        challengersData.push(d.to)
+      });
+    }
+
     return (
       <BaseComponent>
         <Header />
         <Filter onFilterChanged={this.onFilterChanged} />
         <ScrollView showsVerticalScrollIndicator={false} >
-          <Challengers data={[
-            {
-              avatar: "https://usatgolfweek.files.wordpress.com/2019/07/gettyimages-1163432510.jpg"
-            },
-            {
-              avatar: "http://www.europeantour.com/mm/photo/tournament/tournaments/33/54/31/335431_m16.jpg",
-            },
-            {
-              avatar: "https://media.golfdigest.com/photos/5d34b6d7800f6d0008f342b4/master/w_2583,h_1723,c_limit/Shane-Lowry.jpg",
-            }
-          ]}/>
+          <Challengers data={challengersData}/>
           <Message 
             requestToggleExpand={this.requestToggleExpand}
             isLoading={this.props.messagesData.isLoading}
@@ -195,10 +205,14 @@ class Chat extends PureComponent {
 
 const mapStateToProps = (state) => ({
   messagesData: state.messages,
+  pendingData: state.matches.pending,
+  playedData: state.matches.played
 })
 
 const mapDispatchToProps = (dispatch) => ({
-  getMessages: (tag) => dispatch(getMessages(tag))
+  getMessages: (tag) => dispatch(getMessages(tag)),
+  getPendingMatches: () => dispatch(getPendingMatches()),
+  getPlayedMatches: () => dispatch(getPlayedMatches())
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Chat)

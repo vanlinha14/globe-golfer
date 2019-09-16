@@ -1,6 +1,5 @@
 import React, { PureComponent } from 'react'
-import { View, StyleSheet, Dimensions, FlatList, TouchableOpacity } from 'react-native'
-import FastImage from 'react-native-fast-image'
+import { View, StyleSheet, Dimensions, FlatList, TouchableOpacity, Image } from 'react-native'
 import { connect } from 'react-redux'
 
 import { getBottomSpace } from 'react-native-iphone-x-helper'
@@ -58,14 +57,14 @@ class Profile extends PureComponent {
     const avatarSize = 280
     const avatarUrl = this.props.user.avatar
     let source = undefined
-    if (avatarUrl.startsWith("http")) {
+    if (avatarUrl && avatarUrl.startsWith("http")) {
       source = {uri: avatarUrl}
     }
     else {
       source = require('../../res/images/golfer_placeholder.png')
     }
 
-    return <FastImage 
+    return <Image 
       style={{
         width: avatarSize,
         height: avatarSize,
@@ -117,15 +116,25 @@ class Profile extends PureComponent {
       />
     }
 
+    interest.push({})
+
     return (
       <FlatList
         style={{ marginLeft: 12 }}
         data={interest}
         numColumns={3}
         keyExtractor={(_, index) => index}
-        renderItem={({item}) => (
-          <InterestItem name={item.name} />
-        )}
+        renderItem={({item}) => {
+          if (item.name) {
+            return <InterestItem name={item.name} />
+          }
+          else {
+            return <InterestItem 
+              name={"+"} 
+              onPress={() => this.props.navigation.navigate("Interest")}
+            />
+          }
+        }}
       />
     )
   }

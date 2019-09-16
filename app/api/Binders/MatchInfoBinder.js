@@ -1,3 +1,5 @@
+import { GET_AVATAR } from "../Endpoints"
+
 export default class MatchInfoBinder {
   bind(input) {
     try {
@@ -7,13 +9,14 @@ export default class MatchInfoBinder {
           from: {
             id: i.id_user_from,
             name: i.name_user_from,
-            avatar: i.avatar_user_from
+            avatar: i.avatar_user_from ? GET_AVATAR.replace("{id}", i.avatar_user_from) : null
           },
           to: {
             id: i.id_user_to,
             name: i.name_user_to,
-            avatar: i.avatar_user_to
-          }
+            avatar: i.avatar_user_to ? GET_AVATAR.replace("{id}", i.avatar_user_to) : null
+          },
+          id: i.id_challenge
         }
       })
     }

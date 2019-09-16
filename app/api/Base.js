@@ -61,8 +61,6 @@ export default class Base {
     const postConfigs = body ? { ...getConfigs, body } : getConfigs
     const configs = method != 'GET' ? postConfigs : getConfigs
 
-    console.warn(configs);
-
     return new Promise((resolve, rejecter) => {
       fetch(url, configs)
       .then(response => {

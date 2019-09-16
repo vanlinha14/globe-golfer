@@ -10,6 +10,7 @@ export default class ProfileBinder {
       const avatar = user.avatar
       const about = user.about
       const club = user.golfCourseName
+      const clubId = user.golfCourseId
       const region = user.regionName
       const country = user.countryName
       const distance = user.distance
@@ -34,6 +35,7 @@ export default class ProfileBinder {
             id,
             index,
             club,
+            clubId,
             region, 
             country,
             firstName: fname,
