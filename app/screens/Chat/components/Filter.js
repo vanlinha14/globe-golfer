@@ -71,12 +71,12 @@ export default class Filter extends React.PureComponent {
           isSelected={this.state.selectedIndex == 1}
           onPress={() => this.onFilterChanged(1)}
         />
-        <Item 
+        {/* <Item 
           title="Group" 
           icon="ios-notifications-outline" 
           isSelected={this.state.selectedIndex == 2}
           onPress={() => this.onFilterChanged(2)}
-        />
+        /> */}
       </View>
     )
   }

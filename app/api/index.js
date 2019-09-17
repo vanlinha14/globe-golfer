@@ -24,6 +24,7 @@ import GameModeBinder from './Binders/GameModeBinder';
 import moment from 'moment';
 import MatchDetailBinder from './Binders/MatchDetailBinder';
 import CreateMatchBinder from './Binders/CreateMatchBinder';
+import MessageBinder from './Binders/MessageBinder';
 
 export default class Api extends Base {
   static _instance = null
@@ -243,11 +244,11 @@ export default class Api extends Base {
   }
 
   getMatchesChatList() {
-    return this.callGet(GET_CHAT_MATCHES)
+    return this.callGet(GET_CHAT_MATCHES, new MessageBinder())
   }
 
   getFriendsChatList() {
-    return this.callGet(GET_CHAT_FRIENDS)
+    return this.callGet(GET_CHAT_FRIENDS, new MessageBinder())
   }
 
   createMatch(gameId, courseId, challengeId) {

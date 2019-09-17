@@ -31,6 +31,26 @@ const Challenge = React.memo(({item, onPress}) => {
 
 const Challengers = React.memo(({data}) => {
 
+  if (!Array.isArray(data) || data.length == 0) {
+    return (
+      <>
+        <DGText style={{ 
+          marginTop: 12,
+          marginBottom: 8,
+          fontSize: 18,
+          color: Theme.textWhite, 
+          marginHorizontal: 16 
+        }}>Challengers</DGText>
+        <DGText style={{
+          color: Theme.textWhite,
+          fontStyle: 'italic',
+          marginLeft: 32,
+          marginTop: 8
+        }}>You have no challenger right now</DGText>
+      </>
+    )
+  }
+
   const items = data.map((item, index) => <Challenge key={`challenge-${index}`} item={item} />)
 
   return (
@@ -52,8 +72,9 @@ const Challengers = React.memo(({data}) => {
   )
 })
 
-const Message = React.memo(({isLoading, data}) => {
+const Message = React.memo(({isLoading, data, user}) => {
   return <Board 
+    user={user}
     title="Message"
     isLoading={isLoading}
     data={data}
@@ -64,12 +85,22 @@ const EmptyData = React.memo(() => {
   return <DGText style={{ color: Theme.textWhite, fontStyle: 'italic', marginHorizontal: 16 + 30 + 8, fontSize: 12 }}>No Message</DGText>
 })
 
-const MessageItem = React.memo(({item}) => {
+const MessageItem = React.memo(({user, item}) => {
 
   const { navigate } = useNavigation()
 
   const onPress = () => {
     navigate("ChatDetail")
+  }
+
+  let lastMessage = "draft:"
+  if (item.message.length > 0) {
+    if (item.message[0].sender_id == user.id) {
+      lastMessage = "You: " + item.message[0].message
+    }
+    else {
+      lastMessage = item.message[0].message
+    }
   }
 
   return (
@@ -88,7 +119,8 @@ const MessageItem = React.memo(({item}) => {
         style={{
           width: 60,
           height: 60,
-          borderRadius: 30
+          borderRadius: 30,
+          backgroundColor: Theme.buttonPrimary
         }}
         source={{uri: item.avatar}}
       />
@@ -104,21 +136,14 @@ const MessageItem = React.memo(({item}) => {
         }}>{item.name}</DGText>
         <DGText style={{ 
           color: Theme.textWhite
-        }} numberOfLines={1}>{item.lastMessage}</DGText>
+        }} numberOfLines={1}>{lastMessage}</DGText>
       </View>
-      <DGText style={{ 
-        position: 'absolute',
-        color: Theme.textWhite,
-        fontSize: 12,
-        top: 0,
-        right: 16
-      }}>{item.timeIndicator}</DGText>
     </TouchableOpacity>
   )
 })
 
-const MessageBlock = React.memo(({data}) => {
-  const items = data.map((item, index) => <MessageItem key={`message-item-${index}`} item={item} />)
+const MessageBlock = React.memo(({user, data}) => {
+  const items = data.map((item, index) => <MessageItem key={`message-item-${index}`} item={item} user={user}/>)
   return (
     <>
       {items}
@@ -126,8 +151,7 @@ const MessageBlock = React.memo(({data}) => {
   )
 })
 
-const Board = React.memo(({title, isLoading, data}) => {
-
+const Board = React.memo(({user, title, isLoading, data}) => {
   let content = undefined;
   if (isLoading || data == null) {
     content = <ActivityIndicator size='large' color={Theme.buttonPrimary} />
@@ -136,7 +160,7 @@ const Board = React.memo(({title, isLoading, data}) => {
     content = <EmptyData />
   }
   else {
-    content = <MessageBlock data={data} />
+    content = <MessageBlock data={data} user={user} />
   }
 
 
@@ -193,6 +217,7 @@ class Chat extends PureComponent {
         <ScrollView showsVerticalScrollIndicator={false} >
           <Challengers data={challengersData}/>
           <Message 
+            user={this.props.user}
             requestToggleExpand={this.requestToggleExpand}
             isLoading={this.props.messagesData.isLoading}
             data={this.props.messagesData.data}
@@ -204,6 +229,7 @@ class Chat extends PureComponent {
 }
 
 const mapStateToProps = (state) => ({
+  user: state.profile.user,
   messagesData: state.messages,
   pendingData: state.matches.pending,
   playedData: state.matches.played
