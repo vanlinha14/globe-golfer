@@ -115,7 +115,7 @@ export default class Invite extends PureComponent {
       const mapped = contacts
         .filter(i => i.phoneNumbers.length > 0)
         .map(i => {
-          const displayName = isiOS ? i.givenName : i.displayName
+          const displayName = isiOS ? (i.givenName + " " + i.familyName) : i.displayName
           
           return { 
             firstLetter: displayName.charAt(0),
