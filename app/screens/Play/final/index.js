@@ -12,6 +12,8 @@ import CurrentConfiguration from './CurrentConfiguration'
 import { useNavigation } from 'react-navigation-hooks';
 import BaseComponent from '../../../components/BaseComponent'
 import Api from '../../../api'
+import { getPendingMatches } from '../../../actions/getPendingMatches'
+import { getPlayedMatches } from '../../../actions/getPlayedMatches'
 
 // const COURSES = [
 //   "La vallée",
@@ -39,25 +41,29 @@ const SelectItem = React.memo(({index, content, onPress}) => {
   )
 })
 
-const GameConfiguration = React.memo(({gameData, challengeId, userId, fromId, toId, game, course, gameMode, courses, onGameSelected, onCourseSelected}) => {
+const GameConfiguration = React.memo(({challengeId, userId, fromId, toId, game, course, gameMode, courses, onGameSelected, onCourseSelected}) => {
 
   const { navigate } = useNavigation()
 
   const gotoScoreCard = () => {
-    Api.instance().createMatch(game.id, course.id, challengeId)
-    .then(gameIdInfo => {
-      Api.instance().getMatchInfo(gameIdInfo.matchId).then(res => {
-        const objToSend = {
-          gameData,
-          info: res, 
-          id: gameIdInfo.matchId,
-          youId: userId,
-          himId: userId == fromId ? toId : fromId
-        }
-  
-        navigate("ScoreCard", objToSend)
-      })
+    Api.instance().getMatchInfo(63).then(res => {
+      const objToSend = {
+        info: res, 
+        id: 63,
+        youId: userId,
+        himId: userId == fromId ? toId : fromId
+      }
+
+      navigate("ScoreCard", objToSend)
     })
+    // Api.instance().createMatch(game.id, course.id, challengeId)
+    // .then(res => {
+    //   // alert(JSON.stringify(res))
+    //   navigate("ScoreCard")
+    // })
+    // .catch(ex => {
+    //   alert(JSON.stringify(ex))
+    // })
   }
 
   let title = undefined
@@ -107,31 +113,67 @@ const Spacing = React.memo(() => {
   return <View style={{ height: 32 }} />
 })
 
-class PlayConfiguration extends React.PureComponent {
+const SignButton = React.memo(({onPress}) => {
+  return (
+    <TouchableOpacity style={{
+      width: 200,
+      height: 44,
+      backgroundColor: Theme.buttonPrimary,
+      justifyContent: 'center',
+      alignItems: 'center',
+      alignSelf: 'center'
+    }} activeOpacity={0.7} onPress={onPress}>
+      <DGText style={{color: 'white', fontSize: 18}}>Sign and send</DGText>
+    </TouchableOpacity>
+  )
+})
 
-  state = {
-    game: undefined,
-    course: undefined,
-    courses: []
-  }
+const Result = React.memo(({gameResult}) => {
 
-  componentDidMount() {
-    this.props.getGameMode()
-    this.setState({
-      courses: [{id: this.props.user.clubId, name: this.props.user.club}]
+  let lScore = 0
+  let rScore = 0
+
+  gameResult.forEach(g => {
+    if (g.score_user_first < g.score_user_second) {
+      lScore++
+    }
+    else if (g.score_user_first > g.score_user_second) {
+      rScore++
+    }
+  });
+
+  return (
+    <View style={{
+      width: 180,
+      height: 180,
+      alignSelf: 'center',
+      marginVertical: 20,
+      borderRadius : 90,
+      backgroundColor: 'gray',
+      justifyContent: 'center',
+      alignItems: 'center',
+    }}>
+      <DGText style={{color: 'white', fontSize: 28}}>{lScore + " & " + rScore}</DGText>
+    </View>
+  )
+})
+
+class Final extends React.PureComponent {
+
+  onSign = () => {
+    const game = this.props.navigation.getParam("game")
+    
+    Api.instance().updateGameResult(game).then(_ => {
+      this.props.getPendingMatches()
+      this.props.getPlayedMatches()
+
+      this.props.navigation.popToTop()
     })
   }
-
-  onGameSelected = (index) => {
-    this.setState({ game: this.props.gameModeData.data[index] })
-  }
-
-  onCourseSelected = (index) => {
-    this.setState({ course: this.state.courses[index] })
-  }
-
+  
   render() {
     const item = this.props.navigation.getParam("data")
+    const game = this.props.navigation.getParam("game")
     return (
       <BaseComponent>
         <Header />
@@ -140,23 +182,8 @@ class PlayConfiguration extends React.PureComponent {
             <MatchInfo />
             <Spacing />
             <PendingItem item={item} viewOnly={true} />
-            <CurrentConfiguration 
-              game={this.state.game ? this.state.game.content : undefined} 
-              course={this.state.course ? this.state.course.name : undefined} 
-            />
-            <GameConfiguration 
-              gameData={item}
-              challengeId={item.id}
-              userId={this.props.user.id}
-              fromId={item.from.id}
-              toId={item.to.id}
-              game={this.state.game} 
-              course={this.state.course} 
-              courses={this.state.courses}
-              gameMode={this.props.gameModeData.data}
-              onGameSelected={this.onGameSelected}
-              onCourseSelected={this.onCourseSelected}  
-            />
+            <Result gameResult={game}/>
+            <SignButton onPress={this.onSign} />
           </View>
         </DialogCombination>
       </BaseComponent>
@@ -170,7 +197,9 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = (dispatch) => ({
-  getGameMode: () => dispatch(getGameMode())
+  getGameMode: () => dispatch(getGameMode()),
+  getPendingMatches: () => dispatch(getPendingMatches()),
+  getPlayedMatches: () => dispatch(getPlayedMatches())
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(PlayConfiguration)
+export default connect(mapStateToProps, mapDispatchToProps)(Final)

@@ -11,7 +11,7 @@ export default MatchInfo = React.memo(() => {
         color: Theme.textWhite,
         fontSize: 30,
         marginBottom: 12
-      }}>It's a Match</DGText>
+      }}>La Boulie</DGText>
       <View style={{ flexDirection: 'row' }}>
         <DGText style={{ 
           color: Theme.textWhite,

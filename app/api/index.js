@@ -9,7 +9,7 @@ import {
   DUMMY_FAVORITE_RANKING,
   DUMMY_ALL_RANKING
 } from './DummyData'
-import { LOGIN, GET_COUNTRY, GET_REGION, GET_CLUB, REGISTER, GET_CHALLENGES, GET_PROFILE, GET_INTEREST, GET_NEW_NOTIFICATIONS, GET_HISTORY_NOTIFICATIONS, CHALLENGE_SOME_ONE, UPDATE_NOTIFICATION, GET_PENDING_MATCHES, ACCEPT_CHALLENGE, GET_RANKING, DECLINE_CHALLENGE, GET_FAVORITE_RANKING, GET_GAME_MODE, ADD_INTEREST, REMOVE_INTEREST, GET_CHAT_MATCHES, GET_CHAT_FRIENDS, CREATE_MATCH } from './Endpoints';
+import { LOGIN, GET_COUNTRY, GET_REGION, GET_CLUB, REGISTER, GET_CHALLENGES, GET_PROFILE, GET_INTEREST, GET_NEW_NOTIFICATIONS, GET_HISTORY_NOTIFICATIONS, CHALLENGE_SOME_ONE, UPDATE_NOTIFICATION, GET_PENDING_MATCHES, ACCEPT_CHALLENGE, GET_RANKING, DECLINE_CHALLENGE, GET_FAVORITE_RANKING, GET_GAME_MODE, ADD_INTEREST, REMOVE_INTEREST, GET_CHAT_MATCHES, GET_CHAT_FRIENDS, CREATE_MATCH, GET_MATCH_INFO, UPDATE_MATCH_RESULT } from './Endpoints';
 import LoginBinder from './Binders/Login';
 import CountriesBinder from './Binders/CountriesBinder';
 import RegisterBinder from './Binders/RegisterBinder';
@@ -22,6 +22,8 @@ import MatchInfoBinder from './Binders/MatchInfoBinder';
 import RankingBinder from './Binders/RankingBinder';
 import GameModeBinder from './Binders/GameModeBinder';
 import moment from 'moment';
+import MatchDetailBinder from './Binders/MatchDetailBinder';
+import CreateMatchBinder from './Binders/CreateMatchBinder';
 
 export default class Api extends Base {
   static _instance = null
@@ -256,6 +258,20 @@ export default class Api extends Base {
       id_formuler: gameId
     })
 
-    return this.callPost(CREATE_MATCH, body)
+    return this.callPost(CREATE_MATCH, body, new CreateMatchBinder())
+  }
+
+  getMatchInfo(id) {
+    const callingApi = GET_MATCH_INFO.replace("{id}", id)
+
+    return this.callGet(callingApi, new MatchDetailBinder())
+  }
+
+  updateGameResult(game) {
+    const body = JSON.stringify({
+      list: game
+    })
+
+    return this.callPost(UPDATE_MATCH_RESULT, body)
   }
 }

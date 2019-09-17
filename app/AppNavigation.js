@@ -32,6 +32,7 @@ import Challenge from './screens/Challenge'
 import Play from './screens/Play'
 import PlayConfiguration from './screens/Play/configuration'
 import ScoreCard from './screens/Play/score'
+import Final from './screens/Play/final'
 
 import Chat from './screens/Chat'
 import ChatDetail from './screens/Chat/detail'
@@ -177,6 +178,7 @@ const AppNavigator = createStackNavigator({
   NotificationDetail,
   PlayConfiguration,
   ScoreCard,
+  Final,
   ...loginNavigator,
   ...setupAccountNavigator
 }, {

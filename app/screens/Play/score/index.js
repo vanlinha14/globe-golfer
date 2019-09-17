@@ -1,24 +1,12 @@
 import React from 'react'
 import { View, TouchableOpacity, Dimensions, TextInput, SafeAreaView, ScrollView } from 'react-native'
-import DialogCombination from '../../../components/DialogCombination';
+import lodash from 'lodash';
 import Header from './Header';
 import DGText from '../../../components/DGText';
 import Theme from '../../../res/Theme';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
-const GAME = [
-  { hole: 1, par: 4 },
-  { hole: 2, par: 3 },
-  { hole: 3, par: 5 },
-  { hole: 4, par: 4 },
-  { hole: 5, par: 6 },
-  { hole: 6, par: 3 },
-  { hole: 7, par: 3 },
-  { hole: 8, par: 2 },
-  { hole: 9, par: 5 }
-]
-
-const Input = React.memo(({value, editable, backgroundColor, color}) => {
+const Input = React.memo(({value, editable, backgroundColor, color, onValueChange}) => {
   return (
     <TextInput 
       style={{
@@ -35,6 +23,7 @@ const Input = React.memo(({value, editable, backgroundColor, color}) => {
       placeholder={"-"}
       keyboardType={'numeric'}
       editable={editable}
+      onChangeText={onValueChange}
     />
   )
 })
@@ -72,45 +61,107 @@ const GameHeader = React.memo(() => {
   )
 })
 
-const RowItem = React.memo(({game}) => {
-  return (
-    <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between', marginHorizontal: 8 }}>
-      <View style={{ flexDirection: 'row', justifyContent: 'space-between', width: 50 * 2 + 8}}>
-        <Input backgroundColor={"#FFFFFF"} color={"#000000"} value={undefined} />
-        <Input backgroundColor={"#EC6907"} color={"#FFFFFF"} value={undefined} />
-      </View>
-      
-      <View style={{ flexDirection: 'row', justifyContent: 'space-between', width: 50 * 2 + 8}}>
-        <Input backgroundColor={Theme.buttonPrimary} color={"#FFFFFF"} value={game.hole + ""} editable={false}/>
-        <Input backgroundColor={Theme.buttonPrimary} color={"#FFFFFF"} value={game.par + ""} editable={false}/>
-      </View>
+class RowItem extends React.PureComponent {
+  youMatch = null
+  youScore = null
 
-      <View style={{ flexDirection: 'row', justifyContent: 'space-between', width: 50 * 2 + 8}}>
-        <Input backgroundColor={"#EC6907"} color={"#FFFFFF"} value={undefined} />
-        <Input backgroundColor={"#FFFFFF"} color={"#000000"} value={undefined} />
-      </View>
-    </View>
-  )
-})
+  himMatch = null
+  himScore = null
 
-export default class ScoreCard extends React.PureComponent {
+  onYouMatchChange = (v) => {
+    this.youMatch = v
+  }
 
-  state = {
-    game: undefined,
-    course: undefined
+  onYouScoreChange = (v) => {
+    this.youScore = v
+    
+    if (this.youScore && this.himScore && this.props.onGameResultUpdate) {
+      const game = this.props.game
+      this.props.onGameResultUpdate(this.youScore, this.himScore, game.hole, game.par)
+    }
+  }
+
+  onHimMatchChange = (v) => {
+    this.himMatch = v
+  }
+
+  onHimScoreChange = (v) => {
+    this.himScore = v
+    
+    if (this.youScore && this.himScore && this.props.onGameResultUpdate) {
+      const game = this.props.game
+      this.props.onGameResultUpdate(this.youScore, this.himScore, game.hole, game.par)
+    }
   }
 
   render() {
-    const item = this.props.navigation.getParam("data")
-    const user = this.props.navigation.getParam("user")
+    const game = this.props.game
+    return (
+      <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between', marginHorizontal: 8, marginBottom: 8 }}>
+        <View style={{ flexDirection: 'row', justifyContent: 'space-between', width: 50 * 2 + 8}}>
+          <Input backgroundColor={"#FFFFFF"} color={"#000000"} value={undefined} onValueChange={this.onYouMatchChange}/>
+          <Input backgroundColor={"#EC6907"} color={"#FFFFFF"} value={undefined} onValueChange={this.onYouScoreChange}/>
+        </View>
+        
+        <View style={{ flexDirection: 'row', justifyContent: 'space-between', width: 50 * 2 + 8}}>
+          <Input backgroundColor={Theme.buttonPrimary} color={"#FFFFFF"} value={game.hole + ""} editable={false}/>
+          <Input backgroundColor={Theme.buttonPrimary} color={"#FFFFFF"} value={game.par + ""} editable={false}/>
+        </View>
+  
+        <View style={{ flexDirection: 'row', justifyContent: 'space-between', width: 50 * 2 + 8}}>
+          <Input backgroundColor={"#EC6907"} color={"#FFFFFF"} value={undefined} onValueChange={this.onHimScoreChange}/>
+          <Input backgroundColor={"#FFFFFF"} color={"#000000"} value={undefined} onValueChange={this.onHimMatchChange}/>
+        </View>
+      </View>
+    )
+  }
+}
+
+export default class ScoreCard extends React.PureComponent {
+
+  gameResult = []
+
+  onGameResultUpdate = (youScore, himScore, hole, par) => {
+    const gameId = this.props.navigation.getParam("id")
+    const youId = this.props.navigation.getParam("youId")
+    const himId = this.props.navigation.getParam("himId")
+    const item = {
+      scheduleId: gameId,
+      user_first_id: youId,
+      user_second_id: himId,
+      score_user_first: youScore,
+      score_user_second: himScore,
+      hole_number: hole,
+      par_number: par,
+      status: 1
+    }
+    
+    this.gameResult.push(item)
+    this.gameResult = lodash.uniqBy(this.gameResult, 'hole_number')
+  }
+
+  onRequestSaveScoreCard = () => {
+    const gameInfo = this.props.navigation.getParam("info")
+    const gameData = this.props.navigation.getParam("gameData")
+    if (this.gameResult.length == gameInfo.count) {
+      this.props.navigation.navigate("Final", {game: this.gameResult, data: gameData})
+    }
+    else {
+      alert('You are not finish the game!')
+    }
+  }
+
+  render() {
+    const gameInfo = this.props.navigation.getParam("info")
+    const gamedata = gameInfo.data.filter(i => i.hole >= gameInfo.start && i.hole < (gameInfo.start + gameInfo.count))
     return (
       <SafeAreaView style={{flex: 1, backgroundColor: Theme.mainBackground}}>
-        <Header />
+        <Header onRequestSaveScoreCard={this.onRequestSaveScoreCard}/>
         <GameHeader />
         <KeyboardAwareScrollView style={{flex: 1}}>
           <View style={{ minHeight: Dimensions.get('window').height }}>
             {
-              GAME.map(game => <RowItem game={game} />)
+              gamedata.map(game => <RowItem game={game} onGameResultUpdate={this.onGameResultUpdate}/>)
             }
           </View>
         </KeyboardAwareScrollView>

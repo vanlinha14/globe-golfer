@@ -36,3 +36,6 @@ export const GET_CHAT_FRIENDS = BASE + "authenticated/list-conversation/friends"
 
 export const GET_AVATAR = BASE + "avatar/{id}"
 export const CREATE_MATCH = BASE + "authenticated/schedule"
+
+export const GET_MATCH_INFO = BASE + "authenticated/result-detail/{id}"
+export const UPDATE_MATCH_RESULT = BASE + "authenticated/result"

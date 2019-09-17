@@ -1,6 +1,5 @@
 import React, { PureComponent } from 'react'
 import { ActivityIndicator, ScrollView, View, TouchableOpacity, Image } from 'react-native'
-import FastImage from 'react-native-fast-image'
 
 import { connect } from 'react-redux'
 
@@ -47,7 +46,7 @@ const BoardHeader = React.memo(({title, isExpanded, requestToggleExpand}) => {
       paddingHorizontal: 16,
       paddingVertical:12
       }} activeOpacity={0.7} onPress={requestToggleExpand}>
-      <FastImage
+      <Image
         style={{
           width: 30, 
           height: 30, 
@@ -83,7 +82,7 @@ const MessageItem = React.memo(({item, currentTag}) => {
       activeOpacity={0.7}
       onPress={onPress}
     >
-      <FastImage
+      <Image
         style={{
           width: 60,
           height: 60,
