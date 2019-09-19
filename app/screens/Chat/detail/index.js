@@ -3,56 +3,42 @@ import { View } from 'react-native'
 import { GiftedChat } from 'react-native-gifted-chat'
 import Header from './Header'
 import Theme from '../../../res/Theme';
-import { CHAT_WS } from '../../../api/Endpoints';
 
-// http://ec2-54-251-181-28.ap-southeast-1.compute.amazonaws.com:8080/golfer_api/api/
-// ws?access_token=434dd7ed8a7194bb30cc313a995c4a0c
-// const webSocketsServerPort = 8080
+import { connect } from 'react-redux'
 
-export default class ChatDetail extends React.PureComponent {
-  state = {
-    messages: [],
-  }
+class ChatDetail extends React.PureComponent {
+  
+  constructor(props) {
+    super(props)
 
-  // constructor(props) {
-  //   super(props)
+    const data = props.navigation.getParam("data")
 
-    // this.wss = http.createServer()
-    
-  // }
+    const currentUserId = props.user.id
 
-  componentDidMount() {
+    const user1 = {
+      id: data.first.id,
+      name: data.first.id == currentUserId ? [props.user.firstName, props.user.lastName].join(" ") : data.name,
+      avatar: data.first.id == currentUserId ? props.user.avatar : data.avatar,
+    }
 
-    // alert(CHAT_WS)
+    const user2 = {
+      id: data.second.id,
+      name: data.second.id == currentUserId ? [props.user.firstName, props.user.lastName].join(" ") : data.name,
+      avatar: data.second.id == currentUserId ? props.user.avatar : data.avatar,
+    }
 
-    // this.ws.onopen = () => {
-    //   console.warn("socket open");
-    // }
-
-    // this.ws.onmessage = evt => {
-    //   console.warn(evt.data);
-    // }
-
-    // this.ws.onclose = () => {
-    //   console.warn("socket close");
-    // }
-  }
-
-  componentWillMount() {
-    this.setState({
-      messages: [
-        {
-          _id: 1,
-          text: 'Hello developer',
-          createdAt: new Date(),
-          user: {
-            _id: 2,
-            name: 'React Native',
-            avatar: 'https://placeimg.com/140/140/any',
-          },
-        },
-      ],
+    const messages = data.message.map(m => {
+      return {
+        _id: m.message_id,
+        text: m.message,
+        createdAt: new Date(),
+        user: m.sender_id == data.first ? user1 : user2,
+      }
     })
+    
+    this.state = {
+      messages
+    }
   }
 
   onSend(messages = []) {
@@ -66,6 +52,7 @@ export default class ChatDetail extends React.PureComponent {
       <View style={{ backgroundColor: Theme.mainBackground, flex: 1 }}>
         <Header />
         <GiftedChat
+          alignTop={true}
           messages={this.state.messages}
           onSend={messages => this.onSend(messages)}
           user={{
@@ -76,3 +63,11 @@ export default class ChatDetail extends React.PureComponent {
     )
   }
 }
+
+const mapStateToProps = (state) => ({
+  user: state.profile.user
+})
+
+const mapDispatchToProps = () => ({})
+
+export default connect(mapStateToProps, mapDispatchToProps)(ChatDetail)
