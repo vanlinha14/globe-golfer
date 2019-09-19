@@ -3,10 +3,39 @@ import { View } from 'react-native'
 import { GiftedChat } from 'react-native-gifted-chat'
 import Header from './Header'
 import Theme from '../../../res/Theme';
+import { CHAT_WS } from '../../../api/Endpoints';
+
+// http://ec2-54-251-181-28.ap-southeast-1.compute.amazonaws.com:8080/golfer_api/api/
+// ws?access_token=434dd7ed8a7194bb30cc313a995c4a0c
+// const webSocketsServerPort = 8080
 
 export default class ChatDetail extends React.PureComponent {
   state = {
     messages: [],
+  }
+
+  // constructor(props) {
+  //   super(props)
+
+    // this.wss = http.createServer()
+    
+  // }
+
+  componentDidMount() {
+
+    // alert(CHAT_WS)
+
+    // this.ws.onopen = () => {
+    //   console.warn("socket open");
+    // }
+
+    // this.ws.onmessage = evt => {
+    //   console.warn(evt.data);
+    // }
+
+    // this.ws.onclose = () => {
+    //   console.warn("socket close");
+    // }
   }
 
   componentWillMount() {

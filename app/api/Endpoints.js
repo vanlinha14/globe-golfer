@@ -39,3 +39,5 @@ export const CREATE_MATCH = BASE + "authenticated/schedule"
 
 export const GET_MATCH_INFO = BASE + "authenticated/result-detail/{id}"
 export const UPDATE_MATCH_RESULT = BASE + "authenticated/result"
+
+export const CHAT_WS = BASE + "ws?access_token=434dd7ed8a7194bb30cc313a995c4a0c"

@@ -90,7 +90,7 @@ const MessageItem = React.memo(({user, item}) => {
   const { navigate } = useNavigation()
 
   const onPress = () => {
-    navigate("ChatDetail")
+    navigate("ChatDetail", {data: item})
   }
 
   let lastMessage = "draft:"

@@ -32,9 +32,9 @@ export default class BaseComponent extends PureComponent {
     return (
       <ImageBackground 
         style={styles.baseContainer}
-        resizeMode='repeat'
-        resizeMethod='auto'
-        source={require('../res/images/bg.jpg')}
+        resizeMode='cover'
+        resizeMethod='resize'
+        source={require('../res/images/bg.png')}
       >
         {this.renderToolbar()}
         {this.props.children}
