@@ -57,7 +57,7 @@ class Login extends PureComponent {
   onRequestLoginWithGoogle = () => {
     GoogleSignin.configure()
     GoogleSignin.signIn().then(user => {
-      this.props.loginWithGoogle(user)
+      this.props.loginWithGoogle(user.user.id, user.idToken)
     })
     .catch(e => alert(e))
   }
@@ -287,7 +287,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   loginWithFacebook: (id, token) => dispatch(loginWithFacebook(id, token)),
-  loginWithGoogle: (userInfo) => dispatch(loginWithGoogle(userInfo))
+  loginWithGoogle: (id, token) => dispatch(loginWithGoogle(id, token))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login)

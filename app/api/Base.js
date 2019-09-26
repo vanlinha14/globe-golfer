@@ -67,6 +67,11 @@ export default class Base {
         console.warn(response);
         const statusCode = response.status
         const data = response.json()
+
+        if (statusCode != 200) {
+          alert(JSON.stringify(response))
+        }
+
         return Promise.all([statusCode, data])
       })
       .then(([code, data]) => {

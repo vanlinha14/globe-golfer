@@ -65,7 +65,7 @@ export default class Register extends PureComponent {
   }
 
   onRequestLoginWithFacebook = () => {
-    LoginManager.logInWithPermissions(["public_profile", "email", "user_about_me"]).then(
+    LoginManager.logInWithPermissions(["public_profile", "email"]).then(
       (result) => {
         if (result.isCancelled) {
           alert("Login cancelled");

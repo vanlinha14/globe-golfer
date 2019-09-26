@@ -1,13 +1,6 @@
 import Base from './Base'
 import { 
-  DUMMY_AUTHENTICATION,
-  DUMMY_PENDING_MATCHES,
-  DUMMY_PLAYED_MATCHES,
   DUMMY_MESSAGES,
-  DUMMY_NEW_NOTIFICATIONS,
-  DUMMY_HISTORY_NOTIFICATIONS,
-  DUMMY_FAVORITE_RANKING,
-  DUMMY_ALL_RANKING
 } from './DummyData'
 import { LOGIN, GET_COUNTRY, GET_REGION, GET_CLUB, REGISTER, GET_CHALLENGES, GET_PROFILE, GET_INTEREST, GET_NEW_NOTIFICATIONS, GET_HISTORY_NOTIFICATIONS, CHALLENGE_SOME_ONE, UPDATE_NOTIFICATION, GET_PENDING_MATCHES, ACCEPT_CHALLENGE, GET_RANKING, DECLINE_CHALLENGE, GET_FAVORITE_RANKING, GET_GAME_MODE, ADD_INTEREST, REMOVE_INTEREST, GET_CHAT_MATCHES, GET_CHAT_FRIENDS, CREATE_MATCH, GET_MATCH_INFO, UPDATE_MATCH_RESULT } from './Endpoints';
 import LoginBinder from './Binders/Login';
@@ -25,6 +18,8 @@ import moment from 'moment';
 import MatchDetailBinder from './Binders/MatchDetailBinder';
 import CreateMatchBinder from './Binders/CreateMatchBinder';
 import MessageBinder from './Binders/MessageBinder';
+
+import {Clipboard} from 'react-native'
 
 export default class Api extends Base {
   static _instance = null
@@ -107,6 +102,11 @@ export default class Api extends Base {
                 .then(data => resolve(data))
                 .catch(e => rejecter(e))
             }
+            else if (helper.googleId) {
+              this.loginGoogle(helper.googleId, helper.googleToken)
+                .then(data => resolve(data))
+                .catch(e => rejecter(e))
+            }
           }
           else {
             rejecter()
@@ -124,8 +124,15 @@ export default class Api extends Base {
     return this.callPost(LOGIN, body, new LoginBinder())
   }
 
-  loginGoogle(user) {
-    return this.dummData(DUMMY_AUTHENTICATION)
+  loginGoogle(id, token) {
+    const body = JSON.stringify({
+      googleId: id,
+	    googleToken: token
+    })
+
+    Clipboard.setString(body)
+    
+    return this.callPost(LOGIN, body, new LoginBinder())
   }
 
   loginFacebook(id, token) {

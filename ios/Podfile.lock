@@ -3,15 +3,19 @@ PODS:
   - BVLinearGradient (2.5.6):
     - React
   - DoubleConversion (1.1.6)
-  - FBSDKCoreKit (5.0.2):
-    - FBSDKCoreKit/Basics (= 5.0.2)
-    - FBSDKCoreKit/Core (= 5.0.2)
-  - FBSDKCoreKit/Basics (5.0.2)
-  - FBSDKCoreKit/Core (5.0.2):
+  - FBSDKCoreKit (5.6.0):
+    - FBSDKCoreKit/Basics (= 5.6.0)
+    - FBSDKCoreKit/Core (= 5.6.0)
+  - FBSDKCoreKit/Basics (5.6.0)
+  - FBSDKCoreKit/Core (5.6.0):
     - FBSDKCoreKit/Basics
-  - FBSDKLoginKit (5.0.2):
+  - FBSDKLoginKit (5.6.0):
+    - FBSDKLoginKit/Login (= 5.6.0)
+  - FBSDKLoginKit/Login (5.6.0):
     - FBSDKCoreKit (~> 5.0)
-  - FBSDKShareKit (5.0.2):
+  - FBSDKShareKit (5.6.0):
+    - FBSDKShareKit/Share (= 5.6.0)
+  - FBSDKShareKit/Share (5.6.0):
     - FBSDKCoreKit (~> 5.0)
   - Folly (2018.10.22.00):
     - boost-for-react-native
@@ -36,30 +40,15 @@ PODS:
     - "GoogleToolboxForMac/NSString+URLArguments (= 2.2.1)"
   - "GoogleToolboxForMac/NSString+URLArguments (2.2.1)"
   - GTMSessionFetcher/Core (1.2.2)
-  - libwebp (1.0.2):
-    - libwebp/core (= 1.0.2)
-    - libwebp/dec (= 1.0.2)
-    - libwebp/demux (= 1.0.2)
-    - libwebp/dsp (= 1.0.2)
-    - libwebp/enc (= 1.0.2)
-    - libwebp/mux (= 1.0.2)
-    - libwebp/utils (= 1.0.2)
-    - libwebp/webp (= 1.0.2)
-  - libwebp/core (1.0.2):
+  - libwebp (1.0.3):
+    - libwebp/demux (= 1.0.3)
+    - libwebp/mux (= 1.0.3)
+    - libwebp/webp (= 1.0.3)
+  - libwebp/demux (1.0.3):
     - libwebp/webp
-  - libwebp/dec (1.0.2):
-    - libwebp/core
-  - libwebp/demux (1.0.2):
-    - libwebp/core
-  - libwebp/dsp (1.0.2):
-    - libwebp/core
-  - libwebp/enc (1.0.2):
-    - libwebp/core
-  - libwebp/mux (1.0.2):
-    - libwebp/core
-  - libwebp/utils (1.0.2):
-    - libwebp/core
-  - libwebp/webp (1.0.2)
+  - libwebp/mux (1.0.3):
+    - libwebp/demux
+  - libwebp/webp (1.0.3)
   - OneSignal (2.10.1)
   - React (0.60.3):
     - React-Core (= 0.60.3)
@@ -109,19 +98,19 @@ PODS:
   - React-jsinspector (0.60.3)
   - react-native-contacts (5.0.2):
     - React
-  - react-native-fbsdk (1.0.3):
+  - react-native-fbsdk (1.0.4):
     - React
-    - react-native-fbsdk/Core (= 1.0.3)
-    - react-native-fbsdk/Login (= 1.0.3)
-    - react-native-fbsdk/Share (= 1.0.3)
-  - react-native-fbsdk/Core (1.0.3):
-    - FBSDKCoreKit (~> 5.0)
+    - react-native-fbsdk/Core (= 1.0.4)
+    - react-native-fbsdk/Login (= 1.0.4)
+    - react-native-fbsdk/Share (= 1.0.4)
+  - react-native-fbsdk/Core (1.0.4):
+    - FBSDKCoreKit (~> 5.5)
     - React
-  - react-native-fbsdk/Login (1.0.3):
-    - FBSDKLoginKit (~> 5.0)
+  - react-native-fbsdk/Login (1.0.4):
+    - FBSDKLoginKit (~> 5.5)
     - React
-  - react-native-fbsdk/Share (1.0.3):
-    - FBSDKShareKit (~> 5.0)
+  - react-native-fbsdk/Share (1.0.4):
+    - FBSDKShareKit (~> 5.5)
     - React
   - react-native-image-picker (0.28.1):
     - React
@@ -171,10 +160,10 @@ PODS:
     - React
   - RNVectorIcons (6.6.0):
     - React
-  - SDWebImage (5.0.6):
-    - SDWebImage/Core (= 5.0.6)
-  - SDWebImage/Core (5.0.6)
-  - SDWebImageWebPCoder (0.2.3):
+  - SDWebImage (5.1.1):
+    - SDWebImage/Core (= 5.1.1)
+  - SDWebImage/Core (5.1.1)
+  - SDWebImageWebPCoder (0.2.4):
     - libwebp (~> 1.0)
     - SDWebImage/Core (~> 5.0)
   - yoga (0.60.3.React)
@@ -308,15 +297,15 @@ SPEC CHECKSUMS:
   boost-for-react-native: 39c7adb57c4e60d6c5479dd8623128eb5b3f0f2c
   BVLinearGradient: e3aad03778a456d77928f594a649e96995f1c872
   DoubleConversion: 5805e889d232975c086db112ece9ed034df7a0b2
-  FBSDKCoreKit: 3e41c402eb64ea7799c71833ff9e5690f27b9c42
-  FBSDKLoginKit: a88f36da648e4c5d60eb261c63eac067abb97130
-  FBSDKShareKit: 8695bbb97c18a381bbf2851a3f24f95a59121b82
+  FBSDKCoreKit: d6655a343868d4bb5c29a60859bab07c3be14a0b
+  FBSDKLoginKit: c5a623de88a6b0cda35b35582921f6cec2efcc36
+  FBSDKShareKit: 0d8c4cfd5c1f185d5f9c26d79758b141086e1251
   Folly: 30e7936e1c45c08d884aa59369ed951a8e68cf51
   glog: 1f3da668190260b06b429bb211bfbee5cd790c28
   GoogleSignIn: 7ff245e1a7b26d379099d3243a562f5747e23d39
   GoogleToolboxForMac: b3553629623a3b1bff17f555e736cd5a6d95ad55
   GTMSessionFetcher: 61bb0f61a4cb560030f1222021178008a5727a23
-  libwebp: b068a3bd7c45f7460f6715be7bed1a18fd5d6b48
+  libwebp: 057912d6d0abfb6357d8bb05c0ea470301f5d61e
   OneSignal: 8fb749fa07f88006403c9b659a570fb7fb74519a
   React: ac23e9cc8d2d4cfe9b536b5cc0c32d19b9937bcf
   React-Core: 84de3cf80e31f0267c5ce0b5b482d59ce30a8a57
@@ -327,7 +316,7 @@ SPEC CHECKSUMS:
   React-jsiexecutor: d9023c5c199114d2b6f38ec861a4d923c73d0735
   React-jsinspector: 817b64f3c8a807f09d78620f4f505868d89b26f3
   react-native-contacts: a311f1e1536a6b037c5bf688e7979c26a865aba8
-  react-native-fbsdk: 7bde3b84fc093d2c5e7fdccea03fe8fa9f112834
+  react-native-fbsdk: 45e28bbab3e905cbc635c0bdd3444b372e933ae9
   react-native-image-picker: fd93361c666f397bdf72f9c6c23f13d2685b9173
   react-native-onesignal: 93d50629a3f38df9df81178280ce7e7da6c29f05
   react-native-webview: 30d530721a32b97b48bd4de131d0a03c0cbf8277
@@ -348,8 +337,8 @@ SPEC CHECKSUMS:
   RNGoogleSignin: d030c6c6591db24c3cee649f64c7babf0a1699a0
   RNReanimated: 7a52c90473b5e81c13408d40d797b98387eaddde
   RNVectorIcons: 0bb4def82230be1333ddaeee9fcba45f0b288ed4
-  SDWebImage: 920f1a2ff1ca8296ad34f6e0510a1ef1d70ac965
-  SDWebImageWebPCoder: 7568737603c50f6237850afedd7e9e28e5917e6b
+  SDWebImage: 96d7f03415ccb28d299d765f93557ff8a617abd8
+  SDWebImageWebPCoder: cc72085bb20368b2f8dbb21b7e355c667e1309b7
   yoga: 843fe25849b56131275bf3e5da2c468e96f68aff
 
 PODFILE CHECKSUM: e70f230b6331cba94e84aa1ed04883b868b3b23c
