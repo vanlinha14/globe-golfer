@@ -98,26 +98,26 @@ PODS:
   - React-jsinspector (0.60.3)
   - react-native-contacts (5.0.2):
     - React
-  - react-native-fbsdk (1.0.4):
+  - react-native-fbsdk (1.0.1):
     - React
-    - react-native-fbsdk/Core (= 1.0.4)
-    - react-native-fbsdk/Login (= 1.0.4)
-    - react-native-fbsdk/Share (= 1.0.4)
-  - react-native-fbsdk/Core (1.0.4):
-    - FBSDKCoreKit (~> 5.5)
+    - react-native-fbsdk/Core (= 1.0.1)
+    - react-native-fbsdk/Login (= 1.0.1)
+    - react-native-fbsdk/Share (= 1.0.1)
+  - react-native-fbsdk/Core (1.0.1):
+    - FBSDKCoreKit (~> 5.0)
     - React
-  - react-native-fbsdk/Login (1.0.4):
-    - FBSDKLoginKit (~> 5.5)
+  - react-native-fbsdk/Login (1.0.1):
+    - FBSDKLoginKit (~> 5.0)
     - React
-  - react-native-fbsdk/Share (1.0.4):
-    - FBSDKShareKit (~> 5.5)
+  - react-native-fbsdk/Share (1.0.1):
+    - FBSDKShareKit (~> 5.0)
     - React
   - react-native-image-picker (0.28.1):
     - React
   - react-native-onesignal (3.3.2):
     - OneSignal (= 2.10.1)
     - React (< 1.0.0, >= 0.13.0)
-  - react-native-webview (6.6.0):
+  - react-native-webview (6.9.0):
     - React
   - React-RCTActionSheet (0.60.3):
     - React-Core (= 0.60.3)
@@ -143,7 +143,7 @@ PODS:
   - React-RCTWebSocket (0.60.3):
     - React-Core (= 0.60.3)
     - React-fishhook (= 0.60.3)
-  - ReactNativePermissions (1.1.1):
+  - ReactNativePermissions (1.2.0):
     - React
   - RNCAsyncStorage (1.6.1):
     - React
@@ -156,7 +156,9 @@ PODS:
   - RNGoogleSignin (2.0.0):
     - GoogleSignIn (~> 4.4.0)
     - React
-  - RNReanimated (1.1.0):
+  - RNReanimated (1.2.0):
+    - React
+  - RNShare (2.0.0):
     - React
   - RNVectorIcons (6.6.0):
     - React
@@ -204,6 +206,7 @@ DEPENDENCIES:
   - RNGestureHandler (from `../node_modules/react-native-gesture-handler`)
   - RNGoogleSignin (from `../node_modules/react-native-google-signin`)
   - RNReanimated (from `../node_modules/react-native-reanimated`)
+  - RNShare (from `../node_modules/react-native-share`)
   - RNVectorIcons (from `../node_modules/react-native-vector-icons`)
   - yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
@@ -288,6 +291,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-google-signin"
   RNReanimated:
     :path: "../node_modules/react-native-reanimated"
+  RNShare:
+    :path: "../node_modules/react-native-share"
   RNVectorIcons:
     :path: "../node_modules/react-native-vector-icons"
   yoga:
@@ -315,11 +320,11 @@ SPEC CHECKSUMS:
   React-jsi: c2b6e57836bcae2677a036384111dc2c58e94369
   React-jsiexecutor: d9023c5c199114d2b6f38ec861a4d923c73d0735
   React-jsinspector: 817b64f3c8a807f09d78620f4f505868d89b26f3
-  react-native-contacts: a311f1e1536a6b037c5bf688e7979c26a865aba8
-  react-native-fbsdk: 45e28bbab3e905cbc635c0bdd3444b372e933ae9
+  react-native-contacts: b08f96846ebd82f16c92c039b0da7a379067498a
+  react-native-fbsdk: 080f3bb23513c5b59b6528543206fe0d1436bb7e
   react-native-image-picker: fd93361c666f397bdf72f9c6c23f13d2685b9173
-  react-native-onesignal: 93d50629a3f38df9df81178280ce7e7da6c29f05
-  react-native-webview: 30d530721a32b97b48bd4de131d0a03c0cbf8277
+  react-native-onesignal: 8958311abbd9125f26e600914e48833b57321cbf
+  react-native-webview: 2d8de2be422f0f8b9ba38db3f013f9ebfdb9b78f
   React-RCTActionSheet: 9c42321fd5652515d706dd722c5a10b1970d7ec8
   React-RCTAnimation: fabb087dde8964c9a835a7fabd0e7e5701787913
   React-RCTBlob: 93f34281d9c9c9e216b25824309eed9fe22a5d41
@@ -330,17 +335,18 @@ SPEC CHECKSUMS:
   React-RCTText: b026f8350c2cbe0daeb9880dd9c6e018fce0daf7
   React-RCTVibration: 5d9ed4a968e9d42880ddcc7c29bee3417c745408
   React-RCTWebSocket: 69d8565d66043f244b4129f3d7154c5689fb7d3e
-  ReactNativePermissions: 2e324bb3baf12702e3ec27f76c8ae1158fa69fc6
-  RNCAsyncStorage: 621bad7a889b5bf1583a52547f2dcd3a4d1ff15e
+  ReactNativePermissions: f3beb8871251594a8ea2c6b19a3f8252d5c7379d
+  RNCAsyncStorage: 2e2e3feb9bdadc752a026703d8c4065ca912e75a
   RNFastImage: 9b0c22643872bb7494c8d87bbbb66cc4c0d9e7a2
   RNGestureHandler: 5329a942fce3d41c68b84c2c2276ce06a696d8b0
   RNGoogleSignin: d030c6c6591db24c3cee649f64c7babf0a1699a0
-  RNReanimated: 7a52c90473b5e81c13408d40d797b98387eaddde
+  RNReanimated: 1b52415c4302f198cb581282a0166690bad62c43
+  RNShare: 8b171d4b43c1d886917fdd303bf7a4b87167b05c
   RNVectorIcons: 0bb4def82230be1333ddaeee9fcba45f0b288ed4
   SDWebImage: 96d7f03415ccb28d299d765f93557ff8a617abd8
   SDWebImageWebPCoder: cc72085bb20368b2f8dbb21b7e355c667e1309b7
   yoga: 843fe25849b56131275bf3e5da2c468e96f68aff
 
-PODFILE CHECKSUM: e70f230b6331cba94e84aa1ed04883b868b3b23c
+PODFILE CHECKSUM: 5b9fa0105fb6005703a34cb76e05484d2abeedba
 
 COCOAPODS: 1.7.5

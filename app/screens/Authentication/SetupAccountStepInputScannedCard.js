@@ -1,6 +1,5 @@
 import React, { PureComponent } from 'react'
-import { View, StyleSheet, Dimensions, TouchableOpacity } from 'react-native'
-import FastImage from 'react-native-fast-image'
+import { View, StyleSheet, Dimensions, TouchableOpacity, Image } from 'react-native'
 
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { getBottomSpace } from 'react-native-iphone-x-helper'
@@ -59,7 +58,7 @@ export default class SetupAccountStepInputScannedCard extends PureComponent {
 
   renderLogo() {
     return (
-      <FastImage
+      <Image
         style={{
           marginTop: 60,
           width: 120,
@@ -85,7 +84,7 @@ export default class SetupAccountStepInputScannedCard extends PureComponent {
     let source = this.state.cardSource ? this.state.cardSource : require('../../res/images/placeholder.png')
     return (
       <TouchableOpacity activeOpacity={0.7} onPress={this.requestSelectImage}>
-        <FastImage style={styles.centerImage} resizeMethod='resize' source={source}/>
+        <Image style={styles.centerImage} resizeMethod='resize' source={source}/>
         {this.renderImageInputHint()}
       </TouchableOpacity>
     )

@@ -5,6 +5,7 @@ import Icon from 'react-native-vector-icons/Ionicons'
 import { useNavigation } from 'react-navigation-hooks'
 import FlexSpacing from './FlexSpacing'
 import Toggler from '@components/Toggler';
+import { shareGG } from '../../../utils'
 
 const HeaderIcon = React.memo(({name, action}) => (
   <Icon 
@@ -20,7 +21,7 @@ const Header = React.memo(({isOn, onViewModeChanged}) => {
   const { goBack, navigate } = useNavigation()
 
   const onGoToInvite = () => {
-    navigate('Invite')
+    shareGG()
   }
 
   const onGoToSetting = () => {

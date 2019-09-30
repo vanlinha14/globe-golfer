@@ -4,9 +4,9 @@ import {
   StyleSheet, 
   TouchableOpacity,
   ScrollView,
-  SafeAreaView
+  SafeAreaView,
+  Image
 } from 'react-native'
-import FastImage from 'react-native-fast-image'
 
 import { GoogleSignin } from 'react-native-google-signin'
 import { LoginManager, AccessToken } from "react-native-fbsdk"
@@ -72,7 +72,7 @@ class Login extends PureComponent {
 
   renderLogo() {
     return (
-      <FastImage
+      <Image
         style={{
           marginTop: 20,
           width: 120,
@@ -108,7 +108,7 @@ class Login extends PureComponent {
     return this.renderSocialButton(
       true,
       Theme.mainBackground,
-      <FastImage 
+      <Image 
         style={[styles.socialIcon, { width: 30, height: 30 }]} 
         source={require('../../res/images/ic_google.png')}
       />,

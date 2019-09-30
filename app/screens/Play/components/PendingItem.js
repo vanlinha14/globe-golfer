@@ -1,6 +1,5 @@
 import React from 'react'
 import { View, Image, TouchableOpacity } from 'react-native'
-// import FastImage from 'react-native-fast-image'
 
 import { useNavigation } from 'react-navigation-hooks';
 import DGText from '../../../components/DGText';

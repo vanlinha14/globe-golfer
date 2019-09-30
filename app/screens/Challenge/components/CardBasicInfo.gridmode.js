@@ -1,6 +1,5 @@
 import React from 'react'
-import { View, Dimensions, TouchableOpacity } from 'react-native'
-import FastImage from 'react-native-fast-image'
+import { View, Dimensions, TouchableOpacity, Image } from 'react-native'
 
 import DGText from '@components/DGText'
 import CardRatingBar from './CardRatingBar'
@@ -17,7 +16,7 @@ const CardBasicInfo = React.memo(({ index, avatar, name, location, rating, onPre
       activeOpacity={0.7}
       onPress={() => { onPress(index) }}
     >
-      <FastImage 
+      <Image 
         style={{ 
           width: windowWidth / 2 - 40, 
           height: windowWidth / 2 - 40,

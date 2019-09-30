@@ -1,9 +1,9 @@
 import React, { PureComponent } from 'react'
 import { 
   View, 
-  StyleSheet
+  StyleSheet,
+  Image
 } from 'react-native'
-import FastImage from 'react-native-fast-image'
 import { connect } from 'react-redux'
 import OneSignal from 'react-native-onesignal'
 
@@ -12,9 +12,10 @@ import BaseComponent from '../../components/BaseComponent'
 import { useNavigation } from 'react-navigation-hooks';
 import Header from './components/Header'
 import { getProfile } from '../../actions/getProfile';
+import { shareGG } from '../../utils'
 
 const Logo = React.memo(() => (
-  <FastImage
+  <Image
     style={[
       styles.logo,
       {
@@ -47,7 +48,7 @@ const Body = React.memo(() => {
   }
 
   const onInvitePress = () => {
-    navigate("Invite")
+    shareGG()
   }
 
   const onPremiumPress = () => {

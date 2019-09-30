@@ -2,8 +2,8 @@ import React from 'react'
 import RN, {
   Dimensions,
   View,
+  Image
 } from 'react-native'
-import FastImage from 'react-native-fast-image'
 
 import Carousel, { Pagination } from 'react-native-snap-carousel'
 import DGText from './DGText'

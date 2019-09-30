@@ -1,6 +1,7 @@
 import { INPUT_STATUS } from "../components/DGInput"
 import { Alert } from 'react-native'
 import Strings from '../res/Strings'
+import Share from 'react-native-share'
 
 export function isValidEmailFormat(text) {
   return /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(text)
@@ -38,4 +39,13 @@ export function showErrorAlertWithCallbackAction(message, action) {
     [ { text: "OK", onPress: action } ], 
     { onDismiss: action }
   )
+}
+
+export function shareGG() {
+  Share.open({
+    title: 'Share Global Golfer',
+    message: 'Share Global Golfer to your friend!',
+    showAppsToView: true,
+    subject: 'Share Global Golfer to your friend!'
+  });
 }

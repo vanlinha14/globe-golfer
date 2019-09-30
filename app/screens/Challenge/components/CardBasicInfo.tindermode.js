@@ -1,6 +1,5 @@
 import React from 'react'
-import { View, Dimensions } from 'react-native'
-import FastImage from 'react-native-fast-image'
+import { View, Dimensions, Image } from 'react-native'
 
 import DGText from '@components/DGText'
 import CardRatingBar from './CardRatingBar'
@@ -12,7 +11,7 @@ const CardBasicInfo = React.memo(({ avatar, name, location, rating }) => {
   const avatarSource = avatar && avatar.startsWith("http") ? { uri: avatar } : require('../../../res/images/golfer_placeholder.png')
   return (
     <View style={{ alignItems: 'center', marginTop: 20 }}>
-      <FastImage 
+      <Image 
         style={{ 
           width: windowWidth - 80, 
           height: windowWidth - 80,

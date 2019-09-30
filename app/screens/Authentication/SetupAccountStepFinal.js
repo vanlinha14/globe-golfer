@@ -1,6 +1,5 @@
 import React, { PureComponent } from 'react'
-import { View, StyleSheet } from 'react-native'
-import FastImage from 'react-native-fast-image'
+import { View, StyleSheet, Image } from 'react-native'
 
 import { getBottomSpace } from 'react-native-iphone-x-helper'
 
@@ -27,7 +26,7 @@ export default class SetupAccountStepFinal extends PureComponent {
 
   renderLogo() {
     return (
-      <FastImage
+      <Image
         style={{
           marginTop: 60,
           width: 120,

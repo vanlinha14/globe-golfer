@@ -1,6 +1,5 @@
 import React, { PureComponent } from 'react'
-import { View, Dimensions } from 'react-native'
-import FastImage from 'react-native-fast-image'
+import { View, Dimensions, Image } from 'react-native'
 
 import { TabView, TabBar, SceneMap } from 'react-native-tab-view'
 
@@ -72,7 +71,7 @@ export default class Main extends PureComponent {
     }
     return (
       <View style={{ height: 44, width: 44, justifyContent: 'center' }}>
-        <FastImage
+        <Image
           style={iconStyle}
           source={require('./res/images/ic_profile_selected.png')}
         />

@@ -9,20 +9,20 @@ export default class Authentication extends PureComponent {
 
   constructor(props) {
     super(props)
-    // AsyncStorage.getItem(ACCESS_TOKEN_STORE_KEY).then(token => {
-    //   if (token) {
-    //     Api.instance().setAccessToken(token)
-    //     props.navigation.replace("Main")    
-    //   }
-    //   else {
-    //     props.navigation.replace("Register")
-    //   }
-    // })
-    // .catch(() => {
-    //   props.navigation.replace("Register")
-    // })
+    AsyncStorage.getItem(ACCESS_TOKEN_STORE_KEY).then(token => {
+      if (token) {
+        Api.instance().setAccessToken(token)
+        props.navigation.replace("Main")    
+      }
+      else {
+        props.navigation.replace("Register")
+      }
+    })
+    .catch(() => {
+      props.navigation.replace("Register")
+    })
 
-    props.navigation.replace("Register")
+    // props.navigation.replace("Register")
   }
 
   render() {

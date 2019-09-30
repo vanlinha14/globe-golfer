@@ -4,11 +4,10 @@ import {
   Animated,
   StyleSheet, 
   Dimensions,
-  TouchableOpacity
+  TouchableOpacity,
+  Image
 } from 'react-native'
 import Carousel, { Pagination } from 'react-native-snap-carousel'
-import FastImage from 'react-native-fast-image'
-
 
 import DGText from '../../components/DGText'
 import Theme from '../../res/Theme';
@@ -52,7 +51,7 @@ export default class MenuBlock extends PureComponent {
         height: itemWidth,
         justifyContent: 'center'
       }} activeOpacity={0.7} onPress={item.onPress}>
-        <FastImage
+        <Image
           style={{
             position: 'absolute',
             top: 8,

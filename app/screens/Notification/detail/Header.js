@@ -6,6 +6,7 @@ import { useNavigation } from 'react-navigation-hooks'
 import DGText from '../../../components/DGText';
 import Theme from '../../../res/Theme'
 import FlexSpacing from '../components/FlexSpacing';
+import { shareGG } from '../../../utils';
 
 const HeaderIcon = React.memo(({name, action}) => (
   <Icon 
@@ -42,7 +43,7 @@ const Header = React.memo(({title}) => {
   }
 
   const onGoToInvite = () => {
-    navigate('Invite')
+    shareGG()
   }
 
   const onGoToSetting = () => {

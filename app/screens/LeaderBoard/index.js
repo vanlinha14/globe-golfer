@@ -1,10 +1,8 @@
 import React, { PureComponent } from 'react'
-import { ScrollView, View, TouchableOpacity, ActivityIndicator } from 'react-native'
+import { ScrollView, View, TouchableOpacity, ActivityIndicator, Image } from 'react-native'
 import { connect } from 'react-redux'
 
 import Theme from '../../res/Theme'
-
-import FastImage from 'react-native-fast-image'
 
 import Header from './components/Header'
 import BaseComponent from '../../components/BaseComponent';
@@ -42,7 +40,7 @@ const BoardHeader = React.memo(({title, isExpanded, requestToggleExpand}) => {
       paddingHorizontal: 16,
       paddingVertical:12
       }} activeOpacity={0.7} onPress={requestToggleExpand}>
-      <FastImage
+      <Image
         style={{
           width: 30, 
           height: 30, 
