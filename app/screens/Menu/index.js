@@ -13,6 +13,7 @@ import { useNavigation } from 'react-navigation-hooks';
 import Header from './components/Header'
 import { getProfile } from '../../actions/getProfile';
 import { shareGG } from '../../utils'
+import { getNewNotifications, getHistoryNotifications } from '../../actions/getNotifications'
 
 const Logo = React.memo(() => (
   <Image
@@ -76,6 +77,7 @@ class Menu extends PureComponent {
 
     OneSignal.init("316ed61c-0349-4eaf-aa5c-634a7bfad659");
     OneSignal.inFocusDisplaying(2)
+    OneSignal.addEventListener('received', this.onNotiReceived);
   }
 
   componentDidMount() {
@@ -86,6 +88,11 @@ class Menu extends PureComponent {
     if (nextProps.user && nextProps.user.id) {
       OneSignal.sendTag("user_id", nextProps.user.id + "")
     }
+  }
+
+  onNotiReceived = () => {
+    this.props.getNewNotifications(0)
+    this.props.getHistoryNotifications(0)
   }
 
   render() {
@@ -129,7 +136,9 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = (dispatch) => ({
-  getProfile: () => dispatch(getProfile())
+  getProfile: () => dispatch(getProfile()),
+  getNewNotifications: (tag) => dispatch(getNewNotifications(tag)),
+  getHistoryNotifications: (tag) => dispatch(getHistoryNotifications(tag))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Menu)

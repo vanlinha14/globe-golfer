@@ -70,6 +70,8 @@ const MessageItem = React.memo(({item, currentTag}) => {
     navigate("NotificationDetail", { notification: item, tag: currentTag })
   }
 
+  const avatarSource = item.avatar ? {uri: item.avatar} : require('../../res/images/golfer_placeholder.png')
+
   return (
     <TouchableOpacity 
       style={{ 
@@ -86,9 +88,10 @@ const MessageItem = React.memo(({item, currentTag}) => {
         style={{
           width: 60,
           height: 60,
-          borderRadius: 30
+          borderRadius: 30,
+          backgroundColor: Theme.buttonPrimary
         }}
-        source={{uri: item.avatar}}
+        source={avatarSource}
       />
       <View style={{
         flex: 1,
