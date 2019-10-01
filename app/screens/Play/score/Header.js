@@ -31,12 +31,11 @@ const Title = React.memo(({title}) => {
   )
 })
 
-const Header = React.memo(({onRequestSaveScoreCard}) => {
-
-  const { goBack, navigate } = useNavigation()
-
+const Header = React.memo(({onRequestGoBack, onRequestSaveScoreCard}) => {
   const onGoBack = () => {
-    goBack()
+    if (onRequestGoBack) {
+      onRequestGoBack()
+    }
   }
 
   const onGoToSetting = () => {

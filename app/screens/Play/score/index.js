@@ -1,10 +1,14 @@
 import React from 'react'
-import { View, TouchableOpacity, Dimensions, TextInput, SafeAreaView, ScrollView } from 'react-native'
+import { View, Alert, Dimensions, TextInput, SafeAreaView, ScrollView } from 'react-native'
 import lodash from 'lodash';
 import Header from './Header';
 import DGText from '../../../components/DGText';
 import Theme from '../../../res/Theme';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import Strings from '../../../res/Strings';
+import { getPendingMatches } from '../../../actions/getPendingMatches';
+import { getPlayedMatches } from '../../../actions/getPlayedMatches';
+import { connect } from 'react-redux'
 
 const Input = React.memo(({value, editable, backgroundColor, color, onValueChange}) => {
   return (
@@ -147,8 +151,30 @@ export default class ScoreCard extends React.PureComponent {
       this.props.navigation.navigate("Final", {game: this.gameResult, data: gameData})
     }
     else {
-      alert('You are not finish the game!')
+      Alert.alert(Strings.appName, 'You are not finish the game!')
     }
+  }
+
+  onRequestGoBack = () => {
+    Alert.alert(
+      Strings.appName, 
+      'Are you sure to quit the game. You will not able to play this game anymore!',
+      [
+        {
+          text: "Yes",
+          style: 'default',
+          onPress: () => {
+            this.props.getPendingMatches()
+            this.props.getPlayedMatches()
+            this.props.navigation.popToTop()
+          }
+        },
+        {
+          text: "No",
+          style: 'cancel'
+        }
+      ]
+    )
   }
 
   render() {
@@ -156,7 +182,10 @@ export default class ScoreCard extends React.PureComponent {
     const gamedata = gameInfo.data.filter(i => i.hole >= gameInfo.start && i.hole < (gameInfo.start + gameInfo.count))
     return (
       <SafeAreaView style={{flex: 1, backgroundColor: Theme.mainBackground}}>
-        <Header onRequestSaveScoreCard={this.onRequestSaveScoreCard}/>
+        <Header 
+          onRequestGoBack={this.onRequestGoBack}
+          onRequestSaveScoreCard={this.onRequestSaveScoreCard}
+        />
         <GameHeader />
         <KeyboardAwareScrollView style={{flex: 1}}>
           <View style={{ minHeight: Dimensions.get('window').height }}>
@@ -169,3 +198,13 @@ export default class ScoreCard extends React.PureComponent {
     )
   }
 }
+
+
+const mapStateToProps = () => ({})
+
+const mapDispatchToProps = (dispatch) => ({
+  getPendingMatches: () => dispatch(getPendingMatches()),
+  getPlayedMatches: () => dispatch(getPlayedMatches())
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(ScoreCard)

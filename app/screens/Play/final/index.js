@@ -8,18 +8,10 @@ import Header from '../components/Header';
 import PendingItem from '../components/PendingItem'
 import Theme from '../../../res/Theme';
 import MatchInfo from './MatchInfo'
-import CurrentConfiguration from './CurrentConfiguration'
-import { useNavigation } from 'react-navigation-hooks';
 import BaseComponent from '../../../components/BaseComponent'
 import Api from '../../../api'
 import { getPendingMatches } from '../../../actions/getPendingMatches'
 import { getPlayedMatches } from '../../../actions/getPlayedMatches'
-
-// const COURSES = [
-//   "La vallée",
-//   "La forêt",
-//   "Les coteaux"
-// ]
 
 const SelectItem = React.memo(({index, content, onPress}) => {
 
@@ -38,74 +30,6 @@ const SelectItem = React.memo(({index, content, onPress}) => {
     }} activeOpacity={0.7} onPress={__onPress}>
       <DGText style={{ color: Theme.textWhite }} >{content}</DGText>
     </TouchableOpacity>
-  )
-})
-
-const GameConfiguration = React.memo(({challengeId, userId, fromId, toId, game, course, gameMode, courses, onGameSelected, onCourseSelected}) => {
-
-  const { navigate } = useNavigation()
-
-  const gotoScoreCard = () => {
-    Api.instance().getMatchInfo(63).then(res => {
-      const objToSend = {
-        info: res, 
-        id: 63,
-        youId: userId,
-        himId: userId == fromId ? toId : fromId
-      }
-
-      navigate("ScoreCard", objToSend)
-    })
-    // Api.instance().createMatch(game.id, course.id, challengeId)
-    // .then(res => {
-    //   // alert(JSON.stringify(res))
-    //   navigate("ScoreCard")
-    // })
-    // .catch(ex => {
-    //   alert(JSON.stringify(ex))
-    // })
-  }
-
-  let title = undefined
-  if (game === undefined) {
-    title = "Select your Game"
-  } else if (course === undefined) {
-    title = "Select your Course"
-  }
-
-  let content = undefined
-  if (game === undefined) {
-    if (Array.isArray(gameMode)) {
-      content = gameMode.map((i, index) => <SelectItem 
-        key={`game-item-${index}`} 
-        index={index}
-        content={i.content}
-        onPress={onGameSelected} 
-      />)
-    }
-    else {
-      <ActivityIndicator />
-    }
-  }
-  else if (course === undefined) {
-    content = courses.map((i, index) => <SelectItem 
-      key={`game-item-${index}`} 
-      index={index}
-      content={i.name} 
-      onPress={onCourseSelected} 
-    />)
-  } else {
-    content = <SelectItem 
-      content={"Edit your scorecard"} 
-      onPress={gotoScoreCard} 
-    />
-  }
-
-  return (
-    <View style={{ justifyContent: 'center', alignItems: 'center', marginTop: 24 }}>
-      <DGText style={{ fontSize: 20, color: Theme.textWhite, marginBottom: 20 }} >{title}</DGText>
-      {content}
-    </View>
   )
 })
 
