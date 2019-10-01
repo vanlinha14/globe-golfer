@@ -12,6 +12,7 @@ import CurrentConfiguration from './CurrentConfiguration'
 import { useNavigation } from 'react-navigation-hooks';
 import BaseComponent from '../../../components/BaseComponent'
 import Api from '../../../api'
+import LoadingModal from '../../../components/LoadingModal'
 
 // const COURSES = [
 //   "La vallée",
@@ -39,11 +40,25 @@ const SelectItem = React.memo(({index, content, onPress}) => {
   )
 })
 
-const GameConfiguration = React.memo(({gameData, challengeId, userId, fromId, toId, game, course, gameMode, courses, onGameSelected, onCourseSelected}) => {
-
-  const { navigate } = useNavigation()
+const GameConfiguration = React.memo(({
+  gameData, 
+  challengeId, 
+  userId, 
+  fromId, 
+  toId, 
+  game, 
+  course, 
+  gameMode, 
+  courses, 
+  onGameSelected, 
+  onCourseSelected,
+  onBeginGotoScoreCard,
+  onEndGotoScoreCard
+}) => {
 
   const gotoScoreCard = () => {
+    onBeginGotoScoreCard();
+
     Api.instance().createMatch(game.id, course.id, challengeId)
     .then(gameIdInfo => {
       Api.instance().getMatchInfo(gameIdInfo.matchId).then(res => {
@@ -55,7 +70,7 @@ const GameConfiguration = React.memo(({gameData, challengeId, userId, fromId, to
           himId: userId == fromId ? toId : fromId
         }
   
-        navigate("ScoreCard", objToSend)
+        onEndGotoScoreCard(objToSend)
       })
     })
   }
@@ -112,7 +127,8 @@ class PlayConfiguration extends React.PureComponent {
   state = {
     game: undefined,
     course: undefined,
-    courses: []
+    courses: [],
+    loading: false
   }
 
   componentDidMount() {
@@ -128,6 +144,20 @@ class PlayConfiguration extends React.PureComponent {
 
   onCourseSelected = (index) => {
     this.setState({ course: this.state.courses[index] })
+  }
+
+  onBeginGotoScoreCard = () => {
+    this.setState({
+      loading: true
+    })
+  }
+
+  onEndGotoScoreCard = (objToSend) => {
+    this.setState({
+      loading: false
+    }, () => {
+      this.props.navigation.navigate("ScoreCard", objToSend)
+    })
   }
 
   render() {
@@ -156,8 +186,11 @@ class PlayConfiguration extends React.PureComponent {
               gameMode={this.props.gameModeData.data}
               onGameSelected={this.onGameSelected}
               onCourseSelected={this.onCourseSelected}  
+              onBeginGotoScoreCard={this.onBeginGotoScoreCard}
+              onEndGotoScoreCard={this.onEndGotoScoreCard}
             />
           </View>
+          <LoadingModal visible={this.state.loading} />
         </DialogCombination>
       </BaseComponent>
     )

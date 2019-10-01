@@ -8,6 +8,8 @@ import Api from '../../../api';
 import { connect } from 'react-redux'
 import { getNewNotifications, getHistoryNotifications } from '../../../actions/getNotifications';
 import LoadingModal from '../../../components/LoadingModal';
+import { getPendingMatches } from '../../../actions/getPendingMatches';
+import { getPlayedMatches } from '../../../actions/getPlayedMatches';
 
 const Button = React.memo(({text, backgroundColor, onPress}) => {
   return (
@@ -81,6 +83,10 @@ class NotificationDetail extends React.PureComponent {
     const notification = this.props.navigation.getParam("notification")
     Api.instance().acceptChallenge(notification.challengeId).then(_ => {
       this.reloadAllMessage()
+      
+      this.props.getPendingMatches()
+      this.props.getPlayedMatches()
+
       this.setState(previousState => ({
         loading: false,
         messages: GiftedChat.append(previousState.messages, [{
@@ -160,7 +166,9 @@ const mapStateToProps = () => ({})
 
 const mapDispatchToProps = (dispatch) => ({
   getNewNotifications: (tag) => dispatch(getNewNotifications(tag)),
-  getHistoryNotifications: (tag) => dispatch(getHistoryNotifications(tag))
+  getHistoryNotifications: (tag) => dispatch(getHistoryNotifications(tag)),
+  getPendingMatches: () => dispatch(getPendingMatches()),
+  getPlayedMatches: () => dispatch(getPlayedMatches())
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(NotificationDetail)
