@@ -45,7 +45,6 @@ export function shareGG() {
   Share.open({
     title: 'Share Global Golfer',
     message: 'Share Global Golfer to your friend!',
-    showAppsToView: true,
-    subject: 'Share Global Golfer to your friend!'
+    url: 'http://www.google.com'
   });
 }
