@@ -14,6 +14,8 @@ import Header from './components/Header'
 import { getProfile } from '../../actions/getProfile';
 import { shareGG } from '../../utils'
 import { getNewNotifications, getHistoryNotifications } from '../../actions/getNotifications'
+import { getPendingMatches } from '../../actions/getPendingMatches'
+import { getPlayedMatches } from '../../actions/getPlayedMatches'
 
 const Logo = React.memo(() => (
   <Image
@@ -93,6 +95,9 @@ class Menu extends PureComponent {
   onNotiReceived = () => {
     this.props.getNewNotifications(0)
     this.props.getHistoryNotifications(0)
+
+    this.prop.getPendingMatches()
+    this.props.getPlayedMatches()
   }
 
   render() {
@@ -138,7 +143,9 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   getProfile: () => dispatch(getProfile()),
   getNewNotifications: (tag) => dispatch(getNewNotifications(tag)),
-  getHistoryNotifications: (tag) => dispatch(getHistoryNotifications(tag))
+  getHistoryNotifications: (tag) => dispatch(getHistoryNotifications(tag)),
+  getPendingMatches: () => dispatch(getPendingMatches()),
+  getPlayedMatches: () => dispatch(getPlayedMatches())
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Menu)
