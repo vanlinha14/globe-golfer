@@ -18,6 +18,7 @@ const LoadingModal = React.memo(({visible}) => {
         backgroundColor: 'white',
         width: 100,
         height: 100,
+        borderRadius: 8,
         justifyContent: 'center',
         alignItems: 'center',
       }}>
