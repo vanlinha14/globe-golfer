@@ -44,7 +44,16 @@ class Challenge extends PureComponent {
       return <GridMode data={this.props.challenges.data} onItemSelected={this.onCardBasicInfoPress} /> 
     }
     else {
-      return <TinderMode data={this.props.challenges.data} showingItemIndex={this.state.showingItemIndex} />
+      return (
+        <TinderMode 
+          data={this.props.challenges.data} 
+          showingItemIndex={this.state.showingItemIndex} 
+          onReload={() => {
+            this.setState({showingItemIndex: 0})
+            this.props.getChallenges()
+          }}
+        />
+      )
     }
   }
 

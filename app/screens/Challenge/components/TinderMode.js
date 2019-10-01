@@ -1,5 +1,5 @@
 import React from 'react'
-import { Dimensions } from 'react-native'
+import { Alert, Dimensions } from 'react-native'
 import Swiper from 'react-native-deck-swiper'
 import Card from './Card'
 import Strings from '../../../res/Strings'
@@ -7,21 +7,37 @@ import Api from '../../../api';
 
 const windowWidth = Dimensions.get('window').width
 
-const TinderMode = React.memo(({data, showingItemIndex}) => {
+const TinderMode = React.memo(({data, showingItemIndex, onReload}) => {
+
+  const swiper = React.useRef()
 
   const onSwipedRight = (index) => {
     const target = data[index]
     Api.instance().challengeTo(target.id);
   }
 
+  const onSwipedAll = () => {
+    Alert.alert(
+      Strings.appName, 
+      "You just explored all challengers. May someone just joined. Reload?",
+      [
+        {
+          text: "Reload",
+          onPress: onReload,
+          style: 'default'
+        }
+      ]
+    )
+  }
+
   return (
     <Swiper
+      ref={swiper}
       cards={data}
       disableTopSwipe={true}
       disableBottomSwipe={true}
       verticalSwipe={false}
       backgroundColor={Theme.mainBackground}
-      onSwipedLeft={() => { console.warn("swipe left")}}
       onSwipedRight={onSwipedRight}
       cardIndex={showingItemIndex}
       stackSize= {3}
@@ -58,6 +74,7 @@ const TinderMode = React.memo(({data, showingItemIndex}) => {
         }
       }}
       renderCard={(card) => <Card card={card} />}
+      onSwipedAll={onSwipedAll}
     />
   )
 })
