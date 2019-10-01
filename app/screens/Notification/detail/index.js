@@ -7,6 +7,7 @@ import DGText from '../../../components/DGText';
 import Api from '../../../api';
 import { connect } from 'react-redux'
 import { getNewNotifications, getHistoryNotifications } from '../../../actions/getNotifications';
+import LoadingModal from '../../../components/LoadingModal';
 
 const Button = React.memo(({text, backgroundColor, onPress}) => {
   return (
@@ -46,7 +47,8 @@ class NotificationDetail extends React.PureComponent {
 
     this.state = {
       header: notification.name,
-      messages: message
+      messages: message,
+      loading: false
     }
   }
 
@@ -72,10 +74,15 @@ class NotificationDetail extends React.PureComponent {
   }
 
   acceptMath = () => {
+    this.setState({
+      loading: true
+    })
+
     const notification = this.props.navigation.getParam("notification")
     Api.instance().acceptChallenge(notification.challengeId).then(_ => {
       this.reloadAllMessage()
       this.setState(previousState => ({
+        loading: false,
         messages: GiftedChat.append(previousState.messages, [{
           text: "You just accept the challenge!",
           user: {
@@ -87,10 +94,15 @@ class NotificationDetail extends React.PureComponent {
   }
 
   declineMatch = () => {
+    this.setState({
+      loading: true
+    })
+
     const notification = this.props.navigation.getParam("notification")
     Api.instance().declineChallenge(notification.challengeId).then(_ => {
       this.reloadAllMessage()
       this.setState(previousState => ({
+        loading: false,
         messages: GiftedChat.append(previousState.messages, [{
           text: "You was not accept the challenge!",
           user: {
@@ -138,14 +150,13 @@ class NotificationDetail extends React.PureComponent {
           renderInputToolbar={this.renderInput}
           renderAvatarOnTop={true}
         />
+        <LoadingModal visible={this.state.loading} />
       </SafeAreaView>
     )
   }
 }
 
-const mapStateToProps = (state) => ({
-  
-})
+const mapStateToProps = () => ({})
 
 const mapDispatchToProps = (dispatch) => ({
   getNewNotifications: (tag) => dispatch(getNewNotifications(tag)),

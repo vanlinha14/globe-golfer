@@ -8,7 +8,6 @@ import {
 
 import { GoogleSignin } from 'react-native-google-signin'
 import { LoginManager, AccessToken, GraphRequest, GraphRequestManager } from "react-native-fbsdk"
-import Modal from 'react-native-modal'
 import DGText from '../../components/DGText'
 import Strings from '../../res/Strings'
 import Theme from '../../res/Theme'
