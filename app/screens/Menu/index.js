@@ -96,7 +96,7 @@ class Menu extends PureComponent {
     this.props.getNewNotifications(0)
     this.props.getHistoryNotifications(0)
 
-    this.prop.getPendingMatches()
+    this.props.getPendingMatches()
     this.props.getPlayedMatches()
   }
 

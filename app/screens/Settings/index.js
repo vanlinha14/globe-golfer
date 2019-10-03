@@ -12,6 +12,7 @@ import SettingToggle from '../../components/SettingToggle'
 import SettingClickable from '../../components/SettingClickable'
 import SettingValueClickable from '../../components/SettingValueClickable'
 import SettingRange from '../../components/SettingRange'
+import LoadingModal from '../../components/LoadingModal'
 
 import Strings from '../../res/Strings'
 import Theme from '../../res/Theme'
@@ -25,12 +26,26 @@ import { updateProfile } from '../../actions/updateProfile';
 class Settings extends PureComponent {
   static navigationOptions = { header: null }
 
+  needUpdate = false
+
   constructor(props) {
     super(props)
 
     this.state = {
-      ...props.settings
+      settings: props.settings,
+      loading: false
     }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (this.needUpdate) {
+      this.setState({
+        settings: nextProps.settings,
+        loading: false
+      })
+    }
+    
+    this.needUpdate = false;
   }
 
   onRequestLogout = () => {
@@ -76,8 +91,13 @@ class Settings extends PureComponent {
             "%s km", 
             1, 
             100, 
-            this.state.distance,
-            (newValue) => this.setState({ distance: newValue })
+            this.state.settings.distance,
+            (newValue) => this.setState({ 
+              settings: {
+                ...this.state.settings,
+                distance: newValue 
+              } 
+            })
           )
         }
         {
@@ -85,8 +105,13 @@ class Settings extends PureComponent {
             Strings.settings.ageRange, 
             3, 
             99, 
-            [this.state.ageRange.min, this.state.ageRange.max],
-            (nmin, mmax) => this.setState({ ageRange: { min: nmin, max: mmax }}),
+            [this.state.settings.ageRange.min, this.state.settings.ageRange.max],
+            (nmin, mmax) => this.setState({ 
+              settings: {
+                ...this.state.settings,
+                ageRange: { min: nmin, max: mmax }
+              }
+            }),
             1
           )
         }
@@ -95,8 +120,13 @@ class Settings extends PureComponent {
             Strings.settings.indexRange, 
             -4.0, 
             54.0, 
-            [this.state.indexRange.min, this.state.indexRange.max],
-            (nmin, mmax) => this.setState({ indexRange: { min: nmin, max: mmax }}),
+            [this.state.settings.indexRange.min, this.state.settings.indexRange.max],
+            (nmin, mmax) => this.setState({ 
+              settings: {
+                ...this.state.settings,
+                indexRange: { min: nmin, max: mmax }
+              }
+            }),
             0.1
           )
         }
@@ -108,8 +138,14 @@ class Settings extends PureComponent {
     let showGG = this.renderToggleItem(
       Strings.settings.showMeOnGG.title, 
       Strings.settings.showMeOnGG.message,
-      this.state.showGG === 1,
-      () => { this.setState({ showGG: this.state.showGG === 1 ? 0 : 1 }) }
+      this.state.settings.showGG === 1,
+      () => { this.setState({ 
+        settings: {
+          ...this.state.settings,
+          showGG: this.state.settings.showGG === 1 ? 0 : 1 
+        }
+      }) 
+      }
     )
 
     return showGG
@@ -123,16 +159,28 @@ class Settings extends PureComponent {
           this.renderToggleItem(
             Strings.settings.notifications.messages,
             undefined,
-            this.state.message === 1,
-            () => { this.setState({ message: this.state.message === 1 ? 0 : 1 }) }
+            this.state.settings.message === 1,
+            () => { this.setState({ 
+              settings: {
+                ...this.state.settings,
+                message: this.state.settings.message === 1 ? 0 : 1 
+              }
+            }) 
+            }
           )
         }
         {
           this.renderToggleItem(
             Strings.settings.notifications.globeGolfer,
             undefined,
-            this.state.globegolfer === 1,
-            () => { this.setState({ globegolfer: this.state.globegolfer === 1 ? 0 : 1 }) }
+            this.state.settings.globegolfer === 1,
+            () => { this.setState({ 
+              settings: {
+                ...this.state.settings, 
+                globegolfer: this.state.settings.globegolfer === 1 ? 0 : 1  
+              }
+            }) 
+            }
           )
         }
       </View>
@@ -304,29 +352,35 @@ class Settings extends PureComponent {
 
   onApply = () => {
     const objToUpdate = {
-      distance: this.state.distance,
-      index_min: this.state.indexRange.min,
-      index_max: this.state.indexRange.max,
-      age_min: this.state.ageRange.min,
-      age_max: this.state.ageRange.max,
-      show_gg: this.state.showGG,
-      message: this.state.message,
-      globe_golfer: this.state.globegolfer
+      distance: this.state.settings.distance,
+      index_min: this.state.settings.indexRange.min,
+      index_max: this.state.settings.indexRange.max,
+      age_min: this.state.settings.ageRange.min,
+      age_max: this.state.settings.ageRange.max,
+      show_gg: this.state.settings.showGG,
+      message: this.state.settings.message,
+      globe_golfer: this.state.settings.globegolfer
     }
 
-    console.warn(this.state);
+    console.warn("ducgaogao: ", objToUpdate);
     
+    
+    this.setState({loading: true})
+    this.needUpdate = true
     this.props.updateProfile(objToUpdate)
   }
 
   render() {
-    var right;
-    if (!lodash.isEqual(this.state, this.props.settings)) {
-      var right = {
+    let right;
+    if (!lodash.isEqual(this.state.settings, this.props.settings)) {
+      right = {
         title: "Apply",
         onPress: this.onApply
       }
     }
+
+    console.warn("ducgao: ", right);
+    
 
     return (
       <BaseComponent toolbar={{
@@ -353,6 +407,7 @@ class Settings extends PureComponent {
           {this.renderLogoutBlock()}
           {this.renderSpacing(44)}
         </DialogCombination>
+        <LoadingModal  visible={this.state.loading} />
       </BaseComponent>
     )
   }
