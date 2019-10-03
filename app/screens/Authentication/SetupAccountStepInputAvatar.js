@@ -29,7 +29,15 @@ class SetupAccountStepInputAvatar extends PureComponent {
       this.props.navigation.navigate("SetupAccountStepFinal")
     }
     else if (authenData.isLoading == false && authenData.accessToken === null) {
-      showErrorAlert("Your input information to registration is not valid somewhere, please check and try again!")
+      if (RegistrationHelper.instance().facebookId) {
+        showErrorAlert("Your Facebook account is already registed or your input information to registration is not valid somewhere, please check and try again!")
+      }
+      else if (RegistrationHelper.instance().googleId) {
+        showErrorAlert("Your Google account is alread registed or your input information to registration is not valid somewhere, please check and try again!")
+      }
+      else {
+        showErrorAlert("Your email is already registed or your input information to registration is not valid somewhere, please check and try again!")
+      }
     }
   }
 

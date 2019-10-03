@@ -121,7 +121,7 @@ class RowItem extends React.PureComponent {
   }
 }
 
-export default class ScoreCard extends React.PureComponent {
+class ScoreCard extends React.PureComponent {
 
   gameResult = []
 
