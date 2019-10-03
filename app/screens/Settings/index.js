@@ -79,6 +79,7 @@ class Settings extends PureComponent {
 
   renderDiscoverBlock() {
     const user = this.props.user
+
     return (
       <View>
         {this.renderSectionTitle(Strings.settings.defaultSettings)}
@@ -365,7 +366,9 @@ class Settings extends PureComponent {
     console.warn("ducgaogao: ", objToUpdate);
     
     
-    this.setState({loading: true})
+    this.setState({
+      loading: true
+    })
     this.needUpdate = true
     this.props.updateProfile(objToUpdate)
   }
@@ -378,10 +381,7 @@ class Settings extends PureComponent {
         onPress: this.onApply
       }
     }
-
-    console.warn("ducgao: ", right);
     
-
     return (
       <BaseComponent toolbar={{
         title: Strings.settings.title,
@@ -407,7 +407,7 @@ class Settings extends PureComponent {
           {this.renderLogoutBlock()}
           {this.renderSpacing(44)}
         </DialogCombination>
-        <LoadingModal  visible={this.state.loading} />
+        <LoadingModal visible={this.state.loading} />
       </BaseComponent>
     )
   }

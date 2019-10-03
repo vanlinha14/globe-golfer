@@ -13,10 +13,19 @@ export default class SettingRange extends PureComponent {
   }
 
   componentDidMount() {
-    let value = this.props.value
+    const value = this.props.value
+
     this.setState({
-      left: value[0],
-      right: value[1]
+      left: parseInt(value[0]),
+      right: parseInt(value[1])
+    })
+  }
+
+  componentWillReceiveProps(nextProps) {
+    let value = nextProps.value
+    this.setState({
+      left: parseInt(value[0]),
+      right: parseInt(value[1])
     })
   }
 
