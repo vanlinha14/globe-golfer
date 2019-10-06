@@ -1,3 +1,5 @@
+import { GET_AVATAR } from "../Endpoints"
+
 export default class ProfileBinder {
   bind(input) {
     try {
@@ -7,7 +9,7 @@ export default class ProfileBinder {
       const index = user.p_index
       const fname = user.firstname
       const lname = user.lastname
-      const avatar = user.avatar
+      const avatar = user.avatar ? GET_AVATAR.replace("{id}", user.avatar) : null 
       const about = user.about
       const club = user.golfCourseName
       const clubId = user.golfCourseId
