@@ -80,6 +80,7 @@ class Menu extends PureComponent {
     OneSignal.init("316ed61c-0349-4eaf-aa5c-634a7bfad659");
     OneSignal.inFocusDisplaying(2)
     OneSignal.addEventListener('received', this.onNotiReceived);
+    OneSignal.addEventListener('opened', this.onOpened);
   }
 
   componentDidMount() {
@@ -98,6 +99,11 @@ class Menu extends PureComponent {
 
     this.props.getPendingMatches()
     this.props.getPlayedMatches()
+  }
+
+  onOpened = () => {
+    this.props.navigation.navigate('Notification')
+    alert("??")
   }
 
   render() {
