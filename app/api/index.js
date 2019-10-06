@@ -69,7 +69,8 @@ export default class Api extends Base {
       date_of_born: helper.birthDay,
       sex: helper.gender,
       p_index: helper.index,
-      golfCourseId: helper.club
+      golfCourseId: helper.club,
+      // avatar: helper.avatar.uri
     }
 
     var addition = {

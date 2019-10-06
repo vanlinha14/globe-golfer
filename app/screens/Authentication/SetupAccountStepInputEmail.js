@@ -48,7 +48,7 @@ export default class SetupAccountStepInputEmail extends PureComponent {
 
     RegistrationHelper.instance().setEmail(email)
     RegistrationHelper.instance().setPassword(password)
-    this.props.navigation.navigate("SetupAccountStepInputScannedCard")
+    this.props.navigation.navigate("SetupAccountStepInputLocation")
   }
 
   onRequestGoToTnC = () => {

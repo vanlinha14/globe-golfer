@@ -68,7 +68,8 @@ class SetupAccountStepInputAvatar extends PureComponent {
       } else if (response.customButton) {
         console.log('User tapped custom button: ', response.customButton);
       } else {
-        const source = { uri: 'data:image/jpeg;base64,' + response.data };
+        const imageBase64 = 'data:image/jpeg;base64,' + response.data
+        const source = { uri: imageBase64 };
         this.setState({
           avatarSource: source
         })

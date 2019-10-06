@@ -12,6 +12,7 @@ import BaseComponent from '../../../components/BaseComponent'
 import Api from '../../../api'
 import { getPendingMatches } from '../../../actions/getPendingMatches'
 import { getPlayedMatches } from '../../../actions/getPlayedMatches'
+import LoadingModal from '../../../components/LoadingModal'
 
 const SelectItem = React.memo(({index, content, onPress}) => {
 
@@ -84,10 +85,22 @@ const Result = React.memo(({gameResult}) => {
 
 class Final extends React.PureComponent {
 
+  state = {
+    loading: false
+  }
+
   onSign = () => {
+    this.setState({
+      loading: true
+    })
+
     const game = this.props.navigation.getParam("game")
     
     Api.instance().updateGameResult(game).then(_ => {
+      this.setState({
+        loading: false
+      })
+      
       this.props.getPendingMatches()
       this.props.getPlayedMatches()
 
@@ -110,6 +123,7 @@ class Final extends React.PureComponent {
             <SignButton onPress={this.onSign} />
           </View>
         </DialogCombination>
+        <LoadingModal visible={this.state.loading} />
       </BaseComponent>
     )
   }
