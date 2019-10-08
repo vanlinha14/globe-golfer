@@ -56,6 +56,7 @@ class NotificationDetail extends React.PureComponent {
 
   componentDidMount() {
     const notification = this.props.navigation.getParam("notification")
+    const tag = this.props.navigation.getParam('tag')
     Api.instance().updateNotificationStatus(notification.id).then(_ => {
       this.props.getNewNotifications(tag)
       this.props.getHistoryNotifications(tag)
@@ -119,13 +120,41 @@ class NotificationDetail extends React.PureComponent {
     })
   }
 
+  viewMatchResult = () => {
+    this.setState({
+      loading: true
+    })
+
+    const notification = this.props.navigation.getParam("notification")
+    Api.instance().getMatchResult(notification.id).then(data => {
+      this.setState({
+        loading: false
+      }, () => {
+        this.props.navigation.navigate("MatchResult", {data})
+      })
+    })
+  }
+
+  acceptMatchResult = () => {
+
+  }
+
   renderInput = () => {
     const notification = this.props.navigation.getParam("notification")
-    if (this.state.messages.length == 1 && (notification.typeMessage == 1)) {
+    if (this.state.messages.length == 1 && notification.typeMessage == 1) {
       return (
         <View style={{ flex: 1, flexDirection: 'row' }}>
           <Button text="Accept" backgroundColor={Theme.buttonPrimary} onPress={this.acceptMath}/>
           <Button text="Decline" backgroundColor={Theme.buttonSecondary} onPress={this.declineMatch}/>
+        </View>
+      )
+    }
+
+    if (notification.typeMessage == 26) {
+      return (
+        <View style={{ flex: 1, flexDirection: 'row' }}>
+          <Button text="View Result" backgroundColor={Theme.buttonPrimary} onPress={this.viewMatchResult}/>
+          <Button text="Accept" backgroundColor={Theme.buttonSecondary} onPress={this.acceptMatchResult}/>
         </View>
       )
     }
