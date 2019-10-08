@@ -45,6 +45,30 @@ export default class MenuBlock extends PureComponent {
   }
 
   renderMenuItem(item) {
+
+    let iconSource = null
+
+    switch (item.name) {
+      case "Challenge":
+        iconSource = require('../../res/images/ic_global_1.png')
+        break;
+      case "Invite a Friend":
+        iconSource = require('../../res/images/ic_global_2.png')
+        break;
+      case "Play":
+        iconSource = require('../../res/images/ic_global_3.png')
+        break;
+      case "Scores":
+        iconSource = require('../../res/images/ic_global_4.png')
+        break;
+      case "Premium":
+        iconSource = require('../../res/images/ic_global_1.png')
+        break;
+      default:
+        iconSource = require('../../res/images/ic_global.png')
+        break;
+    }
+
     return (
       <TouchableOpacity style={{ 
         width: itemWidth,
@@ -59,7 +83,9 @@ export default class MenuBlock extends PureComponent {
             width: itemWidth - 16,
             height: itemWidth - 16
           }}
-          source={require('../../res/images/ic_global.png')}
+          resizeMethod='resize'
+          resizeMode='contain'
+          source={iconSource}
         />
         <DGText style={{ 
           color: "white", 
