@@ -50,7 +50,8 @@ class NotificationDetail extends React.PureComponent {
     this.state = {
       header: notification.name,
       messages: message,
-      loading: false
+      loading: false,
+      showBottom: true
     }
   }
 
@@ -90,6 +91,7 @@ class NotificationDetail extends React.PureComponent {
 
       this.setState(previousState => ({
         loading: false,
+        showBottom: false,
         messages: GiftedChat.append(previousState.messages, [{
           text: "You just accept the challenge!",
           user: {
@@ -110,6 +112,7 @@ class NotificationDetail extends React.PureComponent {
       this.reloadAllMessage()
       this.setState(previousState => ({
         loading: false,
+        showBottom: false,
         messages: GiftedChat.append(previousState.messages, [{
           text: "You was not accept the challenge!",
           user: {
@@ -136,10 +139,33 @@ class NotificationDetail extends React.PureComponent {
   }
 
   acceptMatchResult = () => {
+    this.setState({
+      loading: true
+    })
+    
+    const notification = this.props.navigation.getParam("notification")
+    Api.instance().acceptMatchResult(notification.scheduleId).then(_ => {
+      this.props.getPendingMatches()
+      this.props.getPlayedMatches()
 
+      this.setState(previousState => ({
+        loading: false,
+        showBottom: false,
+        messages: GiftedChat.append(previousState.messages, [{
+          text: "You just accept the result!",
+          user: {
+            _id: 1,
+          }
+        }]),
+      }))
+    })
   }
 
   renderInput = () => {
+    if (this.state.showBottom == false) {
+      return null
+    }
+    
     const notification = this.props.navigation.getParam("notification")
     if (this.state.messages.length == 1 && notification.typeMessage == 1) {
       return (

@@ -14,6 +14,7 @@ export default class NotificationBinder {
         return {
           id: i.id,
           challengeId: i.challenge_id,
+          scheduleId: i.scheduleId,
           type: i.type,
           typeMessage: i.type_message,
           lastMessage: message[message.length - 1].trim(),
