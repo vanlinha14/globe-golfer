@@ -1,8 +1,10 @@
 import React, { PureComponent } from 'react'
 import { 
   View, 
+  TouchableWithoutFeedback,
   StyleSheet,
-  Image
+  Image,
+  Linking
 } from 'react-native'
 import { connect } from 'react-redux'
 import OneSignal from 'react-native-onesignal'
@@ -16,6 +18,8 @@ import { shareGG } from '../../utils'
 import { getNewNotifications, getHistoryNotifications } from '../../actions/getNotifications'
 import { getPendingMatches } from '../../actions/getPendingMatches'
 import { getPlayedMatches } from '../../actions/getPlayedMatches'
+import Api from '../../api'
+import { VIEW_ADS } from '../../api/Endpoints'
 
 const Logo = React.memo(() => (
   <Image
@@ -31,7 +35,32 @@ const Logo = React.memo(() => (
   />
 ))
 
-const Ads = React.memo(() => <View style={styles.ads} />)
+const Ads = React.memo(({ads}) => {
+  const renderContent = () => {
+    if (ads) {
+      return (
+        <Image 
+          style={{
+            width: 100,
+            height: 100,
+            borderRadius: 50
+          }}
+          resizeMethod='resize'
+          resizeMode='cover'
+          source={{uri: VIEW_ADS.replace("{image}", ads.image)}}
+        />
+      )
+    }
+  }
+
+  return (
+    <TouchableWithoutFeedback style={styles.ads} onPress={() => {ads && Linking.openURL(ads.link)}} >
+      <View style={styles.ads}>
+        {renderContent()}    
+      </View>
+    </TouchableWithoutFeedback>
+  )
+})
 
 const Body = React.memo(() => {
 
@@ -74,6 +103,10 @@ const Body = React.memo(() => {
 
 class Menu extends PureComponent {
 
+  state = {
+    adsImage: null
+  }
+
   constructor(props) {
     super(props)
 
@@ -85,6 +118,12 @@ class Menu extends PureComponent {
 
   componentDidMount() {
     this.props.getProfile()
+
+    Api.instance().getAds().then(res => {
+      this.setState({
+        adsImage: res
+      })
+    })
   }
 
   componentWillReceiveProps(nextProps) {
@@ -112,7 +151,7 @@ class Menu extends PureComponent {
         <Header />
         <Logo />
         <Body />
-        <Ads />
+        <Ads ads={this.state.adsImage} />
       </BaseComponent>
     )
   }
@@ -126,7 +165,9 @@ const styles = StyleSheet.create({
     height: '30%'
   },
   ads: {
-    height: '25%'
+    height: '25%',
+    justifyContent: 'center',
+    alignItems: 'center'
   },
   controllerBlock: {
     width: "30%",

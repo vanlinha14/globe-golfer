@@ -2,7 +2,7 @@ import Base from './Base'
 import { 
   DUMMY_MESSAGES,
 } from './DummyData'
-import { LOGIN, GET_COUNTRY, GET_REGION, GET_CLUB, REGISTER, GET_CHALLENGES, GET_PROFILE, GET_INTEREST, GET_NEW_NOTIFICATIONS, GET_HISTORY_NOTIFICATIONS, CHALLENGE_SOME_ONE, UPDATE_NOTIFICATION, GET_PENDING_MATCHES, ACCEPT_CHALLENGE, GET_RANKING, DECLINE_CHALLENGE, GET_FAVORITE_RANKING, GET_GAME_MODE, ADD_INTEREST, REMOVE_INTEREST, GET_CHAT_MATCHES, GET_CHAT_FRIENDS, CREATE_MATCH, GET_MATCH_INFO, UPDATE_MATCH_RESULT, GET_MATCH_RESULT, ACCEPT_MATCH_RESULT } from './Endpoints';
+import { LOGIN, GET_COUNTRY, GET_REGION, GET_CLUB, REGISTER, GET_CHALLENGES, GET_PROFILE, GET_INTEREST, GET_NEW_NOTIFICATIONS, GET_HISTORY_NOTIFICATIONS, CHALLENGE_SOME_ONE, UPDATE_NOTIFICATION, GET_PENDING_MATCHES, ACCEPT_CHALLENGE, GET_RANKING, DECLINE_CHALLENGE, GET_FAVORITE_RANKING, GET_GAME_MODE, ADD_INTEREST, REMOVE_INTEREST, GET_CHAT_MATCHES, GET_CHAT_FRIENDS, CREATE_MATCH, GET_MATCH_INFO, UPDATE_MATCH_RESULT, GET_MATCH_RESULT, ACCEPT_MATCH_RESULT, GET_ADS } from './Endpoints';
 import LoginBinder from './Binders/Login';
 import CountriesBinder from './Binders/CountriesBinder';
 import RegisterBinder from './Binders/RegisterBinder';
@@ -21,6 +21,7 @@ import MessageBinder from './Binders/MessageBinder';
 
 import {Clipboard} from 'react-native'
 import MatchResultBinder from './Binders/MatchResultBinder';
+import AdsBinder from './Binders/AdsBinder';
 
 export default class Api extends Base {
   static _instance = null
@@ -293,5 +294,9 @@ export default class Api extends Base {
   acceptMatchResult(scheduleId) {
     const callingApi = ACCEPT_MATCH_RESULT.replace("{id}", scheduleId)
     return this.callPost(callingApi)
+  }
+
+  getAds() {
+    return this.callGet(GET_ADS, new AdsBinder())
   }
 }

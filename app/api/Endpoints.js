@@ -45,3 +45,6 @@ export const CHAT_WS = BASE + "ws?access_token=434dd7ed8a7194bb30cc313a995c4a0c"
 
 export const GET_MATCH_RESULT = BASE + "authenticated/result/notification/{id}"
 export const ACCEPT_MATCH_RESULT = BASE + "authenticated/schedule/accept-result?id={id}&tag=1"
+
+export const GET_ADS = BASE + "authenticated/advertisement/type/2"
+export const VIEW_ADS = BASE + "authenticated/advertisement/image/{image}"
