@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		0A2BBFDF2C54DC9379DACCC9 /* libPods-GolfGlobal.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F506F5B19CA9CE589CF20B7A /* libPods-GolfGlobal.a */; };
 		0ED8BB7D22DF745D00D51605 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0ED8BB7C22DF745D00D51605 /* GoogleService-Info.plist */; };
+		0EF27184234D8E0500D17402 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0EF27183234D8E0500D17402 /* StoreKit.framework */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB11A68108700A75B9A /* LaunchScreen.xib */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
@@ -37,6 +38,7 @@
 		053A0530E2A54A98A32003B8 /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = SimpleLineIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/SimpleLineIcons.ttf"; sourceTree = "<group>"; };
 		0E197F19231F3FE3007A83F2 /* GolfGlobal.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = GolfGlobal.entitlements; path = GolfGlobal/GolfGlobal.entitlements; sourceTree = "<group>"; };
 		0ED8BB7C22DF745D00D51605 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		0EF27183234D8E0500D17402 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		13B07F961A680F5B00A75B9A /* GolfGlobal.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GolfGlobal.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = GolfGlobal/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = GolfGlobal/AppDelegate.m; sourceTree = "<group>"; };
@@ -81,6 +83,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0A2BBFDF2C54DC9379DACCC9 /* libPods-GolfGlobal.a in Frameworks */,
+				0EF27184234D8E0500D17402 /* StoreKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -122,6 +125,7 @@
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				0EF27183234D8E0500D17402 /* StoreKit.framework */,
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
 				ED2971642150620600B7C4FE /* JavaScriptCore.framework */,
 				F506F5B19CA9CE589CF20B7A /* libPods-GolfGlobal.a */,

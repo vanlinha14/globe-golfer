@@ -4,6 +4,7 @@ import android.app.Application;
 
 import com.facebook.react.PackageList;
 import com.facebook.react.ReactApplication;
+import com.dooboolab.RNIap.RNIapPackage;
 import cl.json.RNSharePackage;
 import com.geektime.rnonesignalandroid.ReactNativeOneSignalPackage;
 import com.BV.LinearGradient.LinearGradientPackage;

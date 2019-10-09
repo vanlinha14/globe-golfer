@@ -48,4 +48,6 @@ target 'GolfGlobal' do
 
   pod 'RNShare', :path => '../node_modules/react-native-share'
 
+  pod 'RNIap', :path => '../node_modules/react-native-iap'
+
 end

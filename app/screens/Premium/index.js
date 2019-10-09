@@ -1,28 +1,23 @@
 import React from 'react'
-import { View, Text, FlatList  } from 'react-native'
+import { View, ActivityIndicator, FlatList  } from 'react-native'
 import Theme from '../../res/Theme'
 import BaseComponent from '../../components/BaseComponent'
 import LoadingModal from '../../components/LoadingModal'
 import DGText from '../../components/DGText'
 import DGButton from '../../components/DGButtonV2'
-
-const DUMMY_DATA = [
-  {
-    id: 1,
-    title: "Subscription 6 months pack",
-    description: "Become Premium Golfer in 6 months. Get a lot of awesome features",
-    price: "$99.99"
-  },
-  {
-    id: 2,
-    title: "Subscription 1 year pack",
-    description: "Become Premium Golfer in a year. Get a lot of awesome features",
-    price: "$59.99"
-  }
-]
+import * as RNIap from 'react-native-iap'
 
 class Item extends React.PureComponent {
-  onRequestBuyItem = () => {}
+  
+  onRequestBuyItem = () => {
+    const productId = this.props.data.id
+    RNIap.requestSubscription(productId).then(result => {
+      alert(JSON.stringify(result))
+    })
+    .catch(error => {
+      alert("error: " + JSON.stringify(error))
+    })
+  }
 
   render() {
     return (
@@ -67,11 +62,51 @@ class Item extends React.PureComponent {
 class Premium extends React.PureComponent {
 
   state = {
-    loading: false
+    loading: false,
+    products: []
+  }
+
+  componentDidMount() {
+    RNIap.getProducts(["4213"]).then(products => {
+      this.setState({
+        products: products.map(p => ({
+          id: p.productId,
+          title: p.title,
+          description: p.description,
+          price: p.localizedPrice
+        }))
+      })
+    })
+    .catch(error => {
+      alert("error: " + JSON.stringify(error))
+    })
   }
 
   renderItem = ({item}) => {
     return <Item data={item} />
+  }
+
+  renderContent = () => {
+    if (this.state.products.length == 0) {
+      return (
+        <ActivityIndicator 
+          style={{
+            marginTop: 100
+          }}
+          size='large'
+          color={Theme.buttonPrimary}
+        />
+      )
+    }
+    else {
+      return (
+        <FlatList 
+          data={this.state.products}
+          renderItem={this.renderItem}
+          keyExtractor={(_, index) => `${index}`}
+        />
+      )
+    }
   }
 
   render() {
@@ -80,11 +115,7 @@ class Premium extends React.PureComponent {
         title: "Global Golfer Premium",
         onBack: this.props.navigation.goBack
       }}>
-        <FlatList 
-          data={DUMMY_DATA}
-          renderItem={this.renderItem}
-          keyExtractor={(_, index) => `${index}`}
-        />
+        {this.renderContent()}
         <LoadingModal visible={this.state.loading} />
       </BaseComponent>
     )
