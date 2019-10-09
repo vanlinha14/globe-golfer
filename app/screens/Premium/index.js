@@ -67,7 +67,7 @@ class Premium extends React.PureComponent {
   }
 
   componentDidMount() {
-    RNIap.getProducts(["4213"]).then(products => {
+    RNIap.getProducts(["4213", "4214"]).then(products => {
       this.setState({
         products: products.map(p => ({
           id: p.productId,

@@ -24,6 +24,12 @@ export default class SettingSlider extends PureComponent {
     }
   }
 
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+      value: nextProps.value
+    })
+  }
+
   render() {
     return (
       <View style={[styles.container, this.props.style]}>
