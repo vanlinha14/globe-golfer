@@ -13,10 +13,15 @@ import SettingClickable from '../../components/SettingClickable'
 import SettingValueClickable from '../../components/SettingValueClickable'
 import SettingRange from '../../components/SettingRange'
 
+import ImagePicker from 'react-native-image-picker'
+
 import Strings from '../../res/Strings'
 import Theme from '../../res/Theme'
 import SettingSlider from '../../components/SettingSlider'
 import { getInterests } from '../../actions/getInterest'
+import Api from '../../api'
+import { getProfile } from '../../actions/getProfile'
+import LoadingModal from '../../components/LoadingModal'
 
 const InterestItem = React.memo(({name, style, onPress}) => {
 
@@ -45,16 +50,64 @@ const InterestItem = React.memo(({name, style, onPress}) => {
 class Profile extends PureComponent {
   static navigationOptions = { header: null }
 
+  state = {
+    loading: false,
+    avatarSource: null
+  }
+
   componentDidMount() {
     this.props.getInterests()
+  }
+
+  componentWillReceiveProps() {
+    this.setState({avatarSource: null})
   }
 
   requestGoToEditProfile = () => {
     this.props.navigation.navigate("Settings")
   }
 
+  requestChangeAvatar = () => {
+    const options = {
+      title: Strings.selectCardImage,
+      storageOptions: {
+        skipBackup: true,
+        path: 'images'
+      }
+    }
+
+    ImagePicker.showImagePicker(options, (response) => {
+      if (response.didCancel) {
+        console.log('User cancelled image picker');
+      } else if (response.error) {
+        console.log('ImagePicker Error: ', response.error);
+      } else if (response.customButton) {
+        console.log('User tapped custom button: ', response.customButton);
+      } else {
+        const imageBase64 = 'data:image/jpeg;base64,' + response.data
+        const source = { uri: imageBase64 };
+        this.setState({
+          avatarSource: source
+        })
+      }
+    })
+  }
+
+  onApply = () => {
+    this.setState({loading: true})
+
+    Api.instance().updateProfile({
+      avatar: this.state.avatarSource.uri
+    }).then(_ => {
+      this.setState({loading: false})
+      this.props.getProfile()
+    }).catch(_ => {
+      this.setState({loading: false})
+    })
+  }
+
   renderAvatar() {
-    const avatarSize = 280
+    const avatarSize = 250
     const avatarUrl = this.props.user.avatar
     let source = undefined
     if (avatarUrl && avatarUrl.startsWith("http")) {
@@ -64,16 +117,42 @@ class Profile extends PureComponent {
       source = require('../../res/images/golfer_placeholder.png')
     }
 
-    return <Image 
-      style={{
-        width: avatarSize,
-        height: avatarSize,
-        borderRadius: avatarSize / 2,
-        alignSelf: 'center',
-        backgroundColor: 'white'
-      }}
-      source={source}
-    />
+    if (this.state.avatarSource) {
+      source = this.state.avatarSource
+    }
+
+    return (
+      <View style={{
+        marginBottom: 24
+      }}>
+        <Image 
+          style={{
+            width: avatarSize,
+            height: avatarSize,
+            borderRadius: avatarSize / 2,
+            alignSelf: 'center',
+            backgroundColor: 'white'
+          }}
+          source={source}
+        />
+        <TouchableOpacity style={{
+          width: '100%',
+          height: 50,
+          backgroundColor: '#00000090',
+          position: 'absolute',
+          bottom: 0,
+        }} activeOpacity={0.7} onPress={this.requestChangeAvatar}>
+          <DGText style={{
+            width: '100%',
+            height: 50,
+            fontSize: 20,
+            color: 'white',
+            textAlign: 'center',
+            paddingTop: 8
+          }}>Edit</DGText>
+        </TouchableOpacity>
+      </View>
+    )
   }
 
   renderPersonalInfoBlock() {
@@ -221,10 +300,19 @@ class Profile extends PureComponent {
   }
 
   render() {
+    let right;
+    if (this.state.avatarSource) {
+      right = {
+        title: "Apply",
+        onPress: this.onApply
+      }
+    }
+
     return (
       <BaseComponent toolbar={{
         title: "Profile",
-        onBack: this.props.navigation.goBack
+        onBack: this.props.navigation.goBack,
+        right
       }}>
         <KeyboardAwareScrollView contentContainerStyle={{ paddingTop: 24 }}>
           {this.renderAvatar()}
@@ -233,6 +321,7 @@ class Profile extends PureComponent {
           {this.renderCTABlock()}
           {this.renderSpacing(40)}
         </KeyboardAwareScrollView>
+        <LoadingModal visible={this.state.loading} />
       </BaseComponent>
     )
   }
@@ -290,6 +379,7 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = (dispatch) => ({
+  getProfile: () => dispatch(getProfile()),
   getInterests: () => dispatch(getInterests())
 })
 
