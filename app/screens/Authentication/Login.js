@@ -35,6 +35,12 @@ class Login extends PureComponent {
     }
   }
 
+  componentDidMount() {
+    setTimeout(() => {
+      this.scrollView.scrollTo(1)
+    }, 0)
+  }
+
   onRequestLoginWithFacebook = () => {
     LoginManager.logInWithPermissions(["public_profile"]).then(
       (result) => {
@@ -235,6 +241,7 @@ class Login extends PureComponent {
     return (
       <SafeAreaView style={{ backgroundColor: 'black' }}>
         <ScrollView 
+          ref={ref => this.scrollView = ref}
           style={{ backgroundColor: Theme.mainBackground }}
           contentContainerStyle={[
             styles.body, 
