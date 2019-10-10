@@ -15,6 +15,9 @@ import { getPendingMatches } from '../../actions/getPendingMatches'
 import { getPlayedMatches } from '../../actions/getPlayedMatches'
 
 const Challenge = React.memo(({item, onPress}) => {
+
+  const imageSource = item.avatar ? {uri: item.avatar} : require('../../res/images/golfer_placeholder.png')
+
   return (
     <TouchableOpacity style={{ marginHorizontal: 8 }} activeOpacity={0.7} onPress={onPress}>
       <Image
@@ -23,14 +26,19 @@ const Challenge = React.memo(({item, onPress}) => {
           height: 50,
           borderRadius: 25
         }}
-        source={{uri: item.avatar}}
+        source={imageSource}
       />
+      <DGText style={{
+        width: 50,
+        marginTop: 4,
+        textAlign: 'center',
+        color: 'white'
+      }}>{item.name}</DGText>
     </TouchableOpacity>
   )
 })
 
 const Challengers = React.memo(({data}) => {
-
   if (!Array.isArray(data) || data.length == 0) {
     return (
       <>
@@ -44,7 +52,7 @@ const Challengers = React.memo(({data}) => {
         <DGText style={{
           color: Theme.textWhite,
           fontStyle: 'italic',
-          marginLeft: 32,
+          marginLeft: 16,
           marginTop: 8
         }}>You have no challenger right now</DGText>
       </>
@@ -82,7 +90,7 @@ const Message = React.memo(({isLoading, data, user}) => {
 })
 
 const EmptyData = React.memo(() => {
-  return <DGText style={{ color: Theme.textWhite, fontStyle: 'italic', marginHorizontal: 16 + 30 + 8, fontSize: 12 }}>No Message</DGText>
+  return <DGText style={{ color: Theme.textWhite, fontStyle: 'italic', marginHorizontal: 16, fontSize: 12 }}>No Message</DGText>
 })
 
 const MessageItem = React.memo(({user, item}) => {
@@ -103,6 +111,8 @@ const MessageItem = React.memo(({user, item}) => {
     }
   }
 
+  const imageSource = item.avatar ? {uri: item.avatar} : require('../../res/images/golfer_placeholder.png')
+
   return (
     <TouchableOpacity 
       style={{ 
@@ -110,7 +120,7 @@ const MessageItem = React.memo(({user, item}) => {
         justifyContent: 'center', 
         paddingHorizontal: 16, 
         height: 80, 
-        marginTop: 24 
+        marginTop: 12 
       }}
       activeOpacity={0.7}
       onPress={onPress}
@@ -122,7 +132,7 @@ const MessageItem = React.memo(({user, item}) => {
           borderRadius: 30,
           backgroundColor: Theme.buttonPrimary
         }}
-        source={{uri: item.avatar}}
+        source={imageSource}
       />
       <View style={{
         flex: 1,
@@ -169,11 +179,11 @@ const Board = React.memo(({user, title, isLoading, data}) => {
       <DGText style={{ 
         color: Theme.textWhite, 
         marginHorizontal: 16,
-        marginTop: 40,
+        marginTop: 12,
         marginBottom: 8,
         fontSize: 18,
   
-      }} >{title}</DGText>
+      }}>{title}</DGText>
       {content}
     </>
   )
@@ -181,6 +191,10 @@ const Board = React.memo(({user, title, isLoading, data}) => {
 
 class Chat extends PureComponent {
   static navigationOptions = { header: null }
+
+  state = {
+    tabIndex: 0
+  }
 
   componentDidMount() {
     this.props.getPendingMatches()
@@ -192,6 +206,7 @@ class Chat extends PureComponent {
   }
 
   onFilterChanged = (nextValue) => {
+    this.setState({tabIndex: nextValue})
     this.props.getMessages(nextValue)
   }
   
@@ -215,7 +230,7 @@ class Chat extends PureComponent {
         <Header />
         <Filter onFilterChanged={this.onFilterChanged} />
         <ScrollView showsVerticalScrollIndicator={false} >
-          <Challengers data={challengersData}/>
+          {this.state.tabIndex == 0 ? <Challengers data={challengersData}/> : undefined}
           <Message 
             user={this.props.user}
             requestToggleExpand={this.requestToggleExpand}
