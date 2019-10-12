@@ -86,10 +86,15 @@ const renderItem = ({item}) => {
 }
 
 const Intro = React.memo(() => {
+
+  const carousel = React.useRef(null)
+
   const [activeSlide, setActiveSlide] = React.useState()
+
   return (
     <View>
       <Carousel
+        ref={carousel}
         style={{
           width: carouselWidth,
           height: carouselWidth
@@ -98,6 +103,8 @@ const Intro = React.memo(() => {
         renderItem={renderItem}
         sliderWidth={carouselWidth}
         itemWidth={itemWidth}
+        autoplay={true}
+        loop={true}
         onSnapToItem={(index) => setActiveSlide(index)}
       />
       <DotPagination activeSlide={activeSlide} />
