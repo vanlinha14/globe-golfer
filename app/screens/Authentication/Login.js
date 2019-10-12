@@ -37,8 +37,8 @@ class Login extends PureComponent {
 
   componentDidMount() {
     setTimeout(() => {
-      this.scrollView.scrollTo(1)
-    }, 0)
+      this.scrollView.scrollTo({x: 0, y: 1})
+    }, 100)
   }
 
   onRequestLoginWithFacebook = () => {
