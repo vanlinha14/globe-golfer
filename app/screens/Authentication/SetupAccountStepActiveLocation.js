@@ -28,7 +28,7 @@ export default class SetupAccountStepActiveLocation extends PureComponent {
   }
 
   onRequestLearnMore = () => {
-    //TODO
+    showErrorAlert("We won't able to play without your location permission!")
   }
 
   renderTitle() {
@@ -75,14 +75,14 @@ export default class SetupAccountStepActiveLocation extends PureComponent {
     return (
       <View style={styles.footerContainer}>
         <DGButtonV2 
-          style={{ backgroundColor: Theme.buttonPrimary, marginBottom: 16, width: '60%' }}
-          text={Strings.button.active}
-          onPress={this.onRequestGetLocation}
+          style={{ backgroundColor: Theme.buttonSecondary, width: '40%', marginRight: 4 }}
+          text="No"
+          onPress={this.onRequestLearnMore}
           />
         <DGButtonV2 
-          style={{ backgroundColor: Theme.mainBackground, width: '60%' }}
-          text={Strings.button.learnMore}
-          onPress={this.onRequestLearnMore}
+          style={{ backgroundColor: Theme.buttonPrimary, width: '40%', marginLeft: 4 }}
+          text="Yes"
+          onPress={this.onRequestGetLocation}
           />
       </View>
     )
@@ -120,7 +120,9 @@ const styles = StyleSheet.create({
     lineHeight: 24
   },
   footerContainer: {
-    paddingBottom: getBottomSpace() + 32
+    flexDirection: 'row',
+    paddingBottom: getBottomSpace() + 32,
+    justifyContent: 'center'
   },
   iconContainer: {
     alignSelf: 'center',
