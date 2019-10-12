@@ -14,6 +14,7 @@ import { connect } from 'react-redux'
 import Icon from 'react-native-vector-icons/Ionicons'
 
 import Intro from '../../components/Intro'
+import LoadingModal from '../../components/LoadingModal'
 import DGButton from '../../components/DGButton'
 import Strings from '../../res/Strings'
 import DGText from '../../components/DGText'
@@ -24,14 +25,20 @@ import { StackActions, NavigationActions } from 'react-navigation';
 class Login extends PureComponent {
   static navigationOptions = { header: null }
 
+  state = {
+    loading: false
+  }
+
   componentWillReceiveProps(nextProps) {
     let authenData = nextProps.authenticationData
     if (authenData.isLoading == false && authenData.accessToken) {
-      this.props.navigation.dispatch(StackActions.reset({
-        index: 0, 
-        key: null, 
-        actions: [NavigationActions.navigate({ routeName: 'Main' })]
-      }));
+      this.setState({loading: false}, () => {
+        this.props.navigation.dispatch(StackActions.reset({
+          index: 0, 
+          key: null, 
+          actions: [NavigationActions.navigate({ routeName: 'Main' })]
+        }));
+      })
     }
   }
 
@@ -42,9 +49,11 @@ class Login extends PureComponent {
   }
 
   onRequestLoginWithFacebook = () => {
+    this.setState({loading:true})
     LoginManager.logInWithPermissions(["public_profile"]).then(
       (result) => {
         if (result.isCancelled) {
+          this.setState({loading:false})
           alert("Login cancelled");
         } else {
           AccessToken.getCurrentAccessToken().then(
@@ -55,17 +64,22 @@ class Login extends PureComponent {
         }
       },
       (error) => {
+        this.setState({loading:false})
         alert("Login fail with error: " + error)
       }
     )
   }
 
   onRequestLoginWithGoogle = () => {
+    this.setState({loading:true})
     GoogleSignin.configure()
     GoogleSignin.signIn().then(user => {
       this.props.loginWithGoogle(user.user.id, user.idToken)
     })
-    .catch(e => alert(e))
+    .catch(e => {
+      this.setState({loading:false})
+      alert(e)
+    })
   }
 
   onRequestGoToLoginWithEmail = () => {
@@ -216,6 +230,7 @@ class Login extends PureComponent {
         {this.renderSeparator()}
         {this.renderEmailButton()}
         {this.renderNote()}
+        <LoadingModal visible={this.state.loading} />
       </View>
     )
   }

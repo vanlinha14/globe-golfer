@@ -4,7 +4,7 @@ import Strings from '../res/Strings'
 import Share from 'react-native-share'
 
 export function isValidEmailFormat(text) {
-  return /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(text)
+  return /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,4})+$/.test(text)
 }
 
 export function emailValidationFunction(text) {

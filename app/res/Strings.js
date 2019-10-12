@@ -56,7 +56,7 @@ const input = {
   email: "Email",
   password: "Password",
   enterEmail: "Enter a valid email address",
-  enterPassword: "Enter a valid password",
+  enterPassword: "Enter password (minimum 6 characters)",
   tapToSelect: "Tap to select",
   error: {
     email: "Your email you just filled is not valid",
