@@ -15,13 +15,11 @@ export default class Authentication extends PureComponent {
         props.navigation.replace("Main")    
       }
       else {
-        props.navigation.replace("SetupAccountStepActiveLocation")
-        // props.navigation.replace("Register")
+        props.navigation.replace("Register")
       }
     })
     .catch(() => {
-      props.navigation.replace("SetupAccountStepActiveLocation")
-      // props.navigation.replace("Register")
+      props.navigation.replace("Register")
     })
 
     // props.navigation.replace("Register")
