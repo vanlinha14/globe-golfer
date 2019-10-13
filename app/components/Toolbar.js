@@ -6,6 +6,8 @@ import { getStatusBarHeight } from 'react-native-iphone-x-helper';
 import Icon from 'react-native-vector-icons/Ionicons'
 import { useNavigation } from 'react-navigation-hooks';
 
+const hitSlop = {left: 10, top: 10, right: 10, bottom: 10}
+
 const Toolbar = React.memo((props) => {
 
   const { goBack } = useNavigation()
@@ -17,13 +19,13 @@ const Toolbar = React.memo((props) => {
   return (
     <View {...props} style={[styles.container, props.style]}>
       <View style={styles.contentContainer}>
-        <TouchableOpacity onPress={onBack} activeOpacity={0.7}>
+        <TouchableOpacity onPress={onBack} activeOpacity={0.7} hitSlop={hitSlop}>
           <Icon name="ios-arrow-back" color={Theme.buttonPrimary} size={30} />
         </TouchableOpacity>
         <DGText style={styles.text}>{props.title}</DGText>
         {
           props.rightComponent ? (
-            <TouchableOpacity onPress={props.rightComponent.onPress} activeOpacity={0.7}>
+            <TouchableOpacity onPress={props.rightComponent.onPress} activeOpacity={0.7} hitSlop={hitSlop}>
               <DGText style={styles.textRight}>{props.rightComponent.title}</DGText>
             </TouchableOpacity>
           ) : undefined
