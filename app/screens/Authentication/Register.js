@@ -103,7 +103,6 @@ export default class Register extends PureComponent {
 
   onRequestLoginWithGoogle = () => {
     GoogleSignin.signIn().then(user => {
-      console.warn(user);
       RegistrationHelper.instance().setGoogleId(user.user.id)
       RegistrationHelper.instance().setGoogleToken(user.idToken)
       RegistrationHelper.instance().setFirstName(user.user.givenName)
