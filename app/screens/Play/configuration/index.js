@@ -9,7 +9,6 @@ import PendingItem from '../components/PendingItem'
 import Theme from '../../../res/Theme';
 import MatchInfo from './MatchInfo'
 import CurrentConfiguration from './CurrentConfiguration'
-import { useNavigation } from 'react-navigation-hooks';
 import BaseComponent from '../../../components/BaseComponent'
 import Api from '../../../api'
 import LoadingModal from '../../../components/LoadingModal'

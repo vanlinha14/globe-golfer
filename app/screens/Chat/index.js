@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react'
-import { ActivityIndicator, ScrollView, View, TouchableOpacity, Image } from 'react-native'
+import { ActivityIndicator, ScrollView, View, TouchableOpacity } from 'react-native'
 
 import { connect } from 'react-redux'
 
@@ -13,6 +13,7 @@ import { getMessages } from '../../actions/getMessages';
 import { useNavigation } from 'react-navigation-hooks';
 import { getPendingMatches } from '../../actions/getPendingMatches'
 import { getPlayedMatches } from '../../actions/getPlayedMatches'
+import LoadableImage from '../../components/LoadableImage'
 
 const Challenge = React.memo(({item, onPress}) => {
 
@@ -20,7 +21,7 @@ const Challenge = React.memo(({item, onPress}) => {
 
   return (
     <TouchableOpacity style={{ marginHorizontal: 8 }} activeOpacity={0.7} onPress={onPress}>
-      <Image
+      <LoadableImage
         style={{
           width: 50,
           height: 50,
@@ -125,7 +126,7 @@ const MessageItem = React.memo(({user, item}) => {
       activeOpacity={0.7}
       onPress={onPress}
     >
-      <Image
+      <LoadableImage
         style={{
           width: 60,
           height: 60,

@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Alert, Dimensions, TextInput, SafeAreaView, ScrollView } from 'react-native'
+import { View, Alert, Dimensions, TextInput, SafeAreaView } from 'react-native'
 import lodash from 'lodash';
 import Header from './Header';
 import DGText from '../../../components/DGText';

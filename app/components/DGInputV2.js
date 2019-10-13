@@ -2,7 +2,6 @@ import React, { PureComponent } from 'react'
 import {
   View,
   TextInput,
-  Dimensions,
   StyleSheet
 } from 'react-native'
 import Theme from '../res/Theme'

@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react'
-import { View, StyleSheet, Dimensions, TouchableOpacity, Image } from 'react-native'
+import { View, StyleSheet, Dimensions, TouchableOpacity } from 'react-native'
 
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { getBottomSpace } from 'react-native-iphone-x-helper'
@@ -15,6 +15,7 @@ import DGButtonV2 from '../../components/DGButtonV2'
 import Strings from '../../res/Strings'
 import DGText from '../../components/DGText'
 import Theme from '../../res/Theme'
+import LoadableImage from '../../components/LoadableImage'
 
 class SetupAccountStepInputAvatar extends PureComponent {
   static navigationOptions = { header: null }
@@ -79,7 +80,7 @@ class SetupAccountStepInputAvatar extends PureComponent {
 
   renderLogo() {
     return (
-      <Image
+      <LoadableImage
         style={{
           marginTop: 60,
           width: 120,
@@ -105,7 +106,7 @@ class SetupAccountStepInputAvatar extends PureComponent {
     let source = this.state.avatarSource ? this.state.avatarSource : require('../../res/images/placeholder.png')
     return (
       <TouchableOpacity activeOpacity={0.7} onPress={this.requestSelectImage}>
-        <Image style={styles.centerImage} source={source}/>
+        <LoadableImage style={styles.centerImage} source={source}/>
         {this.renderImageInputHint()}
       </TouchableOpacity>
     )

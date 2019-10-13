@@ -1,12 +1,9 @@
 import React, { PureComponent } from 'react'
-import { ActivityIndicator, ScrollView, View, TouchableOpacity, Image } from 'react-native'
+import { ActivityIndicator, ScrollView, View, TouchableOpacity } from 'react-native'
 
 import { connect } from 'react-redux'
 
 import Theme from '../../res/Theme'
-import Strings from '../../res/Strings'
-
-import Icon from 'react-native-vector-icons/Ionicons'
 
 import Header from './components/Header'
 import BaseComponent from '../../components/BaseComponent';
@@ -14,6 +11,7 @@ import Filter from './components/Filter';
 import DGText from '../../components/DGText';
 import { getNewNotifications, getHistoryNotifications } from '../../actions/getNotifications';
 import { useNavigation } from 'react-navigation-hooks';
+import LoadableImage from '../../components/LoadableImage'
 
 const NewMessages = React.memo(({isExpanded, isLoading, data, requestToggleExpand, currentTag}) => {
   return <Board 
@@ -46,7 +44,7 @@ const BoardHeader = React.memo(({title, isExpanded, requestToggleExpand}) => {
       paddingHorizontal: 16,
       paddingVertical:12
       }} activeOpacity={0.7} onPress={requestToggleExpand}>
-      <Image
+      <LoadableImage
         style={{
           width: 30, 
           height: 30, 
@@ -84,7 +82,7 @@ const MessageItem = React.memo(({item, currentTag}) => {
       activeOpacity={0.7}
       onPress={onPress}
     >
-      <Image
+      <LoadableImage
         style={{
           width: 60,
           height: 60,

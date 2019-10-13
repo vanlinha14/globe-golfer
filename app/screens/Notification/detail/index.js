@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, SafeAreaView, TouchableOpacity, Dimensions } from 'react-native'
+import { View, SafeAreaView, TouchableOpacity } from 'react-native'
 import { GiftedChat } from 'react-native-gifted-chat'
 import Header from './Header'
 import Theme from '../../../res/Theme';

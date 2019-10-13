@@ -1,7 +1,6 @@
 import React from 'react'
 import {
-  View,
-  Image
+  View
 } from 'react-native'
 import Authentication from './screens/Authentication'
 
@@ -51,6 +50,7 @@ import Premium from './screens/Premium'
 import Theme from './res/Theme'
 
 import { createStackNavigator, createAppContainer, createBottomTabNavigator } from "react-navigation"
+import LoadableImage from './components/LoadableImage'
 
 const iconStyle = {
   alignSelf: 'center',
@@ -61,7 +61,7 @@ const iconStyle = {
 const TabBarIcon = React.memo(({selectedIcon, unselectedIcon, isSelected}) => {
   return (
     <View style={{ height: 56, width: 56, justifyContent: 'center' }}>
-      <Image
+      <LoadableImage
         style={iconStyle}
         source={isSelected ? selectedIcon : unselectedIcon}
       />

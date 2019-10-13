@@ -13,6 +13,7 @@ import Strings from '../../res/Strings'
 import Theme from '../../res/Theme'
 import DGText from '../../components/DGText'
 import DGButtonV2 from '../../components/DGButtonV2';
+import LoadableImage from '../../components/LoadableImage'
 
 export default class SetupAccountStepInputScannedCard extends PureComponent {
   static navigationOptions = { header: null }
@@ -58,7 +59,7 @@ export default class SetupAccountStepInputScannedCard extends PureComponent {
 
   renderLogo() {
     return (
-      <Image
+      <LoadableImage
         style={{
           marginTop: 60,
           width: 120,
@@ -84,7 +85,7 @@ export default class SetupAccountStepInputScannedCard extends PureComponent {
     let source = this.state.cardSource ? this.state.cardSource : require('../../res/images/placeholder.png')
     return (
       <TouchableOpacity activeOpacity={0.7} onPress={this.requestSelectImage}>
-        <Image style={styles.centerImage} resizeMethod='resize' source={source}/>
+        <LoadableImage style={styles.centerImage} resizeMethod='resize' source={source}/>
         {this.renderImageInputHint()}
       </TouchableOpacity>
     )

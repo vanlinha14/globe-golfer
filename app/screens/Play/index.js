@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react'
-import { ActivityIndicator, View, TouchableOpacity, Image } from 'react-native'
+import { ActivityIndicator, View, TouchableOpacity } from 'react-native'
 import { connect } from 'react-redux'
 
 import Theme from '../../res/Theme'
@@ -11,6 +11,7 @@ import DGText from '../../components/DGText';
 import { getPendingMatches } from '../../actions/getPendingMatches';
 import { getPlayedMatches } from '../../actions/getPlayedMatches';
 import DialogCombination from '../../components/DialogCombination';
+import LoadableImage from '../../components/LoadableImage'
 
 const Title = React.memo(() => {
   return (
@@ -31,7 +32,7 @@ const BoardHeader = React.memo(({title, isExpanded, requestToggleExpand}) => {
       paddingHorizontal: 16,
       paddingVertical:12
       }} activeOpacity={0.7} onPress={requestToggleExpand}>
-      <Image
+      <LoadableImage
         style={{
           width: 30, 
           height: 30, 
@@ -67,7 +68,7 @@ const PendingBlock = React.memo(({isLoading, isExpanded, requestToggleExpand, da
 const PlayedItem = React.memo(({item, userAvatar}) => {
   return (
     <View style={{ marginVertical: 16, flexDirection: 'row', justifyContent: 'center' }}>
-      <Image
+      <LoadableImage
         style={{
           width: 100,
           height: 100,
@@ -92,7 +93,7 @@ const PlayedItem = React.memo(({item, userAvatar}) => {
         </TouchableOpacity>
         
       </View>
-      <Image
+      <LoadableImage
         style={{
           width: 100,
           height: 100,

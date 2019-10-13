@@ -1,8 +1,9 @@
 import React from 'react'
-import { View, Image, TouchableOpacity } from 'react-native'
+import { View, TouchableOpacity } from 'react-native'
 
 import { useNavigation } from 'react-navigation-hooks';
 import DGText from '../../../components/DGText';
+import LoadableImage from '../../../components/LoadableImage';
 
 export default PendingItem = React.memo(({item, viewOnly}) => {
 
@@ -17,7 +18,7 @@ export default PendingItem = React.memo(({item, viewOnly}) => {
 
   return (
     <View style={{ marginVertical: 16, flexDirection: 'row', justifyContent: 'center' }}>
-      <Image
+      <LoadableImage
         style={{
           width: 100,
           height: 100,
@@ -44,7 +45,7 @@ export default PendingItem = React.memo(({item, viewOnly}) => {
           )
         }
       </View>
-      <Image
+      <LoadableImage
         style={{
           width: 100,
           height: 100,

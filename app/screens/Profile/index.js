@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react'
-import { View, StyleSheet, Dimensions, FlatList, TouchableOpacity, Image } from 'react-native'
+import { View, StyleSheet, Dimensions, FlatList, TouchableOpacity } from 'react-native'
 import { connect } from 'react-redux'
 
 import { getBottomSpace } from 'react-native-iphone-x-helper'
@@ -22,6 +22,7 @@ import { getInterests } from '../../actions/getInterest'
 import Api from '../../api'
 import { getProfile } from '../../actions/getProfile'
 import LoadingModal from '../../components/LoadingModal'
+import LoadableImage from '../../components/LoadableImage'
 
 const InterestItem = React.memo(({name, style, onPress}) => {
 
@@ -125,7 +126,7 @@ class Profile extends PureComponent {
       <View style={{
         marginBottom: 24
       }}>
-        <Image 
+        <LoadableImage 
           style={{
             width: avatarSize,
             height: avatarSize,

@@ -2,12 +2,12 @@ import React from 'react'
 import RN, {
   Dimensions,
   View,
-  Image
 } from 'react-native'
 
 import Carousel, { Pagination } from 'react-native-snap-carousel'
 import DGText from './DGText'
 import Theme from '../res/Theme';
+import LoadableImage from './LoadableImage';
 
 const introData = [
   {
@@ -58,7 +58,7 @@ const itemWidth = carouselWidth - 32
 const renderItem = ({item}) => {
   return (
     <View>
-      <RN.Image
+      <LoadableImage
         style={{ 
           width: itemWidth, 
           height: itemWidth,

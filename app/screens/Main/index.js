@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react'
-import { View, Dimensions, Image } from 'react-native'
+import { View, Dimensions } from 'react-native'
 
 import { TabView, TabBar, SceneMap } from 'react-native-tab-view'
 
@@ -11,6 +11,7 @@ import Menu from '../Menu'
 import LeaderBoard from '../LeaderBoard'
 import Profile from '../Profile'
 import { getBottomSpace } from 'react-native-iphone-x-helper'
+import LoadableImage from '../../components/LoadableImage'
 
 const ChatRoute = () => (<Chat />)
 const NotificationRoute = () => (<Notification />)
@@ -71,7 +72,7 @@ export default class Main extends PureComponent {
     }
     return (
       <View style={{ height: 44, width: 44, justifyContent: 'center' }}>
-        <Image
+        <LoadableImage
           style={iconStyle}
           source={require('./res/images/ic_profile_selected.png')}
         />

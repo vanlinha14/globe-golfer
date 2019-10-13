@@ -1,9 +1,6 @@
 import React from 'react'
 import { View, TouchableOpacity } from 'react-native'
 
-import Icon from 'react-native-vector-icons/Ionicons'
-import { useNavigation } from 'react-navigation-hooks'
-import FlexSpacing from './FlexSpacing'
 import DGText from '../../../components/DGText';
 import Theme from '../../../res/Theme'
 

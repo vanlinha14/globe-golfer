@@ -1,7 +1,5 @@
 import React, { PureComponent } from 'react'
-import { View, StyleSheet, Platform, Image } from 'react-native'
-
-import Permissions from 'react-native-permissions'
+import { View, StyleSheet, Platform } from 'react-native'
 
 import { getBottomSpace } from 'react-native-iphone-x-helper'
 import Icon from 'react-native-vector-icons/Ionicons'
@@ -11,6 +9,7 @@ import DGText from '../../components/DGText'
 import DGButtonV2 from '../../components/DGButtonV2'
 import Strings from '../../res/Strings'
 import Theme from '../../res/Theme'
+import LoadableImage from '../../components/LoadableImage'
 
 export default class SetupAccountStepActiveEmailContact extends PureComponent {
   static navigationOptions = { header: null }
@@ -29,7 +28,7 @@ export default class SetupAccountStepActiveEmailContact extends PureComponent {
 
   renderLogo() {
     return (
-      <Image
+      <LoadableImage
         style={{
           marginTop: 60,
           width: 120,

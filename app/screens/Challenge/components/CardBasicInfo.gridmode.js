@@ -4,6 +4,7 @@ import { View, Dimensions, TouchableOpacity, Image } from 'react-native'
 import DGText from '@components/DGText'
 import CardRatingBar from './CardRatingBar'
 import LinearGradient from 'react-native-linear-gradient'
+import LoadableImage from '../../../components/LoadableImage'
 
 const windowWidth = Dimensions.get('window').width
 
@@ -16,7 +17,7 @@ const CardBasicInfo = React.memo(({ index, avatar, name, location, rating, onPre
       activeOpacity={0.7}
       onPress={() => { onPress(index) }}
     >
-      <Image 
+      <LoadableImage 
         style={{ 
           width: windowWidth / 2 - 40, 
           height: windowWidth / 2 - 40,

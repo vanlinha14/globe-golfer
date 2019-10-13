@@ -4,6 +4,7 @@ import { View, Dimensions, Image } from 'react-native'
 import DGText from '@components/DGText'
 import CardRatingBar from './CardRatingBar'
 import LinearGradient from 'react-native-linear-gradient'
+import LoadableImage from '../../../components/LoadableImage'
 
 const windowWidth = Dimensions.get('window').width
 
@@ -11,7 +12,7 @@ const CardBasicInfo = React.memo(({ avatar, name, location, rating }) => {
   const avatarSource = avatar && avatar.startsWith("http") ? { uri: avatar } : require('../../../res/images/golfer_placeholder.png')
   return (
     <View style={{ alignItems: 'center', marginTop: 20 }}>
-      <Image 
+      <LoadableImage 
         style={{ 
           width: windowWidth - 80, 
           height: windowWidth - 80,

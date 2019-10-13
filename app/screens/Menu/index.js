@@ -3,7 +3,6 @@ import {
   View, 
   TouchableWithoutFeedback,
   StyleSheet,
-  Image,
   Linking
 } from 'react-native'
 import { connect } from 'react-redux'
@@ -20,9 +19,10 @@ import { getPendingMatches } from '../../actions/getPendingMatches'
 import { getPlayedMatches } from '../../actions/getPlayedMatches'
 import Api from '../../api'
 import { VIEW_ADS } from '../../api/Endpoints'
+import LoadableImage from '../../components/LoadableImage'
 
 const Logo = React.memo(() => (
-  <Image
+  <LoadableImage
     style={[
       styles.logo,
       {
@@ -39,7 +39,7 @@ const Ads = React.memo(({ads}) => {
   const renderContent = () => {
     if (ads) {
       return (
-        <Image 
+        <LoadableImage 
           style={{
             width: 100,
             height: 100,

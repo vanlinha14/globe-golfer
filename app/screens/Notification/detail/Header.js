@@ -1,11 +1,10 @@
 import React from 'react'
-import { View, TouchableOpacity } from 'react-native'
+import { View } from 'react-native'
 
 import Icon from 'react-native-vector-icons/Ionicons'
 import { useNavigation } from 'react-navigation-hooks'
 import DGText from '../../../components/DGText';
 import Theme from '../../../res/Theme'
-import FlexSpacing from '../components/FlexSpacing';
 import { shareGG } from '../../../utils';
 
 const HeaderIcon = React.memo(({name, action}) => (

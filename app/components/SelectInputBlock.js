@@ -6,9 +6,7 @@ import {
 } from 'react-native'
 import Theme from '../res/Theme'
 import DGText from './DGText'
-import DGButton from './DGButton'
 import RNPickerSelect from 'react-native-picker-select'
-import Strings from '../res/Strings'
 
 export default class SelectInputBlock extends PureComponent {
 

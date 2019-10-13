@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react'
-import { View, StyleSheet, Image } from 'react-native'
+import { View, StyleSheet } from 'react-native'
 
 import { getBottomSpace } from 'react-native-iphone-x-helper'
 
@@ -8,6 +8,7 @@ import DGText from '../../components/DGText'
 import DGButtonV2 from '../../components/DGButtonV2'
 import Strings from '../../res/Strings'
 import Theme from '../../res/Theme'
+import LoadableImage from '../../components/LoadableImage'
 
 export default class SetupAccountStepFinal extends PureComponent {
   static navigationOptions = { header: null }
@@ -26,7 +27,7 @@ export default class SetupAccountStepFinal extends PureComponent {
 
   renderLogo() {
     return (
-      <Image
+      <LoadableImage
         style={{
           marginTop: 60,
           width: 120,

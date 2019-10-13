@@ -6,7 +6,6 @@ import {
 import Theme from '../res/Theme'
 import DGText from './DGText'
 import DatePicker from 'react-native-datepicker'
-import moment from 'moment'
 import Strings from '../res/Strings'
 
 export default class DateInputBlock extends PureComponent {

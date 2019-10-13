@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react'
-import { ScrollView, View, TouchableOpacity, ActivityIndicator, Image } from 'react-native'
+import { ScrollView, View, TouchableOpacity, ActivityIndicator } from 'react-native'
 import { connect } from 'react-redux'
 
 import Theme from '../../res/Theme'
@@ -9,6 +9,7 @@ import BaseComponent from '../../components/BaseComponent';
 import Filter from './components/Filter';
 import DGText from '../../components/DGText';
 import { getFavoriteRanking, getAllRanking } from '../../actions/getRanking';
+import LoadableImage from '../../components/LoadableImage'
 
 const Favorite = React.memo(({isExpanded, requestToggleExpand, isLoading, data}) => {
   return <Board 
@@ -40,7 +41,7 @@ const BoardHeader = React.memo(({title, isExpanded, requestToggleExpand}) => {
       paddingHorizontal: 16,
       paddingVertical:12
       }} activeOpacity={0.7} onPress={requestToggleExpand}>
-      <Image
+      <LoadableImage
         style={{
           width: 30, 
           height: 30, 

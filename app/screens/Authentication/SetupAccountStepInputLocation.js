@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react'
-import { View, Image, StyleSheet, Dimensions } from 'react-native'
+import { View, StyleSheet, Dimensions } from 'react-native'
 
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { getBottomSpace } from 'react-native-iphone-x-helper'
@@ -18,6 +18,7 @@ import Theme from '../../res/Theme'
 import SelectInputBlockV2 from '../../components/SelectInputBlockV2';
 import TextInputBlockV2 from '../../components/TextInputBlockV2';
 import DateInputBlockV2 from '../../components/DateInputBlockV2';
+import LoadableImage from '../../components/LoadableImage'
 
 
 const GENDERS = ["Male", "Female", "Other"]
@@ -207,7 +208,7 @@ class SetupAccountStepInputLocation extends PureComponent {
 
   renderLogo() {
     return (
-      <Image
+      <LoadableImage
         style={{
           marginTop: 60,
           width: 120,

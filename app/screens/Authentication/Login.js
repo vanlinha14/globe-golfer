@@ -5,7 +5,6 @@ import {
   TouchableOpacity,
   ScrollView,
   SafeAreaView,
-  Image
 } from 'react-native'
 
 import { GoogleSignin } from 'react-native-google-signin'
@@ -21,6 +20,7 @@ import DGText from '../../components/DGText'
 import Theme from '../../res/Theme'
 import { loginWithFacebook, loginWithGoogle } from '../../actions/login'
 import { StackActions, NavigationActions } from 'react-navigation';
+import LoadableImage from '../../components/LoadableImage'
 
 class Login extends PureComponent {
   static navigationOptions = { header: null }
@@ -92,7 +92,7 @@ class Login extends PureComponent {
 
   renderLogo() {
     return (
-      <Image
+      <LoadableImage
         style={{
           marginTop: 20,
           width: 120,
@@ -128,7 +128,7 @@ class Login extends PureComponent {
     return this.renderSocialButton(
       true,
       Theme.mainBackground,
-      <Image 
+      <LoadableImage 
         style={[styles.socialIcon, { width: 30, height: 30 }]} 
         source={require('../../res/images/ic_google.png')}
       />,

@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, TouchableOpacity, Dimensions, ActivityIndicator } from 'react-native'
+import { View, TouchableOpacity, Dimensions } from 'react-native'
 import { connect } from 'react-redux'
 import { getGameMode } from '../../../actions/getGameMode'
 import DGText from '../../../components/DGText'

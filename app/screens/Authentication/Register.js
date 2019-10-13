@@ -2,8 +2,7 @@ import React, { PureComponent } from 'react'
 import { 
   View, 
   StyleSheet, 
-  TouchableOpacity, 
-  Image
+  TouchableOpacity,
 } from 'react-native'
 
 import { GoogleSignin } from 'react-native-google-signin'
@@ -16,6 +15,7 @@ import Intro from '../../components/Intro'
 import Icon from 'react-native-vector-icons/Ionicons'
 import DialogCombination from '../../components/DialogCombination';
 import RegistrationHelper from '../../api/RegistrationHelper';
+import LoadableImage from '../../components/LoadableImage'
 
 export default class Register extends PureComponent {
   static navigationOptions = { header: null }
@@ -117,7 +117,7 @@ export default class Register extends PureComponent {
 
   renderLogo() {
     return (
-      <Image
+      <LoadableImage
         style={{
           marginTop: 20,
           width: 120,
@@ -153,7 +153,7 @@ export default class Register extends PureComponent {
     return this.renderSocialButton(
       true,
       Theme.mainBackground,
-      <Image 
+      <LoadableImage 
         style={[styles.socialIcon, { width: 30, height: 30 }]} 
         source={require('../../res/images/ic_google.png')}
       />,
