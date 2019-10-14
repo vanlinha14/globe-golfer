@@ -96,6 +96,11 @@ const logout = {
   message: "Are you sure to want to logout from this account?"
 }
 
+const deleteAccount = {
+  title: "Delete Account",
+  message: "Are you sure to want to delete this account?"
+}
+
 const scannedCard = {
   title: "My scanned card"
 }
@@ -177,5 +182,6 @@ export default Strings = {
   login,
   logout,
   challenge,
-  profile
+  profile,
+  deleteAccount
 }

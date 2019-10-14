@@ -48,3 +48,5 @@ export const ACCEPT_MATCH_RESULT = BASE + "authenticated/schedule/accept-result?
 
 export const GET_ADS = BASE + "authenticated/advertisement/type/2"
 export const VIEW_ADS = BASE + "authenticated/advertisement/image/{image}"
+
+export const DELETE_ACCOUNT = BASE + "authenticated/delete-user"

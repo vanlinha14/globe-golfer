@@ -47,6 +47,10 @@ export default class Base {
     return this.call('GET', url, null, binder)
   }
 
+  callDelete(url, binder) {
+    return this.call('DELETE', url, null, binder)
+  }
+
   call(method, url, body, binder) {
     const headers = this.accessToken ? {
       'Accept': 'application/json',

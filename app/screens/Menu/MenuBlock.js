@@ -40,7 +40,7 @@ const DotPagination = React.memo(({dotsLength, activeSlide}) => {
 export default class MenuBlock extends PureComponent {
 
   state = {
-    activeSlide: 0
+    activeSlide: 1
   }
 
   renderMenuItem(item) {
@@ -141,6 +141,9 @@ export default class MenuBlock extends PureComponent {
           loop={true}
           inactiveSlideScale={0.6}
           onSnapToItem={(index) => this.setState({ activeSlide: index })}
+          onLayout={() => {
+            this.carousel.snapToItem(0, false)
+          }}
         />
         <DotPagination dotsLength={data.length} activeSlide={this.state.activeSlide}/>
       </View>

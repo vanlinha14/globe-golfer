@@ -68,6 +68,30 @@ class Settings extends PureComponent {
     )
   }
 
+  onRequestDeleteAccount = () => {
+    this.container.showYesNoDialog(
+      Strings.deleteAccount.title,
+      Strings.deleteAccount.message,
+      Strings.button.yes,
+      Strings.button.no,
+      () => {
+        this.setState({loading: true})
+        Api.instance().deleteAccount().then(() => {
+          this.setState({loading: false})
+          AsyncStorage.removeItem(ACCESS_TOKEN_STORE_KEY).then(() => {
+            Api.instance().setAccessToken(null)
+            this.props.navigation.dispatch(StackActions.reset({
+              index: 0, 
+              key: null, 
+              actions: [NavigationActions.navigate({ routeName: 'Authentication' })]
+            }));
+          });
+        })
+      },
+      () => {}
+    )
+  }
+
   renderTopBlock() {
     let ggSubscriptionButton = <DGButton 
       style={styles.ggButton}
@@ -256,7 +280,7 @@ class Settings extends PureComponent {
           this.renderClickableItem(
             Strings.settings.deleteAccount,
             undefined, 
-            () => alert("Open delete account")
+            this.onRequestDeleteAccount
           )
         } 
       </View>
