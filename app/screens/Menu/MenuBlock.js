@@ -40,7 +40,7 @@ const DotPagination = React.memo(({dotsLength, activeSlide}) => {
 export default class MenuBlock extends PureComponent {
 
   state = {
-    activeSlide: 1
+    activeSlide: 2
   }
 
   renderMenuItem(item) {
@@ -72,15 +72,13 @@ export default class MenuBlock extends PureComponent {
       <TouchableOpacity style={{ 
         width: itemWidth,
         height: itemWidth,
-        justifyContent: 'center'
+        justifyContent: 'center',
       }} activeOpacity={0.7} onPress={item.onPress}>
         <LoadableImage
           style={{
             position: 'absolute',
-            top: 8,
-            left: 8,
-            width: itemWidth - 16,
-            height: itemWidth - 16
+            width: itemWidth,
+            height: itemWidth
           }}
           resizeMethod='resize'
           resizeMode='contain'
@@ -106,16 +104,16 @@ export default class MenuBlock extends PureComponent {
 
     const data = [
       {
-        name: "Challenge",
-        onPress: this.props.onChallengePress
-      },
-      {
         name: "Invite a Friend",
         onPress: this.props.onInvitePress
       },
       {
         name: "Play",
         onPress: this.props.onPlayPress
+      },
+      {
+        name: "Challenge",
+        onPress: this.props.onChallengePress
       },
       {
         name: "Scores",
@@ -139,11 +137,9 @@ export default class MenuBlock extends PureComponent {
           itemWidth={itemWidth}
           itemHeight={itemWidth}
           loop={true}
+          firstItem={2}
           inactiveSlideScale={0.6}
           onSnapToItem={(index) => this.setState({ activeSlide: index })}
-          onLayout={() => {
-            this.carousel.snapToItem(0, false)
-          }}
         />
         <DotPagination dotsLength={data.length} activeSlide={this.state.activeSlide}/>
       </View>
