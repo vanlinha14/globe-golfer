@@ -20,7 +20,7 @@ const LoadingModal = React.memo(({visible}) => {
         duration: 3000
       }),
     ])).start()
-  }, [])
+  }, [visible])
 
   const spin = animatedValue.interpolate({
     inputRange: [0, 1],

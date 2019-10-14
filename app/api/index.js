@@ -19,7 +19,6 @@ import MatchDetailBinder from './Binders/MatchDetailBinder';
 import CreateMatchBinder from './Binders/CreateMatchBinder';
 import MessageBinder from './Binders/MessageBinder';
 
-import {Clipboard} from 'react-native'
 import MatchResultBinder from './Binders/MatchResultBinder';
 import AdsBinder from './Binders/AdsBinder';
 
@@ -132,8 +131,6 @@ export default class Api extends Base {
       googleId: id,
 	    googleToken: token
     })
-
-    Clipboard.setString(body)
     
     return this.callPost(LOGIN, body, new LoginBinder())
   }

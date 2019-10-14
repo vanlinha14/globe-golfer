@@ -14,18 +14,37 @@ import Intro from '../../components/Intro'
 
 import Icon from 'react-native-vector-icons/Ionicons'
 import DialogCombination from '../../components/DialogCombination';
+import LoadingModal from '../../components/LoadingModal';
 import RegistrationHelper from '../../api/RegistrationHelper';
 import LoadableImage from '../../components/LoadableImage'
+import { showErrorAlert } from '../../utils'
+import Api from '../../api'
 
 export default class Register extends PureComponent {
   static navigationOptions = { header: null }
 
   state = {
-    visibleModal: undefined
+    visibleModal: undefined,
+    loading: false
   }
 
   componentDidMount() {
     GoogleSignin.configure({ webClientId: '150393205713-niluqkkcdf6kir5trl7odkfdoe7aeqio.apps.googleusercontent.com' })
+  }
+
+  checkGoogleAccountExisted = (user) => {
+    return new Promise((resolve) => {
+      Api.instance().loginGoogle(user.user.id, user.idToken).then(res => {
+        resolve(res.result)
+      })
+      .catch(() => {
+        resolve(false)
+      })
+    })
+  }
+
+  checkFacebookAccountExisted = () => {
+
   }
 
   onRequestGoToInputEmail = () => {
@@ -69,10 +88,16 @@ export default class Register extends PureComponent {
           alert("Login cancelled");
         } else {
           AccessToken.getCurrentAccessToken().then(
-            (data) => {
-              RegistrationHelper.instance().setFacebookId(data.userID)
-              RegistrationHelper.instance().setFacebookToken(data.accessToken)
-              this.initUser()
+            async (data) => {
+              const isAccountExisted = await this.checkFacebookAccountExisted(data)
+              if (isAccountExisted) {
+                showErrorAlert("You Facebook account is already existed. Please use another one or Login")
+              } 
+              else {
+                RegistrationHelper.instance().setFacebookId(data.userID)
+                RegistrationHelper.instance().setFacebookToken(data.accessToken)
+                this.initUser()
+              }
             }
           )
         }
@@ -102,12 +127,23 @@ export default class Register extends PureComponent {
   }
 
   onRequestLoginWithGoogle = () => {
-    GoogleSignin.signIn().then(user => {
-      RegistrationHelper.instance().setGoogleId(user.user.id)
-      RegistrationHelper.instance().setGoogleToken(user.idToken)
-      RegistrationHelper.instance().setFirstName(user.user.givenName)
-      RegistrationHelper.instance().setLastName(user.user.familyName)
-      this.props.navigation.navigate("SetupAccountStepInputLocation")
+    GoogleSignin.signIn().then(async user => {
+
+      this.setState({loading: true})
+      const isAccountExisted = await this.checkGoogleAccountExisted(user)
+      this.setState({loading: false})
+      if (isAccountExisted) {
+        setTimeout(() => {
+          showErrorAlert("You Google account is already existed. Please use another one or Login")
+        }, 1000)
+      }
+      else {
+        RegistrationHelper.instance().setGoogleId(user.user.id)
+        RegistrationHelper.instance().setGoogleToken(user.idToken)
+        RegistrationHelper.instance().setFirstName(user.user.givenName)
+        RegistrationHelper.instance().setLastName(user.user.familyName)
+        this.props.navigation.navigate("SetupAccountStepInputLocation")
+      }
     }).catch(e => alert(e))
   }
 
@@ -273,6 +309,7 @@ export default class Register extends PureComponent {
         {this.renderLogo()}
         {this.renderIntroBlock()}
         {this.renderControls()}
+        <LoadingModal visible={this.state.loading} />
       </DialogCombination>
     )
   }
