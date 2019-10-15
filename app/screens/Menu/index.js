@@ -20,6 +20,9 @@ import { getPlayedMatches } from '../../actions/getPlayedMatches'
 import Api from '../../api'
 import { VIEW_ADS } from '../../api/Endpoints'
 import LoadableImage from '../../components/LoadableImage'
+import DGText from '../../components/DGText'
+import Theme from '../../res/Theme'
+import moment from 'moment'
 
 const Logo = React.memo(() => (
   <LoadableImage
@@ -35,10 +38,74 @@ const Logo = React.memo(() => (
   />
 ))
 
+class Lottery extends React.PureComponent {
+
+  constructor(props) {
+    super(props);
+    
+    this.state = {
+      endTime: props.endTime
+    }
+  }
+  
+
+  componentDidMount() {
+    setInterval(() => {
+      this.setState({
+        endTime: this.state.endTime - 1
+      })
+    }, 1000)
+  }
+
+  secondToCountDown(t) {
+    const s = this.makeUpTimeValue(Math.floor(t % 60));
+    const m = this.makeUpTimeValue(Math.floor((t/60) % 60));
+    const h = this.makeUpTimeValue(Math.floor((t/(60*60)) % 24));
+
+    return `${h}:${m}:${s}`
+  } 
+
+  makeUpTimeValue(v) {
+    if (v < 10) {
+      return `0${v}`
+    }
+
+    return v
+  }
+
+  render() {
+    return (
+      <View style={{
+        width: 100,
+        height: 100,
+        borderRadius: 50,
+        borderColor: Theme.buttonPrimary,
+        borderWidth: 4,
+        alignItems: 'center'
+      }}>
+        <DGText style={{
+          color: Theme.buttonPrimary,
+          fontSize: 24,
+          marginTop: 16,
+        }}>Lottle</DGText>
+        <DGText style={{
+          color: 'white',
+          fontSize: 16,
+          marginTop: 4
+        }}>{this.secondToCountDown(this.state.endTime)}</DGText>
+      </View>
+    )
+  }
+}
+
 const Ads = React.memo(({ads}) => {
   const renderContent = () => {
+
+    const lottery = <Lottery endTime={30600} />
+    let ads = undefined
+
     if (ads) {
-      return (
+      ads = (
         <LoadableImage 
           style={{
             width: 100,
@@ -51,6 +118,13 @@ const Ads = React.memo(({ads}) => {
         />
       )
     }
+
+    return (
+      <View style={{flexDirection: 'row'}}>
+        {lottery}
+        {ads}
+      </View>
+    )
   }
 
   return (
