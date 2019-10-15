@@ -20,6 +20,8 @@ import SetupAccountStepActiveEmailContact from './screens/Authentication/SetupAc
 import SetupAccountStepInputEmail from './screens/Authentication/SetupAccountStepInputEmail'
 import SetupAccountStepFinal from './screens/Authentication/SetupAccountStepFinal'
 
+import ChangePassword from './screens/ChangePassword'
+
 import TnC from './screens/Authentication/TnC'
 
 import Settings from './screens/Settings'
@@ -181,6 +183,7 @@ const AppNavigator = createStackNavigator({
   PlayConfiguration,
   ScoreCard,
   Final,
+  ChangePassword,
   ...loginNavigator,
   ...setupAccountNavigator
 }, {

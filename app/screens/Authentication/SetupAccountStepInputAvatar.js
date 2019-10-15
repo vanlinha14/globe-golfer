@@ -16,6 +16,7 @@ import Strings from '../../res/Strings'
 import DGText from '../../components/DGText'
 import Theme from '../../res/Theme'
 import LoadableImage from '../../components/LoadableImage'
+import { USER_EMAIL_STORE_KEY } from '../../utils/constants'
 
 class SetupAccountStepInputAvatar extends PureComponent {
   static navigationOptions = { header: null }
@@ -27,6 +28,10 @@ class SetupAccountStepInputAvatar extends PureComponent {
   componentWillReceiveProps(nextProps) {
     let authenData = nextProps.authenticationData
     if (authenData.isLoading == false && authenData.accessToken) {
+      const email = RegistrationHelper.instance().email
+      if (email) {
+        AsyncStorage.setItem(USER_EMAIL_STORE_KEY, email)
+      }
       this.props.navigation.navigate("SetupAccountStepFinal")
     }
     else if (authenData.isLoading == false && authenData.accessToken === null) {

@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react'
-import { View, TouchableOpacity, StyleSheet, Dimensions, AsyncStorage } from 'react-native'
+import { View, AsyncStorage, StyleSheet, Dimensions } from 'react-native'
 
 import { emailValidationFunction, passwordValidationFunction, showErrorAlert } from '../../utils'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
@@ -15,6 +15,7 @@ import Strings from '../../res/Strings'
 import Theme from '../../res/Theme'
 import DGText from '../../components/DGText';
 import { StackActions, NavigationActions } from 'react-navigation';
+import Api from '../../api'
 import { USER_EMAIL_STORE_KEY } from '../../utils/constants'
 
 const Title = React.memo(() => {
@@ -26,66 +27,76 @@ const Title = React.memo(() => {
       color: 'white',
       marginHorizontal: 16,
       marginVertical: 12
-    }}>Login with Email address</DGText>
+    }}>Modify your password</DGText>
   )
 })
 
-class LoginWithEmail extends PureComponent {
+class ChangePassword extends PureComponent {
   static navigationOptions = { header: null }
 
-  emailTextInput = undefined
-  passwordTextInput = undefined
-
-  componentWillReceiveProps(nextProps) {
-    let authenData = nextProps.authenticationData
-    if (authenData.isLoading == false && authenData.accessToken) {
-      let email = this.emailTextInput.getText()
-      AsyncStorage.setItem(USER_EMAIL_STORE_KEY, email)
-      this.props.navigation.dispatch(StackActions.reset({
-        index: 0, 
-        key: null, 
-        actions: [NavigationActions.navigate({ routeName: 'Main' })]
-      }));
-    }
-
-    if (authenData.isLoading == false && authenData.accessToken == null) {
-      alert("Your email or password is not valid. Please check and try again!")
-    }
+  state = {
+    loading: false
   }
 
-  onRequestLogin = () => {
-    let email = this.emailTextInput.getText()
-    let password = this.passwordTextInput.getText()
+  oldPasswordTextInput = undefined
+  passwordTextInput = undefined
+  repasswordTextInput = undefined
 
-    if (email == null) {
-      showErrorAlert(Strings.input.error.email)
+  onRequestChangePassword = () => {
+    let oldPassword = this.oldPasswordTextInput.getText()
+    let password = this.passwordTextInput.getText()
+    let repassword = this.repasswordTextInput.getText()
+
+    if (oldPassword == null) {
+      showErrorAlert("You old password is not valid")
       return
     }
 
     if (password == null) {
-      showErrorAlert(Strings.input.error.password)
+      showErrorAlert("You password you just filled is not valid")
       return
     }
 
-    this.props.loginWithEmail(email, password)
-  }
-
-  onRequestGoToTnC = () => {
-    alert("open TnC")
+    if (password != repassword)  {
+      showErrorAlert("Your verify password is not match")
+      return
+    }
+    
+    this.setState({loading: true})
+    AsyncStorage.getItem(USER_EMAIL_STORE_KEY).then(email => {
+      Api.instance().changePassword(email, oldPassword, password).then(res => {
+        this.setState({loading: false}, () => {
+          this.props.navigation.goBack()
+          alert("Your password has been updated")
+        })
+      })
+      .catch(err => {
+        this.setState({loading: false})
+      })
+    })
   }
 
   renderBody() {
-    let email = <TextInputBlockV2
-      ref={ref => this.emailTextInput = ref}
-      title={Strings.input.email}
-      placeholder={Strings.input.enterEmail} 
-      validateFunction={emailValidationFunction}
+    let oldPassword = <TextInputBlockV2
+      ref={ref => this.oldPasswordTextInput = ref}
+      title={"Old password"}
+      placeholder={"Enter your old password"} 
+      validateFunction={passwordValidationFunction}
+      inputType={INPUT_TYPE.PASSWORD}
       inputAlign="left"
     />
-    let password = <TextInputBlockV2 
+    let password = <TextInputBlockV2
       ref={ref => this.passwordTextInput = ref}
-      title={Strings.input.password}
-      placeholder={Strings.input.enterPassword}
+      title={"New password"}
+      placeholder={"Enter your new password"} 
+      validateFunction={passwordValidationFunction}
+      inputType={INPUT_TYPE.PASSWORD}
+      inputAlign="left"
+    />
+    let repassword = <TextInputBlockV2 
+      ref={ref => this.repasswordTextInput = ref}
+      title={"Verify password"}
+      placeholder={"Re-enter you new password"}
       validateFunction={passwordValidationFunction}
       inputType={INPUT_TYPE.PASSWORD}
       inputAlign="left"
@@ -94,8 +105,9 @@ class LoginWithEmail extends PureComponent {
       <View style={{
         paddingHorizontal: 16
       }}>
-        {email}
+        {oldPassword}
         {password}
+        {repassword}
       </View>
     )
   }
@@ -103,43 +115,21 @@ class LoginWithEmail extends PureComponent {
   renderFooter() {
     return (
       <View style={styles.footerContainer}>
-        <View style={{ flexDirection: 'row', marginTop: 24 }}>
-          <DGText style={{
-            color: 'white',
-            paddingLeft: 16,
-            fontSize: 12
-          }}>By registering, you agree to our </DGText>  
-          <TouchableOpacity style={{
-            borderBottomWidth: 1,
-            borderBottomColor: 'white'
-          }} activeOpacity={0.7} onPress={this.onRequestGoToTnC}>
-            <DGText style={{
-              color: 'white',
-              fontSize: 12
-            }}>Terms of Use</DGText>
-          </TouchableOpacity>
-        </View>
-        <DGText style={{
-          color: 'white',
-          marginHorizontal: 16,
-          marginBottom: 40,
-          fontSize: 12
-        }}>See our privacy policy</DGText>
         <DGButtonV2
           style={{ 
             width: Dimensions.get('window').width - 32,
             backgroundColor: Theme.buttonPrimary 
           }}
-          loading={this.props.authenticationData.isLoading}
-          text={Strings.button.acceptAndContinue}
-          onPress={this.onRequestLogin}
+          loading={this.state.loading}
+          text={"Submit"}
+          onPress={this.onRequestChangePassword}
           />
       </View>
     )
   }
 
   render() {
-    let isDisableViewInteract = this.props.authenticationData.isLoading == true ? 'none' : 'auto' 
+    let isDisableViewInteract = this.state.loading == true ? 'none' : 'auto' 
     return (
       <BaseComponent toolbar={{
         title: Strings.toolbar.back,
@@ -178,17 +168,16 @@ const styles = StyleSheet.create({
     textAlign: 'center'
   },
   footerContainer: {
+    paddingTop: 40,
     paddingBottom: getBottomSpace() + 32
   }
 })
 
 
 const mapStateToProps = (state) => ({
-  authenticationData: state.authentication
+  user: state.profile.user,
 })
 
-const mapDispatchToProps = (dispatch) => ({
-  loginWithEmail: (email, password) => dispatch(loginWithEmail(email, password))
-})
+const mapDispatchToProps = (dispatch) => ({})
 
-export default connect(mapStateToProps, mapDispatchToProps)(LoginWithEmail)
+export default connect(mapStateToProps, mapDispatchToProps)(ChangePassword)

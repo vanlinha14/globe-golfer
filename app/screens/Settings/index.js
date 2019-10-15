@@ -17,7 +17,7 @@ import LoadingModal from '../../components/LoadingModal'
 import Strings from '../../res/Strings'
 import Theme from '../../res/Theme'
 import SettingSlider from '../../components/SettingSlider'
-import { ACCESS_TOKEN_STORE_KEY } from '../../utils/constants';
+import { ACCESS_TOKEN_STORE_KEY, USER_EMAIL_STORE_KEY } from '../../utils/constants';
 import { StackActions, NavigationActions } from 'react-navigation';
 import DialogCombination from '../../components/DialogCombination';
 import Api from '../../api';
@@ -33,9 +33,18 @@ class Settings extends PureComponent {
 
     this.state = {
       settings: props.settings,
+      showChangePassword: false,
       loading: false
     }
   }
+
+  componentDidMount() {
+    AsyncStorage.getItem(USER_EMAIL_STORE_KEY).then(email => {
+      if (email) {
+        this.setState({showChangePassword: true})
+      }
+    })
+  } 
 
   componentWillReceiveProps(nextProps) {
     if (this.needUpdate) {
@@ -46,6 +55,10 @@ class Settings extends PureComponent {
     }
     
     this.needUpdate = false;
+  }
+
+  onRequestChangePassword = () => {
+    this.props.navigation.navigate("ChangePassword")
   }
 
   onRequestLogout = () => {
@@ -263,11 +276,12 @@ class Settings extends PureComponent {
     return (
       <View>
         {
+          this.state.showChangePassword ? 
           this.renderClickableItem(
             Strings.settings.changePassword,
             undefined, 
-            () => alert("Open change password")
-          )
+            this.onRequestChangePassword
+          ) : undefined
         } 
         {
           this.renderClickableItem(
