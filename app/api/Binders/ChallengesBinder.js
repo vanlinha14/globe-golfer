@@ -1,3 +1,5 @@
+import { GET_AVATAR } from "../Endpoints"
+
 export default class ChallengesBinder {
   bind(input) {
     try {
@@ -9,7 +11,7 @@ export default class ChallengesBinder {
             name: item.name,
             location: item.gofl_name,
             rating: item.rate,
-            avatar: item.avatar,
+            avatar: item.avatar ? GET_AVATAR.replace("{id}", item.avatar) : null,
             about: item.about,
             metaData: [
               { key: "Level", value: "Tour Player" },
