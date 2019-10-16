@@ -53,8 +53,11 @@ class Login extends PureComponent {
     LoginManager.logInWithPermissions(["public_profile"]).then(
       (result) => {
         if (result.isCancelled) {
-          this.setState({loading:false})
-          alert("Login cancelled");
+          this.setState({loading:false}, () => {
+            setTimeout(() => {
+              alert("Login cancelled");
+            }, 500)
+          })
         } else {
           AccessToken.getCurrentAccessToken().then(
             (data) => {
@@ -64,8 +67,11 @@ class Login extends PureComponent {
         }
       },
       (error) => {
-        this.setState({loading:false})
-        alert("Login fail with error: " + error)
+        this.setState({loading:false}, () => {
+          setTimeout(() => {
+            alert("Login fail with error: " + error)
+          }, 500)
+        })
       }
     )
   }
@@ -77,8 +83,12 @@ class Login extends PureComponent {
       this.props.loginWithGoogle(user.user.id, user.idToken)
     })
     .catch(e => {
-      this.setState({loading:false})
-      alert(e)
+      this.setState({loading:false}, () => {
+        setTimeout(() => {
+          alert(e)
+        }, 500)
+      })
+      
     })
   }
 
@@ -230,7 +240,6 @@ class Login extends PureComponent {
         {this.renderSeparator()}
         {this.renderEmailButton()}
         {this.renderNote()}
-        <LoadingModal visible={this.state.loading} />
       </View>
     )
   }
@@ -266,6 +275,7 @@ class Login extends PureComponent {
           {this.renderIntroBlock()}
           {this.renderControls()}
         </ScrollView>
+        <LoadingModal visible={this.state.loading} />
       </SafeAreaView>
     )
   }
