@@ -21,6 +21,7 @@ import MessageBinder from './Binders/MessageBinder';
 
 import MatchResultBinder from './Binders/MatchResultBinder';
 import AdsBinder from './Binders/AdsBinder';
+import ChangePasswordBinder from './Binders/ChangePasswordBinder';
 
 export default class Api extends Base {
   static _instance = null
@@ -302,12 +303,12 @@ export default class Api extends Base {
   }
 
   changePassword(email, old, newOne) {
-    const body = {
+    const body = JSON.stringify({
       username : email,
       password : old,
       newPassword : newOne
-    }
-
-    return this.callPost(MODIFY_PASSWORD, body)
+    })
+    
+    return this.callPost(MODIFY_PASSWORD, body, new ChangePasswordBinder())
   }
 }

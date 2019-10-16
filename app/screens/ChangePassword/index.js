@@ -65,13 +65,22 @@ class ChangePassword extends PureComponent {
     this.setState({loading: true})
     AsyncStorage.getItem(USER_EMAIL_STORE_KEY).then(email => {
       Api.instance().changePassword(email, oldPassword, password).then(res => {
-        this.setState({loading: false}, () => {
-          this.props.navigation.goBack()
-          alert("Your password has been updated")
-        })
+        if (res) {
+          this.setState({loading: false}, () => {
+            this.props.navigation.goBack()
+            alert("Your password has been updated")
+          })
+        }
+        else {
+          this.setState({loading: false}, () => {
+            showErrorAlert("We was not able to change your password. Please try again!")
+          })
+        }
       })
-      .catch(err => {
-        this.setState({loading: false})
+      .catch(() => {
+        this.setState({loading: false}, () => {
+          showErrorAlert("We was not able to change your password. Please try again!")
+        })
       })
     })
   }
