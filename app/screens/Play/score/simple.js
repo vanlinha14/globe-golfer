@@ -7,8 +7,8 @@ import DialogCombination from '../../../components/DialogCombination';
 import Header from '../components/Header';
 import PendingItem from '../components/PendingItem'
 import Theme from '../../../res/Theme';
-import MatchInfo from './MatchInfo'
-import CurrentConfiguration from './CurrentConfiguration'
+import MatchInfo from '../configuration/MatchInfo'
+import CurrentConfiguration from '../configuration/CurrentConfiguration'
 import BaseComponent from '../../../components/BaseComponent'
 import Api from '../../../api'
 import LoadingModal from '../../../components/LoadingModal'
@@ -149,7 +149,6 @@ class PlayConfiguration extends React.PureComponent {
     this.setState({
       loading: false
     }, () => {
-      // this.props.navigation.navigate("SimpleScoreCard", objToSend)
       this.props.navigation.navigate("ScoreCard", objToSend)
     })
   }

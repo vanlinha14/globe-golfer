@@ -53,3 +53,6 @@ export const DELETE_ACCOUNT = BASE + "authenticated/delete-user"
 export const MODIFY_PASSWORD = BASE + "authenticated/change-password"
 
 export const APPLY_SUBSCRIPTION = BASE + "authenticated/transactions"
+
+export const SIMPLE_UPDATE_MATCH_RESULT = BASE + "authenticated/schedule/result"
+export const SIMPLE_GET_MATCH_RESULT = BASE + "authenticated/schedule/result/{id}"
