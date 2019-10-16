@@ -136,7 +136,7 @@ const Ads = React.memo(({ads}) => {
   )
 })
 
-const Body = React.memo(() => {
+const Body = React.memo(({isHidePremium}) => {
 
   const menuBlock = React.useRef(null)
   const { navigate } = useNavigation()
@@ -165,6 +165,7 @@ const Body = React.memo(() => {
     <View style={styles.body}>
       <MenuBlock 
         ref={menuBlock}
+        isHidePremium={isHidePremium}
         onPlayPress={onRequestGoToPlay}
         onChallengePress={onRequestGoToChallenge}
         onScoresPress={onRequestGoToScores}
@@ -224,7 +225,7 @@ class Menu extends PureComponent {
       <BaseComponent withDotBackground={true}>
         <Header />
         <Logo />
-        <Body />
+        <Body isHidePremium={this.props.user && this.props.user.isPremium} />
         <Ads ads={this.state.adsImage} />
       </BaseComponent>
     )

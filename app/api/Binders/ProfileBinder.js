@@ -5,6 +5,7 @@ export default class ProfileBinder {
     try {
       const result = input.result
       const user = input.data[0]
+      const isPremium = user.typeUser == "Premium"
       const id = user.userId
       const index = user.p_index
       const fname = user.firstname
@@ -44,7 +45,8 @@ export default class ProfileBinder {
             lastName: lname,
             avatar,
             about,
-            interest
+            interest,
+            isPremium
           },
           settings: {
             indexRange: {

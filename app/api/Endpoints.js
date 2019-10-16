@@ -51,3 +51,5 @@ export const VIEW_ADS = BASE + "authenticated/advertisement/image/{image}"
 
 export const DELETE_ACCOUNT = BASE + "authenticated/delete-user"
 export const MODIFY_PASSWORD = BASE + "authenticated/change-password"
+
+export const APPLY_SUBSCRIPTION = BASE + "authenticated/transactions"

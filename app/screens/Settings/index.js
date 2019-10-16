@@ -430,8 +430,12 @@ class Settings extends PureComponent {
           ref={r => this.container = r}
           contentContainerStyle={{ paddingTop: 24 }}
         >
-          {this.renderTopBlock()}
-          {this.renderSeparator()}
+          {
+            this.props.user.isPremium ? undefined : [
+              this.renderTopBlock(),
+              this.renderSeparator()
+            ]
+          }
           {this.renderSpacing(44)}
           {this.renderDiscoverBlock()}
           {this.renderVisibilityBlock()}

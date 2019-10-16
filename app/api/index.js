@@ -2,7 +2,7 @@ import Base from './Base'
 import { 
   DUMMY_MESSAGES,
 } from './DummyData'
-import { LOGIN, GET_COUNTRY, GET_REGION, GET_CLUB, REGISTER, GET_CHALLENGES, GET_PROFILE, GET_INTEREST, GET_NEW_NOTIFICATIONS, GET_HISTORY_NOTIFICATIONS, CHALLENGE_SOME_ONE, UPDATE_NOTIFICATION, GET_PENDING_MATCHES, ACCEPT_CHALLENGE, GET_RANKING, DECLINE_CHALLENGE, GET_FAVORITE_RANKING, GET_GAME_MODE, ADD_INTEREST, REMOVE_INTEREST, GET_CHAT_MATCHES, GET_CHAT_FRIENDS, CREATE_MATCH, GET_MATCH_INFO, UPDATE_MATCH_RESULT, GET_MATCH_RESULT, ACCEPT_MATCH_RESULT, GET_ADS, DELETE_ACCOUNT, MODIFY_PASSWORD } from './Endpoints';
+import { LOGIN, GET_COUNTRY, GET_REGION, GET_CLUB, REGISTER, GET_CHALLENGES, GET_PROFILE, GET_INTEREST, GET_NEW_NOTIFICATIONS, GET_HISTORY_NOTIFICATIONS, CHALLENGE_SOME_ONE, UPDATE_NOTIFICATION, GET_PENDING_MATCHES, ACCEPT_CHALLENGE, GET_RANKING, DECLINE_CHALLENGE, GET_FAVORITE_RANKING, GET_GAME_MODE, ADD_INTEREST, REMOVE_INTEREST, GET_CHAT_MATCHES, GET_CHAT_FRIENDS, CREATE_MATCH, GET_MATCH_INFO, UPDATE_MATCH_RESULT, GET_MATCH_RESULT, ACCEPT_MATCH_RESULT, GET_ADS, DELETE_ACCOUNT, MODIFY_PASSWORD, APPLY_SUBSCRIPTION } from './Endpoints';
 import LoginBinder from './Binders/Login';
 import CountriesBinder from './Binders/CountriesBinder';
 import RegisterBinder from './Binders/RegisterBinder';
@@ -22,6 +22,7 @@ import MessageBinder from './Binders/MessageBinder';
 import MatchResultBinder from './Binders/MatchResultBinder';
 import AdsBinder from './Binders/AdsBinder';
 import ChangePasswordBinder from './Binders/ChangePasswordBinder';
+import ApplySubscriptionBinder from './Binders/ApplySubscriptionBinder';
 
 export default class Api extends Base {
   static _instance = null
@@ -310,5 +311,14 @@ export default class Api extends Base {
     })
     
     return this.callPost(MODIFY_PASSWORD, body, new ChangePasswordBinder())
+  }
+
+  applySubscription(productId) {
+    const body = JSON.stringify({
+      transactionType: productId,
+      description: "Buy a subscrition with product id: " + productId,
+    })
+
+    return this.callPost(APPLY_SUBSCRIPTION, body, new ApplySubscriptionBinder())
   }
 }

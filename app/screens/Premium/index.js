@@ -6,16 +6,27 @@ import LoadingModal from '../../components/LoadingModal'
 import DGText from '../../components/DGText'
 import DGButton from '../../components/DGButtonV2'
 import * as RNIap from 'react-native-iap'
+import Api from '../../api'
+import { connect } from 'react-redux'
+import { getProfile } from '../../actions/getProfile'
 
 class Item extends React.PureComponent {
   
   onRequestBuyItem = () => {
+    
     const productId = this.props.data.id
     RNIap.requestSubscription(productId).then(result => {
-      alert(JSON.stringify(result))
+      this.onBuySuccess()
     })
     .catch(error => {
       alert("error: " + JSON.stringify(error))
+    })
+  }
+
+  onBuySuccess = () => {
+    const productId = this.props.data.id
+    Api.instance().applySubscription(productId).then(res => {
+      res && this.props.onBuySuccess && this.props.onBuySuccess()
     })
   }
 
@@ -82,8 +93,13 @@ class Premium extends React.PureComponent {
     })
   }
 
+  onBuySuccess = () => {
+    this.props.getProfile()
+    this.props.navigation.goBack()
+  }
+
   renderItem = ({item}) => {
-    return <Item data={item} />
+    return <Item data={item} onBuySuccess={this.onBuySuccess}/>
   }
 
   renderContent = () => {
@@ -122,4 +138,10 @@ class Premium extends React.PureComponent {
   }
 }
 
-export default Premium
+const mapStateToProps = (state) => ({})
+
+const mapDispatchToProps = (dispatch) => ({
+  getProfile: () => dispatch(getProfile()),
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(Premium)

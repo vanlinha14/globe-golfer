@@ -118,12 +118,15 @@ export default class MenuBlock extends PureComponent {
       {
         name: "Scores",
         onPress: this.props.onScoresPress
-      },
-      {
+      } 
+    ]
+
+    if (this.props.isHidePremium == false) {
+      data.push({
         name: "Premium",
         onPress: this.props.onPremiumPress
-      }
-    ]
+      })
+    }
 
     return (
       <View style={[styles.container, this.props.style]}>
