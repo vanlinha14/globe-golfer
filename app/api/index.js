@@ -2,7 +2,7 @@ import Base from './Base'
 import { 
   DUMMY_MESSAGES,
 } from './DummyData'
-import { LOGIN, GET_COUNTRY, GET_REGION, GET_CLUB, REGISTER, GET_CHALLENGES, GET_PROFILE, GET_INTEREST, GET_NEW_NOTIFICATIONS, GET_HISTORY_NOTIFICATIONS, CHALLENGE_SOME_ONE, UPDATE_NOTIFICATION, GET_PENDING_MATCHES, ACCEPT_CHALLENGE, GET_RANKING, DECLINE_CHALLENGE, GET_FAVORITE_RANKING, GET_GAME_MODE, ADD_INTEREST, REMOVE_INTEREST, GET_CHAT_MATCHES, GET_CHAT_FRIENDS, CREATE_MATCH, GET_MATCH_INFO, UPDATE_MATCH_RESULT, GET_MATCH_RESULT, ACCEPT_MATCH_RESULT, GET_ADS, DELETE_ACCOUNT, MODIFY_PASSWORD, APPLY_SUBSCRIPTION, SIMPLE_UPDATE_MATCH_RESULT } from './Endpoints';
+import { LOGIN, GET_COUNTRY, GET_REGION, GET_CLUB, REGISTER, GET_CHALLENGES, GET_PROFILE, GET_INTEREST, GET_NEW_NOTIFICATIONS, GET_HISTORY_NOTIFICATIONS, CHALLENGE_SOME_ONE, UPDATE_NOTIFICATION, GET_PENDING_MATCHES, ACCEPT_CHALLENGE, GET_RANKING, DECLINE_CHALLENGE, GET_FAVORITE_RANKING, GET_GAME_MODE, ADD_INTEREST, REMOVE_INTEREST, GET_CHAT_MATCHES, GET_CHAT_FRIENDS, CREATE_MATCH, GET_MATCH_INFO, UPDATE_MATCH_RESULT, GET_MATCH_RESULT, ACCEPT_MATCH_RESULT, GET_ADS, DELETE_ACCOUNT, MODIFY_PASSWORD, APPLY_SUBSCRIPTION, SIMPLE_UPDATE_MATCH_RESULT, SIMPLE_GET_MATCH_RESULT } from './Endpoints';
 import LoginBinder from './Binders/Login';
 import CountriesBinder from './Binders/CountriesBinder';
 import RegisterBinder from './Binders/RegisterBinder';
@@ -23,6 +23,7 @@ import MatchResultBinder from './Binders/MatchResultBinder';
 import AdsBinder from './Binders/AdsBinder';
 import ChangePasswordBinder from './Binders/ChangePasswordBinder';
 import ApplySubscriptionBinder from './Binders/ApplySubscriptionBinder';
+import SimpleMatchResultBinder from './Binders/SimpleMatchResultBinder';
 
 export default class Api extends Base {
   static _instance = null
@@ -332,5 +333,10 @@ export default class Api extends Base {
     })
 
     return this.callPut(SIMPLE_UPDATE_MATCH_RESULT, body)
+  }
+
+  simpleViewMatchResult(id) {
+    const callingApi = SIMPLE_GET_MATCH_RESULT.replace("{id}", id)
+    return this.callGet(callingApi, new SimpleMatchResultBinder()) 
   }
 }

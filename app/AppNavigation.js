@@ -43,6 +43,7 @@ import ChatDetail from './screens/Chat/detail'
 import Notification from './screens/Notification'
 import NotificationDetail from './screens/Notification/detail'
 import MatchResult from './screens/Notification/match/result'
+import ResultSimple from './screens/Notification/match/ResultSimple'
 
 import Menu from './screens/Menu'
 import LeaderBoard from './screens/LeaderBoard'
@@ -182,6 +183,7 @@ const AppNavigator = createStackNavigator({
   ChatDetail,
   NotificationDetail,
   MatchResult,
+  ResultSimple,
   PlayConfiguration,
   ScoreCard,
   SimpleScoreCard,

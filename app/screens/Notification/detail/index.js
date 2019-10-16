@@ -129,11 +129,11 @@ class NotificationDetail extends React.PureComponent {
     })
 
     const notification = this.props.navigation.getParam("notification")
-    Api.instance().getMatchResult(notification.id).then(data => {
+    Api.instance().simpleViewMatchResult(notification.scheduleId).then(data => {
       this.setState({
         loading: false
       }, () => {
-        this.props.navigation.navigate("MatchResult", {data})
+        this.props.navigation.navigate("ResultSimple", {data})
       })
     })
   }
