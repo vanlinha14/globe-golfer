@@ -15,7 +15,7 @@ const HeaderIcon = React.memo(({name, action}) => (
   />
 ))
 
-const Header = React.memo(({isOn, onViewModeChanged}) => {
+const Header = React.memo(({}) => {
 
   const { goBack, navigate } = useNavigation()
 

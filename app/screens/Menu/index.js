@@ -217,7 +217,6 @@ class Menu extends PureComponent {
 
   onOpened = () => {
     this.props.navigation.navigate('Notification')
-    alert("??")
   }
 
   render() {

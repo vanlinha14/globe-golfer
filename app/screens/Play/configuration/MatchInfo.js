@@ -4,14 +4,14 @@ import DGText from '../../../components/DGText';
 import Theme from '../../../res/Theme';
 import moment from 'moment';
 
-export default MatchInfo = React.memo(() => {
+export default MatchInfo = React.memo(({title}) => {
   return (
     <View style={{ justifyContent: 'center', alignItems: 'center' }}>
       <DGText style={{ 
         color: Theme.textWhite,
         fontSize: 30,
         marginBottom: 12
-      }}>It's a Match</DGText>
+      }}>{title ? title : "It's a Match"}</DGText>
       <View style={{ flexDirection: 'row' }}>
         <DGText style={{ 
           color: Theme.textWhite,

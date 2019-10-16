@@ -35,6 +35,7 @@ import PlayConfiguration from './screens/Play/configuration'
 import ScoreCard from './screens/Play/score'
 import SimpleScoreCard from './screens/Play/score/simple'
 import Final from './screens/Play/final'
+import SimpleFinal from './screens/Play/final/SimpleFinal'
 
 import Chat from './screens/Chat'
 import ChatDetail from './screens/Chat/detail'
@@ -185,6 +186,7 @@ const AppNavigator = createStackNavigator({
   ScoreCard,
   SimpleScoreCard,
   Final,
+  SimpleFinal,
   ChangePassword,
   ...loginNavigator,
   ...setupAccountNavigator

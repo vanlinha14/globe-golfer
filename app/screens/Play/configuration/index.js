@@ -149,8 +149,8 @@ class PlayConfiguration extends React.PureComponent {
     this.setState({
       loading: false
     }, () => {
-      // this.props.navigation.navigate("SimpleScoreCard", objToSend)
-      this.props.navigation.navigate("ScoreCard", objToSend)
+      const item = this.props.navigation.getParam("data")
+      this.props.navigation.navigate("SimpleScoreCard", {data: item, ...objToSend})
     })
   }
 

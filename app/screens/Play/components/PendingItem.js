@@ -10,6 +10,8 @@ export default PendingItem = React.memo(({item, viewOnly}) => {
   const { navigate } = useNavigation()
 
   const requestPlayTo = () => {
+    console.warn(item);
+    
     navigate("PlayConfiguration", { data: item })
   }
 
