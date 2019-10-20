@@ -4,6 +4,7 @@ import { View, TouchableOpacity } from 'react-native'
 import { useNavigation } from 'react-navigation-hooks';
 import DGText from '../../../components/DGText';
 import LoadableImage from '../../../components/LoadableImage';
+import Theme from '../../../res/Theme';
 
 export default PendingItem = React.memo(({item, viewOnly}) => {
 
@@ -24,7 +25,8 @@ export default PendingItem = React.memo(({item, viewOnly}) => {
         style={{
           width: 100,
           height: 100,
-          borderRadius: 50
+          borderRadius: 50,
+          backgroundColor: Theme.buttonPrimary
         }}
         source={sourceFrom}
       />
@@ -51,7 +53,8 @@ export default PendingItem = React.memo(({item, viewOnly}) => {
         style={{
           width: 100,
           height: 100,
-          borderRadius: 50
+          borderRadius: 50,
+          backgroundColor: Theme.buttonPrimary
         }}
         source={sourceTo}
       />

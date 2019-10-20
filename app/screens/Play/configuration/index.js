@@ -12,6 +12,7 @@ import CurrentConfiguration from './CurrentConfiguration'
 import BaseComponent from '../../../components/BaseComponent'
 import Api from '../../../api'
 import LoadingModal from '../../../components/LoadingModal'
+import Ads from '../../../components/Ads'
 
 const SelectItem = React.memo(({index, content, onPress}) => {
 
@@ -160,7 +161,7 @@ class PlayConfiguration extends React.PureComponent {
       <BaseComponent>
         <Header />
         <DialogCombination>
-          <View style={{ minHeight: Dimensions.get('window').height }}>  
+          <View style={{ minHeight: Dimensions.get('window').height - 80, paddingBottom: 32 }}>  
             <MatchInfo />
             <Spacing />
             <PendingItem item={item} viewOnly={true} />
@@ -183,6 +184,8 @@ class PlayConfiguration extends React.PureComponent {
               onBeginGotoScoreCard={this.onBeginGotoScoreCard}
               onEndGotoScoreCard={this.onEndGotoScoreCard}
             />
+            <View style={{flex: 1}} />
+            <Ads />
           </View>
           <LoadingModal visible={this.state.loading} />
         </DialogCombination>

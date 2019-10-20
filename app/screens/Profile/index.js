@@ -132,7 +132,7 @@ class Profile extends PureComponent {
             height: avatarSize,
             borderRadius: avatarSize / 2,
             alignSelf: 'center',
-            backgroundColor: 'white'
+            backgroundColor: Theme.buttonPrimary
           }}
           source={source}
         />
