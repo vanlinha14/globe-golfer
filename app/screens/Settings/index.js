@@ -141,7 +141,7 @@ class Settings extends PureComponent {
         {
           this.renderRangeItem(
             Strings.settings.ageRange, 
-            3, 
+            13, 
             99, 
             [this.state.settings.ageRange.min, this.state.settings.ageRange.max],
             (nmin, mmax) => this.setState({ 
