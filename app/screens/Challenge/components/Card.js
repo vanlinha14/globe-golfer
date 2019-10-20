@@ -3,6 +3,7 @@ import { View } from 'react-native'
 import CardMetaData from './CardMetaData';
 import CardBasicInfo from './CardBasicInfo.tindermode';
 import CardAbout from './CardAbout';
+import Ads from '../../../components/Ads';
 
 const Card = React.memo(({card}) => (
   <View style={{
@@ -14,6 +15,7 @@ const Card = React.memo(({card}) => (
       <CardMetaData data={card.metaData} />
       <CardBasicInfo avatar={card.avatar} name={card.name} location={card.location} rating={card.rating}/>
       <CardAbout about={card.about} />
+      <Ads />
   </View>
 ))
 

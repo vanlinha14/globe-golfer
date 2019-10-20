@@ -1,9 +1,7 @@
 import React, { PureComponent } from 'react'
 import { 
   View, 
-  TouchableWithoutFeedback,
   StyleSheet,
-  Linking
 } from 'react-native'
 import { connect } from 'react-redux'
 import OneSignal from 'react-native-onesignal'
@@ -17,12 +15,9 @@ import { shareGG } from '../../utils'
 import { getNewNotifications, getHistoryNotifications } from '../../actions/getNotifications'
 import { getPendingMatches } from '../../actions/getPendingMatches'
 import { getPlayedMatches } from '../../actions/getPlayedMatches'
-import Api from '../../api'
-import { VIEW_ADS } from '../../api/Endpoints'
 import LoadableImage from '../../components/LoadableImage'
-import DGText from '../../components/DGText'
-import Theme from '../../res/Theme'
-import moment from 'moment'
+import Ads from '../../components/Ads'
+import AdsRepository from '../../repository/AdsRepository'
 
 const Logo = React.memo(() => (
   <LoadableImage
@@ -37,107 +32,6 @@ const Logo = React.memo(() => (
     source={require('../../res/images/ic_icon.png')}
   />
 ))
-
-class Lottery extends React.PureComponent {
-
-  constructor(props) {
-    super(props);
-    
-    this.state = {
-      endTime: props.endTime
-    }
-  }
-  
-
-  componentDidMount() {
-    setInterval(() => {
-      this.setState({
-        endTime: this.state.endTime - 1
-      })
-    }, 1000)
-  }
-
-  secondToCountDown(t) {
-    const s = this.makeUpTimeValue(Math.floor(t % 60));
-    const m = this.makeUpTimeValue(Math.floor((t/60) % 60));
-    const h = this.makeUpTimeValue(Math.floor((t/(60*60)) % 24));
-
-    return `${h}:${m}:${s}`
-  } 
-
-  makeUpTimeValue(v) {
-    if (v < 10) {
-      return `0${v}`
-    }
-
-    return v
-  }
-
-  render() {
-    return (
-      <View style={{
-        width: 100,
-        height: 100,
-        borderRadius: 50,
-        borderColor: Theme.buttonPrimary,
-        borderWidth: 4,
-        alignItems: 'center'
-      }}>
-        <DGText style={{
-          color: Theme.buttonPrimary,
-          fontSize: 24,
-          marginTop: 16,
-        }}>Lottle</DGText>
-        <DGText style={{
-          color: 'white',
-          fontSize: 16,
-          marginTop: 4
-        }}>{this.secondToCountDown(this.state.endTime)}</DGText>
-      </View>
-    )
-  }
-}
-
-const Ads = React.memo(({ads}) => {
-  const renderContent = () => {
-
-    const lottery = <Lottery endTime={30600} />
-    let adsView = undefined
-
-    if (ads) {
-      adsView = (
-        <>
-        <View style={{width: 24}} />
-        <LoadableImage 
-          style={{
-            width: 100,
-            height: 100,
-            borderRadius: 50
-          }}
-          resizeMethod='resize'
-          resizeMode='cover'
-          source={{uri: VIEW_ADS.replace("{image}", ads.image)}}
-        />
-        </>
-      )
-    }
-
-    return (
-      <View style={{flexDirection: 'row'}}>
-        {lottery}
-        {adsView}
-      </View>
-    )
-  }
-
-  return (
-    <TouchableWithoutFeedback style={styles.ads} onPress={() => {ads && Linking.openURL(ads.link)}} >
-      <View style={styles.ads}>
-        {renderContent()}    
-      </View>
-    </TouchableWithoutFeedback>
-  )
-})
 
 const Body = React.memo(({isHidePremium}) => {
 
@@ -181,10 +75,6 @@ const Body = React.memo(({isHidePremium}) => {
 
 class Menu extends PureComponent {
 
-  state = {
-    adsImage: null
-  }
-
   constructor(props) {
     super(props)
 
@@ -197,11 +87,7 @@ class Menu extends PureComponent {
   componentDidMount() {
     this.props.getProfile()
 
-    Api.instance().getAds().then(res => {
-      this.setState({
-        adsImage: res
-      })
-    })
+    AdsRepository.instance().loadAds()
   }
 
   componentWillReceiveProps(nextProps) {
@@ -228,7 +114,7 @@ class Menu extends PureComponent {
         <Header />
         <Logo />
         <Body isHidePremium={this.props.user && this.props.user.isPremium} />
-        <Ads ads={this.state.adsImage} />
+        <Ads withLottery={true} />
       </BaseComponent>
     )
   }
@@ -240,11 +126,6 @@ const styles = StyleSheet.create({
   },
   logo: {
     height: '30%'
-  },
-  ads: {
-    height: '25%',
-    justifyContent: 'center',
-    alignItems: 'center'
   },
   controllerBlock: {
     width: "30%",
