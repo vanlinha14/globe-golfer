@@ -14,18 +14,25 @@ import { useNavigation } from 'react-navigation-hooks';
 import { getPendingMatches } from '../../actions/getPendingMatches'
 import { getPlayedMatches } from '../../actions/getPlayedMatches'
 import LoadableImage from '../../components/LoadableImage'
+import lodash from 'lodash'
+import Api from '../../api'
 
 const Challenge = React.memo(({item, onPress}) => {
 
   const imageSource = item.avatar ? {uri: item.avatar} : require('../../res/images/golfer_placeholder.png')
 
+  const onUserPress = () => {
+    onPress && onPress(item)
+  }
+
   return (
-    <TouchableOpacity style={{ marginHorizontal: 8 }} activeOpacity={0.7} onPress={onPress}>
+    <TouchableOpacity style={{ marginHorizontal: 8 }} activeOpacity={0.7} onPress={onUserPress}>
       <LoadableImage
         style={{
           width: 50,
           height: 50,
-          borderRadius: 25
+          borderRadius: 25,
+          backgroundColor: Theme.buttonPrimary
         }}
         source={imageSource}
       />
@@ -39,8 +46,8 @@ const Challenge = React.memo(({item, onPress}) => {
   )
 })
 
-const Challengers = React.memo(({data}) => {
-  if (!Array.isArray(data) || data.length == 0) {
+const Challengers = React.memo(({title, data, onPress}) => {
+  if (!Array.isArray(data)) {
     return (
       <>
         <DGText style={{ 
@@ -49,18 +56,33 @@ const Challengers = React.memo(({data}) => {
           fontSize: 18,
           color: Theme.textWhite, 
           marginHorizontal: 16 
-        }}>Challengers</DGText>
+        }}>{title}</DGText>
+        <ActivityIndicator size='large' color={Theme.buttonPrimary} />
+      </>
+    )
+  }
+
+  if (data.length == 0) {
+    return (
+      <>
+        <DGText style={{ 
+          marginTop: 12,
+          marginBottom: 8,
+          fontSize: 18,
+          color: Theme.textWhite, 
+          marginHorizontal: 16 
+        }}>{title}</DGText>
         <DGText style={{
           color: Theme.textWhite,
           fontStyle: 'italic',
           marginLeft: 16,
           marginTop: 8
-        }}>You have no challenger right now</DGText>
+        }}>{`You have no ${title.toLowerCase()} right now`}</DGText>
       </>
     )
   }
 
-  const items = data.map((item, index) => <Challenge key={`challenge-${index}`} item={item} />)
+  const items = data.map((item, index) => <Challenge key={`challenge-${index}`} item={item} onPress={onPress} />)
 
   return (
     <>
@@ -70,7 +92,7 @@ const Challengers = React.memo(({data}) => {
         fontSize: 18,
         color: Theme.textWhite, 
         marginHorizontal: 16 
-      }}>Challengers</DGText>
+      }}>{title}</DGText>
       <ScrollView style={{ 
         paddingHorizontal: 8,
         marginTop: 12
@@ -146,7 +168,9 @@ const MessageItem = React.memo(({user, item}) => {
           fontSize: 20
         }}>{item.name}</DGText>
         <DGText style={{ 
-          color: Theme.textWhite
+          color: Theme.textWhite,
+          fontStyle: 'italic',
+          fontSize: 12
         }} numberOfLines={1}>{lastMessage}</DGText>
       </View>
     </TouchableOpacity>
@@ -183,7 +207,6 @@ const Board = React.memo(({user, title, isLoading, data}) => {
         marginTop: 12,
         marginBottom: 8,
         fontSize: 18,
-  
       }}>{title}</DGText>
       {content}
     </>
@@ -197,11 +220,6 @@ class Chat extends PureComponent {
     tabIndex: 0
   }
 
-  componentDidMount() {
-    this.props.getPendingMatches()
-    this.props.getPlayedMatches()
-  }
-
   requestToggleExpand = () => {
     this.setState({ isAllExpand: !this.state.isAllExpand })
   }
@@ -209,29 +227,70 @@ class Chat extends PureComponent {
   onFilterChanged = (nextValue) => {
     this.setState({tabIndex: nextValue})
     this.props.getMessages(nextValue)
+
+    if (nextValue == 0) {
+      this.props.getPendingMatches()
+      this.props.getPlayedMatches()
+    }
+  }
+
+  onChallengePress = (challenger) => {
+    const conversation = lodash.find(this.props.messagesData.data, (item) => item.avatar == challenger.avatar)
+    if (conversation) {
+      this.props.navigation.navigate("ChatDetail", {data: conversation})
+    }
+    else {
+      Api.instance().createConversation()
+    }
   }
   
   render() {
-    const challengersData = []
+    let challengersData = null
+
+    const {pendingData, playedData, messagesData} = this.props
+
+    if (!pendingData.isLoading && !playedData.isLoading && !messagesData.isLoading) {
+      if (this.state.tabIndex == 0 && Array.isArray(pendingData.data)) {
+        if (challengersData == null) {
+          challengersData = []
+        }
+        pendingData.data.forEach(d => {
+          challengersData.push(d.to)
+        });
+      }
+
+      if (this.state.tabIndex == 0 && Array.isArray(playedData.data)) {
+        if (challengersData == null) {
+          challengersData = []
+        }
+        playedData.data.forEach(d => {
+          challengersData.push(d.to)
+        });
+      }
+
+      if (Array.isArray(messagesData.data)) {
+        if (challengersData == null) {
+          challengersData = []
+        }
+        messagesData.data.forEach(d => {
+          challengersData.push({
+            name: d.name,
+            avatar: d.avatar
+          })
+        })
+      }
+    }
     
-    if (Array.isArray(this.props.pendingData.data)) {
-      this.props.pendingData.data.forEach(d => {
-        challengersData.push(d.to)
-      });
-    }
-
-    if (Array.isArray(this.props.playedData.data)) {
-      this.props.playedData.data.forEach(d => {
-        challengersData.push(d.to)
-      });
-    }
-
     return (
       <BaseComponent>
         <Header />
         <Filter onFilterChanged={this.onFilterChanged} />
         <ScrollView showsVerticalScrollIndicator={false} >
-          {this.state.tabIndex == 0 ? <Challengers data={challengersData}/> : undefined}
+          <Challengers 
+            title={this.state.tabIndex == 0 ? "Challengers" : "Friends"} 
+            data={challengersData}
+            onPress={this.onChallengePress}
+          />
           <Message 
             user={this.props.user}
             requestToggleExpand={this.requestToggleExpand}

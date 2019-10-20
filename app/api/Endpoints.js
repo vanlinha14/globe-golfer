@@ -22,6 +22,7 @@ export const UPDATE_NOTIFICATION = BASE + "authenticated/notification/update/{id
 export const CHALLENGE_SOME_ONE = BASE + "authenticated/add-challenge"
 
 export const GET_PENDING_MATCHES = BASE + "authenticated/pendings/list-new?limit=0&item=100"
+export const GET_PLAYED_MATCHES = BASE + "authenticated/played/list-new?limit=0&item=100"
 
 export const ACCEPT_CHALLENGE = BASE + "authenticated/match-challenge/{id}"
 export const DECLINE_CHALLENGE = BASE + "authenticated/not-yet-challenge/{id}"

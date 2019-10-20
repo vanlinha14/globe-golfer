@@ -40,7 +40,7 @@ class ChatDetail extends React.PureComponent {
       return {
         _id: m.message_id,
         text: m.message,
-        // createdAt: new Date(),
+        createdAt: new Date(),
         user: {
           ...owner,
           _id: owner.id,
@@ -103,8 +103,6 @@ class ChatDetail extends React.PureComponent {
       return
     }
 
-    
-    alert(messageObject.message)
     const owner = messageObject.sender_id == this.user1.id ? this.user1 : this.user2
     const newMessage = {
       _id: (new Date()).getMilliseconds(),
@@ -144,6 +142,11 @@ class ChatDetail extends React.PureComponent {
       <View style={{ backgroundColor: Theme.mainBackground, flex: 1 }}>
         <Header />
         <GiftedChat
+          listViewProps={{
+            style: {
+              paddingVertical: 16,
+            }
+          }}
           alignTop={true}
           messages={this.state.messages}
           onSend={messages => this.onSend(messages)}
