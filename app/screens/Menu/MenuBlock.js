@@ -43,9 +43,44 @@ export default class MenuBlock extends PureComponent {
     activeSlide: 2
   }
 
+  data = []
+
+  constructor(props) {
+    super(props)
+
+    this.data = [
+      {
+        name: "Invite a Friend",
+        onPress: props.onInvitePress
+      },
+      {
+        name: "Play",
+        onPress: props.onPlayPress
+      },
+      {
+        name: "Challenge",
+        onPress: props.onChallengePress
+      },
+      {
+        name: "Scores",
+        onPress: props.onScoresPress
+      } 
+    ]
+
+    if (props.isHidePremium == false) {
+      this.data.push({
+        name: "Premium",
+        onPress: props.onPremiumPress
+      })
+    }
+  }
+
   renderMenuItem(item) {
 
+    const activeObject = this.data[this.state.activeSlide]
+
     let iconSource = null
+    let isActive = item.name == activeObject.name
 
     switch (item.name) {
       case "Challenge":
@@ -78,7 +113,8 @@ export default class MenuBlock extends PureComponent {
           style={{
             position: 'absolute',
             width: itemWidth,
-            height: itemWidth
+            height: itemWidth,
+            tintColor: isActive ? '#FFFFFF' : null
           }}
           resizeMethod='resize'
           resizeMode='contain'
@@ -101,38 +137,11 @@ export default class MenuBlock extends PureComponent {
   }
 
   render() {
-
-    const data = [
-      {
-        name: "Invite a Friend",
-        onPress: this.props.onInvitePress
-      },
-      {
-        name: "Play",
-        onPress: this.props.onPlayPress
-      },
-      {
-        name: "Challenge",
-        onPress: this.props.onChallengePress
-      },
-      {
-        name: "Scores",
-        onPress: this.props.onScoresPress
-      } 
-    ]
-
-    if (this.props.isHidePremium == false) {
-      data.push({
-        name: "Premium",
-        onPress: this.props.onPremiumPress
-      })
-    }
-
     return (
       <View style={[styles.container, this.props.style]}>
         <Carousel
           ref={(c) => { this.carousel = c; }}
-          data={data}
+          data={this.data}
           contentContainerCustomStyle={{ justifyContent: 'center', alignItems: 'center' }}
           renderItem={this.renderItem}
           sliderWidth={windowWidth}
@@ -144,14 +153,14 @@ export default class MenuBlock extends PureComponent {
           inactiveSlideScale={0.6}
           onSnapToItem={(index) => this.setState({ activeSlide: index })}
         />
-        <DotPagination dotsLength={data.length} activeSlide={this.state.activeSlide}/>
+        <DotPagination dotsLength={this.data.length} activeSlide={this.state.activeSlide}/>
       </View>
     )
   }
 }
 
 const windowWidth = Dimensions.get('window').width
-const itemWidth = windowWidth * 0.4
+const itemWidth = windowWidth * 0.5
 const styles = StyleSheet.create({
   container: {
     flex: 1,
