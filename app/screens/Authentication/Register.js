@@ -43,8 +43,15 @@ export default class Register extends PureComponent {
     })
   }
 
-  checkFacebookAccountExisted = () => {
-
+  checkFacebookAccountExisted = (data) => {
+    return new Promise((resolve) => {
+      Api.instance().loginFacebook(data.userID, data.accessToken).then(res => {
+        resolve(res.result)
+      })
+      .catch(() => {
+        resolve(false)
+      })
+    })
   }
 
   onRequestGoToInputEmail = () => {
@@ -89,9 +96,14 @@ export default class Register extends PureComponent {
         } else {
           AccessToken.getCurrentAccessToken().then(
             async (data) => {
+              this.setState({loading: true})
               const isAccountExisted = await this.checkFacebookAccountExisted(data)
+              this.setState({loading: false})
+              
               if (isAccountExisted) {
-                showErrorAlert("You Facebook account is already existed. Please use another one or Login")
+                setTimeout(() => {
+                  showErrorAlert("You Facebook account is already existed. Please use another one or Login")
+                }, 1000)
               } 
               else {
                 RegistrationHelper.instance().setFacebookId(data.userID)
