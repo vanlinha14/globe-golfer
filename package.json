@@ -43,6 +43,7 @@
     "react-navigation": "^3.11.0",
     "react-navigation-hooks": "^1.0.1",
     "react-redux": "^7.0.3",
+    "react-stompjs": "^0.5.3",
     "redux": "^4.0.4",
     "redux-thunk": "^2.3.0"
   },
