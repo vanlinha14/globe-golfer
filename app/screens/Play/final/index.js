@@ -13,6 +13,7 @@ import Api from '../../../api'
 import { getPendingMatches } from '../../../actions/getPendingMatches'
 import { getPlayedMatches } from '../../../actions/getPlayedMatches'
 import LoadingModal from '../../../components/LoadingModal'
+import Ads from '../../../components/Ads'
 
 const SelectItem = React.memo(({index, content, onPress}) => {
 
@@ -115,12 +116,14 @@ class Final extends React.PureComponent {
       <BaseComponent>
         <Header />
         <DialogCombination>
-          <View style={{ minHeight: Dimensions.get('window').height }}>  
+          <View style={{ minHeight: Dimensions.get('window').height - 80, paddingBottom: 32 }}>  
             <MatchInfo />
             <Spacing />
             <PendingItem item={item} viewOnly={true} />
             <Result gameResult={game}/>
             <SignButton onPress={this.onSign} />
+            <View style={{flex: 1}} />
+            <Ads />
           </View>
         </DialogCombination>
         <LoadingModal visible={this.state.loading} />
