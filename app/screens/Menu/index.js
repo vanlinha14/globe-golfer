@@ -102,10 +102,12 @@ const Ads = React.memo(({ads}) => {
   const renderContent = () => {
 
     const lottery = <Lottery endTime={30600} />
-    let ads = undefined
+    let adsView = undefined
 
     if (ads) {
-      ads = (
+      adsView = (
+        <>
+        <View style={{width: 24}} />
         <LoadableImage 
           style={{
             width: 100,
@@ -116,13 +118,14 @@ const Ads = React.memo(({ads}) => {
           resizeMode='cover'
           source={{uri: VIEW_ADS.replace("{image}", ads.image)}}
         />
+        </>
       )
     }
 
     return (
       <View style={{flexDirection: 'row'}}>
         {lottery}
-        {ads}
+        {adsView}
       </View>
     )
   }
