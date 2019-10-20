@@ -21,7 +21,7 @@ export default React.memo((props) => {
       imageStyle={props.style}
       onLoadEnd={onLoadEnd}
     >
-        <ActivityIndicator animating={ state.loading } size='large' />
+      <ActivityIndicator animating={state.loading} />
     </ImageBackground>
   )
   
