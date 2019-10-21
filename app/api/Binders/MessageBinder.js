@@ -15,7 +15,8 @@ export default class MessageBinder {
           name: i.name,
           avatar: i.avatar ? GET_AVATAR.replace("{id}", i.avatar) : null,
           id: i.conversationId,
-          message: i.data_message
+          message: i.data_message,
+          createAt: i.time
         }
       })
     }

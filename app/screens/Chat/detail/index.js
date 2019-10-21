@@ -40,7 +40,7 @@ class ChatDetail extends React.PureComponent {
       return {
         _id: m.message_id,
         text: m.message,
-        createdAt: new Date(),
+        createdAt: m.time,
         user: {
           ...owner,
           _id: owner.id,

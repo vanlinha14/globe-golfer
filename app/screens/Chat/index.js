@@ -280,6 +280,8 @@ class Chat extends PureComponent {
         })
       }
     }
+
+    challengersData = lodash.uniqBy(challengersData, "avatar")
     
     return (
       <BaseComponent>
