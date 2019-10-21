@@ -240,7 +240,14 @@ class Chat extends PureComponent {
       this.props.navigation.navigate("ChatDetail", {data: conversation})
     }
     else {
-      Api.instance().createConversation()
+      Api.instance().createConversation(challenger.id).then(res => {
+        this.props.navigation.navigate("ChatDetail", {data: {
+          ...res,
+          name: challenger.name,
+          avatar: challenger.avatar,
+          message: []
+        }})
+      })
     }
   }
   

@@ -36,7 +36,8 @@ import {
   APPLY_SUBSCRIPTION, 
   SIMPLE_UPDATE_MATCH_RESULT, 
   SIMPLE_GET_MATCH_RESULT, 
-  GET_PLAYED_MATCHES 
+  GET_PLAYED_MATCHES, 
+  CREATE_CONVERSATION
 } from './Endpoints';
 import LoginBinder from './Binders/Login';
 import CountriesBinder from './Binders/CountriesBinder';
@@ -59,6 +60,7 @@ import AdsBinder from './Binders/AdsBinder';
 import ChangePasswordBinder from './Binders/ChangePasswordBinder';
 import ApplySubscriptionBinder from './Binders/ApplySubscriptionBinder';
 import SimpleMatchResultBinder from './Binders/SimpleMatchResultBinder';
+import OneMessageBinder from './Binders/OneMessageBinder';
 
 export default class Api extends Base {
   static _instance = null
@@ -373,5 +375,11 @@ export default class Api extends Base {
   simpleViewMatchResult(id) {
     const callingApi = SIMPLE_GET_MATCH_RESULT.replace("{id}", id)
     return this.callGet(callingApi, new SimpleMatchResultBinder()) 
+  }
+
+  createConversation(id) {
+    const callingApi = CREATE_CONVERSATION.replace("{id}", id)
+
+    return this.callPost(callingApi, null, new OneMessageBinder())
   }
 }

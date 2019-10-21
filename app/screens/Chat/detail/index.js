@@ -104,8 +104,9 @@ class ChatDetail extends React.PureComponent {
     }
 
     const owner = messageObject.sender_id == this.user1.id ? this.user1 : this.user2
+    const currentTime = (new Date()).getMilliseconds()
     const newMessage = {
-      _id: (new Date()).getMilliseconds(),
+      _id: currentTime,
       text: messageObject.message,
       user: {
         ...owner,
