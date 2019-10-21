@@ -8,6 +8,9 @@ import {StompEventTypes, withStomp} from 'react-stompjs'
 import { connect } from 'react-redux'
 import Api from '../../../api';
 import LoadingModal from '../../../components/LoadingModal';
+import { getMessages } from '../../../actions/getMessages';
+import { getPendingMatches } from '../../../actions/getPendingMatches';
+import { getPlayedMatches } from '../../../actions/getPlayedMatches';
 
 class ChatDetail extends React.PureComponent {
 
@@ -70,6 +73,11 @@ class ChatDetail extends React.PureComponent {
   
   componentWillUnmount() {
     this.props.stompContext.removeStompClient()
+
+    const tag = this.props.navigation.getParam('tag')
+    this.props.getMessages(tag)
+    this.props.getPendingMatches()
+    this.props.getPlayedMatches()
   }
 
   onConnected = () => {
@@ -166,6 +174,10 @@ const mapStateToProps = (state) => ({
   user: state.profile.user
 })
 
-const mapDispatchToProps = () => ({})
+const mapDispatchToProps = (dispatch) => ({
+  getMessages: (tag) => dispatch(getMessages(tag)),
+  getPendingMatches: () => dispatch(getPendingMatches()),
+  getPlayedMatches: () => dispatch(getPlayedMatches())
+})
 
 export default withStomp(connect(mapStateToProps, mapDispatchToProps)(ChatDetail))

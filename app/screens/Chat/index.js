@@ -103,12 +103,13 @@ const Challengers = React.memo(({title, data, onPress}) => {
   )
 })
 
-const Message = React.memo(({isLoading, data, user}) => {
+const Message = React.memo(({isLoading, data, user, tag}) => {
   return <Board 
     user={user}
     title="Message"
     isLoading={isLoading}
     data={data}
+    tag={tag}
   />
 })
 
@@ -116,12 +117,15 @@ const EmptyData = React.memo(() => {
   return <DGText style={{ color: Theme.textWhite, fontStyle: 'italic', marginHorizontal: 16, fontSize: 12 }}>No Message</DGText>
 })
 
-const MessageItem = React.memo(({user, item}) => {
+const MessageItem = React.memo(({user, item, tag}) => {
 
   const { navigate } = useNavigation()
 
   const onPress = () => {
-    navigate("ChatDetail", {data: item})
+    navigate("ChatDetail", {
+      data: item,
+      tag
+    })
   }
 
   let lastMessage = "draft:"
@@ -177,8 +181,8 @@ const MessageItem = React.memo(({user, item}) => {
   )
 })
 
-const MessageBlock = React.memo(({user, data}) => {
-  const items = data.map((item, index) => <MessageItem key={`message-item-${index}`} item={item} user={user}/>)
+const MessageBlock = React.memo(({user, data, tag}) => {
+  const items = data.map((item, index) => <MessageItem key={`message-item-${index}`} item={item} user={user} tag={tag} />)
   return (
     <>
       {items}
@@ -186,7 +190,7 @@ const MessageBlock = React.memo(({user, data}) => {
   )
 })
 
-const Board = React.memo(({user, title, isLoading, data}) => {
+const Board = React.memo(({user, title, isLoading, data, tag}) => {
   let content = undefined;
   if (isLoading || data == null) {
     content = <ActivityIndicator size='large' color={Theme.buttonPrimary} />
@@ -195,7 +199,7 @@ const Board = React.memo(({user, title, isLoading, data}) => {
     content = <EmptyData />
   }
   else {
-    content = <MessageBlock data={data} user={user} />
+    content = <MessageBlock data={data} user={user} tag={tag} />
   }
 
 
@@ -237,16 +241,22 @@ class Chat extends PureComponent {
   onChallengePress = (challenger) => {
     const conversation = lodash.find(this.props.messagesData.data, (item) => item.avatar == challenger.avatar)
     if (conversation) {
-      this.props.navigation.navigate("ChatDetail", {data: conversation})
+      this.props.navigation.navigate("ChatDetail", {
+        data: conversation,
+        tag: this.state.tabIndex
+      })
     }
     else {
       Api.instance().createConversation(challenger.id).then(res => {
-        this.props.navigation.navigate("ChatDetail", {data: {
-          ...res,
-          name: challenger.name,
-          avatar: challenger.avatar,
-          message: []
-        }})
+        this.props.navigation.navigate("ChatDetail", {
+          data: {
+            ...res,
+            name: challenger.name,
+            avatar: challenger.avatar,
+            message: []
+          },
+          tag: this.state.tabIndex
+        })
       })
     }
   }
@@ -305,6 +315,7 @@ class Chat extends PureComponent {
             requestToggleExpand={this.requestToggleExpand}
             isLoading={this.props.messagesData.isLoading}
             data={this.props.messagesData.data}
+            tag={this.state.tabIndex}
           />
         </ScrollView>
       </BaseComponent>
