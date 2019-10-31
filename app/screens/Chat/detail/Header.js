@@ -7,6 +7,7 @@ import DGText from '../../../components/DGText';
 import Theme from '../../../res/Theme'
 import FlexSpacing from '../components/FlexSpacing';
 import { shareGG } from '../../../utils';
+import { getStatusBarHeight } from 'react-native-iphone-x-helper';
 
 const HeaderIcon = React.memo(({name, action}) => (
   <Icon 
@@ -58,7 +59,7 @@ const Header = React.memo(({isOn, onViewModeChanged}) => {
       alignItems: 'center',
       paddingHorizontal: 16,
       paddingVertical: 12,
-      marginTop: 20,
+      marginTop: 8 + getStatusBarHeight(),
       borderBottomWidth: 1,
       borderBottomColor: Theme.separator
     }}>

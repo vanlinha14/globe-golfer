@@ -57,7 +57,6 @@ const Header = React.memo(({isOn, onViewModeChanged}) => {
       alignItems: 'center',
       paddingHorizontal: 16,
       paddingVertical: 12,
-      marginTop: 20,
       borderBottomWidth: 1,
       borderBottomColor: Theme.separator
     }}>

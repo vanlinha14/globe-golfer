@@ -18,7 +18,9 @@ const Title = React.memo(() => {
     <DGText style={{ 
       color: Theme.textWhite, 
       alignSelf: 'center',
-      fontSize: 20
+      fontSize: 24,
+      marginTop: 16,
+      fontWeight: 'bold'
     }}>Select your match</DGText>
   )
 })

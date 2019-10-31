@@ -39,9 +39,9 @@ const Toolbar = React.memo((props) => {
 const styles = StyleSheet.create({
   container: {
     width: '100%',
-    paddingTop: 12 + getStatusBarHeight(),
+    paddingTop: 8,
     paddingBottom: 12,
-    alignItems: 'center'
+    alignItems: 'center',
   },
   contentContainer: {
     flexDirection: 'row',

@@ -6,6 +6,7 @@ import { useNavigation } from 'react-navigation-hooks'
 import FlexSpacing from './FlexSpacing'
 import Toggler from '@components/Toggler';
 import { shareGG } from '../../../utils'
+import { getStatusBarHeight } from 'react-native-iphone-x-helper'
 
 const HeaderIcon = React.memo(({name, action}) => (
   <Icon 
@@ -35,7 +36,6 @@ const Header = React.memo(({isOn, onViewModeChanged}) => {
       alignItems: 'center',
       paddingHorizontal: 16,
       paddingVertical: 12,
-      marginTop: 20
     }}>
       <HeaderIcon name={"ios-person-add"} action={onGoToInvite}/>
       <FlexSpacing />
