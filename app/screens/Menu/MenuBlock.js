@@ -126,7 +126,10 @@ export default class MenuBlock extends PureComponent {
           fontSize: 30,
           fontWeight: 'bold',
           textAlign: 'center',
-          color: Theme.buttonPrimary
+          color: Theme.buttonPrimary,
+          backgroundColor: 'black',
+          paddingHorizontal: 12,
+          borderRadius: 16,
         }}>{item.name}</DGText>
       </TouchableOpacity>
     )

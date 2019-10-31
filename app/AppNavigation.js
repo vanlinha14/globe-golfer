@@ -1,6 +1,7 @@
 import React from 'react'
 import {
-  View
+  View,
+  AsyncStorage
 } from 'react-native'
 import Authentication from './screens/Authentication'
 
@@ -56,6 +57,9 @@ import Theme from './res/Theme'
 
 import { createStackNavigator, createAppContainer, createBottomTabNavigator } from "react-navigation"
 import LoadableImage from './components/LoadableImage'
+import { withStomp, StompEventTypes } from 'react-stompjs'
+import { ACCESS_TOKEN_STORE_KEY } from './utils/constants'
+import Api from './api'
 
 const iconStyle = {
   alignSelf: 'center',
@@ -196,5 +200,48 @@ const AppNavigator = createStackNavigator({
   headerMode: 'none'
 })
 
-export default createAppContainer(AppNavigator)
+const AppNavigatorInstance = createAppContainer(AppNavigator)
+
+class Container extends React.PureComponent {
+
+  componentDidMount() {
+    AsyncStorage.getItem(ACCESS_TOKEN_STORE_KEY).then(token => {
+      if (token) {
+        Api.instance().setAccessToken(token)
+
+        this.props.stompContext.addStompEventListener(StompEventTypes.Connect, this.onConnected)
+        this.props.stompContext.addStompEventListener(StompEventTypes.Disconnect, this.onDisconnected)
+        this.props.stompContext.addStompEventListener(StompEventTypes.WebSocketClose, this.onClose)
+
+        this.props.stompContext.newStompClient(
+          "http://14.225.5.44:8080/golfer_api/api/ws?access_token=" + token,
+          null,
+          null,
+          "/"
+        )
+      }
+    })
+  }
+
+  onConnected = () => {}
+
+  onDisconnected = () => {
+    this.props.stompContext.newStompClient(
+      "http://14.225.5.44:8080/golfer_api/api/ws?access_token=" + token,
+      null,
+      null,
+      "/"
+    )
+  }
+
+  onClose = () => {
+    this.props.stompContext.removeStompClient()
+  }
+
+  render() {
+    return <AppNavigatorInstance />
+  }
+}
+
+export default withStomp(Container)
 
