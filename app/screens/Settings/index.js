@@ -1,28 +1,50 @@
 import React, { PureComponent } from 'react'
-import { View, StyleSheet, Dimensions, AsyncStorage } from 'react-native'
+import { View, StyleSheet, Dimensions, AsyncStorage, TouchableOpacity, FlatList } from 'react-native'
 import { connect } from 'react-redux'
 import { getBottomSpace } from 'react-native-iphone-x-helper'
 
 import lodash from 'lodash'
 
 import BaseComponent from '../../components/BaseComponent'
-import DGText from '../../components/DGText'
 import DGButton from '../../components/DGButton'
-import SettingToggle from '../../components/SettingToggle'
-import SettingClickable from '../../components/SettingClickable'
-import SettingValueClickable from '../../components/SettingValueClickable'
-import SettingRange from '../../components/SettingRange'
 import LoadingModal from '../../components/LoadingModal'
 
 import Strings from '../../res/Strings'
 import Theme from '../../res/Theme'
-import SettingSlider from '../../components/SettingSlider'
 import { ACCESS_TOKEN_STORE_KEY, USER_EMAIL_STORE_KEY } from '../../utils/constants';
 import { StackActions, NavigationActions } from 'react-navigation';
 import DialogCombination from '../../components/DialogCombination';
 import Api from '../../api';
 import { updateProfile } from '../../actions/updateProfile';
 import { GoogleSignin } from 'react-native-google-signin'
+import { renderToggleItem, renderSectionTitle, renderClickableItem, renderSeparator, renderSpacing, renderValueClickableItem, renderSliderItem, renderRangeItem } from './components/base'
+import LoadableImage from '../../components/LoadableImage'
+import DGText from '../../components/DGText'
+import ImagePicker from 'react-native-image-picker'
+
+const InterestItem = React.memo(({name, style, onPress}) => {
+
+  const itemWidth = (Dimensions.get('window').width - 60) / 3
+  return (
+    <TouchableOpacity style={[
+      {
+        marginHorizontal: 4,
+        marginBottom: 8,
+        borderWidth: 1,
+        height: 40,
+        width: itemWidth,
+        justifyContent: 'center',
+        borderColor: 'gray'
+      },
+      style
+    ]} disabled={!onPress} onPress={onPress} activeOpacity={0.7}>
+      <DGText style={{
+        alignSelf: 'center',
+        color: 'white'
+      }}>{name}</DGText>
+    </TouchableOpacity> 
+  )
+})
 
 class Settings extends PureComponent {
   static navigationOptions = { header: null }
@@ -35,7 +57,8 @@ class Settings extends PureComponent {
     this.state = {
       settings: props.settings,
       showChangePassword: false,
-      loading: false
+      loading: false,
+      avatarSource: null
     }
   }
 
@@ -108,13 +131,155 @@ class Settings extends PureComponent {
     )
   }
 
-  renderTopBlock() {
-    let ggSubscriptionButton = <DGButton 
-      style={styles.ggButton}
-      text={Strings.settings.getGGSubscription}
-      onPress={() => this.props.navigation.navigate("Premium")}
-    />
-    return [ggSubscriptionButton]
+  requestChangeAvatar = () => {
+    const options = {
+      title: Strings.selectCardImage,
+      storageOptions: {
+        skipBackup: true,
+        path: 'images'
+      }
+    }
+
+    ImagePicker.showImagePicker(options, (response) => {
+      if (response.didCancel) {
+        console.log('User cancelled image picker');
+      } else if (response.error) {
+        console.log('ImagePicker Error: ', response.error);
+      } else if (response.customButton) {
+        console.log('User tapped custom button: ', response.customButton);
+      } else {
+        const imageBase64 = 'data:image/jpeg;base64,' + response.data
+        const source = { uri: imageBase64 };
+        this.setState({
+          avatarSource: source
+        })
+      }
+    })
+  }
+
+  renderAvatar = () => {
+    const avatarSize = 200
+    const avatarUrl = this.props.user.avatar
+    let source = undefined
+    if (avatarUrl && avatarUrl.startsWith("http")) {
+      source = {uri: avatarUrl}
+    }
+    else {
+      source = require('../../res/images/golfer_placeholder.png')
+    }
+
+    if (this.state.avatarSource) {
+      source = this.state.avatarSource
+    }
+
+    return (
+      <View style={{
+        marginBottom: 24
+      }}>
+        <LoadableImage
+          style={{
+            width: avatarSize,
+            height: avatarSize,
+            borderRadius: avatarSize / 2,
+            alignSelf: 'center',
+            backgroundColor: Theme.buttonPrimary
+          }}
+          source={source}
+        />
+        <TouchableOpacity style={{
+          width: '100%',
+          height: 50,
+          backgroundColor: '#00000090',
+          position: 'absolute',
+          bottom: 0,
+        }} activeOpacity={0.7} onPress={this.requestChangeAvatar}>
+          <DGText style={{
+            width: '100%',
+            height: 50,
+            fontSize: 20,
+            color: 'white',
+            textAlign: 'center',
+            paddingTop: 8
+          }}>Edit</DGText>
+        </TouchableOpacity>
+      </View>
+    )
+  }
+
+  renderInterests() {
+    const user = this.props.user
+    const interest = user.interest.slice()
+    if (!Array.isArray(interest) || interest.length == 0) {
+      return <InterestItem 
+        name={"+"} 
+        style={{
+          marginHorizontal: 16
+        }}
+        onPress={() => this.props.navigation.navigate("Interest")}
+      />
+    }
+
+    interest.push({})
+
+    return (
+      <FlatList
+        style={{ marginLeft: 12 }}
+        data={interest}
+        numColumns={3}
+        keyExtractor={(_, index) => index}
+        renderItem={({item}) => {
+          if (item.name) {
+            return <InterestItem name={item.name} />
+          }
+          else {
+            return <InterestItem 
+              name={"+"} 
+              onPress={() => this.props.navigation.navigate("Interest")}
+            />
+          }
+        }}
+      />
+    )
+  }
+
+  renderPersonalInfoBlock = () => {
+    const user = this.props.user
+    const name = [user.firstName, user.lastName].join(" ")
+
+    return (
+      <View>
+        {renderValueClickableItem(Strings.profile.fullName, name)}
+        {renderValueClickableItem(Strings.profile.myCountry, user.country)}
+        {renderValueClickableItem(Strings.profile.myRegion, user.region)}
+        {renderValueClickableItem(Strings.profile.myCountry, user.club)}
+        {renderValueClickableItem(Strings.profile.index, user.index)}
+        {renderSpacing(24)}
+        {
+          user.about ? (
+            <>
+              {renderSectionTitle(Strings.profile.aboutMe)}
+              {renderSpacing(8)}
+              <DGText style={{
+                width: '80%',
+                color: Theme.textWhite,
+                marginHorizontal: 16,
+              }}>{user.about}</DGText>
+            </>
+          ) : null
+        }
+        {renderSpacing(24)}
+        {renderSectionTitle(Strings.profile.myInterests, true)}
+        {renderSpacing(8)}
+        {this.renderInterests()}
+      </View>
+    )
+  }
+
+  renderUserInfo() {
+    const userAvatar = this.renderAvatar()
+    const userBasicInfo = this.renderPersonalInfoBlock()
+    
+    return [userAvatar, userBasicInfo, renderSpacing(44)]
   }
 
   renderDiscoverBlock() {
@@ -122,12 +287,12 @@ class Settings extends PureComponent {
 
     return (
       <View>
-        {this.renderSectionTitle(Strings.settings.defaultSettings)}
-        {this.renderValueClickableItem(Strings.settings.location, user.country)}
-        {this.renderValueClickableItem(Strings.settings.region, user.region)}
-        {this.renderValueClickableItem(Strings.settings.club, user.club)}
+        {renderSectionTitle(Strings.settings.defaultSettings)}
+        {renderValueClickableItem(Strings.settings.location, user.country)}
+        {renderValueClickableItem(Strings.settings.region, user.region)}
+        {renderValueClickableItem(Strings.settings.club, user.club)}
         {
-          this.renderSliderItem(
+          renderSliderItem(
             Strings.settings.maxDistance, 
             "%s km", 
             1, 
@@ -142,7 +307,7 @@ class Settings extends PureComponent {
           )
         }
         {
-          this.renderRangeItem(
+          renderRangeItem(
             Strings.settings.ageRange, 
             13, 
             99, 
@@ -157,7 +322,7 @@ class Settings extends PureComponent {
           )
         }
         {
-          this.renderRangeItem(
+          renderRangeItem(
             Strings.settings.indexRange, 
             -4.0, 
             54.0, 
@@ -175,8 +340,17 @@ class Settings extends PureComponent {
     )
   }
 
+  renderTopBlock() {
+    let ggSubscriptionButton = <DGButton 
+      style={styles.ggButton}
+      text={Strings.settings.getGGSubscription}
+      onPress={() => this.props.navigation.navigate("Premium")}
+    />
+    return [ggSubscriptionButton]
+  }
+
   renderVisibilityBlock() {
-    let showGG = this.renderToggleItem(
+    let showGG = renderToggleItem(
       Strings.settings.showMeOnGG.title, 
       Strings.settings.showMeOnGG.message,
       this.state.settings.showGG === 1,
@@ -195,9 +369,9 @@ class Settings extends PureComponent {
   renderNotificationBlock() {
     return (
       <View>
-        {this.renderSectionTitle(Strings.settings.notifications.title)}
+        {renderSectionTitle(Strings.settings.notifications.title)}
         {
-          this.renderToggleItem(
+          renderToggleItem(
             Strings.settings.notifications.messages,
             undefined,
             this.state.settings.message === 1,
@@ -211,7 +385,7 @@ class Settings extends PureComponent {
           )
         }
         {
-          this.renderToggleItem(
+          renderToggleItem(
             Strings.settings.notifications.globeGolfer,
             undefined,
             this.state.settings.globegolfer === 1,
@@ -231,10 +405,10 @@ class Settings extends PureComponent {
   renderContactUsBlock() {
     return (
       <View>
-        {this.renderSectionTitle(Strings.settings.contactUs)}
-        {this.renderClickableItem(Strings.settings.helpAndSupport)}
-        {this.renderClickableItem(Strings.settings.rateUs)}
-        {this.renderClickableItem(Strings.settings.shareGG)} 
+        {renderSectionTitle(Strings.settings.contactUs)}
+        {renderClickableItem(Strings.settings.helpAndSupport)}
+        {renderClickableItem(Strings.settings.rateUs)}
+        {renderClickableItem(Strings.settings.shareGG)} 
       </View>
     )
   }
@@ -242,30 +416,30 @@ class Settings extends PureComponent {
   renderLegalBlock() {
     return (
       <View>
-        {this.renderSectionTitle(Strings.settings.legal)}
+        {renderSectionTitle(Strings.settings.legal)}
         {
-          this.renderClickableItem(
+          renderClickableItem(
             Strings.settings.privacyPolicy, 
             "flex-start",
             () => alert("Open privary policy")
           )
         }
         {
-          this.renderClickableItem(
+          renderClickableItem(
             Strings.settings.termOfService, 
             "flex-start",
             () => alert("Open term of service")
           )
         }
         {
-          this.renderClickableItem(
+          renderClickableItem(
             Strings.settings.rulesAndEtiquettes, 
             "flex-start",
             () => alert("Open rules and etiquettes")
           )
         } 
         {
-          this.renderClickableItem(
+          renderClickableItem(
             Strings.settings.licenses, 
             "flex-start",
             () => alert("Open licenses")
@@ -280,21 +454,21 @@ class Settings extends PureComponent {
       <View>
         {
           this.state.showChangePassword ? 
-          this.renderClickableItem(
+          renderClickableItem(
             Strings.settings.changePassword,
             undefined, 
             this.onRequestChangePassword
           ) : undefined
         } 
         {
-          this.renderClickableItem(
+          renderClickableItem(
             Strings.settings.logout, 
             undefined, 
             this.onRequestLogout
           )
         } 
         {
-          this.renderClickableItem(
+          renderClickableItem(
             Strings.settings.deleteAccount,
             undefined, 
             this.onRequestDeleteAccount
@@ -307,89 +481,10 @@ class Settings extends PureComponent {
   renderDeleteAccountBlock() {
     return (
       <View>
-        {this.renderSeparator()}
-        {this.renderClickableItem(Strings.settings.deleteAccount)} 
+        {renderSeparator()}
+        {renderClickableItem(Strings.settings.deleteAccount)} 
       </View>
     )
-  }
-
-  renderRangeItem(title, min, max, value, onChange, step) {
-    let item = <SettingRange
-      key={"range-item-" + title}
-      style={{ paddingBottom: 0 }}
-      title={title}
-      min={min}
-      max={max}
-      value={value}
-      step={step}
-      onValueChange={onChange}
-    />
-    return item;
-  }
-
-  renderSliderItem(title, valueTemplate, min, max, value, onChange) {
-    let item = <SettingSlider
-      key={"slider-item-" + title}
-      style={{ paddingBottom: 0 }}
-      title={title}
-      valueTemplate={valueTemplate}
-      min={min}
-      max={max} 
-      value={value}
-      onValueChange={onChange}
-    />
-    return item;
-  }
-
-  renderValueClickableItem(title, value) {
-    let item = <SettingValueClickable
-      key={"value-clickable-item-" + title}
-      style={{ paddingBottom: 12, paddingTop: 16 }}
-      title={title}
-      value={value}
-      />
-    return item;
-  }
-
-  renderClickableItem(title, align, onPress) {
-    let item = <SettingClickable 
-      key={"clickable-item-" + title} 
-      titleAlign={align ? align : 'center'}
-      style={{ paddingBottom: 8, paddingTop: 16 }}
-      title={title}
-      onPress={onPress}
-    />
-    return item;
-  }
-
-  renderToggleItem(title, description, isOn, onChanged) {
-    let item = <SettingToggle
-      key={"toggle-item-" + title}
-      style={{ paddingBottom: 4 }}
-      title={title}
-      description={description}
-      isOn={isOn}
-      onChanged={onChanged}
-    />
-    return item;
-  }
-
-  renderSectionTitle(title) {
-    let item = <DGText key="section title" style={styles.sectionTitle}>{title.toUpperCase()}</DGText>
-    return this.renderItemWithSeparator(item)
-  }
-
-  renderItemWithSeparator(item) {
-    let separator = this.renderSeparator()
-    return [item, separator]
-  }
-
-  renderSpacing(height) {
-    return <View style={{ height }} />
-  }
-
-  renderSeparator() {
-    return <View key="separator" style={styles.separator} />
   }
 
   onApply = () => {
@@ -433,24 +528,25 @@ class Settings extends PureComponent {
           ref={r => this.container = r}
           contentContainerStyle={{ paddingTop: 24 }}
         >
+          {this.renderUserInfo()}
           {
             this.props.user.isPremium ? undefined : [
               this.renderTopBlock(),
-              this.renderSeparator()
+              renderSeparator()
             ]
           }
-          {this.renderSpacing(44)}
+          {renderSpacing(44)}
           {this.renderDiscoverBlock()}
           {this.renderVisibilityBlock()}
-          {this.renderSpacing(44)}
+          {renderSpacing(44)}
           {this.renderNotificationBlock()}
-          {this.renderSpacing(44)}
+          {renderSpacing(44)}
           {this.renderContactUsBlock()}
-          {this.renderSpacing(44)}
+          {renderSpacing(44)}
           {this.renderLegalBlock()}
-          {this.renderSpacing(44)}
+          {renderSpacing(44)}
           {this.renderLogoutBlock()}
-          {this.renderSpacing(44)}
+          {renderSpacing(44)}
         </DialogCombination>
         <LoadingModal visible={this.state.loading} />
       </BaseComponent>
