@@ -5,6 +5,7 @@ import DGText from '@components/DGText'
 import CardRatingBar from './CardRatingBar'
 import LinearGradient from 'react-native-linear-gradient'
 import LoadableImage from '../../../components/LoadableImage'
+import Theme from '../../../res/Theme'
 
 const windowWidth = Dimensions.get('window').width
 
@@ -16,7 +17,8 @@ const CardBasicInfo = React.memo(({ avatar, name, location, rating }) => {
         style={{ 
           width: windowWidth - 80, 
           height: windowWidth - 80,
-          borderRadius: (windowWidth - 80) / 2
+          borderRadius: (windowWidth - 80) / 2,
+          backgroundColor: Theme.buttonPrimary,
         }}
         source={avatarSource}
         resizeMethod='resize'

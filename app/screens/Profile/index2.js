@@ -23,7 +23,6 @@ import Api from '../../api'
 import { getProfile } from '../../actions/getProfile'
 import LoadingModal from '../../components/LoadingModal'
 import LoadableImage from '../../components/LoadableImage'
-import Card from '../Challenge/components/Card'
 
 const InterestItem = React.memo(({name, style, onPress}) => {
 
@@ -310,28 +309,18 @@ class Profile extends PureComponent {
       }
     }
 
-    const user = this.props.user
-    const settings = this.props.settings
-
-    console.warn(user);
-
     return (
       <BaseComponent toolbar={{
         title: "Profile",
         onBack: this.props.navigation.goBack,
         right
       }}>
-        <KeyboardAwareScrollView contentContainerStyle={{ paddingTop: 44 }}>
-          {user ? [
-            <Card withAds={false} card={{
-              location: user.club + ", " + user.region,
-              avatar: user.avatar,
-              about: user.about,
-              name: user.firstName + " " + user.lastName,
-              metaData: []
-            }}/>,
-            this.renderCTABlock()
-          ] : null}
+        <KeyboardAwareScrollView contentContainerStyle={{ paddingTop: 24 }}>
+          {this.renderAvatar()}
+          {this.renderPersonalInfoBlock()}
+          {this.renderSpacing(40)}
+          {this.renderCTABlock()}
+          {this.renderSpacing(40)}
         </KeyboardAwareScrollView>
         <LoadingModal visible={this.state.loading} />
       </BaseComponent>
