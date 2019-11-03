@@ -22,6 +22,7 @@ import { StackActions, NavigationActions } from 'react-navigation';
 import DialogCombination from '../../components/DialogCombination';
 import Api from '../../api';
 import { updateProfile } from '../../actions/updateProfile';
+import { GoogleSignin } from 'react-native-google-signin'
 
 class Settings extends PureComponent {
   static navigationOptions = { header: null }
@@ -67,8 +68,10 @@ class Settings extends PureComponent {
       Strings.logout.message,
       Strings.button.yes,
       Strings.button.no,
-      () => {
+      async () => {
         AsyncStorage.removeItem(ACCESS_TOKEN_STORE_KEY).then(() => {
+          GoogleSignin.revokeAccess();
+          GoogleSignin.signOut();
           Api.instance().setAccessToken(null)
           this.props.navigation.dispatch(StackActions.reset({
             index: 0, 

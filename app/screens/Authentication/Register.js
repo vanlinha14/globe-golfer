@@ -202,7 +202,13 @@ export default class Register extends PureComponent {
       true,
       Theme.mainBackground,
       <LoadableImage 
-        style={[styles.socialIcon, { width: 30, height: 30 }]} 
+        style={[
+          styles.socialIcon, 
+          { 
+            left: 4,
+            width: 30, 
+            height: 30, 
+          }]} 
         source={require('../../res/images/ic_google.png')}
       />,
       Strings.register.google, 

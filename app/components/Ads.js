@@ -86,16 +86,22 @@ export default React.memo(({withLottery}) => {
       adsView = (
         <>
         {withLottery ? <View style={{width: 24}} /> : undefined}
-        <LoadableImage
-          style={{
-            width: 100,
-            height: 100,
-            borderRadius: 50
-          }}
-          resizeMethod='resize'
-          resizeMode='cover'
-          source={{uri: VIEW_ADS.replace("{image}", ads.image)}}
-        />
+        <TouchableWithoutFeedback style={{
+          width: 100,
+          height: 100,
+          borderRadius: 50
+        }} onPress={() => {ads && Linking.openURL(ads.link)}} >
+          <LoadableImage
+            style={{
+              width: 100,
+              height: 100,
+              borderRadius: 50
+            }}
+            resizeMethod='resize'
+            resizeMode='cover'
+            source={{uri: VIEW_ADS.replace("{image}", ads.image)}}
+          />
+        </TouchableWithoutFeedback>
         </>
       )
     }
@@ -121,11 +127,9 @@ export default React.memo(({withLottery}) => {
   }, [])
 
   return (
-    <TouchableWithoutFeedback style={styles.ads} onPress={() => {ads && Linking.openURL(ads.link)}} >
-      <View style={styles.ads}>
+    <View style={styles.ads}>
         {renderContent()}    
-      </View>
-    </TouchableWithoutFeedback>
+    </View>
   )
 })
 

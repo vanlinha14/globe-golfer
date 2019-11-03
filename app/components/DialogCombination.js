@@ -9,6 +9,7 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 
 import Modal from 'react-native-modal'
 import DGText from './DGText'
+import { getBottomSpace, getStatusBarHeight } from 'react-native-iphone-x-helper'
 
 export default class DialogCombination extends PureComponent {
   static navigationOptions = { header: null }
@@ -169,19 +170,21 @@ export default class DialogCombination extends PureComponent {
 
   render() {
     return (
-      <SafeAreaView style={{ backgroundColor: 'black' }}>
-        <KeyboardAwareScrollView 
-          style={{ backgroundColor: Theme.mainBackground }}
-          contentContainerStyle={
-            [
-              styles.body, 
-              this.props.contentContainerStyle,
-              { backgroundColor: Theme.mainBackground }
-            ]}>
-          {this.props.children}
-          {this.renderModals()}
-        </KeyboardAwareScrollView>
-      </SafeAreaView>
+      <KeyboardAwareScrollView 
+        style={{ backgroundColor: Theme.mainBackground }}
+        contentContainerStyle={
+          [
+            styles.body, 
+            this.props.contentContainerStyle,
+            { 
+              backgroundColor: Theme.mainBackground,
+              paddingBottom: getBottomSpace(), 
+              paddingTop: getStatusBarHeight() 
+            }
+          ]}>
+        {this.props.children}
+        {this.renderModals()}
+      </KeyboardAwareScrollView>
     )
   }
 }
