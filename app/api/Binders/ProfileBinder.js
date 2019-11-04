@@ -8,6 +8,10 @@ export default class ProfileBinder {
       const isPremium = user.typeUser == "Premium"
       const id = user.userId
       const index = user.p_index
+      const rate = user.rate
+      const level = user.level
+      const match = user.match
+      const win = user.win
       const fname = user.firstname
       const lname = user.lastname
       const avatar = user.avatar ? GET_AVATAR.replace("{id}", user.avatar) : null 
@@ -46,7 +50,11 @@ export default class ProfileBinder {
             avatar,
             about,
             interest,
-            isPremium
+            isPremium,
+            rate,
+            level,
+            match,
+            win
           },
           settings: {
             indexRange: {

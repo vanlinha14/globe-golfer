@@ -289,13 +289,21 @@ class Profile extends PureComponent {
       }}>
         <KeyboardAwareScrollView contentContainerStyle={{ paddingTop: 44 }}>
           {user ? [
-            <Card withAds={false} card={{
-              location: user.club + ", " + user.region,
-              avatar: user.avatar,
-              about: user.about,
-              name: user.firstName + " " + user.lastName,
-              metaData: []
-            }}/>,
+            <View style={{marginHorizontal: 16, marginTop: 24}}>
+              <Card withAds={false} card={{
+                location: user.club + ", " + user.region,
+                avatar: user.avatar,
+                about: user.about,
+                rating: user.rate,
+                name: user.firstName + " " + user.lastName,
+                metaData: [
+                  { key: "Level", value: "Tour Player" },
+                  { key: "Index", value: user.index },
+                  { key: "Match", value: user.match },
+                  { key: "Win", value: user.win },
+                ]
+              }}/>
+            </View>,
             this.renderCTABlock()
           ] : null}
         </KeyboardAwareScrollView>

@@ -23,6 +23,7 @@ import DGText from '../../components/DGText'
 import ImagePicker from 'react-native-image-picker'
 import { getProfile } from '../../actions/getProfile'
 import { getInterests } from '../../actions/getInterest'
+import EditAbout from './components/editabout'
 
 const InterestItem = React.memo(({name, style, onPress}) => {
 
@@ -60,7 +61,9 @@ class Settings extends PureComponent {
       settings: props.settings,
       showChangePassword: false,
       loading: false,
-      avatarSource: null
+      avatarSource: null,
+      needOpenEditAbout: false,
+      about: null
     }
   }
 
@@ -76,11 +79,12 @@ class Settings extends PureComponent {
     if (this.needUpdate) {
       this.props.getProfile()
       this.props.getInterests()
-      
+
       this.setState({
         settings: nextProps.settings,
         loading: false,
-        avatarSource: null
+        avatarSource: null,
+        about: null
       })
     }
     
@@ -137,7 +141,11 @@ class Settings extends PureComponent {
     )
   }
 
-  requestEditAbout = () => {}
+  requestEditAbout = () => {
+    this.setState({
+      needOpenEditAbout: true
+    })
+  }
 
   requestChangeAvatar = () => {
     const options = {
@@ -254,6 +262,8 @@ class Settings extends PureComponent {
     const user = this.props.user
     const name = [user.firstName, user.lastName].join(" ")
 
+    const about = this.state.about ? this.state.about : user.about
+
     return (
       <View>
         {renderValueClickableItem(Strings.profile.fullName, name)}
@@ -265,12 +275,12 @@ class Settings extends PureComponent {
         {renderSectionTitle(Strings.profile.aboutMe, true)}
         {renderSpacing(8)}
         {
-          user.about ? (
+          about ? (
             <DGText style={{
               width: '80%',
               color: Theme.textWhite,
               marginHorizontal: 16,
-            }}>{user.about}</DGText>
+            }}>{about}</DGText>
           ) : (
             <TouchableOpacity activeOpacity={0.7} onPress={this.requestEditAbout}>
               <DGText style={{
@@ -511,7 +521,8 @@ class Settings extends PureComponent {
       show_gg: this.state.settings.showGG,
       message: this.state.settings.message,
       globe_golfer: this.state.settings.globegolfer,
-      avatar: this.state.avatarSource ? this.state.avatarSource.uri : undefined
+      avatar: this.state.avatarSource ? this.state.avatarSource.uri : undefined,
+      about: this.state.about ? this.state.about : undefined
     }
 
     this.setState({
@@ -525,7 +536,9 @@ class Settings extends PureComponent {
     let right;
     const isSettingEqual = lodash.isEqual(this.state.settings, this.props.settings)
     const isAvatarHasChanged = this.state.avatarSource != null
-    if (!isSettingEqual || isAvatarHasChanged) {
+    const isAboutHasChanged = this.state.about != null
+
+    if (!isSettingEqual || isAvatarHasChanged || isAboutHasChanged) {
       right = {
         title: "Apply",
         onPress: this.onApply
@@ -563,6 +576,12 @@ class Settings extends PureComponent {
           {renderSpacing(44)}
         </DialogCombination>
         <LoadingModal visible={this.state.loading} />
+        <EditAbout visible={this.state.needOpenEditAbout} onRequestOK={(text) => {
+          this.setState({
+            about: text,
+            needOpenEditAbout: false
+          })
+        }}/>
       </BaseComponent>
     )
   }
