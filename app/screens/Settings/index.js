@@ -21,6 +21,8 @@ import { renderToggleItem, renderSectionTitle, renderClickableItem, renderSepara
 import LoadableImage from '../../components/LoadableImage'
 import DGText from '../../components/DGText'
 import ImagePicker from 'react-native-image-picker'
+import { getProfile } from '../../actions/getProfile'
+import { getInterests } from '../../actions/getInterest'
 
 const InterestItem = React.memo(({name, style, onPress}) => {
 
@@ -72,9 +74,13 @@ class Settings extends PureComponent {
 
   componentWillReceiveProps(nextProps) {
     if (this.needUpdate) {
+      this.props.getProfile()
+      this.props.getInterests()
+      
       this.setState({
         settings: nextProps.settings,
-        loading: false
+        loading: false,
+        avatarSource: null
       })
     }
     
@@ -130,6 +136,8 @@ class Settings extends PureComponent {
       () => {}
     )
   }
+
+  requestEditAbout = () => {}
 
   requestChangeAvatar = () => {
     const options = {
@@ -254,18 +262,24 @@ class Settings extends PureComponent {
         {renderValueClickableItem(Strings.profile.myCountry, user.club)}
         {renderValueClickableItem(Strings.profile.index, user.index)}
         {renderSpacing(24)}
+        {renderSectionTitle(Strings.profile.aboutMe, true)}
+        {renderSpacing(8)}
         {
           user.about ? (
-            <>
-              {renderSectionTitle(Strings.profile.aboutMe)}
-              {renderSpacing(8)}
+            <DGText style={{
+              width: '80%',
+              color: Theme.textWhite,
+              marginHorizontal: 16,
+            }}>{user.about}</DGText>
+          ) : (
+            <TouchableOpacity activeOpacity={0.7} onPress={this.requestEditAbout}>
               <DGText style={{
                 width: '80%',
                 color: Theme.textWhite,
                 marginHorizontal: 16,
-              }}>{user.about}</DGText>
-            </>
-          ) : null
+              }}>{"Your about is blank. Tap to edit"}</DGText>
+            </TouchableOpacity>
+          )
         }
         {renderSpacing(24)}
         {renderSectionTitle(Strings.profile.myInterests, true)}
@@ -496,12 +510,10 @@ class Settings extends PureComponent {
       age_max: this.state.settings.ageRange.max,
       show_gg: this.state.settings.showGG,
       message: this.state.settings.message,
-      globe_golfer: this.state.settings.globegolfer
+      globe_golfer: this.state.settings.globegolfer,
+      avatar: this.state.avatarSource ? this.state.avatarSource.uri : undefined
     }
 
-    console.warn("ducgaogao: ", objToUpdate);
-    
-    
     this.setState({
       loading: true
     })
@@ -511,7 +523,9 @@ class Settings extends PureComponent {
 
   render() {
     let right;
-    if (!lodash.isEqual(this.state.settings, this.props.settings)) {
+    const isSettingEqual = lodash.isEqual(this.state.settings, this.props.settings)
+    const isAvatarHasChanged = this.state.avatarSource != null
+    if (!isSettingEqual || isAvatarHasChanged) {
       right = {
         title: "Apply",
         onPress: this.onApply
@@ -606,7 +620,9 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = (dispatch) => ({
-  updateProfile: (objToUpdate) => dispatch(updateProfile(objToUpdate))
+  updateProfile: (objToUpdate) => dispatch(updateProfile(objToUpdate)),
+  getProfile: () => dispatch(getProfile()),
+  getInterests: () => dispatch(getInterests())
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Settings)

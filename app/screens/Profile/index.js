@@ -53,16 +53,7 @@ class Profile extends PureComponent {
   static navigationOptions = { header: null }
 
   state = {
-    loading: false,
-    avatarSource: null
-  }
-
-  componentDidMount() {
-    this.props.getInterests()
-  }
-
-  componentWillReceiveProps() {
-    this.setState({avatarSource: null})
+    loading: false
   }
 
   requestGoToEditProfile = () => {
@@ -92,19 +83,6 @@ class Profile extends PureComponent {
           avatarSource: source
         })
       }
-    })
-  }
-
-  onApply = () => {
-    this.setState({loading: true})
-
-    Api.instance().updateProfile({
-      avatar: this.state.avatarSource.uri
-    }).then(_ => {
-      this.setState({loading: false})
-      this.props.getProfile()
-    }).catch(_ => {
-      this.setState({loading: false})
     })
   }
 
@@ -302,24 +280,12 @@ class Profile extends PureComponent {
   }
 
   render() {
-    let right;
-    if (this.state.avatarSource) {
-      right = {
-        title: "Apply",
-        onPress: this.onApply
-      }
-    }
-
     const user = this.props.user
-    const settings = this.props.settings
-
-    console.warn(user);
-
+  
     return (
       <BaseComponent toolbar={{
         title: "Profile",
         onBack: this.props.navigation.goBack,
-        right
       }}>
         <KeyboardAwareScrollView contentContainerStyle={{ paddingTop: 44 }}>
           {user ? [
@@ -391,8 +357,7 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = (dispatch) => ({
-  getProfile: () => dispatch(getProfile()),
-  getInterests: () => dispatch(getInterests())
+  
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Profile)
