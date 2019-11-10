@@ -11,12 +11,14 @@ import { VIEW_ADS } from '../api/Endpoints';
 import AdsRepository from '../repository/AdsRepository';
 import Api from '../api';
 import moment from 'moment';
+import { useNavigation } from 'react-navigation-hooks';
 
 class Lottery extends React.PureComponent {
   constructor(props) {
     super(props);
     
     this.state = {
+      id: null,
       endTime: null
     }
   }
@@ -30,6 +32,7 @@ class Lottery extends React.PureComponent {
   
         const endTime = et.diff(cu)
         this.setState({
+          id: res.id,
           endTime: parseInt(endTime) / 1000
         })
         this.props.visibleChanged && this.props.visibleChanged()
@@ -62,29 +65,38 @@ class Lottery extends React.PureComponent {
     return v
   }
 
+  onItemPress = () => {
+    this.props.onPress && this.props.onPress(this.state.id)
+  }
+
   render() {
     if (this.state.endTime == null) return null
     
     return (
-      <View style={{
+      <TouchableWithoutFeedback style={{
         width: 100,
         height: 100,
-        borderRadius: 50,
-        borderColor: Theme.buttonPrimary,
-        borderWidth: 4,
-        alignItems: 'center'
-      }}>
-        <DGText style={{
-          color: Theme.buttonPrimary,
-          fontSize: 24,
-          marginTop: 16,
-        }}>Lottle</DGText>
-        <DGText style={{
-          color: 'white',
-          fontSize: 16,
-          marginTop: 4
-        }}>{this.secondToCountDown(this.state.endTime)}</DGText>
-      </View>
+      }} onPress={this.onItemPress}>
+        <View style={{
+          width: 100,
+          height: 100,
+          borderRadius: 50,
+          borderColor: Theme.buttonPrimary,
+          borderWidth: 4,
+          alignItems: 'center'
+        }}>
+          <DGText style={{
+            color: Theme.buttonPrimary,
+            fontSize: 24,
+            marginTop: 16,
+          }}>Lottle</DGText>
+          <DGText style={{
+            color: 'white',
+            fontSize: 16,
+            marginTop: 4
+          }}>{this.secondToCountDown(this.state.endTime)}</DGText>
+        </View>
+      </TouchableWithoutFeedback>
     )
   }
 }
@@ -94,13 +106,18 @@ export default React.memo(({withLottery}) => {
   const [ads, setAds] = React.useState(null)
   const [isLotteryShown, setIsLotteryShown] = React.useState(false)
 
-  const renderContent = () => {
+  const {navigate} = useNavigation()
 
+  const onLotteryPress = React.useCallback((id) => {
+    navigate("LotteryList", {id})
+  }, [])
+
+  const renderContent = () => {
     let lottery = undefined
     let adsView = undefined
 
     if (withLottery) {
-      lottery = <Lottery visibleChanged={() => setIsLotteryShown(true)}/>
+      lottery = <Lottery visibleChanged={() => setIsLotteryShown(true)} onPress={onLotteryPress}/>
     }
 
     if (ads) {

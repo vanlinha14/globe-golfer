@@ -55,6 +55,10 @@ import Premium from './screens/Premium'
 
 import Theme from './res/Theme'
 
+import LotteryList from './screens/Lottery'
+import LotteryDetail from './screens/Lottery/detail'
+import YouIn from './screens/Lottery/youin'
+
 import { createStackNavigator, createAppContainer, createBottomTabNavigator } from "react-navigation"
 import LoadableImage from './components/LoadableImage'
 import { withStomp, StompEventTypes } from 'react-stompjs'
@@ -194,6 +198,9 @@ const AppNavigator = createStackNavigator({
   Final,
   SimpleFinal,
   ChangePassword,
+  LotteryList,
+  LotteryDetail,
+  YouIn,
   ...loginNavigator,
   ...setupAccountNavigator
 }, {

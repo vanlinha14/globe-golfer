@@ -61,3 +61,6 @@ export const SIMPLE_GET_MATCH_RESULT = BASE + "authenticated/schedule/result/{id
 export const CREATE_CONVERSATION = BASE + "authenticated/add-conversation/matchs/{id}"
 
 export const LOTTERY = BASE + "authenticated/lottery"
+export const LOTTERY_DETAIL = BASE + "authenticated/lottery/{id}"
+export const LOTTERY_IMAGE = BASE + "authenticated/award/image/{id}"
+export const LOTTERY_GET_TICKET = BASE + "authenticated/lottery/ticket/{id}"
