@@ -59,3 +59,5 @@ export const SIMPLE_UPDATE_MATCH_RESULT = BASE + "authenticated/schedule/result"
 export const SIMPLE_GET_MATCH_RESULT = BASE + "authenticated/schedule/result/{id}"
 
 export const CREATE_CONVERSATION = BASE + "authenticated/add-conversation/matchs/{id}"
+
+export const LOTTERY = BASE + "authenticated/lottery"

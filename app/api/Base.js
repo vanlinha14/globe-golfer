@@ -1,5 +1,7 @@
 import { AsyncStorage } from 'react-native'
 import { ACCESS_TOKEN_STORE_KEY } from '../utils/constants'
+import LotteryBinder from './Binders/LotteryBinder';
+import ProfileBinder from './Binders/ProfileBinder';
 
 export default class Base {
 

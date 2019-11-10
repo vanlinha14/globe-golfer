@@ -37,7 +37,8 @@ import {
   SIMPLE_UPDATE_MATCH_RESULT, 
   SIMPLE_GET_MATCH_RESULT, 
   GET_PLAYED_MATCHES, 
-  CREATE_CONVERSATION
+  CREATE_CONVERSATION,
+  LOTTERY
 } from './Endpoints';
 import LoginBinder from './Binders/Login';
 import CountriesBinder from './Binders/CountriesBinder';
@@ -61,6 +62,7 @@ import ChangePasswordBinder from './Binders/ChangePasswordBinder';
 import ApplySubscriptionBinder from './Binders/ApplySubscriptionBinder';
 import SimpleMatchResultBinder from './Binders/SimpleMatchResultBinder';
 import OneMessageBinder from './Binders/OneMessageBinder';
+import LotteryBinder from './Binders/LotteryBinder';
 
 export default class Api extends Base {
   static _instance = null
@@ -381,5 +383,9 @@ export default class Api extends Base {
     const callingApi = CREATE_CONVERSATION.replace("{id}", id)
 
     return this.callPost(callingApi, null, new OneMessageBinder())
+  }
+
+  getLottery() {
+    return this.callGet(LOTTERY, new LotteryBinder())
   }
 }

@@ -9,18 +9,36 @@ import DGText from './DGText';
 import LoadableImage from './LoadableImage';
 import { VIEW_ADS } from '../api/Endpoints';
 import AdsRepository from '../repository/AdsRepository';
+import Api from '../api';
+import moment from 'moment';
 
 class Lottery extends React.PureComponent {
   constructor(props) {
     super(props);
     
     this.state = {
-      endTime: props.endTime
+      endTime: null
     }
   }
   
 
   componentDidMount() {
+    Api.instance().getLottery().then(res => {
+      if (res) {
+        const et = moment(res.end)
+        const cu = moment(new Date())
+  
+        const endTime = et.diff(cu)
+        this.setState({
+          endTime: parseInt(endTime) / 1000
+        })
+        this.props.visibleChanged && this.props.visibleChanged()
+        this.startTimer()
+      }
+    })  
+  }
+
+  startTimer() {
     setInterval(() => {
       this.setState({
         endTime: this.state.endTime - 1
@@ -45,6 +63,8 @@ class Lottery extends React.PureComponent {
   }
 
   render() {
+    if (this.state.endTime == null) return null
+    
     return (
       <View style={{
         width: 100,
@@ -72,6 +92,7 @@ class Lottery extends React.PureComponent {
 export default React.memo(({withLottery}) => {
 
   const [ads, setAds] = React.useState(null)
+  const [isLotteryShown, setIsLotteryShown] = React.useState(false)
 
   const renderContent = () => {
 
@@ -79,13 +100,13 @@ export default React.memo(({withLottery}) => {
     let adsView = undefined
 
     if (withLottery) {
-      lottery = <Lottery endTime={30600} />
+      lottery = <Lottery visibleChanged={() => setIsLotteryShown(true)}/>
     }
 
     if (ads) {
       adsView = (
         <>
-        {withLottery ? <View style={{width: 24}} /> : undefined}
+        {withLottery && isLotteryShown ? <View style={{width: 24}} /> : undefined}
         <TouchableWithoutFeedback style={{
           width: 100,
           height: 100,
