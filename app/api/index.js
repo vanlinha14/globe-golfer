@@ -40,7 +40,11 @@ import {
   CREATE_CONVERSATION,
   LOTTERY,
   LOTTERY_DETAIL,
-  LOTTERY_GET_TICKET
+  LOTTERY_GET_TICKET,
+  RANKING_CLUB,
+  RANKING_FRIENDS,
+  RANKING_PREMIUMS,
+  RANKING_USER_CLUB
 } from './Endpoints';
 import LoginBinder from './Binders/Login';
 import CountriesBinder from './Binders/CountriesBinder';
@@ -67,6 +71,7 @@ import OneMessageBinder from './Binders/OneMessageBinder';
 import LotteryBinder from './Binders/LotteryBinder';
 import LotteryListBinder from './Binders/LotteryListBinder';
 import LotteryTicketBinder from './Binders/LotteryTicketBinder';
+import RankingGroupBinder from './Binders/RankingGroupBinder';
 
 export default class Api extends Base {
   static _instance = null
@@ -228,7 +233,24 @@ export default class Api extends Base {
   }
 
   getAllRanking(tag) {
-    return this.callGet(GET_RANKING, new RankingBinder());
+
+    let callingApi = ""
+
+    if (tag == 0) {
+      callingApi = RANKING_FRIENDS
+    }
+    else if (tag == 1) {
+      callingApi = RANKING_CLUB
+    }
+    else if (tag == 2) {
+      callingApi = RANKING_PREMIUMS
+    }
+    else if (tag == 3) {
+      callingApi = RANKING_USER_CLUB
+      return this.callGet(callingApi, new RankingGroupBinder());
+    }
+
+    return this.callGet(callingApi, new RankingBinder());
   }
 
   getProfile() {
@@ -404,4 +426,5 @@ export default class Api extends Base {
 
     return this.callGet(callingApi, new LotteryTicketBinder())
   }
+
 }

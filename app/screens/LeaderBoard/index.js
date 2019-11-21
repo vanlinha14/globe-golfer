@@ -21,9 +21,9 @@ const Favorite = React.memo(({isExpanded, requestToggleExpand, isLoading, data})
   />
 })
 
-const AllPlayer = React.memo(({isExpanded, requestToggleExpand, isLoading, data}) => {
+const AllPlayer = React.memo(({customName, isExpanded, requestToggleExpand, isLoading, data}) => {
   return <Board 
-    title="ALL PLAYER"
+    title={customName ? customName : "ALL PLAYER"}
     isExpanded={isExpanded}
     isLoading={isLoading}
     data={data}
@@ -150,17 +150,35 @@ class LeaderBoard extends PureComponent {
   }
   
   render() {
+    if (this.props.allRankingData.data && !Array.isArray(this.props.allRankingData.data)) {
+      return (
+        <BaseComponent>
+          <Header />
+          <Filter onFilterChanged={this.onFilterChanged} />
+          <ScrollView showsVerticalScrollIndicator={false} >
+            <AllPlayer 
+                customName={this.props.allRankingData.data.name}
+                isLoading={this.props.allRankingData.isLoading}
+                data={this.props.allRankingData.data.data}
+                isExpanded={this.state.isAllExpand} 
+                requestToggleExpand={this.requestToggleExpandAll}
+              />
+          </ScrollView>
+        </BaseComponent>
+      )
+    }
+
     return (
       <BaseComponent>
         <Header />
         <Filter onFilterChanged={this.onFilterChanged} />
         <ScrollView showsVerticalScrollIndicator={false} >
-          <Favorite 
+          {/* <Favorite 
             isLoading={this.props.favoriteRankingData.isLoading}
             data={this.props.favoriteRankingData.data}
             isExpanded={this.state.isFavoriteExpand} 
             requestToggleExpand={this.requestToggleExpandFavorite}
-          />
+          /> */}
           <AllPlayer 
             isLoading={this.props.allRankingData.isLoading}
             data={this.props.allRankingData.data}

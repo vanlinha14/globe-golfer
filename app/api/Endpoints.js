@@ -64,3 +64,9 @@ export const LOTTERY = BASE + "authenticated/lottery"
 export const LOTTERY_DETAIL = BASE + "authenticated/lottery/{id}"
 export const LOTTERY_IMAGE = BASE + "authenticated/award/image/{id}"
 export const LOTTERY_GET_TICKET = BASE + "authenticated/lottery/ticket/{id}"
+
+export const RANKING_FRIENDS = BASE + "authenticated/friends/ranking/"
+export const RANKING_CLUB = BASE + "authenticated/clubs/ranking/"
+export const RANKING_PREMIUMS = BASE + "authenticated/premiums/ranking/"
+export const RANKING_USER_CLUB = BASE + "authenticated/clubs/user/ranking/"
+

@@ -6,8 +6,8 @@ export default class RankingBinder {
         return {
           index: index + 1,
           id: i.id_user,
-          name: i.name,
-          total: i.score
+          name: i.clubName ? i.clubName : i.name,
+          total: i.scoreSum ? i.scoreSum : i.score
         }
       })
     }
