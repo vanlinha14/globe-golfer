@@ -5,6 +5,7 @@ import {
   TouchableOpacity,
   ScrollView,
   SafeAreaView,
+  Alert,
 } from 'react-native'
 
 import { GoogleSignin } from 'react-native-google-signin'
@@ -38,6 +39,14 @@ class Login extends PureComponent {
           key: null, 
           actions: [NavigationActions.navigate({ routeName: 'Main' })]
         }));
+      })
+    }
+
+    if (authenData.isLoading == false && authenData.error) {
+      this.setState({loading: false}, () => {
+        setTimeout(() => {
+          Alert.alert("Oops", "We was not able to authenticate your information. Please try again or sign up for new account!")
+        }, 1000)
       })
     }
   }

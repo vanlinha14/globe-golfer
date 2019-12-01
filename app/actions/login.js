@@ -34,7 +34,7 @@ export function loginWithEmail(email, password) {
           dispatch(loginError("error just fail"))
         }
       })
-      .catch(error => dispatch(loginError(error)))
+      .catch(error => dispatch(loginError("error just fail")))
   }
 }
 
@@ -44,7 +44,7 @@ export function loginWithGoogle(id, token) {
     return Api.instance()
       .loginGoogle(id, token)
       .then(authenData => dispatch(loginFinish(authenData)))
-      .catch(error => dispatch(loginError(error)))
+      .catch(error => dispatch(loginError("error just fail")))
   }
 }
 
@@ -54,6 +54,6 @@ export function loginWithFacebook(id, token) {
     return Api.instance()
       .loginFacebook(id, token)
       .then(authenData => dispatch(loginFinish(authenData)))
-      .catch(error => dispatch(loginError(error)))
+      .catch(error => dispatch(loginError("error just fail")))
   }
 }
