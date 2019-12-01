@@ -307,6 +307,20 @@ class Settings extends PureComponent {
     
     return [userAvatar, userBasicInfo, renderSpacing(44)]
   }
+  
+  renderTemporaryLocation() {
+    const user = this.props.user
+
+    return (
+      <View>
+        {renderSectionTitle("TEMPORARY LOCATION")}
+        {renderToggleItem("Enable", false, () => {})}
+        {renderValueClickableItem(Strings.settings.location, user.country)}
+        {renderValueClickableItem(Strings.settings.region, user.region)}
+        {renderValueClickableItem(Strings.settings.club, user.club)}
+      </View>
+    )
+  }
 
   renderDiscoverBlock() {
     const user = this.props.user
@@ -560,10 +574,11 @@ class Settings extends PureComponent {
           {this.renderUserInfo()}
           {
             this.props.user.isPremium ? undefined : [
-              this.renderTopBlock(),
-              renderSeparator()
+              this.renderTopBlock()
             ]
           }
+          {renderSpacing(44)}
+          {this.renderTemporaryLocation()}
           {renderSpacing(44)}
           {this.renderDiscoverBlock()}
           {this.renderVisibilityBlock()}
