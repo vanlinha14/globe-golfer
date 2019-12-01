@@ -60,6 +60,8 @@ class SetupAccountStepInputAvatar extends PureComponent {
   requestSelectImage = () => {
     const options = {
       title: Strings.selectCardImage,
+      maxWidth: 500,
+      maxHeight: 500,
       storageOptions: {
         skipBackup: true,
         path: 'images'

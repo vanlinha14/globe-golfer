@@ -150,6 +150,8 @@ class Settings extends PureComponent {
   requestChangeAvatar = () => {
     const options = {
       title: Strings.selectCardImage,
+      maxWidth: 500,
+      maxHeight: 500,
       storageOptions: {
         skipBackup: true,
         path: 'images'
