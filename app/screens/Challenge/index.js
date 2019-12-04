@@ -8,6 +8,7 @@ import Header from './components/Header'
 import TinderMode from './components/TinderMode'
 import GridMode from './components/GridMode'
 import { getChallenges } from '../../actions/getChallenges';
+import DGText from '../../components/DGText'
 
 
 class Challenge extends PureComponent {
@@ -38,6 +39,12 @@ class Challenge extends PureComponent {
   renderContent() {
     if (this.props.challenges.isLoading || this.props.challenges.data == null) {
       return <ActivityIndicator style={{ alignSelf: 'center' }} size='large' color='white' />
+    }
+
+    if (Array.isArray(this.props.challenges.data) && this.props.challenges.data.length == 0) {
+      return <DGText style={{
+        color: 'white'
+      }}>There is no player around you :(</DGText>
     }
 
     if (this.state.isGridMode) {
