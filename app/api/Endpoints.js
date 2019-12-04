@@ -1,7 +1,7 @@
 // const BASE = "http://ec2-54-251-181-28.ap-southeast-1.compute.amazonaws.com:8080/golfer_api/api/"
-const BASE = "http://14.225.5.44:8080/golfer_api/api/"
+// const BASE = "http://14.225.5.44:8080/golfer_api/api/"
 // const BASE = "http://ec2-13-229-72-73.ap-southeast-1.compute.amazonaws.com:8080/golfer_api/api/"
-
+const BASE = "http://ec2-54-169-5-52.ap-southeast-1.compute.amazonaws.com:8080/golfer_api/api/"
 export const LOGIN = BASE + "login"
 export const GET_COUNTRY = BASE + "country"
 export const GET_REGION = BASE + "region/{countryId}"
@@ -71,4 +71,6 @@ export const RANKING_FRIENDS = BASE + "authenticated/friends/ranking/"
 export const RANKING_CLUB = BASE + "authenticated/clubs/ranking/"
 export const RANKING_PREMIUMS = BASE + "authenticated/premiums/ranking/"
 export const RANKING_USER_CLUB = BASE + "authenticated/clubs/user/ranking/"
+
+export const UPDATE_LOCATION = BASE + "authenticated/update-location"
 

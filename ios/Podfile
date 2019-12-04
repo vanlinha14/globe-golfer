@@ -50,4 +50,6 @@ target 'GolfGlobal' do
 
   pod 'RNIap', :path => '../node_modules/react-native-iap'
 
+  pod 'react-native-geolocation', :path => '../node_modules/@react-native-community/geolocation'
+
 end

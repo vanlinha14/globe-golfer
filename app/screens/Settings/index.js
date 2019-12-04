@@ -13,16 +13,26 @@ import Strings from '../../res/Strings'
 import Theme from '../../res/Theme'
 import { ACCESS_TOKEN_STORE_KEY, USER_EMAIL_STORE_KEY } from '../../utils/constants';
 import { StackActions, NavigationActions } from 'react-navigation';
-import DialogCombination from '../../components/DialogCombination';
-import Api from '../../api';
 import { updateProfile } from '../../actions/updateProfile';
 import { GoogleSignin } from 'react-native-google-signin'
-import { renderToggleItem, renderSectionTitle, renderClickableItem, renderSeparator, renderSpacing, renderValueClickableItem, renderSliderItem, renderRangeItem } from './components/base'
+import { 
+  renderToggleItem, 
+  renderSectionTitle, 
+  renderClickableItem, 
+  renderSeparator, 
+  renderSpacing, 
+  renderValueClickableItem, 
+  renderSliderItem, 
+  renderRangeItem 
+} from './components/base'
+import { getProfile } from '../../actions/getProfile'
+import { getInterests } from '../../actions/getInterest'
+
+import DialogCombination from '../../components/DialogCombination';
+import Api from '../../api';
 import LoadableImage from '../../components/LoadableImage'
 import DGText from '../../components/DGText'
 import ImagePicker from 'react-native-image-picker'
-import { getProfile } from '../../actions/getProfile'
-import { getInterests } from '../../actions/getInterest'
 import EditAbout from './components/editabout'
 
 const InterestItem = React.memo(({name, style, onPress}) => {
@@ -63,7 +73,8 @@ class Settings extends PureComponent {
       loading: false,
       avatarSource: null,
       needOpenEditAbout: false,
-      about: null
+      about: null,
+      tempLocationEnable: null
     }
   }
 
@@ -84,7 +95,8 @@ class Settings extends PureComponent {
         settings: nextProps.settings,
         loading: false,
         avatarSource: null,
-        about: null
+        about: null,
+        tempLocationEnable: null
       })
     }
     
@@ -115,6 +127,38 @@ class Settings extends PureComponent {
       },
       () => {}
     )
+  }
+
+  onRequestToggleTempLocation = () => {
+    if (this.state.tempLocationEnable == null) {
+      const user = this.props.user
+      const current = user.locationType
+      const newL = current == 0 ? 1 : 0
+
+      this.setState({
+        tempLocationEnable: newL == 1
+      })
+    }
+    else {
+      this.setState({
+        tempLocationEnable: null
+      })
+    }
+    
+    // Geolocation.getCurrentPosition((pos) => {
+    //   const lat = pos.coords.latitude
+    //   const long = pos.coords.longitude
+
+    //   Api.instance().updateLocation(lat, long, newL)
+
+      
+    // }, () => {
+    //   showErrorAlert("Can not get current user location. Please try again later!")
+    // }, { 
+    //   enableHighAccuracy: true, 
+    //   timeout: 20000, 
+    //   maximumAge: 1000 
+    // })
   }
 
   onRequestDeleteAccount = () => {
@@ -310,14 +354,14 @@ class Settings extends PureComponent {
   
   renderTemporaryLocation() {
     const user = this.props.user
-
+    const value = this.state.tempLocationEnable != null ? this.state.tempLocationEnable : (user.locationType == 1)
     return (
       <View>
         {renderSectionTitle("TEMPORARY LOCATION")}
-        {renderToggleItem("Enable", false, () => {})}
-        {renderValueClickableItem(Strings.settings.location, user.country)}
+        {renderToggleItem("Enable", null, value, this.onRequestToggleTempLocation)}
+        {/* {renderValueClickableItem(Strings.settings.location, user.country)}
         {renderValueClickableItem(Strings.settings.region, user.region)}
-        {renderValueClickableItem(Strings.settings.club, user.club)}
+        {renderValueClickableItem(Strings.settings.club, user.club)} */}
       </View>
     )
   }
@@ -538,7 +582,8 @@ class Settings extends PureComponent {
       message: this.state.settings.message,
       globe_golfer: this.state.settings.globegolfer,
       avatar: this.state.avatarSource ? this.state.avatarSource.uri : undefined,
-      about: this.state.about ? this.state.about : undefined
+      about: this.state.about ? this.state.about : undefined,
+      locationType: this.state.tempLocationEnable == null ? undefined : (this.state.tempLocationEnable ? 1 : 0)
     }
 
     this.setState({
@@ -553,8 +598,9 @@ class Settings extends PureComponent {
     const isSettingEqual = lodash.isEqual(this.state.settings, this.props.settings)
     const isAvatarHasChanged = this.state.avatarSource != null
     const isAboutHasChanged = this.state.about != null
+    const isTempHasChanged = this.state.tempLocationEnable != null
 
-    if (!isSettingEqual || isAvatarHasChanged || isAboutHasChanged) {
+    if (!isSettingEqual || isAvatarHasChanged || isAboutHasChanged || isTempHasChanged) {
       right = {
         title: "Apply",
         onPress: this.onApply

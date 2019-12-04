@@ -44,7 +44,8 @@ import {
   RANKING_CLUB,
   RANKING_FRIENDS,
   RANKING_PREMIUMS,
-  RANKING_USER_CLUB
+  RANKING_USER_CLUB,
+  UPDATE_LOCATION
 } from './Endpoints';
 import LoginBinder from './Binders/Login';
 import CountriesBinder from './Binders/CountriesBinder';
@@ -427,4 +428,14 @@ export default class Api extends Base {
     return this.callGet(callingApi, new LotteryTicketBinder())
   }
 
+  updateLocation(lat, long, type) {
+    const callingApi = UPDATE_LOCATION
+    const body = JSON.stringify({
+      latitude : lat,
+      longitude : long,
+      type
+    })
+
+    return this.callPut(callingApi, body)
+  }
 }

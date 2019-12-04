@@ -11,6 +11,7 @@ export default class ProfileBinder {
       const rate = user.rate
       const level = user.level
       const match = user.match
+      const locationType = user.locationType
       const win = user.win
       const fname = user.firstname
       const lname = user.lastname
@@ -54,7 +55,8 @@ export default class ProfileBinder {
             rate,
             level,
             match,
-            win
+            win,
+            locationType
           },
           settings: {
             indexRange: {
