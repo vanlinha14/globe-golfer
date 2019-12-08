@@ -143,6 +143,7 @@ const challenge = {
 
 const profile = {
   fullName: "Full Name",
+  birthDay: "BirthDay",
   myCountry: "My Country",
   myRegion: "My Region",
   myClub: "My Club",

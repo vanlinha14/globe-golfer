@@ -23,7 +23,8 @@ import {
   renderSpacing, 
   renderValueClickableItem, 
   renderSliderItem, 
-  renderRangeItem 
+  renderRangeItem, 
+  renderValueItem
 } from './components/base'
 import { getProfile } from '../../actions/getProfile'
 import { getInterests } from '../../actions/getInterest'
@@ -74,7 +75,24 @@ class Settings extends PureComponent {
       avatarSource: null,
       needOpenEditAbout: false,
       about: null,
-      tempLocationEnable: null
+      tempLocationEnable: null,
+      countries: null,
+      locationData: {
+        countries: null,
+        regions: null,
+        clubs: null,
+        coIndex: null,
+        reIndex: null,
+        clIndex: null
+      },
+      tempLocationData: {
+        countries: null,
+        regions: null,
+        clubs: null,
+        coIndex: null,
+        reIndex: null,
+        clIndex: null
+      }
     }
   }
 
@@ -84,6 +102,8 @@ class Settings extends PureComponent {
         this.setState({showChangePassword: true})
       }
     })
+
+    this.getCountries()
   } 
 
   componentWillReceiveProps(nextProps) {
@@ -101,6 +121,37 @@ class Settings extends PureComponent {
     }
     
     this.needUpdate = false;
+  }
+
+  getCountries = () => {
+    Api.instance().getCountries().then(res => {
+      this.setState({
+        locationData: {
+          countries: res,
+          regions: null,
+          clubs: null,
+          coIndex: null,
+          reIndex: null,
+          clIndex: null
+        },
+        tempLocationData: {
+          countries: res,
+          regions: null,
+          clubs: null,
+          coIndex: null,
+          reIndex: null,
+          clIndex: null
+        }
+      })
+    })
+  }
+
+  getRegions(callback) {
+
+  }
+
+  getClubs(callback) {
+
   }
 
   onRequestChangePassword = () => {
@@ -144,21 +195,6 @@ class Settings extends PureComponent {
         tempLocationEnable: null
       })
     }
-    
-    // Geolocation.getCurrentPosition((pos) => {
-    //   const lat = pos.coords.latitude
-    //   const long = pos.coords.longitude
-
-    //   Api.instance().updateLocation(lat, long, newL)
-
-      
-    // }, () => {
-    //   showErrorAlert("Can not get current user location. Please try again later!")
-    // }, { 
-    //   enableHighAccuracy: true, 
-    //   timeout: 20000, 
-    //   maximumAge: 1000 
-    // })
   }
 
   onRequestDeleteAccount = () => {
@@ -312,11 +348,9 @@ class Settings extends PureComponent {
 
     return (
       <View>
-        {renderValueClickableItem(Strings.profile.fullName, name)}
-        {renderValueClickableItem(Strings.profile.myCountry, user.country)}
-        {renderValueClickableItem(Strings.profile.myRegion, user.region)}
-        {renderValueClickableItem(Strings.profile.myCountry, user.club)}
-        {renderValueClickableItem(Strings.profile.index, user.index)}
+        {renderValueItem(Strings.profile.fullName, name)}
+        {renderValueItem(Strings.profile.birthDay, user.birthDay)}
+        {renderValueItem(Strings.profile.index, user.index)}
         {renderSpacing(24)}
         {renderSectionTitle(Strings.profile.aboutMe, true)}
         {renderSpacing(8)}
@@ -355,13 +389,20 @@ class Settings extends PureComponent {
   renderTemporaryLocation() {
     const user = this.props.user
     const value = this.state.tempLocationEnable != null ? this.state.tempLocationEnable : (user.locationType == 1)
+
+    const data = this.state.tempLocationData
+
+    const countryValue = data.coIndex ? data.countries[data.coIndex].title : user.tempCountry
+    const regionValue = data.reIndex ? data.regions[data.reIndex].title : user.tempRegion
+    const clubValue = data.clIndex ? data.clubs[data.clIndex].title : user.tempClub
+
     return (
       <View>
         {renderSectionTitle("TEMPORARY LOCATION")}
         {renderToggleItem("Enable", null, value, this.onRequestToggleTempLocation)}
-        {/* {renderValueClickableItem(Strings.settings.location, user.country)}
-        {renderValueClickableItem(Strings.settings.region, user.region)}
-        {renderValueClickableItem(Strings.settings.club, user.club)} */}
+        {renderValueClickableItem(Strings.settings.location, countryValue, data.countries ? data.countries : [])}
+        {renderValueClickableItem(Strings.settings.region, regionValue, data.regions ? data.regions : [])}
+        {renderValueClickableItem(Strings.settings.club, clubValue, data.clubs ? data.clubs : [])} 
       </View>
     )
   }
@@ -369,12 +410,18 @@ class Settings extends PureComponent {
   renderDiscoverBlock() {
     const user = this.props.user
 
+    const data = this.state.locationData
+
+    const countryValue = data.coIndex ? data.countries[data.coIndex].title : user.tempCountry
+    const regionValue = data.reIndex ? data.regions[data.reIndex].title : user.tempRegion
+    const clubValue = data.clIndex ? data.clubs[data.clIndex].title : user.tempClub
+
     return (
       <View>
         {renderSectionTitle(Strings.settings.defaultSettings)}
-        {renderValueClickableItem(Strings.settings.location, user.country)}
-        {renderValueClickableItem(Strings.settings.region, user.region)}
-        {renderValueClickableItem(Strings.settings.club, user.club)}
+        {renderValueClickableItem(Strings.settings.location, countryValue, data.countries ? data.countries : [])}
+        {renderValueClickableItem(Strings.settings.region, regionValue, data.regions ? data.regions : [])}
+        {renderValueClickableItem(Strings.settings.club, clubValue, data.clubs ? data.clubs : [])} 
         {
           renderSliderItem(
             Strings.settings.maxDistance, 
@@ -606,7 +653,7 @@ class Settings extends PureComponent {
         onPress: this.onApply
       }
     }
-    
+
     return (
       <BaseComponent toolbar={{
         title: Strings.settings.title,

@@ -4,6 +4,7 @@ import DGText from "../../../components/DGText"
 import SettingRange from '../../../components/SettingRange'
 import SettingSlider from '../../../components/SettingSlider'
 import SettingValueClickable from '../../../components/SettingValueClickable'
+import SettingValue from '../../../components/SettingValue'
 import SettingClickable from '../../../components/SettingClickable'
 import SettingToggle from '../../../components/SettingToggle'
 import { getBottomSpace } from 'react-native-iphone-x-helper'
@@ -59,8 +60,20 @@ export function renderSliderItem(title, valueTemplate, min, max, value, onChange
   return item;
 }
 
-export function renderValueClickableItem(title, value) {
+export function renderValueClickableItem(title, value, data, onPress) {
   let item = <SettingValueClickable
+    key={"value-clickable-item-" + title}
+    style={{ paddingBottom: 12, paddingTop: 16 }}
+    data={data}
+    title={title}
+    value={value}
+    onPress={onPress}
+    />
+  return item;
+}
+
+export function renderValueItem(title, value) {
+  let item = <SettingValue
     key={"value-clickable-item-" + title}
     style={{ paddingBottom: 12, paddingTop: 16 }}
     title={title}

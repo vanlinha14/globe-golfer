@@ -1,15 +1,13 @@
 import React, { PureComponent } from 'react'
 import {
   View,
-  ActivityIndicator,
   StyleSheet,
   Dimensions
 } from 'react-native'
 import Theme from '../res/Theme'
-import DGText from './DGText'
 import RNPickerSelect from 'react-native-picker-select'
 
-export default class SelectInputBlockV2 extends PureComponent {
+export default class MiniSelectInputBlock extends PureComponent {
 
   state = {
     selectedValue: undefined
@@ -28,18 +26,18 @@ export default class SelectInputBlockV2 extends PureComponent {
     ]
 
     this.state = {
-      selectedValue: props.hint
+      selectedValue: props.defaultValue
     }
   }
 
   componentWillReceiveProps(nextProps) {
-    if (Array.isArray(nextProps.items)) {
+    if (Array.isArray(nextProps.data)) {
       this.items = [
         {
-          label: nextProps.hint,
+          label: nextProps.defaultValue,
           value: 0
         },
-        ...nextProps.items
+        ...nextProps.data
       ]
     }
   }
@@ -54,15 +52,9 @@ export default class SelectInputBlockV2 extends PureComponent {
     }
   }
 
-  renderTitle() {
-    return <DGText style={styles.messgage}>{this.props.title}</DGText>
-  }
-
   renderInput() {
-    if (this.props.isLoading) {
-      return <ActivityIndicator style={[styles.input, { paddingRight: 16, alignItems: 'flex-start' }]} color="white" />
-    }
-
+    console.warn(this.items);
+    
     return (
       <RNPickerSelect
         placeholder={{}}
@@ -88,7 +80,6 @@ export default class SelectInputBlockV2 extends PureComponent {
   render() {
     return(
       <View style={[styles.container, this.props.style]}>
-        {this.renderTitle()}
         {this.renderInput()}
       </View>
     )
@@ -100,16 +91,11 @@ const styles = StyleSheet.create({
     
   },
   input: {
-    width: Dimensions.get('window').width - 24,
-    height: 44,
+    // width: Dimensions.get('window').width - 24,
+    // height: 44,
     color: Theme.textWhite,
     fontSize: 16,
-    fontWeight: 'bold',
     borderRadius: 8,
-    paddingHorizontal: 12,
-    marginHorizontal: 10,
-    borderBottomWidth: 1,
-    borderBottomColor: 'white'
   },
   messgage: {
     color: Theme.textGray,

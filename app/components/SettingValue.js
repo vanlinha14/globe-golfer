@@ -1,21 +1,15 @@
 import React, { PureComponent } from 'react'
 import { View, TouchableOpacity, StyleSheet, Switch } from 'react-native'
 
-import MiniSelectInputBlock from './MiniSelectInputBlock'
 import DGText from './DGText'
 import Theme from '../res/Theme'
 
-export default class SettingValueClickable extends PureComponent {
+export default class SettingValue extends PureComponent {
   render() {
     return (
       <View style={[styles.container, this.props.style]}>
         <DGText style={styles.title}>{this.props.title}</DGText>
-        <MiniSelectInputBlock
-          defaultValue={this.props.value}
-          hint={this.props.hint}
-          data={this.props.data}
-          onValueChange={this.props.onChanged}
-        />
+        <DGText style={styles.value}>{this.props.value}</DGText>
       </View>
     )
   }

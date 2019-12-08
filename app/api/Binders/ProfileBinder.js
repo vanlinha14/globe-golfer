@@ -17,10 +17,18 @@ export default class ProfileBinder {
       const lname = user.lastname
       const avatar = user.avatar ? GET_AVATAR.replace("{id}", user.avatar) : null 
       const about = user.about
+      const birthDay = user.date_of_born
+
       const club = user.golfCourseName
       const clubId = user.golfCourseId
       const region = user.regionName
       const country = user.countryName
+
+      const tempClub = user.golfCourseTemName
+      const tempClubId = user.golfCourseTemId
+      const tempRegion = user.regionTemName
+      const tempCountry = user.countryTemName
+
       const distance = user.distance
       const indexMin = user.index_min
       const indexMax = user.index_max
@@ -42,10 +50,15 @@ export default class ProfileBinder {
           user: {
             id,
             index,
+            birthDay,
             club,
             clubId,
             region, 
             country,
+            tempClub,
+            tempClubId,
+            tempRegion, 
+            tempCountry,
             firstName: fname,
             lastName: lname,
             avatar,
