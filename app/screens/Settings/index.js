@@ -125,12 +125,18 @@ class Settings extends PureComponent {
 
   getCountries = () => {
     Api.instance().getCountries().then(res => {
+      const curUserCountry = this.props.user.country
+      const curUserTempCountry = this.props.user.tempCountry
+
+      const curUserCountryIndex = res.findIndex(o => o.title === curUserCountry)
+      const curUserTempCountryIndex = res.findIndex(o => o.title === curUserTempCountry)
+
       this.setState({
         locationData: {
           countries: res,
           regions: null,
           clubs: null,
-          coIndex: null,
+          coIndex: curUserCountryIndex,
           reIndex: null,
           clIndex: null
         },
@@ -138,20 +144,83 @@ class Settings extends PureComponent {
           countries: res,
           regions: null,
           clubs: null,
-          coIndex: null,
+          coIndex: curUserTempCountryIndex,
           reIndex: null,
           clIndex: null
         }
       })
+
+      const curUserCountryId = res[curUserCountryIndex].id
+      const curUserTempCountryId = res[curUserTempCountryIndex].id
+      
+      this.getRegions(curUserCountryId, (regions) => {
+        const curUserRegion = this.props.user.region
+        const curUserRegionIndex = regions.findIndex(o => o.title === curUserRegion)
+
+        this.setState({
+          locationData: {
+            ...this.state.locationData,
+            regions,
+            reIndex: curUserRegionIndex
+          }
+        })
+
+        const curUserRegionId = regions[curUserRegionIndex].id
+
+        this.getClubs(curUserRegionId, (clubs) => {
+          const curUserClub = this.props.user.club
+          const curUserClubIndex = clubs.findIndex(o => o.title === curUserClub)
+
+          this.setState({
+            locationData: {
+              ...this.state.locationData,
+              clubs,
+              clIndex: curUserClubIndex
+            }
+          })
+        })
+      })
+
+      this.getRegions(curUserTempCountryId, (regions) => {
+        const curUserTempRegion = this.props.user.tempRegion
+        const curUserTempRegionIndex = regions.findIndex(o => o.title === curUserTempRegion)
+
+        this.setState({
+          tempLocationData: {
+            ...this.state.tempLocationData,
+            regions,
+            reIndex: curUserTempRegionIndex
+          }
+        })
+
+        const curUserTempRegionId = regions[curUserTempRegionIndex].id
+
+        this.getClubs(curUserTempRegionId, (clubs) => {
+          const curUserTempClub = this.props.user.tempClub
+          const curUserTempClubIndex = clubs.findIndex(o => o.title === curUserTempClub)
+
+          this.setState({
+            tempLocationData: {
+              ...this.state.tempLocationData,
+              clubs,
+              clIndex: curUserTempClubIndex
+            }
+          })
+        })
+      })
     })
   }
 
-  getRegions(callback) {
-
+  getRegions(countryId, callback) {
+    Api.instance().getRegions(countryId).then(res => {
+      callback(res)
+    })
   }
 
-  getClubs(callback) {
-
+  getClubs(regionId, callback) {
+    Api.instance().getClubs(regionId).then(res => {
+      callback(res)
+    })
   }
 
   onRequestChangePassword = () => {
@@ -430,9 +499,9 @@ class Settings extends PureComponent {
 
     const data = this.state.locationData
 
-    const countryValue = data.coIndex ? data.countries[data.coIndex].title : user.tempCountry
-    const regionValue = data.reIndex ? data.regions[data.reIndex].title : user.tempRegion
-    const clubValue = data.clIndex ? data.clubs[data.clIndex].title : user.tempClub
+    const countryValue = data.coIndex ? data.countries[data.coIndex].title : user.country
+    const regionValue = data.reIndex ? data.regions[data.reIndex].title : user.region
+    const clubValue = data.clIndex ? data.clubs[data.clIndex].title : user.club
 
     return (
       <View>
