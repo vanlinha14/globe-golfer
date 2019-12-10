@@ -1,19 +1,17 @@
 import React, { PureComponent } from 'react'
 import {
   View,
+  Alert,
   StyleSheet,
-  Dimensions
+  TouchableOpacity
 } from 'react-native'
 import Theme from '../res/Theme'
 import RNPickerSelect from 'react-native-picker-select'
 
 export default class MiniSelectInputBlock extends PureComponent {
 
-  state = {
-    selectedValue: undefined
-  }
-
   items = []
+  isReady = false
 
   constructor(props) {
     super(props)
@@ -26,23 +24,54 @@ export default class MiniSelectInputBlock extends PureComponent {
     ]
 
     this.state = {
-      selectedValue: props.defaultValue
+      selectedValue: null
     }
   }
 
   componentWillReceiveProps(nextProps) {
+    console.warn("ducgaogaogao", nextProps.data);
+
     if (Array.isArray(nextProps.data)) {
-      this.items = [
-        {
-          label: nextProps.defaultValue,
-          value: 0
-        },
-        ...nextProps.data
-      ]
+      if (nextProps.data.length > 0) {
+        const additionData = nextProps.data.map(o => {
+          return {
+            label: o.title,
+            value: o.title
+          }
+        })
+        this.isReady = true
+        this.items = [
+          {
+            label: nextProps.hint,
+            value: nextProps.hint
+          },
+          ...additionData
+        ]
+      }
+      else {
+        this.isReady = false
+        this.items = [
+          {
+            label: nextProps.hint,
+            value: nextProps.hint
+          },
+          {
+            label: nextProps.defaultValue,
+            value: nextProps.defaultValue
+          }
+        ]
+      } 
     }
   }
 
   onValueChange = (value) => {
+    if (this.state.selectedValue == null) {
+      this.setState({
+        selectedValue: this.props.defaultValue
+      })
+      return
+    }
+
     this.setState({
       selectedValue: value,
     })
@@ -53,8 +82,6 @@ export default class MiniSelectInputBlock extends PureComponent {
   }
 
   renderInput() {
-    console.warn(this.items);
-    
     return (
       <RNPickerSelect
         placeholder={{}}
@@ -77,10 +104,26 @@ export default class MiniSelectInputBlock extends PureComponent {
     )
   }
 
+  renderProtector() {
+    if (this.isReady == true) return
+
+    return (
+      <TouchableOpacity
+        style={{
+          position: 'absolute',
+          width: '100%',
+          height: '100%'
+        }}
+        onPress={() => Alert.alert("Oops!", this.props.notReadyMessage)}
+      />
+    )
+  }
+
   render() {
     return(
       <View style={[styles.container, this.props.style]}>
         {this.renderInput()}
+        {this.renderProtector()}
       </View>
     )
   }

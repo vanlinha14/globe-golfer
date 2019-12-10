@@ -400,9 +400,27 @@ class Settings extends PureComponent {
       <View>
         {renderSectionTitle("TEMPORARY LOCATION")}
         {renderToggleItem("Enable", null, value, this.onRequestToggleTempLocation)}
-        {renderValueClickableItem(Strings.settings.location, countryValue, data.countries ? data.countries : [])}
-        {renderValueClickableItem(Strings.settings.region, regionValue, data.regions ? data.regions : [])}
-        {renderValueClickableItem(Strings.settings.club, clubValue, data.clubs ? data.clubs : [])} 
+        {renderValueClickableItem(
+          Strings.settings.location, 
+          Strings.inputLocation.hint.country, 
+          null,
+          countryValue, 
+          data.countries ? data.countries : []
+          )}
+        {renderValueClickableItem(
+          Strings.settings.region, 
+          Strings.inputLocation.hint.region, 
+          "Please select country first!",
+          regionValue, 
+          data.regions ? data.regions : []
+          )}
+        {renderValueClickableItem(
+          Strings.settings.club, 
+          Strings.inputLocation.hint.club, 
+          "Please select region first!",
+          clubValue, 
+          data.clubs ? data.clubs : []
+          )} 
       </View>
     )
   }
@@ -419,9 +437,27 @@ class Settings extends PureComponent {
     return (
       <View>
         {renderSectionTitle(Strings.settings.defaultSettings)}
-        {renderValueClickableItem(Strings.settings.location, countryValue, data.countries ? data.countries : [])}
-        {renderValueClickableItem(Strings.settings.region, regionValue, data.regions ? data.regions : [])}
-        {renderValueClickableItem(Strings.settings.club, clubValue, data.clubs ? data.clubs : [])} 
+        {renderValueClickableItem(
+          Strings.settings.location, 
+          Strings.inputLocation.hint.country, 
+          null,
+          countryValue, 
+          data.countries ? data.countries : []
+          )}
+        {renderValueClickableItem(
+          Strings.settings.region, 
+          Strings.inputLocation.hint.region, 
+          "Please select country first!",
+          regionValue, 
+          data.regions ? data.regions : []
+          )}
+        {renderValueClickableItem(
+          Strings.settings.club, 
+          Strings.inputLocation.hint.club, 
+          "Please select region first!",
+          clubValue, 
+          data.clubs ? data.clubs : []
+          )} 
         {
           renderSliderItem(
             Strings.settings.maxDistance, 

@@ -12,6 +12,7 @@ export default class SettingValueClickable extends PureComponent {
         <DGText style={styles.title}>{this.props.title}</DGText>
         <MiniSelectInputBlock
           defaultValue={this.props.value}
+          notReadyMessage={this.props.notReadyMessage}
           hint={this.props.hint}
           data={this.props.data}
           onValueChange={this.props.onChanged}
