@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react'
-import { View, StyleSheet, Dimensions, AsyncStorage, TouchableOpacity, FlatList } from 'react-native'
+import { View, StyleSheet, Dimensions, AsyncStorage, TouchableOpacity, FlatList, Alert } from 'react-native'
 import { connect } from 'react-redux'
 import { getBottomSpace } from 'react-native-iphone-x-helper'
 
@@ -65,6 +65,14 @@ class Settings extends PureComponent {
 
   needUpdate = false
 
+  coDV = null
+  reDV = null
+  clDV = null
+
+  tempCoDV = null
+  tempReDV = null
+  tempClDV = null
+
   constructor(props) {
     super(props)
 
@@ -116,7 +124,19 @@ class Settings extends PureComponent {
         loading: false,
         avatarSource: null,
         about: null,
-        tempLocationEnable: null
+        tempLocationEnable: null,
+        locationData: {
+          regions: [],
+          clubs: [],
+          reIndex: null,
+          clIndex: null
+        },
+        tempLocationData: {
+          regions: [],
+          clubs: [],
+          reIndex: null,
+          clIndex: null
+        }
       })
     }
     
@@ -223,6 +243,40 @@ class Settings extends PureComponent {
     })
   }
 
+  onCountryChanged = (newValue) => {
+    const data = this.state.locationData
+
+    if (data.countries == null || data.coIndex == null) {
+      return
+    }
+
+    const coIndex = data.countries.findIndex(o => o.title === newValue)
+    const coId = coIndex >= 0 ? data.countries[coIndex].id : -1
+
+    this.setState({
+      locationData: {
+        ...this.state.locationData,
+        regions: [],
+        clubs: [],
+        coIndex,
+        reIndex: -1,
+        clIndex: -1
+      }
+    })
+
+    this.getRegions(coId, (regions) => {
+      this.setState({
+        locationData: {
+          ...this.state.locationData,
+          regions,
+          clubs: [],
+          reIndex: -1,
+          clIndex: -1
+        }
+      })
+    })
+  }
+
   onTempCountryChanged = (newValue) => {
     const data = this.state.tempLocationData
 
@@ -257,6 +311,34 @@ class Settings extends PureComponent {
     })
   }
 
+  onRegionChanged = (newValue) => {
+    const data = this.state.locationData
+
+    if (data.regions == null || data.reIndex == null) {
+      return
+    }
+
+    const reIndex = data.regions.findIndex(o => o.title === newValue)
+    const reId = reIndex >= 0 ? data.regions[reIndex].id : -1
+
+    this.setState({
+      locationData: {
+        ...this.state.locationData,
+        reIndex
+      }
+    })
+
+    this.getClubs(reId, (clubs) => {
+      this.setState({
+        locationData: {
+          ...this.state.locationData,
+          clubs,
+          clIndex: -1
+        }
+      })
+    })
+  }
+
   onTempRegionChanged = (newValue) => {
     const data = this.state.tempLocationData
 
@@ -282,6 +364,23 @@ class Settings extends PureComponent {
           clIndex: -1
         }
       })
+    })
+  }
+
+  onClubChanged = (newValue) => {
+    const data = this.state.locationData
+
+    if (data.clubs == null || data.clIndex == null) {
+      return
+    }
+
+    const clIndex = data.clubs.findIndex(o => o.title === newValue)
+
+    this.setState({
+      locationData: {
+        ...this.state.locationData,
+        clIndex
+      }
     })
   }
 
@@ -571,6 +670,10 @@ class Settings extends PureComponent {
       }
     }
 
+    this.coDV = countryValue
+    this.reDV = regionValue
+    this.clDV = clubValue
+
     return (
       <View>
         {renderSectionTitle("TEMPORARY LOCATION")}
@@ -608,9 +711,40 @@ class Settings extends PureComponent {
 
     const data = this.state.locationData
 
-    const countryValue = data.coIndex ? data.countries[data.coIndex].title : user.country
-    const regionValue = data.reIndex ? data.regions[data.reIndex].title : user.region
-    const clubValue = data.clIndex ? data.clubs[data.clIndex].title : user.club
+    let countryValue = null
+    let regionValue = null
+    let clubValue = null
+
+    if (data.coIndex == null) {
+      countryValue = user.country
+    }
+    else {
+      if (data.coIndex >= 0 && Array.isArray(data.countries) && data.coIndex < data.countries.length) {
+        countryValue = data.countries[data.coIndex].title
+      }
+    }
+
+    if (data.reIndex == null) {
+      regionValue = user.region
+    }
+    else {
+      if (data.reIndex >= 0 && Array.isArray(data.regions) && data.reIndex < data.regions.length) {
+        regionValue = data.regions[data.reIndex].title
+      }
+    }
+    
+    if (data.clIndex == null) {
+      clubValue = user.club
+    }
+    else {
+      if (data.clIndex >= 0 && Array.isArray(data.clubs) && data.clIndex < data.clubs.length) {
+        clubValue = data.clubs[data.clIndex].title
+      }
+    }
+
+    this.tempCoDV = countryValue
+    this.tempReDV = regionValue
+    this.tempClDV = clubValue
 
     return (
       <View>
@@ -620,21 +754,24 @@ class Settings extends PureComponent {
           Strings.inputLocation.hint.country, 
           null,
           countryValue, 
-          data.countries ? data.countries : []
+          data.countries ? data.countries : [],
+          this.onCountryChanged
           )}
         {renderValueClickableItem(
           Strings.settings.region, 
           Strings.inputLocation.hint.region, 
           "Please select country first!",
           regionValue, 
-          data.regions ? data.regions : []
+          data.regions ? data.regions : [],
+          this.onRegionChanged
           )}
         {renderValueClickableItem(
           Strings.settings.club, 
           Strings.inputLocation.hint.club, 
           "Please select region first!",
           clubValue, 
-          data.clubs ? data.clubs : []
+          data.clubs ? data.clubs : [],
+          this.onClubChanged
           )} 
         {
           renderSliderItem(
@@ -833,6 +970,41 @@ class Settings extends PureComponent {
   }
 
   onApply = () => {
+
+    const locationData = this.state.locationData
+    const tempLocationData = this.state.tempLocationData
+
+    const isCountryValid = locationData.coIndex == null || locationData.coIndex >= 0
+    const isRegionValid = locationData.reIndex == null || locationData.reIndex >= 0
+    const isClubValid = locationData.clIndex == null || locationData.clIndex >= 0
+
+    const isTempCountryValid = tempLocationData.coIndex == null || tempLocationData.coIndex >= 0
+    const isTempRegionValid = tempLocationData.reIndex == null || tempLocationData.reIndex >= 0
+    const isTempClubValid = tempLocationData.clIndex == null || tempLocationData.clIndex >= 0
+
+    console.warn("Ducgao", isCountryValid + "/" + isRegionValid + "/" + isClubValid);
+    
+
+    if (!isCountryValid || !isRegionValid || !isClubValid) {
+      Alert.alert("Oops!", "Your location data is not valid. Please check it and apply settings again!")
+      return
+    }
+
+    if (!isTempCountryValid || !isTempRegionValid || !isTempClubValid) {
+      Alert.alert("Oops!", "Your temporary location data is not valid. Please check it and apply settings again!")
+      return
+    }
+
+    let currentClubId = this.props.user.clubId
+    if (locationData.clIndex != null) {
+      currentClubId = locationData.clubs[locationData.clIndex].id
+    }
+
+    let currentTempClubId = this.props.user.tempClubId
+    if (tempLocationData.clIndex != null) {
+      currentTempClubId = tempLocationData.clubs[tempLocationData.clIndex].id
+    }
+
     const objToUpdate = {
       distance: this.state.settings.distance,
       index_min: this.state.settings.indexRange.min,
@@ -844,8 +1016,19 @@ class Settings extends PureComponent {
       globe_golfer: this.state.settings.globegolfer,
       avatar: this.state.avatarSource ? this.state.avatarSource.uri : undefined,
       about: this.state.about ? this.state.about : undefined,
-      locationType: this.state.tempLocationEnable == null ? undefined : (this.state.tempLocationEnable ? 1 : 0)
+      locationType: this.state.tempLocationEnable == null ? undefined : (this.state.tempLocationEnable ? 1 : 0),
+      golfCourseName: this.clDV,
+      golfCourseId: currentClubId,
+      regionName: this.reDV,
+      countryName: this.coDV,
+      golfCourseTemName: this.tempClDV,
+      golfCourseTemId: currentTempClubId,
+      regionTemName: this.tempReDV,
+      countryTemName: this.tempCoDV
     }
+
+    console.warn("ducgao", objToUpdate);
+    
 
     this.setState({
       loading: true
@@ -854,14 +1037,51 @@ class Settings extends PureComponent {
     this.props.updateProfile(objToUpdate)
   }
 
+  isLocationHasChanged() {
+    const data = this.state.locationData
+    const user = this.props.user
+    if (data.coIndex == null && data.reIndex == null && data.clIndex == null) {
+      return false
+    }
+
+    if (this.coDV === user.country || this.reDV === user.region || this.clDV === user.club) {
+      return false
+    }
+
+    return true
+  }
+
+  isTempLocationHasChanged() {
+    const data = this.state.tempLocationData
+    const user = this.props.user
+    if (data.coIndex == null && data.reIndex == null && data.clIndex == null) {
+      return false
+    }
+    
+    if (this.tempCoDV == user.tempCountry || this.tempReDV == user.tempRegion || this.tempClDV == user.tempClub) {
+      return false
+    }
+
+    return true
+  }
+
   render() {
+
     let right;
     const isSettingEqual = lodash.isEqual(this.state.settings, this.props.settings)
     const isAvatarHasChanged = this.state.avatarSource != null
     const isAboutHasChanged = this.state.about != null
     const isTempHasChanged = this.state.tempLocationEnable != null
+    const isLocationHasChanged = this.isLocationHasChanged()
+    const isTempLocationHasChanged = this.isTempLocationHasChanged()
 
-    if (!isSettingEqual || isAvatarHasChanged || isAboutHasChanged || isTempHasChanged) {
+    if (!isSettingEqual 
+      || isAvatarHasChanged 
+      || isAboutHasChanged 
+      || isTempHasChanged
+      || isLocationHasChanged
+      || isTempLocationHasChanged
+      ) {
       right = {
         title: "Apply",
         onPress: this.onApply
