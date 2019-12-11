@@ -29,8 +29,6 @@ export default class MiniSelectInputBlock extends PureComponent {
   }
 
   componentWillReceiveProps(nextProps) {
-    console.warn("ducgaogaogao", nextProps.data);
-
     if (Array.isArray(nextProps.data)) {
       if (nextProps.data.length > 0) {
         const additionData = nextProps.data.map(o => {
@@ -69,6 +67,10 @@ export default class MiniSelectInputBlock extends PureComponent {
       this.setState({
         selectedValue: this.props.defaultValue
       })
+      return
+    }
+
+    if (this.state.selectedValue === value) {
       return
     }
 

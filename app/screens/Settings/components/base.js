@@ -60,7 +60,7 @@ export function renderSliderItem(title, valueTemplate, min, max, value, onChange
   return item;
 }
 
-export function renderValueClickableItem(title, hint, notReadyMessage, value, data, onPress) {
+export function renderValueClickableItem(title, hint, notReadyMessage, value, data, onChanged) {
   let item = <SettingValueClickable
     key={"value-clickable-item-" + title}
     style={{ paddingBottom: 12, paddingTop: 16 }}
@@ -69,7 +69,7 @@ export function renderValueClickableItem(title, hint, notReadyMessage, value, da
     hint={hint}
     title={title}
     value={value}
-    onPress={onPress}
+    onChanged={onChanged}
     />
   return item;
 }

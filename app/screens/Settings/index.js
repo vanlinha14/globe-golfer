@@ -78,17 +78,17 @@ class Settings extends PureComponent {
       tempLocationEnable: null,
       countries: null,
       locationData: {
-        countries: null,
-        regions: null,
-        clubs: null,
+        countries: [],
+        regions: [],
+        clubs: [],
         coIndex: null,
         reIndex: null,
         clIndex: null
       },
       tempLocationData: {
-        countries: null,
-        regions: null,
-        clubs: null,
+        countries: [],
+        regions: [],
+        clubs: [],
         coIndex: null,
         reIndex: null,
         clIndex: null
@@ -220,6 +220,85 @@ class Settings extends PureComponent {
   getClubs(regionId, callback) {
     Api.instance().getClubs(regionId).then(res => {
       callback(res)
+    })
+  }
+
+  onTempCountryChanged = (newValue) => {
+    const data = this.state.tempLocationData
+
+    if (data.countries == null || data.coIndex == null) {
+      return
+    }
+
+    const coIndex = data.countries.findIndex(o => o.title === newValue)
+    const coId = coIndex >= 0 ? data.countries[coIndex].id : -1
+
+    this.setState({
+      tempLocationData: {
+        ...this.state.tempLocationData,
+        regions: [],
+        clubs: [],
+        coIndex,
+        reIndex: -1,
+        clIndex: -1
+      }
+    })
+
+    this.getRegions(coId, (regions) => {
+      this.setState({
+        tempLocationData: {
+          ...this.state.tempLocationData,
+          regions,
+          clubs: [],
+          reIndex: -1,
+          clIndex: -1
+        }
+      })
+    })
+  }
+
+  onTempRegionChanged = (newValue) => {
+    const data = this.state.tempLocationData
+
+    if (data.regions == null || data.reIndex == null) {
+      return
+    }
+
+    const reIndex = data.regions.findIndex(o => o.title === newValue)
+    const reId = reIndex >= 0 ? data.regions[reIndex].id : -1
+
+    this.setState({
+      tempLocationData: {
+        ...this.state.tempLocationData,
+        reIndex
+      }
+    })
+
+    this.getClubs(reId, (clubs) => {
+      this.setState({
+        tempLocationData: {
+          ...this.state.tempLocationData,
+          clubs,
+          clIndex: -1
+        }
+      })
+    })
+  }
+
+  onTempClubChanged = (newValue) => {
+    const data = this.state.tempLocationData
+
+    if (data.clubs == null || data.clIndex == null) {
+      return
+    }
+
+    const clIndex = data.clubs.findIndex(o => o.title === newValue)
+
+    this.setState({
+      tempLocationData: {
+        ...this.state.tempLocationData,
+        clIndex
+      }
     })
   }
 
@@ -461,9 +540,36 @@ class Settings extends PureComponent {
 
     const data = this.state.tempLocationData
 
-    const countryValue = data.coIndex ? data.countries[data.coIndex].title : user.tempCountry
-    const regionValue = data.reIndex ? data.regions[data.reIndex].title : user.tempRegion
-    const clubValue = data.clIndex ? data.clubs[data.clIndex].title : user.tempClub
+    let countryValue = null
+    let regionValue = null
+    let clubValue = null
+
+    if (data.coIndex == null) {
+      countryValue = user.tempCountry
+    }
+    else {
+      if (data.coIndex >= 0 && Array.isArray(data.countries) && data.coIndex < data.countries.length) {
+        countryValue = data.countries[data.coIndex].title
+      }
+    }
+
+    if (data.reIndex == null) {
+      regionValue = user.tempRegion
+    }
+    else {
+      if (data.reIndex >= 0 && Array.isArray(data.regions) && data.reIndex < data.regions.length) {
+        regionValue = data.regions[data.reIndex].title
+      }
+    }
+    
+    if (data.clIndex == null) {
+      clubValue = user.tempClub
+    }
+    else {
+      if (data.clIndex >= 0 && Array.isArray(data.clubs) && data.clIndex < data.clubs.length) {
+        clubValue = data.clubs[data.clIndex].title
+      }
+    }
 
     return (
       <View>
@@ -474,21 +580,24 @@ class Settings extends PureComponent {
           Strings.inputLocation.hint.country, 
           null,
           countryValue, 
-          data.countries ? data.countries : []
+          data.countries ? data.countries : [],
+          this.onTempCountryChanged
           )}
         {renderValueClickableItem(
           Strings.settings.region, 
           Strings.inputLocation.hint.region, 
           "Please select country first!",
           regionValue, 
-          data.regions ? data.regions : []
+          data.regions ? data.regions : [],
+          this.onTempRegionChanged
           )}
         {renderValueClickableItem(
           Strings.settings.club, 
           Strings.inputLocation.hint.club, 
           "Please select region first!",
           clubValue, 
-          data.clubs ? data.clubs : []
+          data.clubs ? data.clubs : [],
+          this.onTempClubChanged
           )} 
       </View>
     )
