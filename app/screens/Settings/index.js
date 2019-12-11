@@ -112,6 +112,8 @@ class Settings extends PureComponent {
     })
 
     this.getCountries()
+    this.props.getProfile()
+    this.props.getInterests()
   } 
 
   componentWillReceiveProps(nextProps) {
