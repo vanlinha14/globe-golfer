@@ -49,25 +49,40 @@ export default class SelectType extends React.PureComponent {
     }
   }
 
+  updateGameType(type) {
+    const gameData = GameData.instance()
+    gameData.gameType = type
+  
+    this.setState({type})
+  }
+
   onRequestChangeGameType = () => {
     Alert.alert(gameTypes[0], null, [
       {
         text: gameTypes[1],
-        onPress: () => this.setState({type: 1})
+        onPress: () => this.updateGameType(1)
       },
       {
         text: gameTypes[2],
-        onPress: () => this.setState({type: 2})
+        onPress: () => this.updateGameType(2)
       },
       {
         text: gameTypes[3],
-        onPress: () => this.setState({type: 3})
+        onPress: () => this.updateGameType(3)
       },
       {
         text: gameTypes[4],
-        onPress: () => this.setState({type: 4})
+        onPress: () => this.updateGameType(4)
       }
     ])
+  }
+
+  onRequestEditScore = () => {
+    alert("TODO: go to edit score card")
+  }
+
+  onRequestEnterScore = () => {
+    alert("TODO: go to enter final result")
   }
 
   render() {
@@ -87,8 +102,8 @@ export default class SelectType extends React.PureComponent {
           marginTop: 24
         }}>
           <SelectItem value={gameTypes[this.state.type]} tint={Theme.buttonPrimary} onPress={this.onRequestChangeGameType} />
-          <SelectItem value={"Edit score card"} tint="white" fixSize />
-          <SelectItem value={"Enter final result"} tint={Theme.buttonPrimary} fixSize />
+          <SelectItem value={"Edit score card"} tint="white" fixSize onPress={this.onRequestEditScore} />
+          <SelectItem value={"Enter final result"} tint={Theme.buttonPrimary} fixSize onPress={this.onRequestEnterScore} />
         </View>
       </BaseComponent>
     )
