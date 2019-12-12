@@ -78,11 +78,21 @@ export default class SelectType extends React.PureComponent {
   }
 
   onRequestEditScore = () => {
+    if (this.state.type == 0) {
+      Alert.alert("Oops!", "Please select game type")
+      return
+    }
+
     alert("TODO: go to edit score card")
   }
 
   onRequestEnterScore = () => {
-    alert("TODO: go to enter final result")
+    if (this.state.type == 0) {
+      Alert.alert("Oops!", "Please select game type")
+      return
+    }
+
+    this.props.navigation.navigate("EnterFinalResult")
   }
 
   render() {
