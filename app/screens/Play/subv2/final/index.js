@@ -6,8 +6,14 @@ import BaseComponent from '../../../../components/BaseComponent'
 import DGText from '../../../../components/DGText'
 import Theme from '../../../../res/Theme'
 import GameData from '../GameData'
+import ScoreBoard from '../comps/ScoreBoard'
 
 export default class EnterFinalResult extends React.PureComponent {
+
+  state = {
+    scoreA: 0,
+    scoreB: 0
+  }
 
   render() {
 
@@ -25,7 +31,12 @@ export default class EnterFinalResult extends React.PureComponent {
           alignItems: 'center',
           marginTop: 24
         }}>
-          
+          <ScoreBoard 
+            playerAScore={this.state.scoreA}
+            playerBScore={this.state.scoreB}
+            onPlayerAScoreChanged={(score) => this.setState({scoreA: score})}
+            onPlayerBScoreChanged={(score) => this.setState({scoreB: score})}
+          />
         </View>
       </BaseComponent>
     )
