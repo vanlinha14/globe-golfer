@@ -38,6 +38,8 @@ import SimpleScoreCard from './screens/Play/score/simple'
 import Final from './screens/Play/final'
 import SimpleFinal from './screens/Play/final/SimpleFinal'
 
+import SelectNumber from './screens/Play/subv2/number'
+
 import Chat from './screens/Chat'
 import ChatDetail from './screens/Chat/detail'
 
@@ -181,6 +183,7 @@ const setupAccountNavigator = {
 }
 
 const AppNavigator = createStackNavigator({
+  SelectNumber,
   Authentication,
   Main,
   Profile,
@@ -197,6 +200,7 @@ const AppNavigator = createStackNavigator({
   SimpleScoreCard,
   Final,
   SimpleFinal,
+  // SelectNumber,
   ChangePassword,
   LotteryList,
   LotteryDetail,
