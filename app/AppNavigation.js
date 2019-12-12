@@ -39,6 +39,7 @@ import Final from './screens/Play/final'
 import SimpleFinal from './screens/Play/final/SimpleFinal'
 
 import SelectNumber from './screens/Play/subv2/number'
+import SelectType from './screens/Play/subv2/type'
 
 import Chat from './screens/Chat'
 import ChatDetail from './screens/Chat/detail'
@@ -201,6 +202,7 @@ const AppNavigator = createStackNavigator({
   Final,
   SimpleFinal,
   // SelectNumber,
+  SelectType,
   ChangePassword,
   LotteryList,
   LotteryDetail,

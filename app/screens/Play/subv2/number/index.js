@@ -5,16 +5,7 @@ import Header from '../comps/Header'
 import BaseComponent from '../../../../components/BaseComponent'
 import DGText from '../../../../components/DGText'
 import Theme from '../../../../res/Theme'
-
-const playerA = {
-  avatar: "https://ideapod.com/wp-content/uploads/2017/06/stencil.facebook-post-20.jpg",
-  name: "Alexandre M"
-}
-
-const playerB = {
-  avatar: "https://www.midlandsderm.com/wp-content/uploads/2019/04/Rachel-R.-Person.jpg",
-  name: "Frencois B"
-}
+import GameData from '../GameData'
 
 const NumberItem = React.memo(({value, onPress}) => {
   return (
@@ -57,7 +48,7 @@ const NumberSelector = React.memo(({onChanged}) => {
         color: 'gray',
         fontSize: 20,
         marginTop: 24,
-        marginBottom: 16
+        marginBottom: 20
       }}>{"Numbers of players"}</DGText>
       <NumberItem value={2} onPress={() => onNumberPress(2)}/>
       <NumberItem value={3} onPress={() => onNumberPress(3)}/>
@@ -69,16 +60,24 @@ const NumberSelector = React.memo(({onChanged}) => {
 export default class SelectNumber extends React.PureComponent {
 
   onSelectionChanged = (index) => {
-    alert(index)
+    if (index == 2) {
+      this.props.navigation.navigate("SelectType", {playerCount: index})
+    }
+    else {
+      alert(index)
+    }
   }
 
   render() {
+
+    const gameData = GameData.instance()
+
     return (
       <BaseComponent>
         <Header />
         <PlayersInfo 
-          playerA={playerA}
-          playerB={playerB}
+          playerA={gameData.playerA}
+          playerB={gameData.playerB}
         />
         <NumberSelector onChanged={this.onSelectionChanged} />
       </BaseComponent>
