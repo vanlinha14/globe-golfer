@@ -3,7 +3,7 @@ import {View, TouchableOpacity, Alert} from 'react-native'
 import Theme from '../../../../res/Theme'
 import DGText from '../../../../components/DGText'
 
-const ScoreInput = React.memo(({value, onRequestChange}) => {
+const ScoreInput = React.memo(({value, editable, onRequestChange}) => {
   return (
     <TouchableOpacity style={{
       width: 60,
@@ -14,7 +14,7 @@ const ScoreInput = React.memo(({value, onRequestChange}) => {
       justifyContent: 'center',
       alignItems: 'center',
       marginHorizontal: 8
-    }} onPress={onRequestChange}>
+    }} disabled={!editable}  onPress={onRequestChange}>
       <DGText style={{
         color: 'white',
         fontWeight: 'bold',
@@ -29,21 +29,31 @@ export default React.memo(({
   onPlayerAScoreChanged,
   playerBScore, 
   onPlayerBScoreChanged,
+  gameRelation,
+  onGameRelationChanged,
   editable
 }) => {
 
-  onRequestAScoreChanged = () => {
-    onRequestScoreChanged(onPlayerAScoreChanged)
+  onRequestAScoreChange = () => {
+    onRequestScoreChange(onPlayerAScoreChanged)
   }
 
-  onRequestBScoreChanged = () => {
-    onRequestScoreChanged(onPlayerBScoreChanged)
+  onRequestBScoreChange = () => {
+    onRequestScoreChange(onPlayerBScoreChanged)
   }
 
-  onRequestScoreChanged = (callback) => {
+  onRequestScoreChange = (callback) => {
     Alert.alert("Select score", null, [0,1,2,3,4,5,6,7,8,9].map(i => {
       return {
         text: i + "", onPress: () => callback(i)
+      }
+    }))
+  }
+
+  onRequestGameRelationChange = () => {
+    Alert.alert("Select game relationship", null, ["&","A/S","Up"].map(i => {
+      return {
+        text: i + "", onPress: () => onGameRelationChanged(i)
       }
     }))
   }
@@ -59,9 +69,9 @@ export default React.memo(({
       justifyContent: 'center',
       alignItems: 'center'
     }}>
-      <ScoreInput value={playerAScore} onRequestChange={onRequestAScoreChanged} />
-      <ScoreInput value={"&"} />
-      <ScoreInput value={playerBScore} onRequestChange={onRequestBScoreChanged} />
+      <ScoreInput value={playerAScore} onRequestChange={onRequestAScoreChange} editable={editable} />
+      <ScoreInput value={gameRelation} onRequestChange={onRequestGameRelationChange} editable={editable} />
+      <ScoreInput value={playerBScore} onRequestChange={onRequestBScoreChange} editable={editable} />
     </View>
   )
 })

@@ -12,7 +12,8 @@ export default class EnterFinalResult extends React.PureComponent {
 
   state = {
     scoreA: 0,
-    scoreB: 0
+    scoreB: 0,
+    relation: "&"
   }
 
   render() {
@@ -34,8 +35,10 @@ export default class EnterFinalResult extends React.PureComponent {
           <ScoreBoard 
             playerAScore={this.state.scoreA}
             playerBScore={this.state.scoreB}
+            gameRelation={this.state.relation}
             onPlayerAScoreChanged={(score) => this.setState({scoreA: score})}
             onPlayerBScoreChanged={(score) => this.setState({scoreB: score})}
+            onGameRelationChanged={(relation) => this.setState({relation})}
           />
         </View>
       </BaseComponent>
