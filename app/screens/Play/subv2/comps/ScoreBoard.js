@@ -2,6 +2,7 @@ import React from 'react'
 import {View, TouchableOpacity, Alert} from 'react-native'
 import Theme from '../../../../res/Theme'
 import DGText from '../../../../components/DGText'
+import GameData from '../GameData'
 
 const ScoreInput = React.memo(({value, editable, onRequestChange}) => {
   return (
@@ -43,7 +44,16 @@ export default React.memo(({
   }
 
   onRequestScoreChange = (callback) => {
-    Alert.alert("Select score", null, [0,1,2,3,4,5,6,7,8,9].map(i => {
+    const gameData = GameData.instance()
+    const holes = gameData.gameHoles
+
+    const data = [0]
+
+    for (let i = 0; i < holes; i++) {
+      data.push(i + 1)
+    }
+
+    Alert.alert("Select score", null, data.map(i => {
       return {
         text: i + "", onPress: () => callback(i)
       }

@@ -51,7 +51,7 @@ export default class SelectType extends React.PureComponent {
 
   updateGameType(type) {
     const gameData = GameData.instance()
-    gameData.gameType = type
+    gameData.setGameType(type)
   
     this.setState({type})
   }

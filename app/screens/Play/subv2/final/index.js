@@ -33,6 +33,7 @@ export default class EnterFinalResult extends React.PureComponent {
           marginTop: 24
         }}>
           <ScoreBoard 
+            editable
             playerAScore={this.state.scoreA}
             playerBScore={this.state.scoreB}
             gameRelation={this.state.relation}

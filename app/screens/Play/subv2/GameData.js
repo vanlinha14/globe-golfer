@@ -1,3 +1,12 @@
+
+const GameHoles = [
+  0,
+  9,
+  9,
+  9,
+  18
+]
+
 export default class GameData {
   static _instance = null
   static instance() {
@@ -19,4 +28,10 @@ export default class GameData {
   }
 
   gameType = null
+  gameHoles = 0
+
+  setGameType(type) {
+    this.gameType = type
+    this.gameHoles = GameHoles[type]
+  }
 }
