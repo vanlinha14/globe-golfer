@@ -100,11 +100,40 @@ export default class EditResult2Player extends React.PureComponent {
     scoreA: 0,
     scoreB: 0,
     relation: "&",
-    processingHole: 1
+    processingHole: 1,
+    displayResult: null
   }
 
   onRequestNext = () => {
+    const gameData = GameData.instance()
 
+    if (this.state.processingHole == gameData.gameHoles) {
+      alert("Go to overview screen")
+      return
+    }
+
+    const gameResults = gameData.gameResults
+    const theScore = gameResults[this.state.processingHole - 1].score
+
+    if (theScore == 1 || theScore == 0 || theScore == 2) {
+      this.setState({
+        scoreA: this.state.scoreA + (theScore == 1 ? 1 : 0),
+        scoreB: this.state.scoreB + (theScore == 2 ? 1 : 0),
+        processingHole: this.state.processingHole + 1,
+        displayResult: null
+      })
+    }
+    else {
+      Alert.alert("Oops!", "Please select the winner for hole " + this.state.processingHole)
+    }
+  }
+
+  onResultChanged = (score) => {
+    const gameData = GameData.instance()
+    const gameResults = gameData.gameResults
+
+    gameResults[this.state.processingHole - 1].score = score
+    this.setState({displayResult: score})
   }
 
   render() {
@@ -135,8 +164,10 @@ export default class EditResult2Player extends React.PureComponent {
           />
           <HoleBoard 
             hole={gameResults[this.state.processingHole - 1].hole} 
-            result={gameResults[this.state.processingHole - 1].result} />
-          <SelectItem value={"Record & Next"} tint={Theme.buttonPrimary} fixSize onPress={this.onRequestNext} />
+            result={this.state.displayResult}
+            onResultChanged={this.onResultChanged}  
+          />
+          <SelectItem value={this.state.processingHole == gameData.gameHoles ? "End" : "Record & Next"} tint={Theme.buttonPrimary} fixSize onPress={this.onRequestNext} />
         </View>
       </BaseComponent>
     )
