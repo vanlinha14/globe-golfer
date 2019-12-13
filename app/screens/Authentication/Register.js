@@ -115,7 +115,7 @@ export default class Register extends PureComponent {
         }
       },
       (error) => {
-        alert("Login fail with error: " + error)
+        // alert("Login fail with error: " + error)
       }
     )
   }
@@ -156,7 +156,9 @@ export default class Register extends PureComponent {
         RegistrationHelper.instance().setLastName(user.user.familyName)
         this.props.navigation.navigate("SetupAccountStepInputLocation")
       }
-    }).catch(e => alert(e))
+    }).catch(e => {
+      // alert(e)
+    })
   }
 
   onRequestGoToLogin = () => {

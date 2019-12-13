@@ -77,9 +77,9 @@ class Login extends PureComponent {
       },
       (error) => {
         this.setState({loading:false}, () => {
-          setTimeout(() => {
-            alert("Login fail with error: " + error)
-          }, 500)
+          // setTimeout(() => {
+          //   alert("Login fail with error: " + error)
+          // }, 500)
         })
       }
     )
@@ -93,9 +93,9 @@ class Login extends PureComponent {
     })
     .catch(e => {
       this.setState({loading:false}, () => {
-        setTimeout(() => {
-          alert(e)
-        }, 500)
+        // setTimeout(() => {
+        //   alert(e)
+        // }, 500)
       })
       
     })
