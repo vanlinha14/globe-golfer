@@ -16,8 +16,8 @@ export default class ChallengesBinder {
             metaData: [
               { key: "Level", value: "Tour Player" },
               { key: "Index", value: item.p_index },
-              { key: "Match", value: item.match },
-              { key: "Win", value: item.win },
+              { key: "Match", value: item.match ? item.match : 0 },
+              { key: "Win", value: item.win ? item.win : 0 },
             ]
           }
         })

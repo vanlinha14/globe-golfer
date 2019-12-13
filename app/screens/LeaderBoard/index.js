@@ -10,6 +10,7 @@ import Filter from './components/Filter';
 import DGText from '../../components/DGText';
 import { getFavoriteRanking, getAllRanking } from '../../actions/getRanking';
 import LoadableImage from '../../components/LoadableImage'
+import Ads from '../../components/Ads'
 
 const Favorite = React.memo(({isExpanded, requestToggleExpand, isLoading, data}) => {
   return <Board 
@@ -164,6 +165,7 @@ class LeaderBoard extends PureComponent {
                 requestToggleExpand={this.requestToggleExpandAll}
               />
           </ScrollView>
+          <Ads />
         </BaseComponent>
       )
     }
@@ -173,12 +175,6 @@ class LeaderBoard extends PureComponent {
         <Header />
         <Filter onFilterChanged={this.onFilterChanged} />
         <ScrollView showsVerticalScrollIndicator={false} >
-          {/* <Favorite 
-            isLoading={this.props.favoriteRankingData.isLoading}
-            data={this.props.favoriteRankingData.data}
-            isExpanded={this.state.isFavoriteExpand} 
-            requestToggleExpand={this.requestToggleExpandFavorite}
-          /> */}
           <AllPlayer 
             isLoading={this.props.allRankingData.isLoading}
             data={this.props.allRankingData.data}
@@ -186,6 +182,7 @@ class LeaderBoard extends PureComponent {
             requestToggleExpand={this.requestToggleExpandAll}
           />
         </ScrollView>
+        <Ads />
       </BaseComponent>
     )
   }
