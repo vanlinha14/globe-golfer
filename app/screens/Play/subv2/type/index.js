@@ -61,7 +61,7 @@ export default class SelectType extends React.PureComponent {
       return
     }
 
-    alert("TODO: go to edit score card")
+    this.props.navigation.navigate("EditResult2Player")
   }
 
   onRequestEnterScore = () => {

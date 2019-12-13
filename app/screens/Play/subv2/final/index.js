@@ -49,9 +49,7 @@ export default class EnterFinalResult extends React.PureComponent {
             onPlayerBScoreChanged={(score) => this.setState({scoreB: score})}
             onGameRelationChanged={(relation) => this.setState({relation})}
           />
-          <View
-            style={{height: 80}}
-          />
+          <View style={{height: 24}} />
           <SelectItem value={"submit the result"} tint={Theme.buttonPrimary} fixSize onPress={this.onRequestSubmit} />
         </View>
       </BaseComponent>

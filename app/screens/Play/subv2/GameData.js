@@ -30,8 +30,15 @@ export default class GameData {
   gameType = null
   gameHoles = 0
 
+  gameResults = []
+
   setGameType(type) {
     this.gameType = type
     this.gameHoles = GameHoles[type]
+    this.gameResults = []
+
+    for (let i = 0; i < this.gameHoles; i++) {
+      this.gameResults.push({hole: i + 1, result: 0})
+    }
   }
 }

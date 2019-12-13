@@ -3,7 +3,7 @@
 // const BASE = "http://ec2-13-229-72-73.ap-southeast-1.compute.amazonaws.com:8080/golfer_api/api/"
 // const BASE = "http://ec2-54-169-5-52.ap-southeast-1.compute.amazonaws.com:8080/golfer_api/api/"
 // const BASE = "http://ec2-54-169-178-30.ap-southeast-1.compute.amazonaws.com:8080/golfer_api/api/"
-const BASE = "http://18.140.90.148:8080/golfer_api/api/"
+export const BASE = "http://18.140.90.148:8080/golfer_api/api/"
 
 export const LOGIN = BASE + "login"
 export const GET_COUNTRY = BASE + "country"

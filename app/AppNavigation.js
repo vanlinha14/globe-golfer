@@ -40,6 +40,7 @@ import SimpleFinal from './screens/Play/final/SimpleFinal'
 
 import SelectNumber from './screens/Play/subv2/number'
 import SelectType from './screens/Play/subv2/type'
+import EditResult2Player from './screens/Play/subv2/edit/TwoPlayer'
 import EnterFinalResult from './screens/Play/subv2/final'
 
 import Chat from './screens/Chat'
@@ -68,6 +69,7 @@ import LoadableImage from './components/LoadableImage'
 import { withStomp, StompEventTypes } from 'react-stompjs'
 import { ACCESS_TOKEN_STORE_KEY } from './utils/constants'
 import Api from './api'
+import {BASE} from './api/Endpoints';
 
 const iconStyle = {
   alignSelf: 'center',
@@ -205,6 +207,7 @@ const AppNavigator = createStackNavigator({
   // SelectNumber,
   SelectType,
   EnterFinalResult,
+  EditResult2Player,
   ChangePassword,
   LotteryList,
   LotteryDetail,
@@ -229,7 +232,7 @@ class Container extends React.PureComponent {
         this.props.stompContext.addStompEventListener(StompEventTypes.WebSocketClose, this.onClose)
 
         this.props.stompContext.newStompClient(
-          "http://14.225.5.44:8080/golfer_api/api/ws?access_token=" + token,
+          BASE + "api/ws?access_token=" + token,
           null,
           null,
           "/"
@@ -242,7 +245,7 @@ class Container extends React.PureComponent {
 
   onDisconnected = () => {
     this.props.stompContext.newStompClient(
-      "http://14.225.5.44:8080/golfer_api/api/ws?access_token=" + token,
+      BASE + "api/ws?access_token=" + token,
       null,
       null,
       "/"
