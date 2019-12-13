@@ -1,10 +1,9 @@
 import React from 'react'
-import {View, TouchableOpacity, Alert} from 'react-native'
+import {View, Alert} from 'react-native'
 import PlayersInfo from '../comps/PlayersInfo'
 import Header from '../comps/Header'
 import BaseComponent from '../../../../components/BaseComponent'
-import DGText from '../../../../components/DGText'
-import Theme from '../../../../res/Theme'
+import SelectItem from '../comps/CircleButton'
 import GameData from '../GameData'
 import ScoreBoard from '../comps/ScoreBoard'
 
@@ -14,6 +13,15 @@ export default class EnterFinalResult extends React.PureComponent {
     scoreA: 0,
     scoreB: 0,
     relation: "&"
+  }
+
+  onRequestSubmit = () => {
+    if (this.state.scoreA == 0 && this.state.scoreB == 0) {
+      Alert.alert("Oops!", "Please select score for each player!")
+      return
+    }
+
+    alert("Submit to api")
   }
 
   render() {
@@ -41,6 +49,10 @@ export default class EnterFinalResult extends React.PureComponent {
             onPlayerBScoreChanged={(score) => this.setState({scoreB: score})}
             onGameRelationChanged={(relation) => this.setState({relation})}
           />
+          <View
+            style={{height: 80}}
+          />
+          <SelectItem value={"submit the result"} tint={Theme.buttonPrimary} fixSize onPress={this.onRequestSubmit} />
         </View>
       </BaseComponent>
     )

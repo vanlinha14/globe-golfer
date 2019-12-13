@@ -3,31 +3,9 @@ import {View, TouchableOpacity, Alert} from 'react-native'
 import PlayersInfo from '../comps/PlayersInfo'
 import Header from '../comps/Header'
 import BaseComponent from '../../../../components/BaseComponent'
-import DGText from '../../../../components/DGText'
 import Theme from '../../../../res/Theme'
 import GameData from '../GameData'
-
-const SelectItem = React.memo(({value, tint, fixSize, onPress}) => {
-  return (
-    <TouchableOpacity style={{
-      width: fixSize ? 90 : null,
-      height: fixSize ? 90 : 50,
-      borderRadius: 45,
-      borderColor: tint,
-      borderWidth: 2,
-      justifyContent: 'center',
-      alignItems: 'center',
-      marginBottom: 16
-    }} onPress={onPress}>
-      <DGText style={{
-        color: tint,
-        fontSize: 16,
-        paddingHorizontal: 16,
-        textAlign: 'center'
-        }}>{value}</DGText>
-    </TouchableOpacity>
-  )
-})
+import SelectItem from '../comps/CircleButton'
 
 const gameTypes = [
   "Select the game type",
