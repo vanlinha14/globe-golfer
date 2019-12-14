@@ -61,10 +61,10 @@ export default class SelectNumber extends React.PureComponent {
 
   onSelectionChanged = (index) => {
     if (index == 2) {
-      this.props.navigation.navigate("SelectType", {playerCount: index})
+      this.props.navigation.navigate("SelectType")
     }
-    else {
-      alert(index)
+    else if (index == 3) {
+      this.props.navigation.navigate("Select3rdPlayer")
     }
   }
 

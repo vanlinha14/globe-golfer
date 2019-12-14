@@ -57,9 +57,6 @@ export default class Overview extends React.PureComponent {
     const gameData = GameData.instance()
     const gameResults = gameData.gameResults
 
-    console.warn(gameResults);
-    
-
     return (
       <BaseComponent>
         <Header />
