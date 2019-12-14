@@ -38,7 +38,7 @@ export default class GameData {
     this.gameResults = []
 
     for (let i = 0; i < this.gameHoles; i++) {
-      this.gameResults.push({hole: i + 1, result: 0})
+      this.gameResults.push({hole: i + 1, result: -1})
     }
   }
 }
