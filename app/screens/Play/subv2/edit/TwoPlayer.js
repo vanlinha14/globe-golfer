@@ -108,12 +108,12 @@ export default class EditResult2Player extends React.PureComponent {
     const gameData = GameData.instance()
 
     if (this.state.processingHole == gameData.gameHoles) {
-      alert("Go to overview screen")
+      this.props.navigation.navigate("Overview")
       return
     }
 
     const gameResults = gameData.gameResults
-    const theScore = gameResults[this.state.processingHole - 1].score
+    const theScore = gameResults[this.state.processingHole - 1].result
 
     if (theScore == 1 || theScore == 0 || theScore == 2) {
       this.setState({
@@ -132,7 +132,7 @@ export default class EditResult2Player extends React.PureComponent {
     const gameData = GameData.instance()
     const gameResults = gameData.gameResults
 
-    gameResults[this.state.processingHole - 1].score = score
+    gameResults[this.state.processingHole - 1].result = score
     this.setState({displayResult: score})
   }
 
@@ -154,7 +154,7 @@ export default class EditResult2Player extends React.PureComponent {
           marginTop: 12
         }}>
           <ScoreBoard 
-            editable
+            editable={false}
             playerAScore={this.state.scoreA}
             playerBScore={this.state.scoreB}
             gameRelation={this.state.relation}

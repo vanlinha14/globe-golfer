@@ -42,6 +42,7 @@ import SelectNumber from './screens/Play/subv2/number'
 import SelectType from './screens/Play/subv2/type'
 import EditResult2Player from './screens/Play/subv2/edit/TwoPlayer'
 import EnterFinalResult from './screens/Play/subv2/final'
+import Overview from './screens/Play/subv2/overview'
 
 import Chat from './screens/Chat'
 import ChatDetail from './screens/Chat/detail'
@@ -208,6 +209,7 @@ const AppNavigator = createStackNavigator({
   SelectType,
   EnterFinalResult,
   EditResult2Player,
+  Overview,
   ChangePassword,
   LotteryList,
   LotteryDetail,
