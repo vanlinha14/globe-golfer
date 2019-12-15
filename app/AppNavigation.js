@@ -45,6 +45,7 @@ import EnterFinalResult from './screens/Play/subv2/final'
 import Overview from './screens/Play/subv2/overview'
 
 import Select3rdPlayer from './screens/Play/subv2/select/three'
+import AddGuest from './screens/Play/subv2/add/guest'
 
 import Chat from './screens/Chat'
 import ChatDetail from './screens/Chat/detail'
@@ -213,6 +214,7 @@ const AppNavigator = createStackNavigator({
   EditResult2Player,
   Overview,
   Select3rdPlayer,
+  AddGuest,
   ChangePassword,
   LotteryList,
   LotteryDetail,

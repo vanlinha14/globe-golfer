@@ -15,10 +15,13 @@ export default class Select3rdPlayer extends React.PureComponent {
   }
 
   onRequestAddGuest = () => {
-    alert("request add guest")
+    this.props.navigation.navigate("AddGuest")
   }
 
   render() {
+
+    const gameData = GameData.instance()
+
     return (
       <BaseComponent>
         <Header />

@@ -27,6 +27,8 @@ export default class GameData {
     name: "Frencois B"
   }
 
+  playerC = null
+
   gameType = null
   gameHoles = 0
 
