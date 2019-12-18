@@ -64,6 +64,19 @@ const Player = React.memo(({avatar, name}) => {
 })
 
 export default React.memo(({playerA, playerB, playerC}) => {
+
+  let playerCUI = null
+
+  if (!playerC) {
+    playerCUI = <Player />
+  }
+  else if (playerC.avatar) {
+    playerCUI = <Player avatar={playerC.avatar} name={playerC.name} />
+  }
+  else {
+    playerCUI = <Player avatar={playerC.avatar} name={playerC.name} />
+  }
+
   return (
     <View style={{
       flexDirection: 'row', 
@@ -72,7 +85,7 @@ export default React.memo(({playerA, playerB, playerC}) => {
     }}>
       <Player avatar={playerA.avatar} name={playerA.name} />
       <Player avatar={playerB.avatar} name={playerB.name} />
-      {playerC ? <Player avatar={playerC.avatar} name={playerB.name} /> : <Player />}
+      {playerCUI}
     </View>
   )
 })

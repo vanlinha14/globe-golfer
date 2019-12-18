@@ -6,6 +6,8 @@ import BaseComponent from '../../../../components/BaseComponent'
 import Theme from '../../../../res/Theme'
 import GameData from '../GameData'
 import SelectItem from '../comps/CircleButton'
+import PlayersInfo3 from '../comps/PlayersInfo3'
+import Api from '../../../../api'
 
 const gameTypes = [
   "Select the game type",
@@ -61,7 +63,18 @@ export default class SelectType extends React.PureComponent {
       return
     }
 
-    this.props.navigation.navigate("EditResult2Player")
+    const gameType = this.state.type
+    const challenge = GameData.instance().challengeId
+    
+    Api.instance().createNewGame(challenge, gameType).then(res => {
+      if (res.data && res.data.scheduleId) {
+        GameData.instance().gameId = res.data.scheduleId
+        this.props.navigation.navigate("EditResult2Player")
+      }
+      else {
+        Alert.alert("Oops!", "We was unable to create your match. Please try again later!")
+      }
+    })
   }
 
   onRequestEnterScore = () => {
@@ -70,20 +83,43 @@ export default class SelectType extends React.PureComponent {
       return
     }
 
-    this.props.navigation.navigate("EnterFinalResult")
+    const gameType = this.state.type
+    const challenge = GameData.instance().challengeId
+    
+    Api.instance().createNewGame(challenge, gameType).then(res => {
+      if (res.data && res.data.scheduleId) {
+        GameData.instance().gameId = res.data.scheduleId
+        this.props.navigation.navigate("EnterFinalResult")
+      }
+      else {
+        Alert.alert("Oops!", "We was unable to create your match. Please try again later!")
+      }
+    })
+  }
+
+  renderPlayerInfo() {
+    const gameData = GameData.instance()
+
+    if (gameData.playerC) {
+      return <PlayersInfo3
+        playerA={gameData.playerA}
+        playerB={gameData.playerB}
+        playerC={gameData.playerC}
+      />
+    }
+    else {
+      return <PlayersInfo 
+        playerA={gameData.playerA}
+        playerB={gameData.playerB}
+      />
+    }
   }
 
   render() {
-
-    const gameData = GameData.instance()
-
     return (
       <BaseComponent>
         <Header />
-        <PlayersInfo 
-          playerA={gameData.playerA}
-          playerB={gameData.playerB}
-        />
+        {this.renderPlayerInfo()}
         <View style={{
           justifyContent: 'center',
           alignItems: 'center',

@@ -1,5 +1,5 @@
 import React from 'react'
-import {View, ScrollView, TouchableOpacity} from 'react-native'
+import {View, ScrollView, TouchableOpacity, Alert} from 'react-native'
 import PlayersInfo from '../comps/PlayersInfo'
 import Header from '../comps/Header'
 import BaseComponent from '../../../../components/BaseComponent'
@@ -8,6 +8,10 @@ import GameData from '../GameData'
 import DGText from '../../../../components/DGText'
 import SelectItem from '../comps/CircleButton'
 import ScoreBoard from '../comps/ScoreBoard'
+import { connect } from 'react-redux'
+import Api from '../../../../api'
+import { getPendingMatches } from '../../../../actions/getPendingMatches'
+import { getPlayedMatches } from '../../../../actions/getPlayedMatches'
 
 const ResultRow = React.memo(({result, requestChangeResult}) => {
 
@@ -61,7 +65,7 @@ const ResultRow = React.memo(({result, requestChangeResult}) => {
   )
 })
 
-export default class Overview extends React.Component {
+class Overview extends React.Component {
 
   state = {
     mode: "view",
@@ -81,12 +85,66 @@ export default class Overview extends React.Component {
 
   onRequestRecord = () => {
     if (this.state.mode == "view") {
-      alert("TODO: call api to submit result of the game")
+      const gameData = GameData.instance()
+
+      const playerA = gameData.playerA
+      const playerB = gameData.playerB
+
+      const id = gameData.gameId
+      const detail = []
+
+      gameData.gameResults.forEach(o => {
+        if (o.result == 0) {
+          detail.push({
+            userId: playerA.id,
+            hole: o.hole,
+            score: 2
+          })
+          detail.push({
+            userId: playerB.id,
+            hole: o.hole,
+            score: 2
+          })
+        } else if (o.result == 1) {
+          detail.push({
+            userId: playerA.id,
+            hole: o.hole,
+            score: 1
+          })
+          detail.push({
+            userId: playerB.id,
+            hole: o.hole,
+            score: 2
+          })
+        } else if (o.result == 2) {
+          detail.push({
+            userId: playerA.id,
+            hole: o.hole,
+            score: 2
+          })
+          detail.push({
+            userId: playerB.id,
+            hole: o.hole,
+            score: 1
+          })
+        }
+      })
+
+      Api.instance().updateMatchResultDetail(id, detail).then(_ => {
+        this.props.getPendingMatches()
+        this.props.getPlayedMatches()
+
+        Alert.alert("Submit successfully!", "Your request has been submitted. Wait for the approval from your competitor.", [
+          {
+            text: "OK",
+            onPress: () => this.props.navigation.popToTop()
+          }
+        ])
+      })
     }
     else {
       this.setState({mode: 'view'})
     }
-    
   }
 
   requestChangeResult = (hole, newResult) => {
@@ -162,3 +220,12 @@ export default class Overview extends React.Component {
     )
   }
 }
+
+const mapStateToProps = () => ({})
+
+const mapDispatchToProps = (dispatch) => ({
+  getPendingMatches: () => dispatch(getPendingMatches()),
+  getPlayedMatches: () => dispatch(getPlayedMatches())
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(Overview)

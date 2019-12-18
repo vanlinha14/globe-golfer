@@ -5,6 +5,7 @@ import { useNavigation } from 'react-navigation-hooks';
 import DGText from '../../../components/DGText';
 import LoadableImage from '../../../components/LoadableImage';
 import Theme from '../../../res/Theme';
+import GameData from '../subv2/GameData';
 
 export default PendingItem = React.memo(({item, viewOnly}) => {
 
@@ -13,7 +14,11 @@ export default PendingItem = React.memo(({item, viewOnly}) => {
   const requestPlayTo = () => {
     console.warn(item);
     
-    navigate("PlayConfiguration", { data: item })
+    GameData.instance().challengeId = item.id 
+    GameData.instance().playerA = item.from
+    GameData.instance().playerB = item.to
+    
+    navigate("SelectNumber")
   }
 
   const sourceFrom = item.from.avatar ? { uri: item.from.avatar } : require('../../../res/images/golfer_placeholder.png')

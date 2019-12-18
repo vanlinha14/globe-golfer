@@ -1,10 +1,10 @@
-import React from 'react'
+import React from 'react';
 import {View, Alert} from 'react-native';
-import Header from '../comps/Header'
+import Header from '../comps/Header';
 import BaseComponent from '../../../../components/BaseComponent';
 import DGText from '../../../../components/DGText';
 import Theme from '../../../../res/Theme';
-import SelectItem from '../comps/CircleButton'
+import SelectItem from '../comps/CircleButton';
 import GameData from '../GameData';
 import { useNavigation } from 'react-navigation-hooks';
 import { emailValidationFunction } from '../../../../utils';
@@ -36,7 +36,7 @@ class Input extends React.PureComponent {
 
 export default React.memo(() => {
 
-  const {goBack} = useNavigation()
+  const {navigate} = useNavigation()
 
   const lnameRef = React.useRef(null)
   const fnameRef = React.useRef(null)
@@ -80,7 +80,7 @@ export default React.memo(() => {
       index
     }
 
-    goBack()
+    navigate("SelectType")
 
   }, [])
 
@@ -97,7 +97,7 @@ export default React.memo(() => {
         title={"First name"} 
         placeholder={"Enter first name"}
       />
-      <Input 
+      <Input ơ
         ref={emailRef}
         title={"Mail"} 
         validateFunction={emailValidationFunction}

@@ -1,8 +1,8 @@
 
 const GameHoles = [
   0,
-  3,
-  9,
+  1,
+  1,
   9,
   18
 ]
@@ -29,7 +29,10 @@ export default class GameData {
 
   playerC = null
 
+  challengeId = null
+
   gameType = null
+  gameId = null
   gameHoles = 0
 
   gameResults = []

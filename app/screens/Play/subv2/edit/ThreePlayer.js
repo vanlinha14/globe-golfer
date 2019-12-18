@@ -1,6 +1,5 @@
 import React from 'react'
 import {View, TouchableOpacity, Alert} from 'react-native'
-import PlayersInfo from '../comps/PlayersInfo'
 import Header from '../comps/Header'
 import BaseComponent from '../../../../components/BaseComponent'
 import GameData from '../GameData'
@@ -8,6 +7,7 @@ import ScoreBoard from '../comps/ScoreBoard'
 import DGText from '../../../../components/DGText'
 import Theme from '../../../../res/Theme'
 import SelectItem from '../comps/CircleButton'
+import PlayersInfo3 from '../comps/PlayersInfo3'
 
 const HoleBoard = React.memo(({hole, result, onResultChanged}) => {
 
@@ -94,7 +94,7 @@ const HoleBoard = React.memo(({hole, result, onResultChanged}) => {
   )
 })
 
-export default class EditResult2Player extends React.PureComponent {
+export default class EditResult3Player extends React.PureComponent {
 
   state = {
     scoreA: 0,
@@ -107,16 +107,15 @@ export default class EditResult2Player extends React.PureComponent {
   onRequestNext = () => {
     const gameData = GameData.instance()
 
-    const gameResults = gameData.gameResults
-    const theScore = gameResults[this.state.processingHole - 1].result
-
-    if (this.state.processingHole == gameData.gameHoles && [0, 1, 2].indexOf(theScore) >= 0) {
+    if (this.state.processingHole == gameData.gameHoles) {
       this.props.navigation.navigate("Overview")
       return
     }
 
+    const gameResults = gameData.gameResults
+    const theScore = gameResults[this.state.processingHole - 1].result
 
-    if ([0, 1, 2].indexOf(theScore) >= 0) {
+    if (theScore == 1 || theScore == 0 || theScore == 2) {
       this.setState({
         scoreA: this.state.scoreA + (theScore == 1 ? 1 : 0),
         scoreB: this.state.scoreB + (theScore == 2 ? 1 : 0),
@@ -134,10 +133,7 @@ export default class EditResult2Player extends React.PureComponent {
     const gameResults = gameData.gameResults
 
     gameResults[this.state.processingHole - 1].result = score
-
-    this.setState({
-      displayResult: score
-    })
+    this.setState({displayResult: score})
   }
 
   render() {
@@ -148,7 +144,7 @@ export default class EditResult2Player extends React.PureComponent {
     return (
       <BaseComponent>
         <Header />
-        <PlayersInfo 
+        <PlayersInfo3
           playerA={gameData.playerA}
           playerB={gameData.playerB}
         />

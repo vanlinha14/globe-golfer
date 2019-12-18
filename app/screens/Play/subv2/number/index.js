@@ -1,5 +1,5 @@
 import React from 'react'
-import {View, TouchableOpacity} from 'react-native'
+import {View, TouchableOpacity, Alert} from 'react-native'
 import PlayersInfo from '../comps/PlayersInfo'
 import Header from '../comps/Header'
 import BaseComponent from '../../../../components/BaseComponent'
@@ -63,8 +63,11 @@ export default class SelectNumber extends React.PureComponent {
     if (index == 2) {
       this.props.navigation.navigate("SelectType")
     }
-    else if (index == 3) {
-      this.props.navigation.navigate("Select3rdPlayer")
+    // else if (index == 3) {
+    //   this.props.navigation.navigate("Select3rdPlayer")
+    // }
+    else {
+      Alert.alert("We're not ready", "The feature for " + index + " players isn't available for this time.")
     }
   }
 

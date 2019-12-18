@@ -46,6 +46,7 @@ import Overview from './screens/Play/subv2/overview'
 
 import Select3rdPlayer from './screens/Play/subv2/select/three'
 import AddGuest from './screens/Play/subv2/add/guest'
+import EditResult3Player from './screens/Play/subv2/edit/ThreePlayer'
 
 import Chat from './screens/Chat'
 import ChatDetail from './screens/Chat/detail'
@@ -191,7 +192,7 @@ const setupAccountNavigator = {
 }
 
 const AppNavigator = createStackNavigator({
-  SelectNumber,
+  // SelectNumber,
   Authentication,
   Main,
   Profile,
@@ -208,12 +209,13 @@ const AppNavigator = createStackNavigator({
   SimpleScoreCard,
   Final,
   SimpleFinal,
-  // SelectNumber,
+  SelectNumber,
   SelectType,
   EnterFinalResult,
   EditResult2Player,
   Overview,
   Select3rdPlayer,
+  EditResult3Player,
   AddGuest,
   ChangePassword,
   LotteryList,

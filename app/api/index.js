@@ -45,7 +45,8 @@ import {
   RANKING_FRIENDS,
   RANKING_PREMIUMS,
   RANKING_USER_CLUB,
-  UPDATE_LOCATION
+  UPDATE_LOCATION,
+  CREATE_NEW_GAME
 } from './Endpoints';
 import LoginBinder from './Binders/Login';
 import CountriesBinder from './Binders/CountriesBinder';
@@ -73,6 +74,7 @@ import LotteryBinder from './Binders/LotteryBinder';
 import LotteryListBinder from './Binders/LotteryListBinder';
 import LotteryTicketBinder from './Binders/LotteryTicketBinder';
 import RankingGroupBinder from './Binders/RankingGroupBinder';
+import NewGameBinder from './Binders/NewGameBinder';
 
 export default class Api extends Base {
   static _instance = null
@@ -401,6 +403,21 @@ export default class Api extends Base {
     return this.callPut(SIMPLE_UPDATE_MATCH_RESULT, body)
   }
 
+  updateMatchResult(id, user1, user2, score1, score2) {
+    const body = JSON.stringify({
+      scheduleId: id,
+      detail: [
+        {userId: user1, score: score1},
+        {userId: user2, score: score2}
+      ]
+    })
+
+    console.warn("update match result", body);
+    
+
+    return this.callPut(SIMPLE_UPDATE_MATCH_RESULT, body)
+  }
+
   simpleViewMatchResult(id) {
     const callingApi = SIMPLE_GET_MATCH_RESULT.replace("{id}", id)
     return this.callGet(callingApi, new SimpleMatchResultBinder()) 
@@ -437,5 +454,23 @@ export default class Api extends Base {
     })
 
     return this.callPut(callingApi, body)
+  }
+
+  createNewGame(challenge, formuler) {
+    const body = JSON.stringify({
+      id_challenge: challenge,
+      id_formuler: formuler
+    })
+
+    return this.callPost(CREATE_NEW_GAME, body, new NewGameBinder())
+  }
+
+  updateMatchResultDetail(id, detail) {
+    const body = JSON.stringify({
+      scheduleId: id,
+      detail
+    })
+
+    return this.callPost(UPDATE_MATCH_RESULT, body, new NewGameBinder())
   }
 }
