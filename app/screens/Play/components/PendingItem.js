@@ -26,15 +26,21 @@ export default PendingItem = React.memo(({item, viewOnly}) => {
 
   return (
     <View style={{ marginVertical: 16, flexDirection: 'row', justifyContent: 'center' }}>
-      <LoadableImage
-        style={{
-          width: 100,
-          height: 100,
-          borderRadius: 50,
-          backgroundColor: Theme.buttonPrimary
-        }}
-        source={sourceFrom}
-      />
+      <View style={{
+        justifyContent: 'center',
+        alignItems: 'center'
+      }}>
+        <LoadableImage
+          style={{
+            width: 100,
+            height: 100,
+            borderRadius: 50,
+            backgroundColor: Theme.buttonPrimary
+          }}
+          source={sourceFrom}
+        />
+        <DGText style={{color: 'white', marginTop: 12, fontWeight: '600'}}>{item.from.name}</DGText>
+      </View>
       <View style={{ marginHorizontal: 24, justifyContent: 'center', alignItems: 'center' }}>
         <DGText style={{ 
           fontSize: 20,
@@ -54,15 +60,21 @@ export default PendingItem = React.memo(({item, viewOnly}) => {
           )
         }
       </View>
-      <LoadableImage
-        style={{
-          width: 100,
-          height: 100,
-          borderRadius: 50,
-          backgroundColor: Theme.buttonPrimary
-        }}
-        source={sourceTo}
-      />
+      <View style={{
+        justifyContent: 'center',
+        alignItems: 'center'
+      }}>
+        <LoadableImage
+          style={{
+            width: 100,
+            height: 100,
+            borderRadius: 50,
+            backgroundColor: Theme.buttonPrimary
+          }}
+          source={sourceTo}
+        />
+        <DGText style={{color: 'white', marginTop: 12, fontWeight: '600'}}>{item.to.name}</DGText>
+      </View>
     </View>
   )
 })

@@ -1,6 +1,7 @@
 import { 
   GET_NOTIFICATIONS
 } from '../actions/types'
+import NotificationRepository from '../repository/NotificationRepository'
 
 const initialState = {
   new: {
@@ -32,6 +33,7 @@ export default matchesReducer = (state = initialState, action) => {
         }
       }
     case GET_NOTIFICATIONS.NEW.FINISH:
+      NotificationRepository.instance().updateNotifications(action.payload)
       return {
         ...state,
         new: {
