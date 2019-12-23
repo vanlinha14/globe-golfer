@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import {
   View,
   AsyncStorage
@@ -73,6 +73,8 @@ import { withStomp, StompEventTypes } from 'react-stompjs'
 import { ACCESS_TOKEN_STORE_KEY } from './utils/constants'
 import Api from './api'
 import {BASE} from './api/Endpoints';
+import DGText from './components/DGText'
+import NotificationRepository from './repository/NotificationRepository'
 
 const iconStyle = {
   alignSelf: 'center',
@@ -80,13 +82,48 @@ const iconStyle = {
   height: 44
 }
 
-const TabBarIcon = React.memo(({selectedIcon, unselectedIcon, isSelected}) => {
+const TabBarIcon = React.memo(({selectedIcon, unselectedIcon, isSelected, indicatorValue}) => {
+
+  const [iv, setIv] = React.useState(0)
+
+  useEffect(() => {
+    if (indicatorValue === undefined) {
+      return
+    }
+
+    const subscription = (v) => {
+      setIv(v)
+    }
+
+    const nr =  NotificationRepository.instance()
+    nr.addSubscription(subscription)
+
+    return () => {
+      nr.removeSubscription(subscription)
+    }
+  }, [])
+
   return (
     <View style={{ height: 56, width: 56, justifyContent: 'center' }}>
       <LoadableImage
         style={iconStyle}
         source={isSelected ? selectedIcon : unselectedIcon}
       />
+      {indicatorValue != undefined ? (
+        <View style={{
+          position: 'absolute',
+          top: 8,
+          right: 8,
+          height: 14,
+          minWidth: 14,
+          borderRadius: 7,
+          justifyContent: 'center',
+          alignItems: 'center',
+          backgroundColor: Theme.buttonPrimary
+        }}>
+          <DGText style={{color: 'white', fontSize: 11}}>{iv}</DGText>
+        </View>
+      ):undefined}
     </View>
   )
 })
@@ -124,6 +161,7 @@ const Main = createBottomTabNavigator({
           isSelected={props.focused} 
           selectedIcon={require('@images/ic_bell_selected.png')} 
           unselectedIcon={require('@images/ic_bell.png')}
+          indicatorValue={0}
         />
       )
     }
@@ -232,6 +270,10 @@ class Container extends React.PureComponent {
     AsyncStorage.getItem(ACCESS_TOKEN_STORE_KEY).then(token => {
       if (token) {
         Api.instance().setAccessToken(token)
+
+        Api.instance().getNewNotifications(0).then(res => {
+          NotificationRepository.instance().updateNotifications(res)
+        }) 
 
         this.props.stompContext.addStompEventListener(StompEventTypes.Connect, this.onConnected)
         this.props.stompContext.addStompEventListener(StompEventTypes.Disconnect, this.onDisconnected)
