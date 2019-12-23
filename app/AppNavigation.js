@@ -59,8 +59,6 @@ import ResultSimple from './screens/Notification/match/ResultSimple'
 import Menu from './screens/Menu'
 import LeaderBoard from './screens/LeaderBoard'
 
-import Invite from './screens/Invite'
-
 import Premium from './screens/Premium'
 
 import Theme from './res/Theme'
@@ -198,7 +196,6 @@ const AppNavigator = createStackNavigator({
   Profile,
   Interest,
   Settings,
-  Invite,
   Premium,
   ChatDetail,
   NotificationDetail,
@@ -241,7 +238,7 @@ class Container extends React.PureComponent {
         this.props.stompContext.addStompEventListener(StompEventTypes.WebSocketClose, this.onClose)
 
         this.props.stompContext.newStompClient(
-          BASE + "api/ws?access_token=" + token,
+          BASE + "ws?access_token=" + token,
           null,
           null,
           "/"
@@ -250,11 +247,14 @@ class Container extends React.PureComponent {
     })
   }
 
-  onConnected = () => {}
+  onConnected = () => {
+    // alert("connected");
+  }
 
   onDisconnected = () => {
+    // alert("not connect");
     this.props.stompContext.newStompClient(
-      BASE + "api/ws?access_token=" + token,
+      BASE + "ws?access_token=" + token,
       null,
       null,
       "/"
@@ -262,6 +262,7 @@ class Container extends React.PureComponent {
   }
 
   onClose = () => {
+    // alert("close");
     this.props.stompContext.removeStompClient()
   }
 

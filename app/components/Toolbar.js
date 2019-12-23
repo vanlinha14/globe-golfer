@@ -20,7 +20,7 @@ const Toolbar = React.memo((props) => {
     <View {...props} style={[styles.container, props.style]}>
       <View style={styles.contentContainer}>
         <TouchableOpacity onPress={onBack} activeOpacity={0.7} hitSlop={hitSlop}>
-          <Icon name="ios-arrow-back" color={Theme.buttonPrimary} size={30} />
+          <Icon name="ios-arrow-back" color={'white'} size={30} />
         </TouchableOpacity>
         <DGText style={styles.text}>{props.title}</DGText>
         {

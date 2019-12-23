@@ -35,7 +35,7 @@ const Header = React.memo(({isOn, onViewModeChanged}) => {
       paddingHorizontal: 16,
       paddingVertical: 12,
     }}>
-      <HeaderIcon name={"ios-home"} action={onGoBack}/>
+      <HeaderIcon name={"ios-arrow-back"} action={onGoBack}/>
       <FlexSpacing />
       <Toggler isOn={isOn} onChanged={onViewModeChanged} />
       <FlexSpacing />

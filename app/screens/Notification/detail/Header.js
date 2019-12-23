@@ -56,12 +56,10 @@ const Header = React.memo(({title}) => {
       alignItems: 'center',
       paddingHorizontal: 16,
       paddingVertical: 12,
-      marginTop: 20,
       borderBottomWidth: 1,
       borderBottomColor: Theme.separator
     }}>
-      <HeaderIcon name={"ios-home"} action={onGoBack}/>
-      
+      <HeaderIcon name={"ios-arrow-back"} action={onGoBack}/>
       <Title style={{ 
         flex: 1,
         color: Theme.buttonPrimary, 
