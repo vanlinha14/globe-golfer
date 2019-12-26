@@ -117,6 +117,7 @@ const TabBarIcon = React.memo(({selectedIcon, unselectedIcon, isSelected, indica
           height: 14,
           minWidth: 14,
           borderRadius: 7,
+          paddingHorizontal: 2,
           justifyContent: 'center',
           alignItems: 'center',
           backgroundColor: Theme.buttonPrimary

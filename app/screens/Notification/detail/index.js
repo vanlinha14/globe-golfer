@@ -5,6 +5,7 @@ import Header from './Header'
 import Theme from '../../../res/Theme';
 import DGText from '../../../components/DGText';
 import Api from '../../../api';
+import lodash from 'lodash'
 import { connect } from 'react-redux'
 import { getNewNotifications, getHistoryNotifications } from '../../../actions/getNotifications';
 import LoadingModal from '../../../components/LoadingModal';
@@ -98,7 +99,30 @@ class NotificationDetail extends React.PureComponent {
             _id: 1,
           }
         }]),
-      }))
+      }), () => {
+        const conversation = lodash.find(this.props.messagesData.data, (item) => item.avatar == notification.avatar)
+
+        if (conversation) {
+          this.props.navigation.navigate("ChatDetail", {
+            data: conversation,
+            tag: 0
+          })
+        }
+        else {
+          Api.instance().createConversation(notification.challengeId).then(res => {
+            this.props.navigation.navigate("ChatDetail", {
+              data: {
+                ...res,
+                name: notification.name,
+                avatar: notification.avatar,
+                message: []
+              },
+              tag: 0
+            })
+          })
+        }
+      })
+
     })
   }
 
@@ -217,7 +241,9 @@ class NotificationDetail extends React.PureComponent {
   }
 }
 
-const mapStateToProps = () => ({})
+const mapStateToProps = (state) => ({
+  messagesData: state.messages,
+})
 
 const mapDispatchToProps = (dispatch) => ({
   getNewNotifications: (tag) => dispatch(getNewNotifications(tag)),

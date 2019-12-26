@@ -12,6 +12,7 @@ import DGText from '../../components/DGText';
 import { getNewNotifications, getHistoryNotifications } from '../../actions/getNotifications';
 import { useNavigation } from 'react-navigation-hooks';
 import LoadableImage from '../../components/LoadableImage'
+import { getMessages } from '../../actions/getMessages'
 
 const NewMessages = React.memo(({isExpanded, isLoading, data, requestToggleExpand, currentTag}) => {
   return <Board 
@@ -145,6 +146,10 @@ class Notification extends PureComponent {
     isHistoryExpand: false
   }
 
+  componentDidMount() {
+    this.props.getMessages(0)
+  }
+
   onFilterChanged = (tag) => {
     if (this.state.isNewExpand) {
       this.props.getNewNotifications(tag)
@@ -209,6 +214,7 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = (dispatch) => ({
+  getMessages: (tag) => dispatch(getMessages(tag)),
   getNewNotifications: (tag) => dispatch(getNewNotifications(tag)),
   getHistoryNotifications: (tag) => dispatch(getHistoryNotifications(tag))
 })
