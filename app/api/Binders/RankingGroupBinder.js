@@ -2,6 +2,9 @@ export default class RankingGroupBinder {
   bind(input) {
     try {
       const data = input.data
+      
+      if (data.length == 0) return []
+
       const returnValue = {
         id: data.clubId,
         name: data.clubName,

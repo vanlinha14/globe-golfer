@@ -10,11 +10,12 @@ const Card = React.memo(({withAds, card}) => (
     flex: 1,
     marginTop: -48,
     marginBottom: 92,
-    backgroundColor: Theme.mainBackground
+    backgroundColor: 'black'
   }}>
       <CardMetaData data={card.metaData} />
       <CardBasicInfo avatar={card.avatar} name={card.name} location={card.location} rating={card.rating}/>
       {card.about ? <CardAbout about={card.about} /> : null}
+      <View style={{flex: 1}} />
       {withAds ? <Ads /> : null}
   </View>
 ))

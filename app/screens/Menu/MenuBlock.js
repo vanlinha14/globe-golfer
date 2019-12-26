@@ -50,7 +50,7 @@ export default class MenuBlock extends PureComponent {
 
     this.data = [
       {
-        name: "Invite a Friend",
+        name: "Friends",
         onPress: props.onInvitePress
       },
       {

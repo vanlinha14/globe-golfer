@@ -2,6 +2,9 @@ export default class RankingBinder {
   bind(input) {
     try {
       const data = input.data
+
+      if (data.length == 0) return []
+
       return data.map((i, index) => {
         return {
           index: index + 1,
@@ -18,7 +21,3 @@ export default class RankingBinder {
     }
   }
 }
-
-// index: 1,
-//     name: "OLIVER, Sam",
-//     total: -12

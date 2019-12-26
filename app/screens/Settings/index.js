@@ -605,11 +605,13 @@ class Settings extends PureComponent {
         {renderSpacing(8)}
         {
           about ? (
-            <DGText style={{
-              width: '80%',
-              color: Theme.textWhite,
-              marginHorizontal: 16,
-            }}>{about}</DGText>
+            <TouchableOpacity activeOpacity={0.7} onPress={this.requestEditAbout}>
+              <DGText style={{
+                width: '80%',
+                color: Theme.textWhite,
+                marginHorizontal: 16,
+              }}>{about}</DGText>
+            </TouchableOpacity>
           ) : (
             <TouchableOpacity activeOpacity={0.7} onPress={this.requestEditAbout}>
               <DGText style={{
@@ -1090,6 +1092,9 @@ class Settings extends PureComponent {
       }
     }
 
+    const user = this.props.user
+    const about = this.state.about ? this.state.about : user.about
+
     return (
       <BaseComponent toolbar={{
         title: Strings.settings.title,
@@ -1122,7 +1127,10 @@ class Settings extends PureComponent {
           {renderSpacing(44)}
         </DialogCombination>
         <LoadingModal visible={this.state.loading} />
-        <EditAbout visible={this.state.needOpenEditAbout} onRequestOK={(text) => {
+        <EditAbout 
+          initValue={about}
+          visible={this.state.needOpenEditAbout} 
+          onRequestOK={(text) => {
           this.setState({
             about: text,
             needOpenEditAbout: false

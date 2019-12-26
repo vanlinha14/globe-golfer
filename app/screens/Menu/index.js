@@ -51,7 +51,7 @@ const Body = React.memo(({isHidePremium}) => {
   }
 
   const onInvitePress = () => {
-    shareGG()
+    navigate("Chat", {tag: 1})
   }
 
   const onPremiumPress = () => {

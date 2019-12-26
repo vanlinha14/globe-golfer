@@ -73,7 +73,7 @@ const TinderMode = React.memo(({data, showingItemIndex, onReload}) => {
           }
         }
       }}
-      renderCard={(card) => <Card card={card} />}
+      renderCard={(card) => <Card card={card} withAds />}
       onSwipedAll={onSwipedAll}
     />
   )

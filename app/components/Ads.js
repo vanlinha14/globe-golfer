@@ -12,6 +12,7 @@ import AdsRepository from '../repository/AdsRepository';
 import Api from '../api';
 import moment from 'moment';
 import { useNavigation } from 'react-navigation-hooks';
+import Theme from '../res/Theme';
 
 class Lottery extends React.PureComponent {
   constructor(props) {
@@ -133,7 +134,8 @@ export default React.memo(({withLottery}) => {
             style={{
               width: 100,
               height: 100,
-              borderRadius: 50
+              borderRadius: 50,
+              backgroundColor: Theme.buttonPrimary
             }}
             resizeMethod='resize'
             resizeMode='cover'

@@ -129,7 +129,7 @@ const MessageItem = React.memo(({user, item, tag}) => {
   }
 
   let lastMessage = "draft:"
-  if (item.message.length > 0) {
+  if (Array.isArray(item.message) && item.message.length > 0) {
     if (item.message[0].sender_id == user.id) {
       lastMessage = "You: " + item.message[0].message
     }
@@ -221,7 +221,14 @@ class Chat extends PureComponent {
   static navigationOptions = { header: null }
 
   state = {
-    tabIndex: 0
+    tabIndex: null
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const initTag = nextProps.navigation.getParam("tag")
+    this.setState({
+      tabIndex:  initTag == 1 ? 1 : 0
+    })
   }
 
   requestToggleExpand = () => {
@@ -229,10 +236,23 @@ class Chat extends PureComponent {
   }
 
   onFilterChanged = (nextValue) => {
-    this.setState({tabIndex: nextValue})
-    this.props.getMessages(nextValue)
+    let theValue = 0
+    if (this.state.tabIndex == null) {
+      const initTag = this.props.navigation.getParam("tag")
+      if (initTag == 0 || initTag == 1) {
+        this.setState({tabIndex: initTag})
 
-    if (nextValue == 0) {
+        theValue = initTag
+      }
+    }
+    else {
+      this.setState({tabIndex: nextValue ? 0 : 1})
+      theValue = nextValue ? 0 : 1
+    }
+
+    this.props.getMessages(theValue)
+
+    if (theValue == 0) {
       this.props.getPendingMatches()
       this.props.getPlayedMatches()
     }
@@ -303,7 +323,7 @@ class Chat extends PureComponent {
     return (
       <BaseComponent>
         <Header />
-        <Filter onFilterChanged={this.onFilterChanged} />
+        <Filter onFilterChanged={this.onFilterChanged} initTab={this.state.tabIndex} />
         <ScrollView showsVerticalScrollIndicator={false} >
           <Challengers 
             title={this.state.tabIndex == 0 ? "Challengers" : "Friends"} 

@@ -29,7 +29,13 @@ const Item = React.memo(({icon, title, onPress, isSelected}) => {
 export default class Filter extends React.PureComponent {
 
   state = {
-    selectedIndex: 0
+    selectedIndex: null
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+      selectedIndex: nextProps.initTab == 1 ? 1 : 0
+    })
   }
 
   componentDidMount() {
