@@ -71,7 +71,7 @@ class Lottery extends React.PureComponent {
   }
 
   render() {
-    if (this.state.endTime == null) return null
+    if (this.state.endTime == null || this.state.endTime < 0) return null
     
     return (
       <TouchableWithoutFeedback style={{
