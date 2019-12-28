@@ -13,6 +13,7 @@ export default class NotificationBinder {
 
         return {
           id: i.id,
+          playerId: i.sender_id,
           challengeId: i.challenge_id,
           scheduleId: i.scheduleId,
           type: i.type,

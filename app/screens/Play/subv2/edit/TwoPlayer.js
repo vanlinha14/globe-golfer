@@ -151,6 +151,7 @@ export default class EditResult2Player extends React.PureComponent {
         <PlayersInfo 
           playerA={gameData.playerA}
           playerB={gameData.playerB}
+          showPoint
         />
         <View style={{
           justifyContent: 'center',
