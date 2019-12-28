@@ -38,7 +38,6 @@ const Player = React.memo(({avatar, name, showPoint, point}) => {
 })
 
 export default React.memo(({playerA, playerB, showPoint}) => {
-  alert(JSON.stringify(playerA))
   return (
     <View style={{
       flexDirection: 'row', 
