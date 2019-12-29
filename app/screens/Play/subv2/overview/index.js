@@ -160,23 +160,13 @@ class Overview extends React.Component {
 
     if (this.state.mode == "view") {
 
-      let sA = 0
-      let sB = 0
-      
-      gameResults.forEach(g => {
-        if (g.result == 1) {
-          sA++
-        }
-        else if (g.result == 2) {
-          sB++
-        }
-      });
+      const result = gameData.getCurrentScore()
 
       return (
         <ScoreBoard
-          playerAScore={sA}
-          playerBScore={sB}
-          gameRelation={"&"}
+          playerAScore={result[0]}
+          playerBScore={result[1]}
+          gameRelation={result[2]}
         />
       )
     }

@@ -117,9 +117,10 @@ export default class EditResult2Player extends React.PureComponent {
 
 
     if ([0, 1, 2].indexOf(theScore) >= 0) {
+      const result = gameData.getCurrentScore()
       this.setState({
-        scoreA: this.state.scoreA + (theScore == 1 ? 1 : 0),
-        scoreB: this.state.scoreB + (theScore == 2 ? 1 : 0),
+        scoreA: result[0],
+        scoreB: result[1],
         processingHole: this.state.processingHole + 1,
         displayResult: null
       })

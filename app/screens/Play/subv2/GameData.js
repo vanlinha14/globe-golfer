@@ -46,4 +46,39 @@ export default class GameData {
       this.gameResults.push({hole: i + 1, result: -1})
     }
   }
+
+  getCurrentScore() {
+    let sA = 0
+    let tA = 0
+
+    let tH = 0
+
+    let sB = 0
+    let tB = 0
+
+    this.gameResults.forEach(g => {
+      if (g.result == 1) {
+        sA++
+        tA++
+        sB--
+      }
+      else if (g.result == 2) {
+        sB++
+        tB++
+        sA--
+      }
+      else if (g.result == 0) {
+        tH++
+      }
+    });
+    
+    const fA = tA - tB
+    const fB = (tA + tB + tH) === this.gameResults.length ? "UP" : "&"
+
+    
+    const finalA = Math.abs(fA)
+    const finalB = this.gameResults.length - (tA + tB + tH)
+
+    return [finalA, finalB, fB]
+  }
 }
