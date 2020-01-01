@@ -16,6 +16,7 @@ import { getPlayedMatches } from '../../actions/getPlayedMatches'
 import LoadableImage from '../../components/LoadableImage'
 import lodash from 'lodash'
 import Api from '../../api'
+import { withNavigationFocus } from 'react-navigation'
 
 const Challenge = React.memo(({item, onPress}) => {
 
@@ -220,15 +221,27 @@ const Board = React.memo(({user, title, isLoading, data, tag}) => {
 class Chat extends PureComponent {
   static navigationOptions = { header: null }
 
-  state = {
-    tabIndex: null
+  constructor(props) {
+    super(props)
+    
+    const initTag =  props.navigation.getParam("tag")
+    console.warn(
+      "???",
+      initTag
+    );
+    
+    this.state = {
+      tabIndex: initTag ? initTag : 0
+    }
   }
 
-  componentWillReceiveProps(nextProps) {
-    const initTag = nextProps.navigation.getParam("tag")
-    this.setState({
-      tabIndex:  initTag == 1 ? 1 : 0
-    })
+  componentDidUpdate(prevProps) {
+    if (prevProps.isFocused !== this.props.isFocused) {
+      const initTag = this.props.navigation.getParam("tag")
+      this.setState({
+        tabIndex: initTag == 1 ? 1 : 0
+      })
+    }
   }
 
   requestToggleExpand = () => {
@@ -236,6 +249,7 @@ class Chat extends PureComponent {
   }
 
   onFilterChanged = (nextValue) => {
+
     let theValue = 0
     if (this.state.tabIndex == null) {
       const initTag = this.props.navigation.getParam("tag")
@@ -246,8 +260,8 @@ class Chat extends PureComponent {
       }
     }
     else {
-      this.setState({tabIndex: nextValue ? 0 : 1})
-      theValue = nextValue ? 0 : 1
+      this.setState({tabIndex: nextValue})
+      theValue = nextValue
     }
 
     this.props.getMessages(theValue)
@@ -356,5 +370,5 @@ const mapDispatchToProps = (dispatch) => ({
   getPlayedMatches: () => dispatch(getPlayedMatches())
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(Chat)
+export default withNavigationFocus(connect(mapStateToProps, mapDispatchToProps)(Chat))
 

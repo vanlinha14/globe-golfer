@@ -32,10 +32,21 @@ export default class Filter extends React.PureComponent {
     selectedIndex: null
   }
 
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      selectedIndex: props.initTab == 1 ? 1 : 0
+    }
+  }
+
   componentWillReceiveProps(nextProps) {
-    this.setState({
-      selectedIndex: nextProps.initTab == 1 ? 1 : 0
-    })
+    console.warn(
+      "ducgao",
+      nextProps
+    );
+    
+    this.setState({selectedIndex: nextProps.initTab == 1 ? 1 : 0})
   }
 
   componentDidMount() {
@@ -45,8 +56,6 @@ export default class Filter extends React.PureComponent {
   }
 
   onFilterChanged = (index) => {
-    this.setState({ selectedIndex: index })
-
     if (this.props.onFilterChanged) {
       this.props.onFilterChanged(index)
     }
@@ -74,12 +83,6 @@ export default class Filter extends React.PureComponent {
           isSelected={this.state.selectedIndex == 1}
           onPress={() => this.onFilterChanged(1)}
         />
-        {/* <Item 
-          title="Group" 
-          icon="ios-notifications-outline" 
-          isSelected={this.state.selectedIndex == 2}
-          onPress={() => this.onFilterChanged(2)}
-        /> */}
       </View>
     )
   }
