@@ -674,9 +674,9 @@ class Settings extends PureComponent {
       }
     }
 
-    this.coDV = countryValue
-    this.reDV = regionValue
-    this.clDV = clubValue
+    this.tempCoDV = countryValue
+    this.tempReDV = regionValue
+    this.tempClDV = clubValue
 
     return (
       <View>
@@ -746,9 +746,9 @@ class Settings extends PureComponent {
       }
     }
 
-    this.tempCoDV = countryValue
-    this.tempReDV = regionValue
-    this.tempClDV = clubValue
+    this.coDV = countryValue
+    this.reDV = regionValue
+    this.clDV = clubValue
 
     return (
       <View>

@@ -1,10 +1,10 @@
 
 const GameHoles = [
   0,
-  1,
-  1,
   9,
-  18
+  9,
+  9,
+  9
 ]
 
 export default class GameData {
