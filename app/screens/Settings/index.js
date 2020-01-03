@@ -678,6 +678,16 @@ class Settings extends PureComponent {
     this.tempReDV = regionValue
     this.tempClDV = clubValue
 
+    console.warn(countryValue);
+    console.warn(regionValue);
+    console.warn(clubValue);
+    
+    if (countryValue === null && regionValue === null && clubValue === null) {
+      countryValue = user.country
+      regionValue = user.region
+      clubValue = user.club
+    }
+
     return (
       <View>
         {renderSectionTitle("TEMPORARY LOCATION")}
