@@ -10,7 +10,7 @@ import SettingToggle from '../../../components/SettingToggle'
 import { getBottomSpace } from 'react-native-iphone-x-helper'
 
 export function renderSectionTitle(title, withoutSeparator) {
-  let item = <DGText key="section title" style={styles.sectionTitle}>{title.toUpperCase()}</DGText>
+  let item = <DGText key={"section title" + title} style={styles.sectionTitle}>{title.toUpperCase()}</DGText>
   if (withoutSeparator) {
     return item
   }

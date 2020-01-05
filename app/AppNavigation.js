@@ -268,46 +268,46 @@ const AppNavigatorInstance = createAppContainer(AppNavigator)
 class Container extends React.PureComponent {
 
   componentDidMount() {
-    AsyncStorage.getItem(ACCESS_TOKEN_STORE_KEY).then(token => {
-      if (token) {
-        Api.instance().setAccessToken(token)
+    // AsyncStorage.getItem(ACCESS_TOKEN_STORE_KEY).then(token => {
+    //   if (token) {
+    //     Api.instance().setAccessToken(token)
 
-        Api.instance().getNewNotifications(0).then(res => {
-          NotificationRepository.instance().updateNotifications(res)
-        }) 
+    //     Api.instance().getNewNotifications(0).then(res => {
+    //       NotificationRepository.instance().updateNotifications(res)
+    //     }) 
 
-        this.props.stompContext.addStompEventListener(StompEventTypes.Connect, this.onConnected)
-        this.props.stompContext.addStompEventListener(StompEventTypes.Disconnect, this.onDisconnected)
-        this.props.stompContext.addStompEventListener(StompEventTypes.WebSocketClose, this.onClose)
+    //     this.props.stompContext.addStompEventListener(StompEventTypes.Connect, this.onConnected)
+    //     this.props.stompContext.addStompEventListener(StompEventTypes.Disconnect, this.onDisconnected)
+    //     this.props.stompContext.addStompEventListener(StompEventTypes.WebSocketClose, this.onClose)
 
-        this.props.stompContext.newStompClient(
-          BASE + "ws?access_token=" + token,
-          null,
-          null,
-          "/"
-        )
-      }
-    })
+    //     this.props.stompContext.newStompClient(
+    //       BASE + "ws?access_token=" + token,
+    //       null,
+    //       null,
+    //       "/"
+    //     )
+    //   }
+    // })
   }
 
-  onConnected = () => {
-    // alert("connected");
-  }
+  // onConnected = () => {
+  //   // alert("connected");
+  // }
 
-  onDisconnected = () => {
-    // alert("not connect");
-    this.props.stompContext.newStompClient(
-      BASE + "ws?access_token=" + token,
-      null,
-      null,
-      "/"
-    )
-  }
+  // onDisconnected = () => {
+  //   // alert("not connect");
+  //   this.props.stompContext.newStompClient(
+  //     BASE + "ws?access_token=" + token,
+  //     null,
+  //     null,
+  //     "/"
+  //   )
+  // }
 
-  onClose = () => {
-    // alert("close");
-    this.props.stompContext.removeStompClient()
-  }
+  // onClose = () => {
+  //   // alert("close");
+  //   this.props.stompContext.removeStompClient()
+  // }
 
   render() {
     return <AppNavigatorInstance />

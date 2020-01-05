@@ -48,16 +48,25 @@ export default class MiniSelectInputBlock extends PureComponent {
       }
       else {
         this.isReady = false
+        const additionData = []
+        if (nextProps.defaultValue) {
+          additionData.push({
+            label: nextProps.defaultValue,
+            value: nextProps.defaultValue
+          })
+        }
         this.items = [
           {
             label: nextProps.hint,
             value: nextProps.hint
           },
-          {
-            label: nextProps.defaultValue,
-            value: nextProps.defaultValue
-          }
+          ...additionData
         ]
+
+        if(!nextProps.defaultValue) {
+          this.setState({selectedValue: nextProps.hint})
+        }
+        
       } 
     }
   }

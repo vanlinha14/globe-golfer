@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react'
-import { View, Dimensions } from 'react-native'
+import { View, Dimensions, AsyncStorage } from 'react-native'
 
 import { TabView, TabBar, SceneMap } from 'react-native-tab-view'
 
@@ -12,6 +12,8 @@ import LeaderBoard from '../LeaderBoard'
 import Profile from '../Profile'
 import { getBottomSpace } from 'react-native-iphone-x-helper'
 import LoadableImage from '../../components/LoadableImage'
+import { withStomp, StompEventTypes } from 'react-stompjs'
+import Api from '../../api'
 
 const ChatRoute = () => (<Chat />)
 const NotificationRoute = () => (<Notification />)
@@ -19,7 +21,7 @@ const PlayRoute = () => (<Menu />)
 const LeaderBoardRoute = () => (<LeaderBoard />)
 const ProfileRoute = () => (<Profile />)
 
-export default class Main extends PureComponent {
+class Main extends PureComponent {
   static navigationOptions = { header: null }
 
   tabIcons = [
@@ -120,3 +122,5 @@ export default class Main extends PureComponent {
 
 const windowWidth = Dimensions.get('window').width
 const windowHeight = Dimensions.get('window').height
+
+export default withStomp(Main)

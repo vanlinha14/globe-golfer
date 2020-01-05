@@ -18,6 +18,9 @@ import { getPlayedMatches } from '../../actions/getPlayedMatches'
 import LoadableImage from '../../components/LoadableImage'
 import Ads from '../../components/Ads'
 import AdsRepository from '../../repository/AdsRepository'
+import Api from '../../api'
+import { withStomp, StompEventTypes } from 'react-stompjs'
+import { BASE } from '../../api/Endpoints'
 
 const Logo = React.memo(() => (
   <LoadableImage
@@ -86,6 +89,7 @@ class Menu extends PureComponent {
 
   componentDidMount() {
     this.props.getProfile()
+    this.configChatService()
 
     AdsRepository.instance().loadAds()
   }
@@ -94,6 +98,44 @@ class Menu extends PureComponent {
     if (nextProps.user && nextProps.user.id) {
       OneSignal.sendTag("user_id", nextProps.user.id + "")
     }
+  }
+
+  configChatService = () => {
+    const token = Api.instance().getAccessToken()
+
+    Api.instance().getNewNotifications(0).then(res => {
+      NotificationRepository.instance().updateNotifications(res)
+    }) 
+
+    this.props.stompContext.addStompEventListener(StompEventTypes.Connect, this.onConnected)
+    this.props.stompContext.addStompEventListener(StompEventTypes.Disconnect, this.onDisconnected)
+    this.props.stompContext.addStompEventListener(StompEventTypes.WebSocketClose, this.onClose)
+
+    this.props.stompContext.newStompClient(
+      BASE + "ws?access_token=" + token,
+      null,
+      null,
+      "/"
+    )
+  }
+
+  onConnected = () => {
+    // alert("connected");
+  }
+
+  onDisconnected = () => {
+    // alert("not connect");
+    this.props.stompContext.newStompClient(
+      BASE + "ws?access_token=" + token,
+      null,
+      null,
+      "/"
+    )
+  }
+
+  onClose = () => {
+    // alert("close");
+    this.props.stompContext.removeStompClient()
   }
 
   onNotiReceived = () => {
@@ -153,4 +195,4 @@ const mapDispatchToProps = (dispatch) => ({
   getPlayedMatches: () => dispatch(getPlayedMatches())
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(Menu)
+export default withStomp(connect(mapStateToProps, mapDispatchToProps)(Menu))

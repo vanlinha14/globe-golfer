@@ -282,7 +282,7 @@ class Settings extends PureComponent {
   onTempCountryChanged = (newValue) => {
     const data = this.state.tempLocationData
 
-    if (data.countries == null || data.coIndex == null) {
+    if (data.countries == null) {
       return
     }
 
@@ -344,7 +344,7 @@ class Settings extends PureComponent {
   onTempRegionChanged = (newValue) => {
     const data = this.state.tempLocationData
 
-    if (data.regions == null || data.reIndex == null) {
+    if (data.regions == null) {
       return
     }
 
@@ -389,7 +389,7 @@ class Settings extends PureComponent {
   onTempClubChanged = (newValue) => {
     const data = this.state.tempLocationData
 
-    if (data.clubs == null || data.clIndex == null) {
+    if (data.clubs == null) {
       return
     }
 
@@ -677,16 +677,6 @@ class Settings extends PureComponent {
     this.tempCoDV = countryValue
     this.tempReDV = regionValue
     this.tempClDV = clubValue
-
-    console.warn(countryValue);
-    console.warn(regionValue);
-    console.warn(clubValue);
-    
-    if (countryValue === null && regionValue === null && clubValue === null) {
-      countryValue = user.country
-      regionValue = user.region
-      clubValue = user.club
-    }
 
     return (
       <View>
@@ -1041,9 +1031,6 @@ class Settings extends PureComponent {
       countryTemName: this.tempCoDV
     }
 
-    console.warn("ducgao", objToUpdate);
-    
-
     this.setState({
       loading: true
     })
@@ -1058,7 +1045,7 @@ class Settings extends PureComponent {
       return false
     }
 
-    if (this.coDV === user.country || this.reDV === user.region || this.clDV === user.club) {
+    if (this.coDV === user.country && this.reDV === user.region && this.clDV === user.club) {
       return false
     }
 
@@ -1068,11 +1055,12 @@ class Settings extends PureComponent {
   isTempLocationHasChanged() {
     const data = this.state.tempLocationData
     const user = this.props.user
+
     if (data.coIndex == null && data.reIndex == null && data.clIndex == null) {
       return false
     }
     
-    if (this.tempCoDV == user.tempCountry || this.tempReDV == user.tempRegion || this.tempClDV == user.tempClub) {
+    if (this.tempCoDV == user.tempCountry && this.tempReDV == user.tempRegion && this.tempClDV == user.tempClub) {
       return false
     }
 
