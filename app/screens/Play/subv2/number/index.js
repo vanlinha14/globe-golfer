@@ -32,9 +32,7 @@ const NumberSelector = React.memo(({onChanged}) => {
   const [localState, setLocalState] = React.useState({index: 0})
 
   const onNumberPress = (n) => {
-    if (n != localState.index) {
-      onChanged(n)
-    }
+    onChanged(n)
 
     setLocalState({index: n})
   }

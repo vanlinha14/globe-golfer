@@ -36,7 +36,7 @@ const Header = React.memo(({isOn, onViewModeChanged}) => {
       borderBottomWidth: 1,
       borderBottomColor: Theme.separator
     }}>
-      <HeaderIcon name={"ios-home"} action={onGoBack}/>
+      <HeaderIcon name={"ios-arrow-back"} action={onGoBack}/>
       <View style={{flex: 1}} />
       <HeaderIcon name={"ios-settings"} action={onGoToSetting}/>
     </View>
