@@ -128,14 +128,12 @@ class Settings extends PureComponent {
         about: null,
         tempLocationEnable: null,
         locationData: {
-          regions: [],
-          clubs: [],
+          ...this.state.locationData,
           reIndex: null,
           clIndex: null
         },
         tempLocationData: {
-          regions: [],
-          clubs: [],
+          ...this.state.tempLocationData,
           reIndex: null,
           clIndex: null
         }
