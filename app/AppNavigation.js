@@ -46,7 +46,10 @@ import Overview from './screens/Play/subv2/overview'
 
 import Select3rdPlayer from './screens/Play/subv2/select/three'
 import AddGuest from './screens/Play/subv2/add/guest'
+import AddMember from './screens/Play/subv2/add/member'
 import EditResult3Player from './screens/Play/subv2/edit/ThreePlayer'
+
+import Select4rdPlayer from './screens/Play/subv2/select/four'
 
 import Chat from './screens/Chat'
 import ChatDetail from './screens/Chat/detail'
@@ -253,6 +256,8 @@ const AppNavigator = createStackNavigator({
   Select3rdPlayer,
   EditResult3Player,
   AddGuest,
+  AddMember,
+  Select4rdPlayer,
   ChangePassword,
   LotteryList,
   LotteryDetail,
@@ -266,49 +271,6 @@ const AppNavigator = createStackNavigator({
 const AppNavigatorInstance = createAppContainer(AppNavigator)
 
 class Container extends React.PureComponent {
-
-  componentDidMount() {
-    // AsyncStorage.getItem(ACCESS_TOKEN_STORE_KEY).then(token => {
-    //   if (token) {
-    //     Api.instance().setAccessToken(token)
-
-    //     Api.instance().getNewNotifications(0).then(res => {
-    //       NotificationRepository.instance().updateNotifications(res)
-    //     }) 
-
-    //     this.props.stompContext.addStompEventListener(StompEventTypes.Connect, this.onConnected)
-    //     this.props.stompContext.addStompEventListener(StompEventTypes.Disconnect, this.onDisconnected)
-    //     this.props.stompContext.addStompEventListener(StompEventTypes.WebSocketClose, this.onClose)
-
-    //     this.props.stompContext.newStompClient(
-    //       BASE + "ws?access_token=" + token,
-    //       null,
-    //       null,
-    //       "/"
-    //     )
-    //   }
-    // })
-  }
-
-  // onConnected = () => {
-  //   // alert("connected");
-  // }
-
-  // onDisconnected = () => {
-  //   // alert("not connect");
-  //   this.props.stompContext.newStompClient(
-  //     BASE + "ws?access_token=" + token,
-  //     null,
-  //     null,
-  //     "/"
-  //   )
-  // }
-
-  // onClose = () => {
-  //   // alert("close");
-  //   this.props.stompContext.removeStompClient()
-  // }
-
   render() {
     return <AppNavigatorInstance />
   }

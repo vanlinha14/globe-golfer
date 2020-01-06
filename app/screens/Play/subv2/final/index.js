@@ -2,6 +2,8 @@ import React from 'react'
 import {View, Alert} from 'react-native'
 import { connect } from 'react-redux'
 import PlayersInfo from '../comps/PlayersInfo'
+import PlayersInfo3 from '../comps/PlayersInfo3'
+import PlayersInfo4 from '../comps/PlayersInfo4'
 import Header from '../comps/Header'
 import BaseComponent from '../../../../components/BaseComponent'
 import SelectItem from '../comps/CircleButton'
@@ -10,7 +12,7 @@ import ScoreBoard from '../comps/ScoreBoard'
 import Api from '../../../../api'
 import { getPendingMatches } from '../../../../actions/getPendingMatches'
 import { getPlayedMatches } from '../../../../actions/getPlayedMatches'
-import LoadingModal from '../../../../components/LoadingModal'
+import { ScrollView } from 'react-native-gesture-handler'
 
 class EnterFinalResult extends React.PureComponent {
 
@@ -54,34 +56,55 @@ class EnterFinalResult extends React.PureComponent {
     })
   }
 
-  render() {
-
+  renderPlayerInfo() {
     const gameData = GameData.instance()
 
+    if (gameData.playerD && gameData.playerC) {
+      return <PlayersInfo4
+        playerA={gameData.playerA}
+        playerB={gameData.playerB}
+        playerC={gameData.playerC}
+        playerD={gameData.playerD}
+      />
+    } else if (gameData.playerC) {
+      return <PlayersInfo3
+        playerA={gameData.playerA}
+        playerB={gameData.playerB}
+        playerC={gameData.playerC}
+      />
+    }
+    else {
+      return <PlayersInfo 
+        playerA={gameData.playerA}
+        playerB={gameData.playerB}
+      />
+    }
+  }
+
+  render() {
     return (
       <BaseComponent>
         <Header />
-        <PlayersInfo 
-          playerA={gameData.playerA}
-          playerB={gameData.playerB}
-        />
-        <View style={{
-          justifyContent: 'center',
-          alignItems: 'center',
-          marginTop: 24
-        }}>
-          <ScoreBoard 
-            editable
-            playerAScore={this.state.scoreA}
-            playerBScore={this.state.scoreB}
-            gameRelation={this.state.relation}
-            onPlayerAScoreChanged={(score) => this.setState({scoreA: score})}
-            onPlayerBScoreChanged={(score) => this.setState({scoreB: score})}
-            onGameRelationChanged={(relation) => this.setState({relation})}
-          />
-          <View style={{height: 24}} />
-          <SelectItem value={"submit the result"} tint={Theme.buttonPrimary} fixSize onPress={this.onRequestSubmit} />
-        </View>
+        <ScrollView>
+          {this.renderPlayerInfo()}
+          <View style={{
+            justifyContent: 'center',
+            alignItems: 'center',
+            marginTop: 24
+          }}>
+            <ScoreBoard 
+              editable
+              playerAScore={this.state.scoreA}
+              playerBScore={this.state.scoreB}
+              gameRelation={this.state.relation}
+              onPlayerAScoreChanged={(score) => this.setState({scoreA: score})}
+              onPlayerBScoreChanged={(score) => this.setState({scoreB: score})}
+              onGameRelationChanged={(relation) => this.setState({relation})}
+            />
+            <View style={{height: 24}} />
+            <SelectItem value={"submit the result"} tint={Theme.buttonPrimary} fixSize onPress={this.onRequestSubmit} />
+          </View>
+        </ScrollView>
         {/* <LoadingModal visible={true} /> */}
       </BaseComponent>
     )

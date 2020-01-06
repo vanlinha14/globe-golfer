@@ -36,7 +36,7 @@ class Input extends React.PureComponent {
 
 export default React.memo(() => {
 
-  const {navigate} = useNavigation()
+  const {goBack, getParam} = useNavigation()
 
   const lnameRef = React.useRef(null)
   const fnameRef = React.useRef(null)
@@ -73,15 +73,25 @@ export default React.memo(() => {
 
     const gameData = GameData.instance()
 
-    gameData.playerC = {
-      lastName,
-      firstName,
-      email,
-      index
+    const where = getParam("where")
+
+    if (where === "C") {
+      gameData.playerC = {
+        name: firstName + " " + lastName,
+        email,
+        index
+      }
+    }
+    else if (where === "D") {
+      gameData.playerD = {
+        name: firstName + " " + lastName,
+        firstName,
+        email,
+        index
+      }
     }
 
-    navigate("SelectType")
-
+    goBack()
   }, [])
 
   return (

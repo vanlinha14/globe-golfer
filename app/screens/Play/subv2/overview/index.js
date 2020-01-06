@@ -1,6 +1,8 @@
 import React from 'react'
 import {View, ScrollView, TouchableOpacity, Alert} from 'react-native'
 import PlayersInfo from '../comps/PlayersInfo'
+import PlayersInfo3 from '../comps/PlayersInfo3'
+import PlayersInfo4 from '../comps/PlayersInfo4'
 import Header from '../comps/Header'
 import BaseComponent from '../../../../components/BaseComponent'
 import Theme from '../../../../res/Theme'
@@ -179,16 +181,36 @@ class Overview extends React.Component {
     }
   }
 
-  render() {
+  renderPlayerInfo() {
     const gameData = GameData.instance()
 
+    if (gameData.playerD && gameData.playerC) {
+      return <PlayersInfo4
+        playerA={gameData.playerA}
+        playerB={gameData.playerB}
+        playerC={gameData.playerC}
+        playerD={gameData.playerD}
+      />
+    } else if (gameData.playerC) {
+      return <PlayersInfo3
+        playerA={gameData.playerA}
+        playerB={gameData.playerB}
+        playerC={gameData.playerC}
+      />
+    }
+    else {
+      return <PlayersInfo 
+        playerA={gameData.playerA}
+        playerB={gameData.playerB}
+      />
+    }
+  }
+
+  render() {
     return (
       <BaseComponent>
         <Header />
-        <PlayersInfo 
-          playerA={gameData.playerA}
-          playerB={gameData.playerB}
-        />
+        {this.renderPlayerInfo()}
         <ScrollView contentContainerStyle={{justifyContent: 'center', alignItems: 'center'}}>
           {this.renderContent()}
           <View style={{height: 20}}/>

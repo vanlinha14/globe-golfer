@@ -1,5 +1,5 @@
 import React from 'react'
-import {View, TouchableOpacity, Alert} from 'react-native'
+import {View, ScrollView, Alert} from 'react-native'
 import PlayersInfo from '../comps/PlayersInfo'
 import Header from '../comps/Header'
 import BaseComponent from '../../../../components/BaseComponent'
@@ -7,6 +7,7 @@ import Theme from '../../../../res/Theme'
 import GameData from '../GameData'
 import SelectItem from '../comps/CircleButton'
 import PlayersInfo3 from '../comps/PlayersInfo3'
+import PlayersInfo4 from '../comps/PlayersInfo4'
 import Api from '../../../../api'
 
 const gameTypes = [
@@ -65,16 +66,18 @@ export default class SelectType extends React.PureComponent {
 
     const gameType = this.state.type
     const challenge = GameData.instance().challengeId
+
+    this.props.navigation.navigate("EditResult2Player")
     
-    Api.instance().createNewGame(challenge, gameType).then(res => {
-      if (res.data && res.data.scheduleId) {
-        GameData.instance().gameId = res.data.scheduleId
-        this.props.navigation.navigate("EditResult2Player")
-      }
-      else {
-        Alert.alert("Oops!", "We was unable to create your match. Please try again later!")
-      }
-    })
+    // Api.instance().createNewGame(challenge, gameType).then(res => {
+    //   if (res.data && res.data.scheduleId) {
+    //     GameData.instance().gameId = res.data.scheduleId
+    //     this.props.navigation.navigate("EditResult2Player")
+    //   }
+    //   else {
+    //     Alert.alert("Oops!", "We was unable to create your match. Please try again later!")
+    //   }
+    // })
   }
 
   onRequestEnterScore = () => {
@@ -85,22 +88,31 @@ export default class SelectType extends React.PureComponent {
 
     const gameType = this.state.type
     const challenge = GameData.instance().challengeId
+
+    this.props.navigation.navigate("EnterFinalResult")
     
-    Api.instance().createNewGame(challenge, gameType).then(res => {
-      if (res.data && res.data.scheduleId) {
-        GameData.instance().gameId = res.data.scheduleId
-        this.props.navigation.navigate("EnterFinalResult")
-      }
-      else {
-        Alert.alert("Oops!", "We was unable to create your match. Please try again later!")
-      }
-    })
+    // Api.instance().createNewGame(challenge, gameType).then(res => {
+    //   if (res.data && res.data.scheduleId) {
+    //     GameData.instance().gameId = res.data.scheduleId
+    //     this.props.navigation.navigate("EnterFinalResult")
+    //   }
+    //   else {
+    //     Alert.alert("Oops!", "We was unable to create your match. Please try again later!")
+    //   }
+    // })
   }
 
   renderPlayerInfo() {
     const gameData = GameData.instance()
 
-    if (gameData.playerC) {
+    if (gameData.playerD && gameData.playerC) {
+      return <PlayersInfo4
+        playerA={gameData.playerA}
+        playerB={gameData.playerB}
+        playerC={gameData.playerC}
+        playerD={gameData.playerD}
+      />
+    } else if (gameData.playerC) {
       return <PlayersInfo3
         playerA={gameData.playerA}
         playerB={gameData.playerB}
@@ -119,16 +131,18 @@ export default class SelectType extends React.PureComponent {
     return (
       <BaseComponent>
         <Header />
-        {this.renderPlayerInfo()}
-        <View style={{
-          justifyContent: 'center',
-          alignItems: 'center',
-          marginTop: 24
-        }}>
-          <SelectItem value={gameTypes[this.state.type]} tint={Theme.buttonPrimary} onPress={this.onRequestChangeGameType} />
-          <SelectItem value={"Edit score card"} tint="white" fixSize onPress={this.onRequestEditScore} />
-          <SelectItem value={"Enter final result"} tint={Theme.buttonPrimary} fixSize onPress={this.onRequestEnterScore} />
-        </View>
+        <ScrollView>
+          {this.renderPlayerInfo()}
+          <View style={{
+            justifyContent: 'center',
+            alignItems: 'center',
+            marginTop: 24
+          }}>
+            <SelectItem value={gameTypes[this.state.type]} tint={Theme.buttonPrimary} onPress={this.onRequestChangeGameType} />
+            <SelectItem value={"Edit score card"} tint="white" fixSize onPress={this.onRequestEditScore} />
+            <SelectItem value={"Enter final result"} tint={Theme.buttonPrimary} fixSize onPress={this.onRequestEnterScore} />
+          </View>
+        </ScrollView>
       </BaseComponent>
     )
   }

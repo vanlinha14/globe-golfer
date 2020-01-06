@@ -1,6 +1,8 @@
 import React from 'react'
-import {View, TouchableOpacity, Alert} from 'react-native'
+import {View, TouchableOpacity, Alert, ScrollView} from 'react-native'
 import PlayersInfo from '../comps/PlayersInfo'
+import PlayersInfo3 from '../comps/PlayersInfo3'
+import PlayersInfo4 from '../comps/PlayersInfo4'
 import Header from '../comps/Header'
 import BaseComponent from '../../../../components/BaseComponent'
 import GameData from '../GameData'
@@ -141,6 +143,31 @@ export default class EditResult2Player extends React.PureComponent {
     })
   }
 
+  renderPlayerInfo() {
+    const gameData = GameData.instance()
+
+    if (gameData.playerD && gameData.playerC) {
+      return <PlayersInfo4
+        playerA={gameData.playerA}
+        playerB={gameData.playerB}
+        playerC={gameData.playerC}
+        playerD={gameData.playerD}
+      />
+    } else if (gameData.playerC) {
+      return <PlayersInfo3
+        playerA={gameData.playerA}
+        playerB={gameData.playerB}
+        playerC={gameData.playerC}
+      />
+    }
+    else {
+      return <PlayersInfo 
+        playerA={gameData.playerA}
+        playerB={gameData.playerB}
+      />
+    }
+  }
+
   render() {
 
     const gameData = GameData.instance()
@@ -149,32 +176,30 @@ export default class EditResult2Player extends React.PureComponent {
     return (
       <BaseComponent>
         <Header />
-        <PlayersInfo 
-          playerA={gameData.playerA}
-          playerB={gameData.playerB}
-          showPoint
-        />
-        <View style={{
-          justifyContent: 'center',
-          alignItems: 'center',
-          marginTop: 12
-        }}>
-          <ScoreBoard 
-            editable={false}
-            playerAScore={this.state.scoreA}
-            playerBScore={this.state.scoreB}
-            gameRelation={this.state.relation}
-            onPlayerAScoreChanged={(score) => this.setState({scoreA: score})}
-            onPlayerBScoreChanged={(score) => this.setState({scoreB: score})}
-            onGameRelationChanged={(relation) => this.setState({relation})}
-          />
-          <HoleBoard 
-            hole={gameResults[this.state.processingHole - 1].hole} 
-            result={this.state.displayResult}
-            onResultChanged={this.onResultChanged}  
-          />
-          <SelectItem value={this.state.processingHole == gameData.gameHoles ? "End" : "Record & Next"} tint={Theme.buttonPrimary} fixSize onPress={this.onRequestNext} />
-        </View>
+        <ScrollView>
+          {this.renderPlayerInfo()}
+          <View style={{
+            justifyContent: 'center',
+            alignItems: 'center',
+            marginTop: 12
+          }}>
+            <ScoreBoard 
+              editable={false}
+              playerAScore={this.state.scoreA}
+              playerBScore={this.state.scoreB}
+              gameRelation={this.state.relation}
+              onPlayerAScoreChanged={(score) => this.setState({scoreA: score})}
+              onPlayerBScoreChanged={(score) => this.setState({scoreB: score})}
+              onGameRelationChanged={(relation) => this.setState({relation})}
+            />
+            <HoleBoard 
+              hole={gameResults[this.state.processingHole - 1].hole} 
+              result={this.state.displayResult}
+              onResultChanged={this.onResultChanged}  
+            />
+            <SelectItem value={this.state.processingHole == gameData.gameHoles ? "End" : "Record & Next"} tint={Theme.buttonPrimary} fixSize onPress={this.onRequestNext} />
+          </View>
+        </ScrollView>
       </BaseComponent>
     )
   }

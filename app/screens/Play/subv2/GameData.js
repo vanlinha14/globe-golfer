@@ -28,6 +28,7 @@ export default class GameData {
   }
 
   playerC = null
+  playerD = null
 
   challengeId = null
 

@@ -61,11 +61,12 @@ export default class SelectNumber extends React.PureComponent {
     if (index == 2) {
       this.props.navigation.navigate("SelectType")
     }
-    // else if (index == 3) {
-    //   this.props.navigation.navigate("Select3rdPlayer")
-    // }
-    else {
+    else if (index == 3) {
       Alert.alert("We're not ready", "The feature for " + index + " players isn't available for this time.")
+      // this.props.navigation.navigate("Select3rdPlayer")
+    }
+    else {
+      this.props.navigation.navigate("Select4rdPlayer")
     }
   }
 
