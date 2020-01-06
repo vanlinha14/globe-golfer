@@ -38,6 +38,16 @@ export default class GameData {
 
   gameResults = []
 
+  reset() {
+    this.gameType = null
+    this.gameHoles = 0
+
+    this.gameResults = []
+
+    this.playerC = null
+    this.playerD = null
+  }
+
   setGameType(type) {
     this.gameType = type
     this.gameHoles = GameHoles[type]

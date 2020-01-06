@@ -58,14 +58,19 @@ const NumberSelector = React.memo(({onChanged}) => {
 export default class SelectNumber extends React.PureComponent {
 
   onSelectionChanged = (index) => {
+
+    const gameData = GameData.instance()
+
     if (index == 2) {
+      gameData.reset()
       this.props.navigation.navigate("SelectType")
     }
     else if (index == 3) {
-      Alert.alert("We're not ready", "The feature for " + index + " players isn't available for this time.")
-      // this.props.navigation.navigate("Select3rdPlayer")
+      gameData.reset()
+      this.props.navigation.navigate("Select3rdPlayer")
     }
     else {
+      gameData.reset()
       this.props.navigation.navigate("Select4rdPlayer")
     }
   }
