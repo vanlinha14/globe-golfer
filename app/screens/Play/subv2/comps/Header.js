@@ -1,5 +1,5 @@
 import React from 'react'
-import { View } from 'react-native'
+import { View, TextInput } from 'react-native'
 
 import Icon from 'react-native-vector-icons/Ionicons'
 import { useNavigation } from 'react-navigation-hooks'
@@ -14,7 +14,28 @@ const HeaderIcon = React.memo(({name, action}) => (
   />
 ))
 
-const Header = React.memo(({isOn, onViewModeChanged}) => {
+const MiddleContent = React.memo(({withSearch, onSearchKeywordChanged}) => {
+  if (withSearch) {
+    return <TextInput style={{
+        flex: 1,
+        marginHorizontal: 16,
+        height: 32,
+        backgroundColor: Theme.buttonPrimary,
+        borderRadius: 16,
+        paddingHorizontal: 8,
+        color: "white"
+      }} 
+      placeholder="Search..." 
+      placeholderTextColor="white"
+      onChangeText={onSearchKeywordChanged}
+    />
+  }
+  else {
+    return <View style={{flex: 1}} />
+  }
+})
+
+const Header = React.memo(({withSearch, onSearchKeywordChanged}) => {
 
   const { goBack, navigate } = useNavigation()
 
@@ -37,7 +58,7 @@ const Header = React.memo(({isOn, onViewModeChanged}) => {
       borderBottomColor: Theme.separator
     }}>
       <HeaderIcon name={"ios-arrow-back"} action={onGoBack}/>
-      <View style={{flex: 1}} />
+      <MiddleContent withSearch={withSearch} onSearchKeywordChanged={onSearchKeywordChanged} />
       <HeaderIcon name={"ios-settings"} action={onGoToSetting}/>
     </View>
   )

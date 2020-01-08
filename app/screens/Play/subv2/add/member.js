@@ -9,6 +9,10 @@ import GameData from '../GameData'
 
 class AddMember extends React.PureComponent {
 
+  state = {
+    keyword: null,
+  }
+
   gameData = GameData.instance()
 
   componentDidMount() {
@@ -50,18 +54,36 @@ class AddMember extends React.PureComponent {
       return <ActivityIndicator style={{ marginTop: 40, alignSelf: 'center' }} size='large' color='white' />
     }
 
+    const rawData= this.props.challenges.data
+    const displayData = []
+
+    rawData.forEach(d => {
+      if (this.state.keyword == null || d.name.toLowerCase().indexOf(this.state.keyword.toLowerCase()) >= 0) {
+        displayData.push(d)
+      }      
+    });
+
     return <FlatList 
       keyExtractor={this.keyExtractor}
       numColumns={2}
       renderItem={this.renderItem}
-      data={this.props.challenges.data}
+      data={displayData}
     />
+  }
+
+  onSearchKeywordChanged = (kw) => {
+    if (kw === "") {
+      this.setState({keyword: null})
+      return
+    }
+
+    this.setState({keyword: kw})
   }
 
   render() {
     return (
       <BaseComponent>
-        <Header />
+        <Header withSearch onSearchKeywordChanged={this.onSearchKeywordChanged} />
         {this.renderContent()}
       </BaseComponent>
     )
