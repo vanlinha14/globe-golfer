@@ -4,7 +4,7 @@ export default class MessageBinder {
   bind(input) {
     try {
       const data = input.data 
-      return data.map(i => {
+      const preReturnValue = data.map(i => {
         return {
           first: {
             id: i.user_first_id
@@ -19,6 +19,10 @@ export default class MessageBinder {
           createAt: i.time
         }
       })
+
+      preReturnValue.sort((a, b) => b.message[0].time - a.message[0].time)
+
+      return preReturnValue
     }
     catch {
       return {
