@@ -1,17 +1,22 @@
 import React from 'react'
-import { View, TextInput } from 'react-native'
+import { View, TextInput, TouchableOpacity } from 'react-native'
 
 import Icon from 'react-native-vector-icons/Ionicons'
 import { useNavigation } from 'react-navigation-hooks'
 import Theme from '../../../../res/Theme'
 
 const HeaderIcon = React.memo(({name, action}) => (
-  <Icon 
-    size={32}
-    color={'white'}
-    name={name}
-    onPress={action}
-  />
+  <TouchableOpacity style={{
+    width: 32,
+    justifyContent: name === "ios-settings" ? 'flex-end' : 'flex-start',
+    alignItems: name === "ios-settings" ? 'flex-end' : 'flex-start'
+  }} onPress={action}>
+    <Icon 
+      size={32}
+      color={'white'}
+      name={name}
+    />
+  </TouchableOpacity>
 ))
 
 const MiddleContent = React.memo(({withSearch, onSearchKeywordChanged}) => {

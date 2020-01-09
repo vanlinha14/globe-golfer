@@ -1,5 +1,5 @@
 import React from 'react'
-import { View } from 'react-native'
+import { View, TouchableOpacity } from 'react-native'
 
 import Icon from 'react-native-vector-icons/Ionicons'
 import { useNavigation } from 'react-navigation-hooks'
@@ -8,12 +8,17 @@ import Theme from '../../../res/Theme'
 import { shareGG } from '../../../utils';
 
 const HeaderIcon = React.memo(({name, action}) => (
-  <Icon 
-    size={32}
-    color={'white'}
-    name={name}
-    onPress={action}
-  />
+  <TouchableOpacity style={{
+    width: 32,
+    justifyContent: name === "ios-settings" ? 'flex-end' : 'flex-start',
+    alignItems: name === "ios-settings" ? 'flex-end' : 'flex-start'
+  }} onPress={action}>
+    <Icon 
+      size={32}
+      color={'white'}
+      name={name}
+    />
+  </TouchableOpacity>
 ))
 
 const Title = React.memo(({title}) => {
