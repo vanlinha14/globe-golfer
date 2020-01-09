@@ -37,8 +37,8 @@ const LoadingModal = React.memo(({visible}) => {
     >
       <Animated.Image 
         style={{
-          width: 150,
-          height: 150,
+          width: 75,
+          height: 75,
           transform: [{rotate: spin}]
         }}
         resizeMethod='resize'
