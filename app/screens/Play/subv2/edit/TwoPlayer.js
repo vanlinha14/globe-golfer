@@ -71,7 +71,7 @@ const HoleBoard = React.memo(({hole, result, onResultChanged}) => {
   </View>
 
   const holeInfo = <View style={{
-    width: '60%',
+    minWidth: '60%',
     marginTop: 40,
     height: 50,
     borderRadius: 25,
@@ -79,8 +79,9 @@ const HoleBoard = React.memo(({hole, result, onResultChanged}) => {
     borderColor: Theme.buttonPrimary,
     justifyContent: 'center',
     alignItems: 'center',
+    paddingHorizontal: 16
   }}>
-    <DGText style={{color: 'white', fontSize: 30}}>{"Hole " + hole}</DGText>
+    <DGText style={{color: 'white', fontSize: 30}}>{hole}</DGText>
   </View>
 
   return (
@@ -123,6 +124,7 @@ export default class EditResult2Player extends React.PureComponent {
       this.setState({
         scoreA: result[0],
         scoreB: result[1],
+        relation: result[2],
         processingHole: this.state.processingHole + 1,
         displayResult: null
       })
@@ -196,12 +198,12 @@ export default class EditResult2Player extends React.PureComponent {
               onGameRelationChanged={(relation) => this.setState({relation})}
             />
             <HoleBoard 
-              hole={gameResults[this.state.processingHole - 1].hole} 
+              hole={gameData.isTerminated ? "Game Terminated" : ("Hole" + gameResults[this.state.processingHole - 1].hole)} 
               result={this.state.displayResult}
               onResultChanged={this.onResultChanged}  
             />
             <SelectItem 
-              value={this.state.processingHole == gameData.gameHoles ? "End" : "Record & Next"} 
+              value={gameData.isTerminated ? "End" : "Record & Next"} 
               tint={Theme.buttonPrimary} 
               fixSize 
               onPress={this.onRequestNext} 
