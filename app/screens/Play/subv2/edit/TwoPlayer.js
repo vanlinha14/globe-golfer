@@ -152,18 +152,21 @@ export default class EditResult2Player extends React.PureComponent {
         playerB={gameData.playerB}
         playerC={gameData.playerC}
         playerD={gameData.playerD}
+        showPoint
       />
     } else if (gameData.playerC) {
       return <PlayersInfo3
         playerA={gameData.playerA}
         playerB={gameData.playerB}
         playerC={gameData.playerC}
+        showPoint
       />
     }
     else {
       return <PlayersInfo 
         playerA={gameData.playerA}
         playerB={gameData.playerB}
+        showPoint
       />
     }
   }
@@ -197,7 +200,12 @@ export default class EditResult2Player extends React.PureComponent {
               result={this.state.displayResult}
               onResultChanged={this.onResultChanged}  
             />
-            <SelectItem value={this.state.processingHole == gameData.gameHoles ? "End" : "Record & Next"} tint={Theme.buttonPrimary} fixSize onPress={this.onRequestNext} />
+            <SelectItem 
+              value={this.state.processingHole == gameData.gameHoles ? "End" : "Record & Next"} 
+              tint={Theme.buttonPrimary} 
+              fixSize 
+              onPress={this.onRequestNext} 
+            />
           </View>
         </ScrollView>
       </BaseComponent>

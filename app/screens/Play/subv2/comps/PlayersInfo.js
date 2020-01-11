@@ -39,8 +39,11 @@ const Player = React.memo(({avatar, name, showPoint, point}) => {
 
 export default React.memo(({playerA, playerB, showPoint}) => {
 
-  const aIndex = Number.parseInt(playerA.index)
-  const bIndex = Number.parseInt(playerB.index)
+  let aIndex = Number.parseInt(playerA.index)
+  let bIndex = Number.parseInt(playerB.index)
+
+  aIndex = aIndex ? aIndex : 0
+  bIndex = bIndex ? bIndex : 0
 
   const aBasePoint = Math.floor(aIndex * 3/4) 
   const bBasePoint = Math.floor(bIndex * 3/4) 
@@ -49,9 +52,9 @@ export default React.memo(({playerA, playerB, showPoint}) => {
   let bPoint = 0
 
   if (aBasePoint > bBasePoint) {
-    aPoint = Math.abs(aBasePoint - bBasePoint) 
+    aPoint = Math.round(Math.abs(aBasePoint - bBasePoint)/2)
   } else {
-    bPoint = Math.abs(aBasePoint - bBasePoint) 
+    bPoint = Math.round(Math.abs(aBasePoint - bBasePoint)/2)
   }
 
   return (
