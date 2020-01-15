@@ -67,17 +67,17 @@ export default class SelectType extends React.PureComponent {
     const gameType = this.state.type
     const challenge = GameData.instance().challengeId
     
-    this.props.navigation.navigate("EditResult2Player")
+    // this.props.navigation.navigate("EditResult2Player")
 
-    // Api.instance().createNewGame(challenge, gameType).then(res => {
-    //   if (res.data && res.data.scheduleId) {
-    //     GameData.instance().gameId = res.data.scheduleId
-    //     this.props.navigation.navigate("EditResult2Player")
-    //   }
-    //   else {
-    //     Alert.alert("Oops!", "We was unable to create your match. Please try again later!")
-    //   }
-    // })
+    Api.instance().createNewGame(challenge, gameType).then(res => {
+      if (res.data && res.data.scheduleId) {
+        GameData.instance().gameId = res.data.scheduleId
+        this.props.navigation.navigate("EditResult2Player")
+      }
+      else {
+        Alert.alert("Oops!", "We was unable to create your match. Please try again later!")
+      }
+    })
   }
 
   onRequestEnterScore = () => {
@@ -89,17 +89,17 @@ export default class SelectType extends React.PureComponent {
     const gameType = this.state.type
     const challenge = GameData.instance().challengeId
 
-    this.props.navigation.navigate("EnterFinalResult")
+    // this.props.navigation.navigate("EnterFinalResult")
     
-    // Api.instance().createNewGame(challenge, gameType).then(res => {
-    //   if (res.data && res.data.scheduleId) {
-    //     GameData.instance().gameId = res.data.scheduleId
-    //     this.props.navigation.navigate("EnterFinalResult")
-    //   }
-    //   else {
-    //     Alert.alert("Oops!", "We was unable to create your match. Please try again later!")
-    //   }
-    // })
+    Api.instance().createNewGame(challenge, gameType).then(res => {
+      if (res.data && res.data.scheduleId) {
+        GameData.instance().gameId = res.data.scheduleId
+        this.props.navigation.navigate("EnterFinalResult")
+      }
+      else {
+        Alert.alert("Oops!", "We was unable to create your match. Please try again later!")
+      }
+    })
   }
 
   renderPlayerInfo() {

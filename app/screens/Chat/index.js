@@ -225,10 +225,6 @@ class Chat extends PureComponent {
     super(props)
     
     const initTag =  props.navigation.getParam("tag")
-    console.warn(
-      "???",
-      initTag
-    );
     
     this.state = {
       tabIndex: initTag ? initTag : 0
@@ -249,7 +245,6 @@ class Chat extends PureComponent {
   }
 
   onFilterChanged = (nextValue) => {
-
     let theValue = 0
     if (this.state.tabIndex == null) {
       const initTag = this.props.navigation.getParam("tag")
