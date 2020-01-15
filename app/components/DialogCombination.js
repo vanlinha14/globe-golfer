@@ -171,6 +171,7 @@ export default class DialogCombination extends PureComponent {
   render() {
     return (
       <KeyboardAwareScrollView 
+        showsVerticalScrollIndicator={false}
         style={{ backgroundColor: Theme.mainBackground }}
         contentContainerStyle={
           [

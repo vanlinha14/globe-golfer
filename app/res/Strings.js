@@ -30,7 +30,7 @@ const settings = {
   deleteAccount: "Delete Account",
   webProfile: "Web profile",
   username: "Username",
-  defaultSettings: "Default locations",
+  defaultSettings: "Locations",
   location: "My Country",
   region: "My Region",
   club: "My Club",

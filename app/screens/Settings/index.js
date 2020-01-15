@@ -1107,8 +1107,8 @@ class Settings extends PureComponent {
               this.renderTopBlock()
             ]
           }
-          {renderSpacing(44)}
-          {this.renderTemporaryLocation()}
+          {/* {renderSpacing(44)}
+          {this.renderTemporaryLocation()} */}
           {renderSpacing(44)}
           {this.renderDiscoverBlock()}
           {this.renderVisibilityBlock()}
