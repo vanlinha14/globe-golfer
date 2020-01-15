@@ -319,15 +319,19 @@ class Chat extends PureComponent {
           challengersData = []
         }
         messagesData.data.forEach(d => {
-          challengersData.push({
-            name: d.name,
-            avatar: d.avatar
-          })
+          if (d.avatar != this.props.user.avatar) {
+            challengersData.push({
+              name: d.name,
+              avatar: d.avatar
+            })
+          }
         })
       }
     }
 
     challengersData = lodash.uniqBy(challengersData, "avatar")
+    challengersData = lodash.filter(challengersData, (t) => t.avatar != this.props.user.avatar)
+    const messageData = lodash.filter(this.props.messagesData.data, (t) => t.avatar != this.props.user.avatar)
     
     return (
       <BaseComponent>
@@ -343,7 +347,7 @@ class Chat extends PureComponent {
             user={this.props.user}
             requestToggleExpand={this.requestToggleExpand}
             isLoading={this.props.messagesData.isLoading}
-            data={this.props.messagesData.data}
+            data={messageData}
             tag={this.state.tabIndex}
           />
         </ScrollView>
