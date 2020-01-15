@@ -49,6 +49,30 @@ class AddMember extends React.PureComponent {
     />
   );
 
+  isSameWithA(x) {
+    return this.isSameWith(x, this.gameData.playerA)
+  }
+
+  isSameWithB(x) {
+    return this.isSameWith(x, this.gameData.playerB)
+  }
+
+  isSameWithC(x) {
+    return this.isSameWith(x, this.gameData.playerC)
+  }
+
+  isSameWithD(x) {
+    return this.isSameWith(x, this.gameData.playerD)
+  }
+
+  isSameWith(x, t) {
+    if (t) {
+      return x.name == t.name && x.avatar == t.avatar
+    }
+    
+    return false
+  }
+
   renderContent() {
     if (this.props.challenges.isLoading || this.props.challenges.data == null) {
       return <ActivityIndicator style={{ marginTop: 40, alignSelf: 'center' }} size='large' color='white' />
@@ -59,7 +83,10 @@ class AddMember extends React.PureComponent {
 
     rawData.forEach(d => {
       if (this.state.keyword == null || d.name.toLowerCase().indexOf(this.state.keyword.toLowerCase()) >= 0) {
-        displayData.push(d)
+        const isSameWithOld = this.isSameWithA(d) || this.isSameWithB(d) || this.isSameWithC(d) || this.isSameWithD(d)
+        if (!isSameWithOld) {
+          displayData.push(d)
+        }
       }      
     });
 
